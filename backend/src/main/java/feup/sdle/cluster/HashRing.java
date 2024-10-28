@@ -1,4 +1,6 @@
-package feup.sdle;
+package feup.sdle.cluster;
+
+import feup.sdle.crypto.HashAlgorithm;
 
 import java.math.BigInteger;
 import java.util.TreeMap;

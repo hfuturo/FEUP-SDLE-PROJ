@@ -1,4 +1,4 @@
-package feup.sdle;
+package feup.sdle.crypto;
 
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;

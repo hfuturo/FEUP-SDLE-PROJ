@@ -1,5 +1,6 @@
-package feup.sdle;
+package feup.sdle.cluster;
 
+import feup.sdle.Document;
 import org.zeromq.ZMQ;
 
 import java.util.ArrayList;
