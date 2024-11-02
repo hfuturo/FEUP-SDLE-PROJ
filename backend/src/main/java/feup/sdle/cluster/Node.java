@@ -38,7 +38,7 @@ public class Node {
     }
 
     public int getPort() {
-        return this.identifier.port();
+        return this.identifier.getPort();
     }
 
     public List<NodeIdentifier> getPreferenceList() {

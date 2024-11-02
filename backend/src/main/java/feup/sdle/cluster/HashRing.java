@@ -37,7 +37,7 @@ public class HashRing {
         try {
             NodeIdentifier masterNode = this.findKeyMasterNode(this.hashAlgorithm.getHash(key));
 
-            return masterNode.id() == nodeIdentifier.id();
+            return masterNode.getId() == nodeIdentifier.getId();
         } catch(Exception e) {
             System.out.println(e.toString());
             return false;
