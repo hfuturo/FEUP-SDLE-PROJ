@@ -1,6 +1,7 @@
 package feup.sdle.cluster;
 
 import feup.sdle.crypto.HashAlgorithm;
+import feup.sdle.crdts.DotContext;
 
 import java.math.BigInteger;
 import java.util.TreeMap;
@@ -8,8 +9,9 @@ import java.util.TreeMap;
 public class HashRing {
     private final TreeMap<BigInteger, NodeIdentifier> ring;
     private final HashAlgorithm hashAlgorithm;
+    private DotContext dotContext;
 
-    HashRing(HashAlgorithm hashAlgorithm) {
+    public HashRing(HashAlgorithm hashAlgorithm) {
         this.ring = new TreeMap<>();
         this.hashAlgorithm = hashAlgorithm;
     }

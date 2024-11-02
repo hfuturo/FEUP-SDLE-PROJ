@@ -14,35 +14,34 @@ import java.util.Map;
 
 public class Node {
     private final NodeIdentifier identifier;
-    private final List<NodeIdentifier> peerList;
+    private final List<NodeIdentifier> preferenceList;
     private HashRing ring;
     private ZContext zmqContext;
-    private ZMQ.Socket sendGossipSocket;
     private ZMQ.Socket socket; // TODO change this to allow multiple sockets
-
+    private GossipService gossipService;
     private MemoryStorageProvider storage;
 
-    Node(int id, String hostname, int port, HashRing ring) {
+    /**
+     * The HashRing can already be populated, which is useful for start bootstraping
+     * purposes as well as testing
+     */
+    public Node(int id, String hostname, int port, HashRing ring) {
         this.zmqContext = new ZContext();
 
-        this.identifier = new NodeIdentifier(id, hostname, port);
+        this.identifier = new NodeIdentifier(id, hostname, port, true);
         this.ring = ring;
-
         this.storage = new MemoryStorageProvider<Integer, Document>(new FileStorageProvider());
 
-        this.peerList = new ArrayList<>();
+        this.preferenceList = new ArrayList<>();
 
-        this.sendGossipSocket = this.createSendGossipSocket();
+        this.gossipService = new GossipService(this, this.zmqContext);
     }
 
-    /**
-     * Creates the socket to where the other nodes will be connecting in order to receive
-     * gossip epidemic updates from this socket
-     */
-    private ZMQ.Socket createSendGossipSocket() {
-        ZMQ.Socket socket = this.zmqContext.createSocket(SocketType.PUB);
-        socket.bind(String.format("udp://*:%d", this.identifier.port()));
+    public int getPort() {
+        return this.identifier.port();
+    }
 
-        return socket;
+    public List<NodeIdentifier> getPreferenceList() {
+        return this.preferenceList;
     }
 }
