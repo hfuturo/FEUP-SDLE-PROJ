@@ -10,10 +10,13 @@ public class HashRing {
     private final TreeMap<BigInteger, NodeIdentifier> ring;
     private final HashAlgorithm hashAlgorithm;
     private DotContext dotContext;
+    private HashRingLog hashRingLog;
 
     public HashRing(HashAlgorithm hashAlgorithm) {
         this.ring = new TreeMap<>();
         this.hashAlgorithm = hashAlgorithm;
+
+        this.hashRingLog = new HashRingLog(1);
     }
 
     private NodeIdentifier findKeyMasterNode(BigInteger hash) {

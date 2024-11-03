@@ -4,6 +4,7 @@ import feup.sdle.Pair;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -16,13 +17,13 @@ import java.util.Optional;
 public class DotContext {
     // The String is the replica identifier (TODO change this in the future)
     // The Long is the event counter of that replica
-    private HashMap<String, Integer> dots;
+    private HashMap<Integer, Integer> dots;
 
-    public DotContext(String localIdentifier) {
-        this.dots = new HashMap<String, Integer>();
+    public DotContext(int localIdentifier) {
+        this.dots = new HashMap<Integer, Integer>();
     }
 
-    public HashMap<String, Integer> getDots() {
+    public HashMap<Integer, Integer> getDots() {
         return this.dots;
     }
 
@@ -30,7 +31,7 @@ public class DotContext {
      * This will be used to get the maximum counter value the local replica has of another replica
      * which will be extremely when merging the both of them
      */
-    public Optional<Integer> maxOfReplica(String identifier) {
+    public Optional<Integer> maxOfReplica(int identifier) {
         return Optional.of(this.dots.get(identifier));
     }
 
@@ -38,13 +39,17 @@ public class DotContext {
      * This is used to get the new entry on the map related to a certain
      * replica identifier
      */
-    public Pair<String, Integer> nextOfReplica(String identifier) {
+    public Integer nextOfReplica(Integer identifier) {
         Integer counter = this.dots.get(identifier);
 
         if (counter == null) {
-            return new Pair<String, Integer>(identifier, 1);
+            this.dots.put(identifier, 1);
+
+            return 1;
         } else {
-            return new Pair<String, Integer>(identifier, counter + 1);
+            this.dots.put(identifier, counter + 1);
+
+            return counter + 1;
         }
     }
 
@@ -52,7 +57,7 @@ public class DotContext {
      * This is used to determine if a certain replica identifer has
      * surpassed a certain event number (the dot)
      */
-    public boolean has(String identifier, Integer dot) {
+    public boolean has(Integer identifier, Integer dot) {
         Integer value = this.dots.get(identifier);
 
         if(value == null) {
@@ -66,7 +71,7 @@ public class DotContext {
      * This merges the current DotContext with another one from another replica
      */
     public void merge(DotContext other) {
-        for(Map.Entry<String, Integer> dotEntry: other.dots.entrySet()) {
+        for(Map.Entry<Integer, Integer> dotEntry: other.dots.entrySet()) {
             Integer otherDot = dotEntry.getValue();
             Integer localDot = this.dots.get(dotEntry.getKey());
 
@@ -76,5 +81,29 @@ public class DotContext {
                 this.dots.put(dotEntry.getKey(), otherDot);
             }
         }
+    }
+
+    /**
+     * This determines whether or not the local dot context has items the other does not and the other has items
+     * that we do not have
+     * Two DotContexts are said to be concurrent if there is simulateously one entry less than the other and another greater
+     */
+    public boolean isConcurrent(DotContext other) {
+        boolean localHasItemsOtherDoesNot = false;
+        boolean otherHasItemLocalHasNot = false;
+
+        for(Map.Entry<Integer, Integer> dotEntry: other.dots.entrySet()) {
+            if(this.dots.get(dotEntry.getKey()) == null || !Objects.equals(this.dots.get(dotEntry.getKey()), dotEntry.getValue())) {
+                localHasItemsOtherDoesNot = true;
+            }
+        }
+
+        for(Map.Entry<Integer, Integer> dotEntry: this.dots.entrySet()) {
+            if(other.dots.get(dotEntry.getKey()) == null || !Objects.equals(other.dots.get(dotEntry.getKey()), dotEntry.getValue())) {
+                otherHasItemLocalHasNot = true;
+            }
+        }
+
+        return localHasItemsOtherDoesNot && otherHasItemLocalHasNot;
     }
 }
