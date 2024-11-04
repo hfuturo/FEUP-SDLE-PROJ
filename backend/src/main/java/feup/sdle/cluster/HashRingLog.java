@@ -27,7 +27,7 @@ public class HashRingLog {
     public void getOperationsStr() {
         System.out.println("Log entry: ");
         for(HashRingLongTimestamp<HashRingLogOperation> operation: this.operations) {
-            System.out.print(operation.getValue().getMock() + ", ");
+            //System.out.print(operation.getValue().getMock() + ", ");
         }
         System.out.print("\n");
 

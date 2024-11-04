@@ -16,7 +16,7 @@ public class Main {
 
         Node node2 = new Node(1, "localhost", 5001, new HashRing(new MD5HashAlgorithm(), 1));
 
-        HashRingLog log1 = new HashRingLog(1);
+        /*HashRingLog log1 = new HashRingLog(1);
         HashRingLog log2 = new HashRingLog(2);
         HashRingLog log3 = new HashRingLog(3);
 
@@ -42,7 +42,7 @@ public class Main {
 
         log1.getOperationsStr();
         log2.getOperationsStr();
-        log3.getOperationsStr();
+        log3.getOperationsStr();*/
 
     }
 }
