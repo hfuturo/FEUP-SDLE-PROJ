@@ -1,5 +1,6 @@
 package feup.sdle.cluster;
 
+import feup.sdle.cluster.ring.operations.AddHashToNodeOperation;
 import feup.sdle.cluster.ring.operations.HashRingLogOperation;
 import feup.sdle.crdts.HashRingLongTimestamp;
 
@@ -27,6 +28,8 @@ public class HashRingLog {
     public void getOperationsStr() {
         System.out.println("Log entry: ");
         for(HashRingLongTimestamp<HashRingLogOperation> operation: this.operations) {
+            AddHashToNodeOperation t = (AddHashToNodeOperation) operation.getValue();
+            System.out.println(t.getMock() + ", ");
             //System.out.print(operation.getValue().getMock() + ", ");
         }
         System.out.print("\n");
@@ -76,12 +79,14 @@ public class HashRingLog {
                 common.addAll(this.operations.subList(localSeqConflictStart, this.operations.size()));
 
                 List<HashRingLongTimestamp<HashRingLogOperation>> replacedList = other.operations.subList(otherSeqConflictStart, other.operations.size());
+                replacedList.removeAll(common);
                 this.updateSequenceNumber(common.getLast().getSequenceNumber() + 1, replacedList);
                 common.addAll(replacedList);
             } else {
                 common.addAll(other.operations.subList(otherSeqConflictStart, other.operations.size()));
 
                 List<HashRingLongTimestamp<HashRingLogOperation>> replacedList = this.operations.subList(otherSeqConflictStart, other.operations.size());
+                replacedList.removeAll(common);
                 this.updateSequenceNumber(common.getLast().getSequenceNumber() + 1, replacedList);
                 common.addAll(replacedList);
             }
