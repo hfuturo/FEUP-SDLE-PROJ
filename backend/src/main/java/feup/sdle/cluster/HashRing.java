@@ -12,11 +12,11 @@ public class HashRing {
     private DotContext dotContext;
     private HashRingLog hashRingLog;
 
-    public HashRing(HashAlgorithm hashAlgorithm) {
+    public HashRing(HashAlgorithm hashAlgorithm, Integer nodeIdentifier) {
         this.ring = new TreeMap<>();
         this.hashAlgorithm = hashAlgorithm;
 
-        this.hashRingLog = new HashRingLog(1);
+        this.hashRingLog = new HashRingLog(nodeIdentifier);
     }
 
     private NodeIdentifier findKeyMasterNode(BigInteger hash) {
