@@ -3,8 +3,6 @@ package feup.sdle.cluster;
 import org.zeromq.ZContext;
 import org.zeromq.ZMQ;
 
-import java.util.Optional;
-
 public class NodeIdentifier {
     private int id;
     private String hostname;
@@ -47,5 +45,26 @@ public class NodeIdentifier {
 
     public int getId() {
         return this.id;
+    }
+
+    public String getHostName() {
+        return this.hostname;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == this) return true;
+        if (!(object instanceof NodeIdentifier nodeIdentifier)) return false;
+
+        return this.id == nodeIdentifier.getId() &&
+                this.hostname.equals(nodeIdentifier.getHostName()) &&
+                this.port == nodeIdentifier.getPort();
+    }
+
+    @Override
+    public String toString() {
+        return "{ id: " + this.getId() + " | " +
+                "host: " + this.getHostName() + " | " +
+                "port: " + this.getPort() + " }";
     }
 }

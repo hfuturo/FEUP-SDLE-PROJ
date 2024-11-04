@@ -1,12 +1,19 @@
 package feup.sdle.cluster;
 
+import feup.sdle.cluster.ring.operations.AddNodeOperation;
+import feup.sdle.cluster.ring.operations.RemoveNodeOperation;
 import feup.sdle.crypto.HashAlgorithm;
 import feup.sdle.crdts.DotContext;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 public class HashRing {
+    private static final int REPLICATION_FACTOR = 2;
+    private static final int NODE_REPLICAS = 3;
     private final TreeMap<BigInteger, NodeIdentifier> ring;
     private final HashAlgorithm hashAlgorithm;
     private DotContext dotContext;
@@ -81,9 +88,35 @@ public class HashRing {
        }
     }
 
-    public void addNode(Node node) {
+    public void addNode(Node node) throws Exception {
+        if (this.ring.containsValue(node.getNodeIdentifier()))
+            throw new Exception("Node with identifier " + node.getNodeIdentifier().toString() + " already exists.");
+
+        List<NodeIdentifier> nodesToAdd = new ArrayList<>();
+
+        for (int i = 0; i < NODE_REPLICAS; i++) {
+            BigInteger nodeHash = this.hashAlgorithm.getHash(node.getNodeIdentifier().toString() + i);
+            this.ring.put(nodeHash, node.getNodeIdentifier());
+            nodesToAdd.add(node.getNodeIdentifier());
+        }
+
+        this.hashRingLog.add(new AddNodeOperation(nodesToAdd));
     }
 
-    public void removeNode(Node node) {
+    public void removeNode(Node node) throws Exception {
+        if (!this.ring.containsValue(node.getNodeIdentifier()))
+            throw new Exception("Node with identifier " + node.getNodeIdentifier().toString() + " does not exit.");
+
+        var entries = this.ring.entrySet();
+        List<NodeIdentifier> nodesToRemove = new ArrayList<>();
+
+        for (Map.Entry<BigInteger, NodeIdentifier> entry : entries) {
+            if (node.getNodeIdentifier().equals(entry.getValue())) {
+                this.ring.remove(entry.getKey());
+                nodesToRemove.add(entry.getValue());
+            }
+        }
+
+        this.hashRingLog.add(new RemoveNodeOperation(nodesToRemove));
     }
 }
