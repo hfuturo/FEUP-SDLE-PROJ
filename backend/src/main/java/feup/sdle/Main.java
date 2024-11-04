@@ -11,11 +11,13 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        /*Node node = new Node(2, "localhost", 5000,
+        Node node = new Node(2, "localhost", 5000,
                              new HashRing(new MD5HashAlgorithm(), 2)
         );
 
-        Node node2 = new Node(1, "localhost", 5001, new HashRing(new MD5HashAlgorithm(), 1));*/
+        Node node2 = new Node(1, "localhost", 5001, new HashRing(new MD5HashAlgorithm(), 1));
+
+        while(true);
 
         /*HashRingLog log1 = new HashRingLog(1);
         HashRingLog log2 = new HashRingLog(2);

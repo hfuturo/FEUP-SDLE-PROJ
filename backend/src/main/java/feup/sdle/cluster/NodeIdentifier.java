@@ -1,6 +1,9 @@
 package feup.sdle.cluster;
 
+import org.zeromq.ZContext;
 import org.zeromq.ZMQ;
+
+import java.util.Optional;
 
 public class NodeIdentifier {
     private int id;
@@ -30,6 +33,16 @@ public class NodeIdentifier {
 
     public int getPort() {
         return this.port;
+    }
+
+    public ZMQ.Socket getSocket(ZContext context) {
+        if(this.socket == null) {
+            ZMQ.Socket socket = context.createSocket(ZMQ.REQ);
+            socket.connect("tcp://" + this.hostname + ":" + this.port);
+            return socket;
+        }
+
+        return this.socket;
     }
 
     public int getId() {

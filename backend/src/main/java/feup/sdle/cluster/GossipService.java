@@ -28,6 +28,10 @@ public class GossipService {
         this.registerGossipListener();
     }
 
+    public Node getNode() {
+        return this.node;
+    }
+
     /**
      * When we receive a message on the socket destined to serve gossip
      * we need to check and process our message and then delegate it into our node
@@ -39,15 +43,15 @@ public class GossipService {
 
         Thread.ofVirtual().start(() -> {
             System.out.println("Listening for a message");
-            while(!Thread.currentThread().isInterrupted()) {
+            while(true) {
                 zmq.Msg reply = this.receiveGossipSocket.recvMsg(0);
 
+                System.out.println(reply.toString());
                 // 1. Add processing work for message
 
                 // 2. Delegate work to the node
 
             }
-            System.out.println("Already listened!");
         });
     }
 
@@ -66,7 +70,8 @@ public class GossipService {
         for(int n = 0; n < fanout; n++) {
             NodeIdentifier otherPeer = this.node.getPreferenceList().get(n);
 
-            // Send to message to another node
+            ZMQ.Socket otherPeerSocket = otherPeer.getSocket(this.node.getZmqContext());
+            otherPeerSocket.send("hello");
         }
     }
 }
