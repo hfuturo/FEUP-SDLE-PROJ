@@ -6,9 +6,12 @@ import feup.sdle.cluster.Node;
 import feup.sdle.cluster.ring.operations.AddHashToNodeOperation;
 import feup.sdle.cluster.ring.operations.HashRingLogOperation;
 import feup.sdle.crypto.MD5HashAlgorithm;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.ArrayList;
 
+@SpringBootApplication
 public class Main {
     public static void main(String[] args) {
         Node node = new Node(2, "localhost", 5000,
@@ -17,8 +20,8 @@ public class Main {
 
         Node node2 = new Node(1, "localhost", 5001, new HashRing(new MD5HashAlgorithm(), 1));
 
-        while(true);
-
+        SpringApplication.run(Main.class, args);
+        
         /*HashRingLog log1 = new HashRingLog(1);
         HashRingLog log2 = new HashRingLog(2);
         HashRingLog log3 = new HashRingLog(3);

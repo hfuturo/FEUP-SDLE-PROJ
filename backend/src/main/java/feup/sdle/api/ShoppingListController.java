@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
-@Service
+@RestController
 @RequestMapping("/api/cart/")
 public class ShoppingListController {
     @GetMapping("/{id}")
@@ -20,6 +20,7 @@ public class ShoppingListController {
         }
     }
 
+    @PostMapping
     public ResponseEntity<ShoppingList> createShoppingList(@RequestBody ShoppingList shoppingList) {
         ShoppingList createdList = shoppingList; // TODO create list
         return ResponseEntity.status(HttpStatus.CREATED).body(createdList);
