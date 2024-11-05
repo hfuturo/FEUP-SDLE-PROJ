@@ -30,4 +30,9 @@ public class AddNodeOperation implements HashRingLogOperation {
     public void reproduce() {
 
     }
+
+    @Override
+    public HashRingLogOperation reverse() {
+        return new RemoveNodeOperation(this.hashesToAdd, this.nodeIdentifier);
+    }
 }

@@ -21,4 +21,9 @@ public class RemoveNodeOperation implements HashRingLogOperation {
     public void reproduce() {
 
     }
+
+    @Override
+    public HashRingLogOperation reverse() {
+        return new AddNodeOperation(this.hashesToRemove, this.nodeIdentifier);
+    }
 }
