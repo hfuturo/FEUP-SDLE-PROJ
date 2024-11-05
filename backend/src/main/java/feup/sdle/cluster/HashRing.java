@@ -92,15 +92,15 @@ public class HashRing {
         if (this.ring.containsValue(node.getNodeIdentifier()))
             throw new Exception("Node with identifier " + node.getNodeIdentifier().toString() + " already exists.");
 
-        List<NodeIdentifier> nodesToAdd = new ArrayList<>();
+        List<BigInteger> nodesToAdd = new ArrayList<>();
 
         for (int i = 0; i < NODE_REPLICAS; i++) {
             BigInteger nodeHash = this.hashAlgorithm.getHash(node.getNodeIdentifier().toString() + i);
             this.ring.put(nodeHash, node.getNodeIdentifier());
-            nodesToAdd.add(node.getNodeIdentifier());
+            nodesToAdd.add(nodeHash);
         }
 
-        this.hashRingLog.add(new AddNodeOperation(nodesToAdd));
+        this.hashRingLog.add(new AddNodeOperation(nodesToAdd, node.getNodeIdentifier()));
     }
 
     public void removeNode(Node node) throws Exception {
@@ -108,15 +108,15 @@ public class HashRing {
             throw new Exception("Node with identifier " + node.getNodeIdentifier().toString() + " does not exit.");
 
         var entries = this.ring.entrySet();
-        List<NodeIdentifier> nodesToRemove = new ArrayList<>();
+        List<BigInteger> nodesToRemove = new ArrayList<>();
 
         for (Map.Entry<BigInteger, NodeIdentifier> entry : entries) {
             if (node.getNodeIdentifier().equals(entry.getValue())) {
                 this.ring.remove(entry.getKey());
-                nodesToRemove.add(entry.getValue());
+                nodesToRemove.add(entry.getKey());
             }
         }
 
-        this.hashRingLog.add(new RemoveNodeOperation(nodesToRemove));
+        this.hashRingLog.add(new RemoveNodeOperation(nodesToRemove, node.getNodeIdentifier()));
     }
 }

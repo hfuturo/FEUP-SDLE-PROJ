@@ -2,14 +2,19 @@ package feup.sdle.cluster.ring.operations;
 
 import feup.sdle.cluster.NodeIdentifier;
 
+import java.math.BigInteger;
 import java.util.List;
 
+/**
+ * This operation is meant to indicate that hashes were removed from a node
+ */
 public class RemoveNodeOperation implements HashRingLogOperation {
+    private List<BigInteger> hashesToRemove;
+    private NodeIdentifier nodeIdentifier;
 
-    private final List<NodeIdentifier> nodesToRemove;
-
-    public RemoveNodeOperation(List<NodeIdentifier> nodesToRemove) {
-        this.nodesToRemove = nodesToRemove;
+    public RemoveNodeOperation(List<BigInteger> hashesToRemove, NodeIdentifier nodeIdentifier) {
+        this.hashesToRemove = hashesToRemove;
+        this.nodeIdentifier = nodeIdentifier;
     }
 
     @Override

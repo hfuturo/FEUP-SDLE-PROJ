@@ -1,6 +1,6 @@
 package feup.sdle.cluster;
 
-import feup.sdle.cluster.ring.operations.AddHashToNodeOperation;
+import feup.sdle.cluster.ring.operations.AddNodeOperation;
 import feup.sdle.cluster.ring.operations.HashRingLogOperation;
 import feup.sdle.crdts.HashRingLongTimestamp;
 
@@ -28,7 +28,7 @@ public class HashRingLog {
     public void getOperationsStr() {
         System.out.println("Log entry: ");
         for(HashRingLongTimestamp<HashRingLogOperation> operation: this.operations) {
-            AddHashToNodeOperation t = (AddHashToNodeOperation) operation.getValue();
+            AddNodeOperation t = (AddNodeOperation) operation.getValue();
             System.out.println(t.getMock() + ", ");
             //System.out.print(operation.getValue().getMock() + ", ");
         }

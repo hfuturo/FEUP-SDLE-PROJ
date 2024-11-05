@@ -1,15 +1,10 @@
 package feup.sdle;
 
 import feup.sdle.cluster.HashRing;
-import feup.sdle.cluster.HashRingLog;
 import feup.sdle.cluster.Node;
-import feup.sdle.cluster.ring.operations.AddHashToNodeOperation;
-import feup.sdle.cluster.ring.operations.HashRingLogOperation;
 import feup.sdle.crypto.MD5HashAlgorithm;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.ArrayList;
 
 @SpringBootApplication
 public class Main {
