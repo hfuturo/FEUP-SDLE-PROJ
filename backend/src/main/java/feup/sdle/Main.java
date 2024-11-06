@@ -11,14 +11,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Main {
     public static void main(String[] args) {
+        SpringApplication.run(Main.class, args);
+
+        /*HashRingLog log1 = new HashRingLog(1);
         /*Node node = new Node(2, "localhost", 5000,
                              new HashRing(new MD5HashAlgorithm(), 2)
         );
 
         Node node2 = new Node(1, "localhost", 5001, new HashRing(new MD5HashAlgorithm(), 1));
 
-        SpringApplication.run(Main.class, args);*/
-        
         HashRingLog log1 = new HashRingLog(1);
         HashRingLog log2 = new HashRingLog(2);
         HashRingLog log3 = new HashRingLog(3);
@@ -62,7 +63,7 @@ public class Main {
         log2.getOperationsStr();
 
         System.out.println("Log3: ");
-        log3.getOperationsStr();
+        log3.getOperationsStr();*/
 
     }
 }

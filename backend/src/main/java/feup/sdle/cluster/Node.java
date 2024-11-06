@@ -3,11 +3,14 @@ package feup.sdle.cluster;
 import feup.sdle.Document;
 import feup.sdle.storage.FileStorageProvider;
 import feup.sdle.storage.MemoryStorageProvider;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.zeromq.ZMQ;
 import org.zeromq.ZContext;
 
 import java.util.*;
 
+@Component
 public class Node {
     private final NodeIdentifier identifier;
     private final List<NodeIdentifier> preferenceList;
@@ -22,11 +25,17 @@ public class Node {
     * The HashRing can already be populated, which is useful for start bootstraping
     * purposes as well as testing
     */
-    public Node(int id, String hostname, int port, HashRing ring) {
+    public Node(@Value("${node.id}") int id,
+                @Value("${node.hostname}") String hostname,
+                @Value("${node.port}") int port) {
+
         this.zmqContext = new ZContext();
 
         this.identifier = new NodeIdentifier(id, hostname, port, true);
-        this.ring = ring;
+
+        // TODO get HashRing from nodes already running or create new one
+        // this.ring = ...
+
         this.storage = new MemoryStorageProvider<Integer, Document>(new FileStorageProvider());
 
         this.preferenceList = new ArrayList<>();
