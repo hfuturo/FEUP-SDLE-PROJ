@@ -1,5 +1,7 @@
 package feup.sdle.crdts;
 
+import java.util.Objects;
+
 public class HashRingLongTimestamp<V> implements Comparable<HashRingLongTimestamp<V>> {
     private Integer sequence;
     private VersionStamp versionStamp;
@@ -48,12 +50,15 @@ public class HashRingLongTimestamp<V> implements Comparable<HashRingLongTimestam
 
     @Override
     public boolean equals(Object o) {
-        if(!(o instanceof HashRingLongTimestamp)) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        HashRingLongTimestamp<V> v = (HashRingLongTimestamp) o;
-        return this.versionStamp.getIdentifier().equals(v.versionStamp.getIdentifier())
-                && this.versionStamp.getDot().equals(v.versionStamp.getDot());
+        HashRingLongTimestamp<V> otherVersion = (HashRingLongTimestamp) o;
+        return this.versionStamp.equals(otherVersion.versionStamp) && (this.sequence.equals(otherVersion.sequence));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.sequence) + this.versionStamp.hashCode();
     }
 }
