@@ -19,7 +19,7 @@ public class Node {
     private ZMQ.Socket socket; // TODO change this to allow multiple sockets
     private GossipService gossipService;
     private HashRingSyncService hashRingSyncService;
-    private MemoryStorageProvider storage;
+    private MemoryStorageProvider<String, Document> storage;
 
     /**
     * The HashRing can already be populated, which is useful for start bootstraping
@@ -36,7 +36,7 @@ public class Node {
         // TODO get HashRing from nodes already running or create new one
         // this.ring = ...
 
-        this.storage = new MemoryStorageProvider<Integer, Document>(new FileStorageProvider());
+        this.storage = new MemoryStorageProvider<>(new FileStorageProvider());
 
         this.preferenceList = new ArrayList<>();
 
@@ -62,6 +62,10 @@ public class Node {
 
     public GossipService getGossipService() {
         return gossipService;
+    }
+
+    public MemoryStorageProvider<String, Document> getStorage() {
+        return this.storage;
     }
 
     @Override

@@ -18,6 +18,10 @@ public class MemoryStorageProvider<K, V> {
     }
 
     public Optional<V> retrieve(K key) {
-        return Optional.of(this.documentMap.get(key));
+        return Optional.ofNullable(this.documentMap.get(key));
+    }
+
+    public void delete(K key) {
+        this.documentMap.remove(key);
     }
 }
