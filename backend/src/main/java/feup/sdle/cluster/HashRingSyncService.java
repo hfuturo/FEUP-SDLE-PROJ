@@ -22,7 +22,7 @@ public class HashRingSyncService {
             while(true) {
                 try {
                     Thread.sleep(this.timeoutMs);
-                    System.out.println("Running");
+//                    System.out.println("Running");
 
                     this.gossipService.publish(this.fanout, "hash");
                 } catch (InterruptedException e) {
