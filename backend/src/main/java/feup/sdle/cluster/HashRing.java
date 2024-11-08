@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class HashRing {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Node.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(HashRing.class);
     private static final int REPLICATION_FACTOR = 2;
     private static final int NODE_REPLICAS = 3;
     private final TreeMap<BigInteger, NodeIdentifier> ring;
