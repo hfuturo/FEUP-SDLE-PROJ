@@ -4,6 +4,7 @@ import feup.sdle.Document;
 import feup.sdle.crypto.MD5HashAlgorithm;
 import feup.sdle.storage.FileStorageProvider;
 import feup.sdle.storage.MemoryStorageProvider;
+import feup.sdle.utils.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,7 +52,7 @@ public class Node {
         HashRing hashRing = new HashRing(new MD5HashAlgorithm(), this.identifier.getId());
 
         try { hashRing.addNode(this.identifier); }
-        catch (Exception e) { LOGGER.error(e.getMessage()); }
+        catch (Exception e) { LOGGER.error(Color.red(e.getMessage())); }
 
         return hashRing;
     }

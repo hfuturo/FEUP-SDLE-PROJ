@@ -4,6 +4,7 @@ import feup.sdle.cluster.ring.operations.AddNodeOperation;
 import feup.sdle.cluster.ring.operations.RemoveNodeOperation;
 import feup.sdle.crypto.HashAlgorithm;
 import feup.sdle.crdts.DotContext;
+import feup.sdle.utils.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,7 +41,7 @@ public class HashRing {
             this.addNode(seed2);
             this.addNode(seed3);
 
-            LOGGER.info("Seed Nodes generated");
+            LOGGER.info(Color.green("Seed Nodes generated"));
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
