@@ -64,10 +64,21 @@ public class Node {
         return gossipService;
     }
 
-    public MemoryStorageProvider<String, Document> getStorage() {
-        return this.storage;
+    public Optional<Document> retrieveDocument(String key) {
+        return this.storage.retrieve(key);
     }
 
+    public Map<String, Document> retrieveAllDocuments() {
+        return this.storage.retrieveAll();
+    }
+
+    public void storeDocument(String key, Document document) {
+        this.storage.store(key, document);
+    }
+
+    public void deleteDocument(String key) {
+        this.storage.delete(key);
+    }
     @Override
     public boolean equals(Object object) {
         if (object == this) return true;

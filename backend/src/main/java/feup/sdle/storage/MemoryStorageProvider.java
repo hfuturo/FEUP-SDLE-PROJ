@@ -1,5 +1,6 @@
 package feup.sdle.storage;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -19,6 +20,10 @@ public class MemoryStorageProvider<K, V> {
 
     public Optional<V> retrieve(K key) {
         return Optional.ofNullable(this.documentMap.get(key));
+    }
+
+    public Map<K, V> retrieveAll() {
+        return documentMap;
     }
 
     public void delete(K key) {
