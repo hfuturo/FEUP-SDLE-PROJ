@@ -1,8 +1,12 @@
 package feup.sdle.cluster;
 
 import feup.sdle.Document;
+import feup.sdle.crypto.MD5HashAlgorithm;
 import feup.sdle.storage.FileStorageProvider;
 import feup.sdle.storage.MemoryStorageProvider;
+import feup.sdle.utils.Color;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.zeromq.ZMQ;
@@ -12,9 +16,10 @@ import java.util.*;
 
 @Component
 public class Node {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Node.class);
     private final NodeIdentifier identifier;
     private final List<NodeIdentifier> preferenceList;
-    private HashRing ring;
+    private final HashRing ring;
     private ZContext zmqContext;
     private ZMQ.Socket socket; // TODO change this to allow multiple sockets
     private GossipService gossipService;
@@ -33,8 +38,7 @@ public class Node {
 
         this.identifier = new NodeIdentifier(id, hostname, port, true);
 
-        // TODO get HashRing from nodes already running or create new one
-        // this.ring = ...
+        this.ring = this.manageHashRing();
 
         this.storage = new MemoryStorageProvider<>(new FileStorageProvider());
 
@@ -42,6 +46,15 @@ public class Node {
 
         this.gossipService = new GossipService(this, this.zmqContext);
         this.hashRingSyncService = new HashRingSyncService(this.gossipService, 2000, 3);
+    }
+
+    public HashRing manageHashRing() {
+        HashRing hashRing = new HashRing(new MD5HashAlgorithm(), this.identifier.getId());
+
+        try { hashRing.addNode(this.identifier); }
+        catch (Exception e) { LOGGER.error(Color.red(e.getMessage())); }
+
+        return hashRing;
     }
 
     public int getPort() {
@@ -79,6 +92,7 @@ public class Node {
     public void deleteDocument(String key) {
         this.storage.delete(key);
     }
+
     @Override
     public boolean equals(Object object) {
         if (object == this) return true;

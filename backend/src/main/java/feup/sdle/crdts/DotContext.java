@@ -1,7 +1,5 @@
 package feup.sdle.crdts;
 
-import feup.sdle.Pair;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;

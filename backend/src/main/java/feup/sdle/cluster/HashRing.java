@@ -4,6 +4,9 @@ import feup.sdle.cluster.ring.operations.AddNodeOperation;
 import feup.sdle.cluster.ring.operations.RemoveNodeOperation;
 import feup.sdle.crypto.HashAlgorithm;
 import feup.sdle.crdts.DotContext;
+import feup.sdle.utils.Color;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -12,6 +15,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class HashRing {
+    private static final Logger LOGGER = LoggerFactory.getLogger(HashRing.class);
     private static final int REPLICATION_FACTOR = 2;
     private static final int NODE_REPLICAS = 3;
     private final TreeMap<BigInteger, NodeIdentifier> ring;
@@ -24,6 +28,23 @@ public class HashRing {
         this.hashAlgorithm = hashAlgorithm;
 
         this.hashRingLog = new HashRingLog(nodeIdentifier);
+        this.generateSeedNodes();
+    }
+
+    private void generateSeedNodes() {
+        NodeIdentifier seed1 = new NodeIdentifier(100001, "localhost", 4321, true);
+        NodeIdentifier seed2 = new NodeIdentifier(100002, "localhost", 4322, true);
+        NodeIdentifier seed3 = new NodeIdentifier(100003, "localhost", 4323, true);
+
+        try {
+            this.addNode(seed1);
+            this.addNode(seed2);
+            this.addNode(seed3);
+
+            LOGGER.info(Color.green("Seed Nodes generated"));
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+        }
     }
 
     private NodeIdentifier findKeyMasterNode(BigInteger hash) {
@@ -88,35 +109,36 @@ public class HashRing {
        }
     }
 
-    public void addNode(Node node) throws Exception {
-        if (this.ring.containsValue(node.getNodeIdentifier()))
-            throw new Exception("Node with identifier " + node.getNodeIdentifier().toString() + " already exists.");
+    public void addNode(NodeIdentifier nodeIdentifier) throws Exception {
+        if (this.ring.containsValue(nodeIdentifier))
+            throw new Exception("Node with identifier " + nodeIdentifier.toString() + " already exists.");
 
         List<BigInteger> nodesToAdd = new ArrayList<>();
 
         for (int i = 0; i < NODE_REPLICAS; i++) {
-            BigInteger nodeHash = this.hashAlgorithm.getHash(node.getNodeIdentifier().toString() + i);
-            this.ring.put(nodeHash, node.getNodeIdentifier());
+            BigInteger nodeHash = this.hashAlgorithm.getHash(nodeIdentifier.toString() + i);
+            this.ring.put(nodeHash, nodeIdentifier);
             nodesToAdd.add(nodeHash);
         }
 
-        this.hashRingLog.add(new AddNodeOperation(nodesToAdd, node.getNodeIdentifier()));
+        this.hashRingLog.add(new AddNodeOperation(nodesToAdd, nodeIdentifier));
     }
 
-    public void removeNode(Node node) throws Exception {
-        if (!this.ring.containsValue(node.getNodeIdentifier()))
-            throw new Exception("Node with identifier " + node.getNodeIdentifier().toString() + " does not exit.");
+    public void removeNode(NodeIdentifier nodeIdentifier) throws Exception {
+        if (!this.ring.containsValue(nodeIdentifier))
+            throw new Exception("Node with identifier " + nodeIdentifier.toString() + " does not exit.");
 
         var entries = this.ring.entrySet();
         List<BigInteger> nodesToRemove = new ArrayList<>();
 
         for (Map.Entry<BigInteger, NodeIdentifier> entry : entries) {
-            if (node.getNodeIdentifier().equals(entry.getValue())) {
+            if (nodeIdentifier.equals(entry.getValue())) {
                 this.ring.remove(entry.getKey());
                 nodesToRemove.add(entry.getKey());
             }
         }
 
-        this.hashRingLog.add(new RemoveNodeOperation(nodesToRemove, node.getNodeIdentifier()));
+        this.hashRingLog.add(new RemoveNodeOperation(nodesToRemove, nodeIdentifier));
     }
+
 }
