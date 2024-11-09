@@ -31,6 +31,14 @@ public class HashRing {
         this.generateSeedNodes();
     }
 
+    public TreeMap<BigInteger, NodeIdentifier> getRing() {
+        return this.ring;
+    }
+
+    public HashRingLog getHashRingLog() {
+        return this.hashRingLog;
+    }
+
     private void generateSeedNodes() {
         NodeIdentifier seed1 = new NodeIdentifier(100001, "localhost", 4321, true);
         NodeIdentifier seed2 = new NodeIdentifier(100002, "localhost", 4322, true);
@@ -44,6 +52,10 @@ public class HashRing {
             LOGGER.info(Color.green("Seed Nodes generated"));
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
+        }
+
+        for(Map.Entry<BigInteger, NodeIdentifier> entry : ring.entrySet()) {
+            System.out.println(entry.getKey() + " : " + entry.getValue());
         }
     }
 

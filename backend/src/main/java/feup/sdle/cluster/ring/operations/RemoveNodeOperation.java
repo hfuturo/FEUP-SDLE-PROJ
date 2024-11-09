@@ -18,6 +18,17 @@ public class RemoveNodeOperation implements HashRingLogOperation {
     }
 
     @Override
+    public int hashCode() {
+        int hash = 0;
+
+        for(BigInteger o: hashesToRemove) {
+            hash += o.hashCode();
+        }
+
+        return hash;
+    }
+
+    @Override
     public void reproduce() {
 
     }

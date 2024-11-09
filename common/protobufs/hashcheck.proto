@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option java_package = "feup.sdle.message";
+
+message HashCheck {
+  enum ContextType {
+    HASHRINGLOG = 0;
+    DOCUMENTCRDT = 1;
+  }
+
+  string hash = 1;
+  string type = 2;
+}

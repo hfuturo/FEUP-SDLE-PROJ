@@ -1,9 +1,14 @@
 package feup.sdle.cluster;
 
+import com.google.protobuf.InvalidProtocolBufferException;
+import feup.sdle.message.Hashcheck;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.zeromq.SocketType;
 import org.zeromq.ZContext;
 import org.zeromq.ZMQ;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -18,6 +23,7 @@ import java.util.List;
  * 1. Create PUB socket
  */
 public class GossipService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(GossipService.class);
     private Node node;
     private ZContext zContext;
     private ZMQ.Socket receiveGossipSocket;
@@ -44,13 +50,16 @@ public class GossipService {
         Thread.ofVirtual().start(() -> {
             System.out.println("Listening for a message");
             while(true) {
-                zmq.Msg reply = this.receiveGossipSocket.recvMsg(0);
+                byte[] reply = this.receiveGossipSocket.recv(0);
+                try {
+                    // 1. Add processing work for message
 
-                System.out.println(reply.toString());
-                // 1. Add processing work for message
+                    // 2. Delegate work to the node
 
-                // 2. Delegate work to the node
-
+                    System.out.println(Hashcheck.HashCheck.parseFrom(reply).toString());
+                } catch (InvalidProtocolBufferException e) {
+                    LOGGER.error(e.toString());
+                }
             }
         });
     }
@@ -59,8 +68,10 @@ public class GossipService {
      * From the preference list based on the hash ring, we send to
      * fanout number of nodes the message we want to gossip
      */
-    public void publish(int fanout, String message) {
+    public void publish(int fanout, byte[] msg) {
         List<NodeIdentifier> preferenceList = this.node.getPreferenceList();
+
+        System.out.println("Preference list: " + preferenceList.toString());
 
         // List out of bounds guard
         if(preferenceList.size() < fanout) {
@@ -68,10 +79,10 @@ public class GossipService {
         }
 
         for(int n = 0; n < fanout; n++) {
-            NodeIdentifier otherPeer = this.node.getPreferenceList().get(n);
+            NodeIdentifier otherPeer = preferenceList.get(n);
 
             ZMQ.Socket otherPeerSocket = otherPeer.getSocket(this.node.getZmqContext());
-            otherPeerSocket.send("hello");
+            otherPeerSocket.send(msg);
         }
     }
 }

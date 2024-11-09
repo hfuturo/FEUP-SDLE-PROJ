@@ -33,6 +33,16 @@ public class HashRingLog {
         this.sequenceNumberReplicaMapping = new HashMap<>();
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        for(HashRingLongTimestamp<HashRingLogOperation> op : operations) {
+            hash += op.getValue().hashCode();
+        }
+
+        return  + hash;
+    }
+
     public void getOperationsStr() {
         System.out.println("Log entry: ");
         for(HashRingLongTimestamp<HashRingLogOperation> operation: this.operations) {

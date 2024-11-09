@@ -12,15 +12,16 @@ import org.springframework.stereotype.Component;
 import org.zeromq.ZMQ;
 import org.zeromq.ZContext;
 
+import java.math.BigInteger;
 import java.util.*;
 
 @Component
 public class Node {
     private static final Logger LOGGER = LoggerFactory.getLogger(Node.class);
     private final NodeIdentifier identifier;
-    private final List<NodeIdentifier> preferenceList;
     private final HashRing ring;
     private ZContext zmqContext;
+    private static final int REPLICATION_FACTOR = 2;
     private ZMQ.Socket socket; // TODO change this to allow multiple sockets
     private GossipService gossipService;
     private HashRingSyncService hashRingSyncService;
@@ -42,10 +43,8 @@ public class Node {
 
         this.storage = new MemoryStorageProvider<>(new FileStorageProvider());
 
-        this.preferenceList = new ArrayList<>();
-
         this.gossipService = new GossipService(this, this.zmqContext);
-        this.hashRingSyncService = new HashRingSyncService(this.gossipService, 2000, 3);
+        this.hashRingSyncService = new HashRingSyncService(this.ring, this.gossipService, 2000, 3);
     }
 
     public HashRing manageHashRing() {
@@ -66,7 +65,27 @@ public class Node {
     }
 
     public List<NodeIdentifier> getPreferenceList() {
-        return this.preferenceList;
+        List<NodeIdentifier> result = new ArrayList<>();
+        boolean foundLocalNode = false;
+        int count = 0;
+
+        for (Map.Entry<BigInteger, NodeIdentifier> entry : this.ring.getRing().entrySet()) {
+            boolean nodeIsLocalNode = entry.getValue().getId() == this.identifier.getId();
+            if (nodeIsLocalNode) {
+                foundLocalNode = true;
+            }
+
+            if(count >= REPLICATION_FACTOR) {
+                break;
+            }
+
+            if(!nodeIsLocalNode && foundLocalNode) {
+                result.add(entry.getValue());
+                count++;
+            }
+        }
+
+        return result;
     }
 
     public NodeIdentifier getNodeIdentifier() {
