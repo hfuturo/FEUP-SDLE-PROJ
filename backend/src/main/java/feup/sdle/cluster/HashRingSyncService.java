@@ -55,6 +55,8 @@ public class HashRingSyncService {
                 }
             }
             case SENTLOG -> {
+                HashRingLogOperationMessage hashRingLogOperationMessage = HashRingLogOperationMessage.parseFrom(message);
+
                 this.hashRingSyncState = HashRingSyncState.RECEIVINGHASH;
             }
         }
