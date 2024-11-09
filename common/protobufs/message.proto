@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+option java_package = "feup.sdle.message";
+option java_outer_classname = "Message";
+
+message MessageFormat {
+  enum MessageType {
+    HASH_RING_LOG = 0;
+    REPLICATION = 1;
+  }
+
+  MessageType messageType = 2;
+  bytes message  = 3;
+}

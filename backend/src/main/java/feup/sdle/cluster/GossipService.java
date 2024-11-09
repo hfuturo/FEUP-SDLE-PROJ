@@ -1,14 +1,14 @@
 package feup.sdle.cluster;
 
 import com.google.protobuf.InvalidProtocolBufferException;
-import feup.sdle.message.Hashcheck;
+import feup.sdle.message.Hashcheck.HashCheck;
+import feup.sdle.message.Message.MessageFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.zeromq.SocketType;
 import org.zeromq.ZContext;
 import org.zeromq.ZMQ;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -56,7 +56,11 @@ public class GossipService {
 
                     // 2. Delegate work to the node
 
-                    System.out.println(Hashcheck.HashCheck.parseFrom(reply).toString());
+                    MessageFormat msgFormat = MessageFormat.parseFrom(reply);
+
+                    System.out.println(msgFormat.getMessageType().toString());
+                    System.out.println(HashCheck.parseFrom(msgFormat.getMessage()).getHash());
+
                 } catch (InvalidProtocolBufferException e) {
                     LOGGER.error(e.toString());
                 }

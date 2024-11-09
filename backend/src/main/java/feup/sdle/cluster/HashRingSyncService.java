@@ -1,7 +1,8 @@
 package feup.sdle.cluster;
 
-import feup.sdle.message.Hashcheck;
 import feup.sdle.message.Hashcheck.HashCheck;
+import feup.sdle.message.Message;
+import feup.sdle.message.Message.MessageFormat;
 
 /**
  * This is the service responsible to sync the hash ring state by publishing the state
@@ -32,7 +33,12 @@ public class HashRingSyncService {
                             .setType(String.valueOf(HashCheck.ContextType.HASHRINGLOG_VALUE))
                             .build();
 
-                    this.gossipService.publish(this.fanout, hashCheck.toByteArray());
+                    MessageFormat msgFormat = MessageFormat.newBuilder()
+                            .setMessageType(MessageFormat.MessageType.HASH_RING_LOG)
+                            .setMessage(hashCheck.toByteString())
+                            .build();
+
+                    this.gossipService.publish(this.fanout, msgFormat.toByteArray());
                 } catch (InterruptedException e) {
                     System.out.println(e.toString());
                 }

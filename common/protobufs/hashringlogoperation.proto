@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_package = "feup.sdle.message";
+option java_outer_classname = "HashRingOperationMessage";
+
+message HashRingLogOperationMessage {
+  enum OperationType {
+    ADD = 0;
+    REMOVE = 1;
+  }
+
+  OperationType operationType = 2;
+  repeated bytes hashes = 3;
+  NodeIdentifier nodeIdentifier = 4;
+}
+
+message NodeIdentifier {
+  int32 id = 1;
+  string hostname = 2;
+  int32 port = 3;
+}
