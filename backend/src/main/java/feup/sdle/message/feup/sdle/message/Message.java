@@ -26,16 +26,16 @@ public final class Message {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   public interface MessageFormatOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:MessageFormat)
+      // @@protoc_insertion_point(interface_extends:feup.sdle.message.MessageFormat)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.MessageFormat.MessageType messageType = 2;</code>
+     * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 2;</code>
      * @return The enum numeric value on the wire for messageType.
      */
     int getMessageTypeValue();
     /**
-     * <code>.MessageFormat.MessageType messageType = 2;</code>
+     * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 2;</code>
      * @return The messageType.
      */
     feup.sdle.message.Message.MessageFormat.MessageType getMessageType();
@@ -47,26 +47,26 @@ public final class Message {
     com.google.protobuf.ByteString getMessage();
 
     /**
-     * <code>.NodeIdentifier nodeIdentifier = 4;</code>
+     * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
      * @return Whether the nodeIdentifier field is set.
      */
     boolean hasNodeIdentifier();
     /**
-     * <code>.NodeIdentifier nodeIdentifier = 4;</code>
+     * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
      * @return The nodeIdentifier.
      */
-    feup.sdle.message.Message.NodeIdentifier getNodeIdentifier();
+    feup.sdle.message.NodeIdentifierMessage.NodeIdentifier getNodeIdentifier();
     /**
-     * <code>.NodeIdentifier nodeIdentifier = 4;</code>
+     * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
      */
-    feup.sdle.message.Message.NodeIdentifierOrBuilder getNodeIdentifierOrBuilder();
+    feup.sdle.message.NodeIdentifierMessage.NodeIdentifierOrBuilder getNodeIdentifierOrBuilder();
   }
   /**
-   * Protobuf type {@code MessageFormat}
+   * Protobuf type {@code feup.sdle.message.MessageFormat}
    */
   public static final class MessageFormat extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:MessageFormat)
+      // @@protoc_insertion_point(message_implements:feup.sdle.message.MessageFormat)
       MessageFormatOrBuilder {
   private static final long serialVersionUID = 0L;
     static {
@@ -89,19 +89,19 @@ public final class Message {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return feup.sdle.message.Message.internal_static_MessageFormat_descriptor;
+      return feup.sdle.message.Message.internal_static_feup_sdle_message_MessageFormat_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return feup.sdle.message.Message.internal_static_MessageFormat_fieldAccessorTable
+      return feup.sdle.message.Message.internal_static_feup_sdle_message_MessageFormat_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               feup.sdle.message.Message.MessageFormat.class, feup.sdle.message.Message.MessageFormat.Builder.class);
     }
 
     /**
-     * Protobuf enum {@code MessageFormat.MessageType}
+     * Protobuf enum {@code feup.sdle.message.MessageFormat.MessageType}
      */
     public enum MessageType
         implements com.google.protobuf.ProtocolMessageEnum {
@@ -113,6 +113,10 @@ public final class Message {
        * <code>REPLICATION = 1;</code>
        */
       REPLICATION(1),
+      /**
+       * <code>HASHRING = 2;</code>
+       */
+      HASHRING(2),
       UNRECOGNIZED(-1),
       ;
 
@@ -133,6 +137,10 @@ public final class Message {
        * <code>REPLICATION = 1;</code>
        */
       public static final int REPLICATION_VALUE = 1;
+      /**
+       * <code>HASHRING = 2;</code>
+       */
+      public static final int HASHRING_VALUE = 2;
 
 
       public final int getNumber() {
@@ -161,6 +169,7 @@ public final class Message {
         switch (value) {
           case 0: return HASH_RING_LOG;
           case 1: return REPLICATION;
+          case 2: return HASHRING;
           default: return null;
         }
       }
@@ -214,21 +223,21 @@ public final class Message {
         this.value = value;
       }
 
-      // @@protoc_insertion_point(enum_scope:MessageFormat.MessageType)
+      // @@protoc_insertion_point(enum_scope:feup.sdle.message.MessageFormat.MessageType)
     }
 
     private int bitField0_;
     public static final int MESSAGETYPE_FIELD_NUMBER = 2;
     private int messageType_ = 0;
     /**
-     * <code>.MessageFormat.MessageType messageType = 2;</code>
+     * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 2;</code>
      * @return The enum numeric value on the wire for messageType.
      */
     @java.lang.Override public int getMessageTypeValue() {
       return messageType_;
     }
     /**
-     * <code>.MessageFormat.MessageType messageType = 2;</code>
+     * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 2;</code>
      * @return The messageType.
      */
     @java.lang.Override public feup.sdle.message.Message.MessageFormat.MessageType getMessageType() {
@@ -248,9 +257,9 @@ public final class Message {
     }
 
     public static final int NODEIDENTIFIER_FIELD_NUMBER = 4;
-    private feup.sdle.message.Message.NodeIdentifier nodeIdentifier_;
+    private feup.sdle.message.NodeIdentifierMessage.NodeIdentifier nodeIdentifier_;
     /**
-     * <code>.NodeIdentifier nodeIdentifier = 4;</code>
+     * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
      * @return Whether the nodeIdentifier field is set.
      */
     @java.lang.Override
@@ -258,19 +267,19 @@ public final class Message {
       return ((bitField0_ & 0x00000001) != 0);
     }
     /**
-     * <code>.NodeIdentifier nodeIdentifier = 4;</code>
+     * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
      * @return The nodeIdentifier.
      */
     @java.lang.Override
-    public feup.sdle.message.Message.NodeIdentifier getNodeIdentifier() {
-      return nodeIdentifier_ == null ? feup.sdle.message.Message.NodeIdentifier.getDefaultInstance() : nodeIdentifier_;
+    public feup.sdle.message.NodeIdentifierMessage.NodeIdentifier getNodeIdentifier() {
+      return nodeIdentifier_ == null ? feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.getDefaultInstance() : nodeIdentifier_;
     }
     /**
-     * <code>.NodeIdentifier nodeIdentifier = 4;</code>
+     * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
      */
     @java.lang.Override
-    public feup.sdle.message.Message.NodeIdentifierOrBuilder getNodeIdentifierOrBuilder() {
-      return nodeIdentifier_ == null ? feup.sdle.message.Message.NodeIdentifier.getDefaultInstance() : nodeIdentifier_;
+    public feup.sdle.message.NodeIdentifierMessage.NodeIdentifierOrBuilder getNodeIdentifierOrBuilder() {
+      return nodeIdentifier_ == null ? feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.getDefaultInstance() : nodeIdentifier_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -457,21 +466,21 @@ public final class Message {
       return builder;
     }
     /**
-     * Protobuf type {@code MessageFormat}
+     * Protobuf type {@code feup.sdle.message.MessageFormat}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:MessageFormat)
+        // @@protoc_insertion_point(builder_implements:feup.sdle.message.MessageFormat)
         feup.sdle.message.Message.MessageFormatOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return feup.sdle.message.Message.internal_static_MessageFormat_descriptor;
+        return feup.sdle.message.Message.internal_static_feup_sdle_message_MessageFormat_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return feup.sdle.message.Message.internal_static_MessageFormat_fieldAccessorTable
+        return feup.sdle.message.Message.internal_static_feup_sdle_message_MessageFormat_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 feup.sdle.message.Message.MessageFormat.class, feup.sdle.message.Message.MessageFormat.Builder.class);
       }
@@ -509,7 +518,7 @@ public final class Message {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return feup.sdle.message.Message.internal_static_MessageFormat_descriptor;
+        return feup.sdle.message.Message.internal_static_feup_sdle_message_MessageFormat_descriptor;
       }
 
       @java.lang.Override
@@ -635,14 +644,14 @@ public final class Message {
 
       private int messageType_ = 0;
       /**
-       * <code>.MessageFormat.MessageType messageType = 2;</code>
+       * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 2;</code>
        * @return The enum numeric value on the wire for messageType.
        */
       @java.lang.Override public int getMessageTypeValue() {
         return messageType_;
       }
       /**
-       * <code>.MessageFormat.MessageType messageType = 2;</code>
+       * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 2;</code>
        * @param value The enum numeric value on the wire for messageType to set.
        * @return This builder for chaining.
        */
@@ -653,7 +662,7 @@ public final class Message {
         return this;
       }
       /**
-       * <code>.MessageFormat.MessageType messageType = 2;</code>
+       * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 2;</code>
        * @return The messageType.
        */
       @java.lang.Override
@@ -662,7 +671,7 @@ public final class Message {
         return result == null ? feup.sdle.message.Message.MessageFormat.MessageType.UNRECOGNIZED : result;
       }
       /**
-       * <code>.MessageFormat.MessageType messageType = 2;</code>
+       * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 2;</code>
        * @param value The messageType to set.
        * @return This builder for chaining.
        */
@@ -676,7 +685,7 @@ public final class Message {
         return this;
       }
       /**
-       * <code>.MessageFormat.MessageType messageType = 2;</code>
+       * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearMessageType() {
@@ -718,31 +727,31 @@ public final class Message {
         return this;
       }
 
-      private feup.sdle.message.Message.NodeIdentifier nodeIdentifier_;
+      private feup.sdle.message.NodeIdentifierMessage.NodeIdentifier nodeIdentifier_;
       private com.google.protobuf.SingleFieldBuilder<
-          feup.sdle.message.Message.NodeIdentifier, feup.sdle.message.Message.NodeIdentifier.Builder, feup.sdle.message.Message.NodeIdentifierOrBuilder> nodeIdentifierBuilder_;
+          feup.sdle.message.NodeIdentifierMessage.NodeIdentifier, feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.Builder, feup.sdle.message.NodeIdentifierMessage.NodeIdentifierOrBuilder> nodeIdentifierBuilder_;
       /**
-       * <code>.NodeIdentifier nodeIdentifier = 4;</code>
+       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
        * @return Whether the nodeIdentifier field is set.
        */
       public boolean hasNodeIdentifier() {
         return ((bitField0_ & 0x00000004) != 0);
       }
       /**
-       * <code>.NodeIdentifier nodeIdentifier = 4;</code>
+       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
        * @return The nodeIdentifier.
        */
-      public feup.sdle.message.Message.NodeIdentifier getNodeIdentifier() {
+      public feup.sdle.message.NodeIdentifierMessage.NodeIdentifier getNodeIdentifier() {
         if (nodeIdentifierBuilder_ == null) {
-          return nodeIdentifier_ == null ? feup.sdle.message.Message.NodeIdentifier.getDefaultInstance() : nodeIdentifier_;
+          return nodeIdentifier_ == null ? feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.getDefaultInstance() : nodeIdentifier_;
         } else {
           return nodeIdentifierBuilder_.getMessage();
         }
       }
       /**
-       * <code>.NodeIdentifier nodeIdentifier = 4;</code>
+       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
        */
-      public Builder setNodeIdentifier(feup.sdle.message.Message.NodeIdentifier value) {
+      public Builder setNodeIdentifier(feup.sdle.message.NodeIdentifierMessage.NodeIdentifier value) {
         if (nodeIdentifierBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -756,10 +765,10 @@ public final class Message {
         return this;
       }
       /**
-       * <code>.NodeIdentifier nodeIdentifier = 4;</code>
+       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
        */
       public Builder setNodeIdentifier(
-          feup.sdle.message.Message.NodeIdentifier.Builder builderForValue) {
+          feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.Builder builderForValue) {
         if (nodeIdentifierBuilder_ == null) {
           nodeIdentifier_ = builderForValue.build();
         } else {
@@ -770,13 +779,13 @@ public final class Message {
         return this;
       }
       /**
-       * <code>.NodeIdentifier nodeIdentifier = 4;</code>
+       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
        */
-      public Builder mergeNodeIdentifier(feup.sdle.message.Message.NodeIdentifier value) {
+      public Builder mergeNodeIdentifier(feup.sdle.message.NodeIdentifierMessage.NodeIdentifier value) {
         if (nodeIdentifierBuilder_ == null) {
           if (((bitField0_ & 0x00000004) != 0) &&
             nodeIdentifier_ != null &&
-            nodeIdentifier_ != feup.sdle.message.Message.NodeIdentifier.getDefaultInstance()) {
+            nodeIdentifier_ != feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.getDefaultInstance()) {
             getNodeIdentifierBuilder().mergeFrom(value);
           } else {
             nodeIdentifier_ = value;
@@ -791,7 +800,7 @@ public final class Message {
         return this;
       }
       /**
-       * <code>.NodeIdentifier nodeIdentifier = 4;</code>
+       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
        */
       public Builder clearNodeIdentifier() {
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -804,33 +813,33 @@ public final class Message {
         return this;
       }
       /**
-       * <code>.NodeIdentifier nodeIdentifier = 4;</code>
+       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
        */
-      public feup.sdle.message.Message.NodeIdentifier.Builder getNodeIdentifierBuilder() {
+      public feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.Builder getNodeIdentifierBuilder() {
         bitField0_ |= 0x00000004;
         onChanged();
         return getNodeIdentifierFieldBuilder().getBuilder();
       }
       /**
-       * <code>.NodeIdentifier nodeIdentifier = 4;</code>
+       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
        */
-      public feup.sdle.message.Message.NodeIdentifierOrBuilder getNodeIdentifierOrBuilder() {
+      public feup.sdle.message.NodeIdentifierMessage.NodeIdentifierOrBuilder getNodeIdentifierOrBuilder() {
         if (nodeIdentifierBuilder_ != null) {
           return nodeIdentifierBuilder_.getMessageOrBuilder();
         } else {
           return nodeIdentifier_ == null ?
-              feup.sdle.message.Message.NodeIdentifier.getDefaultInstance() : nodeIdentifier_;
+              feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.getDefaultInstance() : nodeIdentifier_;
         }
       }
       /**
-       * <code>.NodeIdentifier nodeIdentifier = 4;</code>
+       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          feup.sdle.message.Message.NodeIdentifier, feup.sdle.message.Message.NodeIdentifier.Builder, feup.sdle.message.Message.NodeIdentifierOrBuilder> 
+          feup.sdle.message.NodeIdentifierMessage.NodeIdentifier, feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.Builder, feup.sdle.message.NodeIdentifierMessage.NodeIdentifierOrBuilder> 
           getNodeIdentifierFieldBuilder() {
         if (nodeIdentifierBuilder_ == null) {
           nodeIdentifierBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              feup.sdle.message.Message.NodeIdentifier, feup.sdle.message.Message.NodeIdentifier.Builder, feup.sdle.message.Message.NodeIdentifierOrBuilder>(
+              feup.sdle.message.NodeIdentifierMessage.NodeIdentifier, feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.Builder, feup.sdle.message.NodeIdentifierMessage.NodeIdentifierOrBuilder>(
                   getNodeIdentifier(),
                   getParentForChildren(),
                   isClean());
@@ -839,10 +848,10 @@ public final class Message {
         return nodeIdentifierBuilder_;
       }
 
-      // @@protoc_insertion_point(builder_scope:MessageFormat)
+      // @@protoc_insertion_point(builder_scope:feup.sdle.message.MessageFormat)
     }
 
-    // @@protoc_insertion_point(class_scope:MessageFormat)
+    // @@protoc_insertion_point(class_scope:feup.sdle.message.MessageFormat)
     private static final feup.sdle.message.Message.MessageFormat DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new feup.sdle.message.Message.MessageFormat();
@@ -890,670 +899,11 @@ public final class Message {
 
   }
 
-  public interface NodeIdentifierOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:NodeIdentifier)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>int32 id = 1;</code>
-     * @return The id.
-     */
-    int getId();
-
-    /**
-     * <code>string hostname = 2;</code>
-     * @return The hostname.
-     */
-    java.lang.String getHostname();
-    /**
-     * <code>string hostname = 2;</code>
-     * @return The bytes for hostname.
-     */
-    com.google.protobuf.ByteString
-        getHostnameBytes();
-
-    /**
-     * <code>int32 port = 3;</code>
-     * @return The port.
-     */
-    int getPort();
-  }
-  /**
-   * Protobuf type {@code NodeIdentifier}
-   */
-  public static final class NodeIdentifier extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:NodeIdentifier)
-      NodeIdentifierOrBuilder {
-  private static final long serialVersionUID = 0L;
-    static {
-      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
-        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
-        /* major= */ 4,
-        /* minor= */ 28,
-        /* patch= */ 2,
-        /* suffix= */ "",
-        NodeIdentifier.class.getName());
-    }
-    // Use NodeIdentifier.newBuilder() to construct.
-    private NodeIdentifier(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-    }
-    private NodeIdentifier() {
-      hostname_ = "";
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return feup.sdle.message.Message.internal_static_NodeIdentifier_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return feup.sdle.message.Message.internal_static_NodeIdentifier_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              feup.sdle.message.Message.NodeIdentifier.class, feup.sdle.message.Message.NodeIdentifier.Builder.class);
-    }
-
-    public static final int ID_FIELD_NUMBER = 1;
-    private int id_ = 0;
-    /**
-     * <code>int32 id = 1;</code>
-     * @return The id.
-     */
-    @java.lang.Override
-    public int getId() {
-      return id_;
-    }
-
-    public static final int HOSTNAME_FIELD_NUMBER = 2;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object hostname_ = "";
-    /**
-     * <code>string hostname = 2;</code>
-     * @return The hostname.
-     */
-    @java.lang.Override
-    public java.lang.String getHostname() {
-      java.lang.Object ref = hostname_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        hostname_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string hostname = 2;</code>
-     * @return The bytes for hostname.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getHostnameBytes() {
-      java.lang.Object ref = hostname_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        hostname_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int PORT_FIELD_NUMBER = 3;
-    private int port_ = 0;
-    /**
-     * <code>int32 port = 3;</code>
-     * @return The port.
-     */
-    @java.lang.Override
-    public int getPort() {
-      return port_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (id_ != 0) {
-        output.writeInt32(1, id_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(hostname_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 2, hostname_);
-      }
-      if (port_ != 0) {
-        output.writeInt32(3, port_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (id_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, id_);
-      }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(hostname_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(2, hostname_);
-      }
-      if (port_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, port_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof feup.sdle.message.Message.NodeIdentifier)) {
-        return super.equals(obj);
-      }
-      feup.sdle.message.Message.NodeIdentifier other = (feup.sdle.message.Message.NodeIdentifier) obj;
-
-      if (getId()
-          != other.getId()) return false;
-      if (!getHostname()
-          .equals(other.getHostname())) return false;
-      if (getPort()
-          != other.getPort()) return false;
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + ID_FIELD_NUMBER;
-      hash = (53 * hash) + getId();
-      hash = (37 * hash) + HOSTNAME_FIELD_NUMBER;
-      hash = (53 * hash) + getHostname().hashCode();
-      hash = (37 * hash) + PORT_FIELD_NUMBER;
-      hash = (53 * hash) + getPort();
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static feup.sdle.message.Message.NodeIdentifier parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static feup.sdle.message.Message.NodeIdentifier parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static feup.sdle.message.Message.NodeIdentifier parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static feup.sdle.message.Message.NodeIdentifier parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static feup.sdle.message.Message.NodeIdentifier parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static feup.sdle.message.Message.NodeIdentifier parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static feup.sdle.message.Message.NodeIdentifier parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static feup.sdle.message.Message.NodeIdentifier parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static feup.sdle.message.Message.NodeIdentifier parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static feup.sdle.message.Message.NodeIdentifier parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static feup.sdle.message.Message.NodeIdentifier parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input);
-    }
-    public static feup.sdle.message.Message.NodeIdentifier parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessage
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(feup.sdle.message.Message.NodeIdentifier prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code NodeIdentifier}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:NodeIdentifier)
-        feup.sdle.message.Message.NodeIdentifierOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return feup.sdle.message.Message.internal_static_NodeIdentifier_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return feup.sdle.message.Message.internal_static_NodeIdentifier_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                feup.sdle.message.Message.NodeIdentifier.class, feup.sdle.message.Message.NodeIdentifier.Builder.class);
-      }
-
-      // Construct using feup.sdle.message.Message.NodeIdentifier.newBuilder()
-      private Builder() {
-
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        id_ = 0;
-        hostname_ = "";
-        port_ = 0;
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return feup.sdle.message.Message.internal_static_NodeIdentifier_descriptor;
-      }
-
-      @java.lang.Override
-      public feup.sdle.message.Message.NodeIdentifier getDefaultInstanceForType() {
-        return feup.sdle.message.Message.NodeIdentifier.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public feup.sdle.message.Message.NodeIdentifier build() {
-        feup.sdle.message.Message.NodeIdentifier result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public feup.sdle.message.Message.NodeIdentifier buildPartial() {
-        feup.sdle.message.Message.NodeIdentifier result = new feup.sdle.message.Message.NodeIdentifier(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(feup.sdle.message.Message.NodeIdentifier result) {
-        int from_bitField0_ = bitField0_;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.id_ = id_;
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.hostname_ = hostname_;
-        }
-        if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.port_ = port_;
-        }
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof feup.sdle.message.Message.NodeIdentifier) {
-          return mergeFrom((feup.sdle.message.Message.NodeIdentifier)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(feup.sdle.message.Message.NodeIdentifier other) {
-        if (other == feup.sdle.message.Message.NodeIdentifier.getDefaultInstance()) return this;
-        if (other.getId() != 0) {
-          setId(other.getId());
-        }
-        if (!other.getHostname().isEmpty()) {
-          hostname_ = other.hostname_;
-          bitField0_ |= 0x00000002;
-          onChanged();
-        }
-        if (other.getPort() != 0) {
-          setPort(other.getPort());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 8: {
-                id_ = input.readInt32();
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 8
-              case 18: {
-                hostname_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000002;
-                break;
-              } // case 18
-              case 24: {
-                port_ = input.readInt32();
-                bitField0_ |= 0x00000004;
-                break;
-              } // case 24
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private int id_ ;
-      /**
-       * <code>int32 id = 1;</code>
-       * @return The id.
-       */
-      @java.lang.Override
-      public int getId() {
-        return id_;
-      }
-      /**
-       * <code>int32 id = 1;</code>
-       * @param value The id to set.
-       * @return This builder for chaining.
-       */
-      public Builder setId(int value) {
-
-        id_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int32 id = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearId() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        id_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object hostname_ = "";
-      /**
-       * <code>string hostname = 2;</code>
-       * @return The hostname.
-       */
-      public java.lang.String getHostname() {
-        java.lang.Object ref = hostname_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          hostname_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string hostname = 2;</code>
-       * @return The bytes for hostname.
-       */
-      public com.google.protobuf.ByteString
-          getHostnameBytes() {
-        java.lang.Object ref = hostname_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          hostname_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string hostname = 2;</code>
-       * @param value The hostname to set.
-       * @return This builder for chaining.
-       */
-      public Builder setHostname(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        hostname_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string hostname = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearHostname() {
-        hostname_ = getDefaultInstance().getHostname();
-        bitField0_ = (bitField0_ & ~0x00000002);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string hostname = 2;</code>
-       * @param value The bytes for hostname to set.
-       * @return This builder for chaining.
-       */
-      public Builder setHostnameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        hostname_ = value;
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-
-      private int port_ ;
-      /**
-       * <code>int32 port = 3;</code>
-       * @return The port.
-       */
-      @java.lang.Override
-      public int getPort() {
-        return port_;
-      }
-      /**
-       * <code>int32 port = 3;</code>
-       * @param value The port to set.
-       * @return This builder for chaining.
-       */
-      public Builder setPort(int value) {
-
-        port_ = value;
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int32 port = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearPort() {
-        bitField0_ = (bitField0_ & ~0x00000004);
-        port_ = 0;
-        onChanged();
-        return this;
-      }
-
-      // @@protoc_insertion_point(builder_scope:NodeIdentifier)
-    }
-
-    // @@protoc_insertion_point(class_scope:NodeIdentifier)
-    private static final feup.sdle.message.Message.NodeIdentifier DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new feup.sdle.message.Message.NodeIdentifier();
-    }
-
-    public static feup.sdle.message.Message.NodeIdentifier getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<NodeIdentifier>
-        PARSER = new com.google.protobuf.AbstractParser<NodeIdentifier>() {
-      @java.lang.Override
-      public NodeIdentifier parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<NodeIdentifier> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<NodeIdentifier> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public feup.sdle.message.Message.NodeIdentifier getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_MessageFormat_descriptor;
+    internal_static_feup_sdle_message_MessageFormat_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_MessageFormat_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_NodeIdentifier_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_NodeIdentifier_fieldAccessorTable;
+      internal_static_feup_sdle_message_MessageFormat_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1563,32 +913,28 @@ public final class Message {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rmessage.proto\"\255\001\n\rMessageFormat\022/\n\013mes" +
-      "sageType\030\002 \001(\0162\032.MessageFormat.MessageTy" +
-      "pe\022\017\n\007message\030\003 \001(\014\022\'\n\016nodeIdentifier\030\004 " +
-      "\001(\0132\017.NodeIdentifier\"1\n\013MessageType\022\021\n\rH" +
-      "ASH_RING_LOG\020\000\022\017\n\013REPLICATION\020\001\"<\n\016NodeI" +
-      "dentifier\022\n\n\002id\030\001 \001(\005\022\020\n\010hostname\030\002 \001(\t\022" +
-      "\014\n\004port\030\003 \001(\005B\034\n\021feup.sdle.messageB\007Mess" +
-      "ageb\006proto3"
+      "\n\rmessage.proto\022\021feup.sdle.message\032\024node" +
+      "identifier.proto\"\337\001\n\rMessageFormat\022A\n\013me" +
+      "ssageType\030\002 \001(\0162,.feup.sdle.message.Mess" +
+      "ageFormat.MessageType\022\017\n\007message\030\003 \001(\014\0229" +
+      "\n\016nodeIdentifier\030\004 \001(\0132!.feup.sdle.messa" +
+      "ge.NodeIdentifier\"?\n\013MessageType\022\021\n\rHASH" +
+      "_RING_LOG\020\000\022\017\n\013REPLICATION\020\001\022\014\n\010HASHRING" +
+      "\020\002B\034\n\021feup.sdle.messageB\007Messageb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          feup.sdle.message.NodeIdentifierMessage.getDescriptor(),
         });
-    internal_static_MessageFormat_descriptor =
+    internal_static_feup_sdle_message_MessageFormat_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_MessageFormat_fieldAccessorTable = new
+    internal_static_feup_sdle_message_MessageFormat_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_MessageFormat_descriptor,
+        internal_static_feup_sdle_message_MessageFormat_descriptor,
         new java.lang.String[] { "MessageType", "Message", "NodeIdentifier", });
-    internal_static_NodeIdentifier_descriptor =
-      getDescriptor().getMessageTypes().get(1);
-    internal_static_NodeIdentifier_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_NodeIdentifier_descriptor,
-        new java.lang.String[] { "Id", "Hostname", "Port", });
     descriptor.resolveAllFeaturesImmutable();
+    feup.sdle.message.NodeIdentifierMessage.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

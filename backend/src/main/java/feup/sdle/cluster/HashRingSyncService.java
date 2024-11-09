@@ -11,6 +11,7 @@ import feup.sdle.message.HashRingOperationMessage.HashRingLogOperationMessage;
 import feup.sdle.message.Hashcheck.HashCheck;
 import feup.sdle.message.Message;
 import feup.sdle.message.Message.MessageFormat;
+import feup.sdle.message.NodeIdentifierMessage;
 import org.zeromq.ZMQ;
 
 import java.math.BigInteger;
@@ -96,7 +97,7 @@ public class HashRingSyncService {
                     MessageFormat msgFormat = MessageFormat.newBuilder()
                             .setMessageType(MessageFormat.MessageType.HASH_RING_LOG)
                             .setMessage(hashCheck.toByteString())
-                            .setNodeIdentifier(Message.NodeIdentifier.newBuilder()
+                            .setNodeIdentifier(NodeIdentifierMessage.NodeIdentifier.newBuilder()
                                     .setHostname(currentNodeIdentifier.getHostName())
                                     .setId(currentNodeIdentifier.getId())
                                     .setPort(currentNodeIdentifier.getPort())

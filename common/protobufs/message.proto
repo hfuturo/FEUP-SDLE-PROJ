@@ -1,21 +1,22 @@
 syntax = "proto3";
 
+package feup.sdle.message;
+
 option java_package = "feup.sdle.message";
 option java_outer_classname = "Message";
+
+import "nodeidentifier.proto";
 
 message MessageFormat {
   enum MessageType {
     HASH_RING_LOG = 0;
     REPLICATION = 1;
+    HASHRING = 2;
   }
 
   MessageType messageType = 2;
   bytes message  = 3;
-  NodeIdentifier nodeIdentifier = 4; 
+  feup.sdle.message.NodeIdentifier nodeIdentifier = 4; 
 }
 
-message NodeIdentifier {
-  int32 id = 1;
-  string hostname = 2;
-  int32 port = 3;
-}
+
