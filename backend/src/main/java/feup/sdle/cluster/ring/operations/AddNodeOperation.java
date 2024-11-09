@@ -27,6 +27,11 @@ public class AddNodeOperation implements HashRingLogOperation {
     }
 
     @Override
+    public List<BigInteger> getHashes() {
+        return this.hashesToAdd;
+    }
+
+    @Override
     public int hashCode() {
         int hash = 0;
 
@@ -35,6 +40,11 @@ public class AddNodeOperation implements HashRingLogOperation {
         }
 
         return hash;
+    }
+
+    @Override
+    public HashRingOperationType getOperationType() {
+        return HashRingOperationType.ADD;
     }
 
     @Override

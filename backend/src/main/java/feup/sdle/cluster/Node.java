@@ -2,6 +2,7 @@ package feup.sdle.cluster;
 
 import feup.sdle.Document;
 import feup.sdle.crypto.MD5HashAlgorithm;
+import feup.sdle.message.Message;
 import feup.sdle.storage.FileStorageProvider;
 import feup.sdle.storage.MemoryStorageProvider;
 import feup.sdle.utils.Color;
@@ -44,7 +45,7 @@ public class Node {
         this.storage = new MemoryStorageProvider<>(new FileStorageProvider());
 
         this.gossipService = new GossipService(this, this.zmqContext);
-        this.hashRingSyncService = new HashRingSyncService(this.ring, this.gossipService, 2000, 3);
+        this.hashRingSyncService = new HashRingSyncService(this, this.ring, this.gossipService, 10000, 3);
     }
 
     public HashRing manageHashRing() {
@@ -86,6 +87,14 @@ public class Node {
         }
 
         return result;
+    }
+
+    public void processHashRingSyncMessage(Message.MessageFormat msgFormat, NodeIdentifier senderNode) {
+        try {
+            this.hashRingSyncService.processMessage(msgFormat.getMessage(), senderNode);
+        } catch (Exception e) {
+            LOGGER.error(e.toString());
+        }
     }
 
     public NodeIdentifier getNodeIdentifier() {

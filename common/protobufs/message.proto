@@ -11,4 +11,11 @@ message MessageFormat {
 
   MessageType messageType = 2;
   bytes message  = 3;
+  NodeIdentifier nodeIdentifier = 4; 
+}
+
+message NodeIdentifier {
+  int32 id = 1;
+  string hostname = 2;
+  int32 port = 3;
 }

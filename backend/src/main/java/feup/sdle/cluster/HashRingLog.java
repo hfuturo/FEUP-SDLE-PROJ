@@ -43,6 +43,10 @@ public class HashRingLog {
         return  + hash;
     }
 
+    public List<HashRingLongTimestamp<HashRingLogOperation>> getOperations() {
+        return this.operations;
+    }
+
     public void getOperationsStr() {
         System.out.println("Log entry: ");
         for(HashRingLongTimestamp<HashRingLogOperation> operation: this.operations) {

@@ -1,5 +1,6 @@
 package feup.sdle.cluster;
 
+import feup.sdle.message.Message;
 import org.zeromq.ZContext;
 import org.zeromq.ZMQ;
 
@@ -49,6 +50,15 @@ public class NodeIdentifier {
 
     public String getHostName() {
         return this.hostname;
+    }
+
+    public static NodeIdentifier fromMessageNodeIdentifier(Message.NodeIdentifier msgNodeIdentifier) {
+        return new NodeIdentifier(
+                msgNodeIdentifier.getId(),
+                msgNodeIdentifier.getHostname(),
+                msgNodeIdentifier.getPort(),
+                true
+        );
     }
 
     @Override

@@ -2,6 +2,7 @@ package feup.sdle.cluster;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import feup.sdle.message.Hashcheck.HashCheck;
+import feup.sdle.message.Message;
 import feup.sdle.message.Message.MessageFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +10,12 @@ import org.zeromq.SocketType;
 import org.zeromq.ZContext;
 import org.zeromq.ZMQ;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * This takes care of everything the node needs to have in order to be able to
@@ -27,15 +33,24 @@ public class GossipService {
     private Node node;
     private ZContext zContext;
     private ZMQ.Socket receiveGossipSocket;
+    private HashMap<MessageFormat.MessageType, BiConsumer<MessageFormat, NodeIdentifier>> messageActions;
+
     public GossipService(Node node, ZContext zContext) {
         this.node = node;
         this.zContext = zContext;
 
+        this.buildMessageActions();
         this.registerGossipListener();
     }
 
     public Node getNode() {
         return this.node;
+    }
+
+    public void buildMessageActions() {
+        this.messageActions = new HashMap<>();
+
+        this.messageActions.put(MessageFormat.MessageType.HASH_RING_LOG, this.node::processHashRingSyncMessage);
     }
 
     /**
@@ -52,15 +67,9 @@ public class GossipService {
             while(true) {
                 byte[] reply = this.receiveGossipSocket.recv(0);
                 try {
-                    // 1. Add processing work for message
-
-                    // 2. Delegate work to the node
-
                     MessageFormat msgFormat = MessageFormat.parseFrom(reply);
 
-                    System.out.println(msgFormat.getMessageType().toString());
-                    System.out.println(HashCheck.parseFrom(msgFormat.getMessage()).getHash());
-
+                    this.messageActions.get(msgFormat.getMessageType()).accept(msgFormat, NodeIdentifier.fromMessageNodeIdentifier(msgFormat.getNodeIdentifier()));
                 } catch (InvalidProtocolBufferException e) {
                     LOGGER.error(e.toString());
                 }
