@@ -44,10 +44,11 @@ public class HashRingLongTimestamp<V extends ProtobufSerializable<HashRingOperat
 
     @Override
     public int compareTo(HashRingLongTimestamp other) {
-        int sequenceCompare = this.sequence.compareTo(other.sequence);
-        if(sequenceCompare != 0) return sequenceCompare;
+        if(this.sequence.equals(other.sequence)) {
+            return this.versionStamp.compareTo(other.versionStamp);
+        }
 
-        return this.versionStamp.compareTo(other.versionStamp);
+        return this.sequence.compareTo(other.sequence);
     }
 
     @Override
@@ -55,12 +56,12 @@ public class HashRingLongTimestamp<V extends ProtobufSerializable<HashRingOperat
         if (object == this) return true;
         if (!(object instanceof HashRingLongTimestamp timestamp)) return false;
 
-        return this.sequence.equals(timestamp.sequence) && this.versionStamp.equals(timestamp.versionStamp) && this.value.equals(timestamp.value);
+        return this.versionStamp.equals(timestamp.versionStamp);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.sequence, this.versionStamp, this.value);
+        return Objects.hash(this.versionStamp);
     }
 
     @Override

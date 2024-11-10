@@ -2,7 +2,6 @@ package feup.sdle.cluster;
 
 import com.google.protobuf.ByteString;
 import feup.sdle.ProtobufSerializable;
-import feup.sdle.cluster.ring.operations.AddNodeOperation;
 import feup.sdle.cluster.ring.operations.HashRingLogOperation;
 import feup.sdle.crdts.HashRingLongTimestamp;
 import feup.sdle.crdts.VersionStamp;

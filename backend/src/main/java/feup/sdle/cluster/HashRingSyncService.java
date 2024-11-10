@@ -103,6 +103,9 @@ public class HashRingSyncService {
                             .setMessage(hashCheck.toByteString())
                             .build();
 
+                    System.out.println("Sending hash check message!");
+                    this.hashRing.getHashRingLog().getOperationsStr();
+
                     this.gossipService.publish(this.fanout, msgFormat.toByteArray());
                 } catch (InterruptedException e) {
                     System.out.println(e.toString());

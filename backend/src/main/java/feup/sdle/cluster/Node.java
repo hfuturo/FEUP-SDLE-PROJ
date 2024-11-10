@@ -45,7 +45,6 @@ public class Node {
         this.identifier = new NodeIdentifier(id, hostname, port, true);
 
         this.starter = starter;
-        System.out.println("STARTER NOW: " + this.starter);
 
         this.manageHashRing();
 
@@ -73,7 +72,6 @@ public class Node {
         }
 
         NodeIdentifier chosenNode = iterator.next().getValue();
-
         chosenNode.getSocket(this.zmqContext).send(Message.MessageFormat.newBuilder()
                 .setNodeIdentifier(this.getNodeIdentifier().toMessageNodeIdentifier())
                 .setMessageType(Message.MessageFormat.MessageType.HASHRING_JOIN)
@@ -130,7 +128,7 @@ public class Node {
             senderNode.getSocket(this.zmqContext).send(
                     Message.MessageFormat.newBuilder()
                             .setMessageType(Message.MessageFormat.MessageType.HASHRING_GET)
-                            .setNodeIdentifier(this.getNodeIdentifier().toMessageNodeIdentifier())
+                            .setNodeIdentifier(senderNode.toMessageNodeIdentifier())
                             .setMessage(
                                     hashRingBuilder.build().toByteString()
                             )

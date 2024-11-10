@@ -26,11 +26,11 @@ public class VersionStamp implements Comparable<VersionStamp> {
 
     @Override
     public int compareTo(VersionStamp o) {
-        if(this.dot.equals(o.dot)) {
-            return this.identifier.compareTo(o.identifier);
+        if(this.identifier.equals(o.identifier)) {
+            return this.dot.compareTo(o.dot);
         }
 
-        return this.dot.compareTo(o.dot);
+        return this.identifier.compareTo(o.identifier);
     }
 
     @Override

@@ -59,6 +59,7 @@ public class HashRing {
 
             LOGGER.info(Color.green("Seed Nodes generated"));
         } catch (Exception e) {
+            System.out.println("ESTÁ A  VIR PARA AQUI MEU, QUASE DE CERTEZA");
             LOGGER.error(e.getMessage());
         }
 
