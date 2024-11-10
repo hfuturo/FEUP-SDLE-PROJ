@@ -11,6 +11,4 @@ public interface HashRingLogOperation {
     public HashRingLogOperation reverse();
     public HashRingOperationType getOperationType();
     public List<BigInteger> getHashes();
-    public static HashRingLogOperation fromHashRingOperationMessage(HashRingOperationMessage.HashRingOperation msg) {
-    }
 }

@@ -150,8 +150,10 @@ public class HashRingLog {
         HashRingLog log = new HashRingLog(msg.getReplicaId());
 
         for(HashRingOperationMessage.HashRingOperation operation: msg.getOperationsList()) {
-            log.operations.add()
+            //log.operations.add()
         }
+
+        return log;
     }
 
     /**
