@@ -16,6 +16,7 @@ import feup.sdle.message.NodeIdentifierMessage;
 import org.zeromq.ZMQ;
 
 import java.math.BigInteger;
+import java.util.List;
 
 /**
  * This is the service responsible to sync the hash ring state by publishing the state
@@ -44,8 +45,7 @@ public class HashRingSyncService {
      * When a node is receiving a hash it only needs to check local hash
      * If the hash is different it needs to send the current log to the other node
      */
-    public void processMessage(ByteString message, NodeIdentifier senderNode) throws InvalidProtocolBufferException {
-        MessageFormat msgFormat = MessageFormat.parseFrom(message);
+    public void processMessage(MessageFormat msgFormat, NodeIdentifier senderNode) throws InvalidProtocolBufferException {
         switch(msgFormat.getMessageType()) {
             case HASHRING_LOG_HASH_CHECK -> {
                 HashCheck hashCheck = HashCheck.parseFrom(msgFormat.getMessage());
@@ -53,37 +53,28 @@ public class HashRingSyncService {
 
                 if(!String.valueOf(hashRingLog.hashCode()).equals(hashCheck.getHash())) {
                     System.out.println("HASH DIFFERENT, SENDING HASH RING LOG");
+                    this.hashRing.getHashRingLog().getOperationsStr();
                     this.sendHashRingLog(senderNode);
                 }
 
             }
             case HASH_RING_LOG -> {
                 HashRingLogOperationMessage hashRingLogOperationMessage = HashRingLogOperationMessage.parseFrom(msgFormat.getMessage());
+                HashRingLog otherHashRingLog = HashRingLog.fromHashRingLogMessage(hashRingLogOperationMessage, senderNode);
 
-                System.out.println("AGORA PRECISO APENAS DE PERCORRER O LOG E FAZER AS ALTERAÇÕES NECESSÁRIAS!!!");
+                int startApplyIndex = this.hashRing.getHashRingLog().merge(otherHashRingLog);
+
+                this.hashRing.applyOperations(startApplyIndex);
             }
         }
     }
 
-    private void sendHashRingLog(NodeIdentifier senderNode) {
-        ZMQ.Socket socket = senderNode.getSocket(this.node.getZmqContext());
-
-        HashRingLogOperationMessage.Builder logBuilder = HashRingLogOperationMessage.newBuilder().setReplicaId(this.node.getNodeIdentifier().getId());
-        for(HashRingLongTimestamp<HashRingLogOperation> currOperation: this.hashRing.getHashRingLog().getOperations()) {
-            HashRingLogOperation operation = currOperation.getValue();
-            HashRingOperation.Builder hashRingOperationBuilder = HashRingOperation.newBuilder()
-                    .setOperationType(HashRingOperation.OperationType.forNumber(operation.getOperationType().ordinal()));
-
-            for(BigInteger hash: operation.getHashes()) {
-                hashRingOperationBuilder.addHashes(ByteString.copyFrom(hash.toByteArray()));
-            }
-
-            logBuilder.addOperations(hashRingOperationBuilder.build());
-        }
+    private void sendHashRingLog(NodeIdentifier nodeToSend) {
+        ZMQ.Socket socket = nodeToSend.getSocket(this.node.getZmqContext());
 
         MessageFormat msgFormat = MessageFormat.newBuilder().setMessageType(MessageFormat.MessageType.HASH_RING_LOG)
                 .setNodeIdentifier(this.node.getNodeIdentifier().toMessageNodeIdentifier())
-                .setMessage(logBuilder.build().toByteString())
+                .setMessage(this.hashRing.getHashRingLog().toProtoBuf())
                 .build();
 
         socket.send(msgFormat.toByteArray());

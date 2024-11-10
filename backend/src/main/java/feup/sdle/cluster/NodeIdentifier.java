@@ -5,6 +5,8 @@ import feup.sdle.message.NodeIdentifierMessage;
 import org.zeromq.ZContext;
 import org.zeromq.ZMQ;
 
+import java.util.Objects;
+
 public class NodeIdentifier {
     private int id;
     private String hostname;
@@ -68,6 +70,11 @@ public class NodeIdentifier {
                 .setHostname(this.hostname)
                 .setPort(this.port)
                 .build();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.id, this.hostname, this.port);
     }
 
     @Override

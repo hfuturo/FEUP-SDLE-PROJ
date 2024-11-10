@@ -150,7 +150,7 @@ public class Node {
 
     public void processHashRingSyncMessage(Message.MessageFormat msgFormat, NodeIdentifier senderNode) {
         try {
-            this.hashRingSyncService.processMessage(msgFormat.getMessage(), senderNode);
+            this.hashRingSyncService.processMessage(msgFormat, senderNode);
         } catch (Exception e) {
             System.out.println("Processing hash ring sync message");
             LOGGER.error(e.toString());
@@ -159,7 +159,7 @@ public class Node {
 
     public void processRingLogHashCheck(Message.MessageFormat msgFormat, NodeIdentifier senderNode) {
         try {
-            this.hashRingSyncService.processMessage(msgFormat.toByteString(), senderNode);
+            this.hashRingSyncService.processMessage(msgFormat, senderNode);
         } catch (InvalidProtocolBufferException e) {
             LOGGER.error(e.toString());
         }

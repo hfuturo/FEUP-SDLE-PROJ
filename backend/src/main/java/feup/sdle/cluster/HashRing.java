@@ -2,7 +2,9 @@ package feup.sdle.cluster;
 
 import com.google.protobuf.Descriptors;
 import feup.sdle.cluster.ring.operations.AddNodeOperation;
+import feup.sdle.cluster.ring.operations.HashRingLogOperation;
 import feup.sdle.cluster.ring.operations.RemoveNodeOperation;
+import feup.sdle.crdts.HashRingLongTimestamp;
 import feup.sdle.crypto.HashAlgorithm;
 import feup.sdle.crdts.DotContext;
 import feup.sdle.message.HashRingMessage;
@@ -52,6 +54,8 @@ public class HashRing {
             this.addNode(seed1);
             this.addNode(seed2);
             this.addNode(seed3);
+
+            this.hashRingLog.getOperationsStr();
 
             LOGGER.info(Color.green("Seed Nodes generated"));
         } catch (Exception e) {
@@ -126,9 +130,6 @@ public class HashRing {
     }
 
     public void addNode(NodeIdentifier nodeIdentifier) throws Exception {
-        if (this.ring.containsValue(nodeIdentifier))
-            throw new Exception("Node with identifier " + nodeIdentifier.toString() + " already exists.");
-
         List<BigInteger> nodesToAdd = new ArrayList<>();
 
         for (int i = 0; i < NODE_REPLICAS; i++) {
@@ -156,6 +157,30 @@ public class HashRing {
         }
 
         this.hashRingLog.add(new RemoveNodeOperation(nodesToRemove, nodeIdentifier));
+    }
+
+    /**
+     * Based on the current HashRingLog, it applies the operations that it did not have beforehand
+     * @param startApplyIndex The index of the operations inside the log that we did not already have
+     */
+    public void applyOperations(int startApplyIndex) {
+        List<HashRingLongTimestamp<HashRingLogOperation>> timestamps = this.hashRingLog.getOperations();
+        for(int i = startApplyIndex; i < timestamps.size(); i++) {
+            HashRingLogOperation operation = timestamps.get(i).getValue();
+
+            for(BigInteger hash: operation.getHashes()) {
+                switch (operation.getOperationType()) {
+                    case ADD -> {
+                        //System.out.println("Added " + hash + " to " + operation.getNodeIdentifier().getId());
+                        //this.ring.put(hash, operation.getNodeIdentifier());
+                    }
+                    case REMOVE -> {
+                        //System.out.println("Removed " + hash + " which belonged to " + operation.getNodeIdentifier().getId());
+                        //this.ring.remove(hash);
+                    }
+                }
+            }
+        }
     }
 
 }

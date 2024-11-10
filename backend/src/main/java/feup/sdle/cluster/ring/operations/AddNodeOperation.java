@@ -1,10 +1,12 @@
 package feup.sdle.cluster.ring.operations;
 
 import feup.sdle.cluster.NodeIdentifier;
+import feup.sdle.crdts.VersionStamp;
 import feup.sdle.message.HashRingOperationMessage;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This operation is meant to indicate that some hashes were removed from some node
@@ -33,14 +35,22 @@ public class AddNodeOperation implements HashRingLogOperation {
     }
 
     @Override
+    public NodeIdentifier getNodeIdentifier() {
+        return this.nodeIdentifier;
+    }
+
+    @Override
     public int hashCode() {
-        int hash = 0;
+        return Objects.hash(this.hashesToAdd, this.nodeIdentifier);
+    }
 
-        for(BigInteger o: hashesToAdd) {
-            hash += o.hashCode();
-        }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        return hash;
+        AddNodeOperation otherOperation = (AddNodeOperation) o;
+        return this.hashesToAdd.equals(otherOperation.hashesToAdd) && this.nodeIdentifier.equals(otherOperation.nodeIdentifier);
     }
 
     @Override

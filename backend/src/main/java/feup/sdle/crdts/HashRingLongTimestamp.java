@@ -1,8 +1,13 @@
 package feup.sdle.crdts;
 
+import com.google.protobuf.ByteString;
+import feup.sdle.ProtobufSerializable;
+import feup.sdle.cluster.NodeIdentifier;
+import feup.sdle.message.HashRingOperationMessage;
+
 import java.util.Objects;
 
-public class HashRingLongTimestamp<V> implements Comparable<HashRingLongTimestamp<V>> {
+public class HashRingLongTimestamp<V extends ProtobufSerializable<HashRingOperationMessage.HashRingOperation>> implements Comparable<HashRingLongTimestamp<V>>, ProtobufSerializable<HashRingOperationMessage.HashRingLogTimestamp> {
     private Integer sequence;
     private VersionStamp versionStamp;
     private V value;
@@ -39,26 +44,41 @@ public class HashRingLongTimestamp<V> implements Comparable<HashRingLongTimestam
 
     @Override
     public int compareTo(HashRingLongTimestamp other) {
-        return this.sequence.compareTo(other.sequence);
+        int sequenceCompare = this.sequence.compareTo(other.sequence);
+        if(sequenceCompare != 0) return sequenceCompare;
 
-        /*if(this.versionStamp.getIdentifier().equals(other.versionStamp.getIdentifier())) {
-            return this.versionStamp.getDot().compareTo(other.versionStamp.getDot());
-        }
-
-        return this.versionStamp.getIdentifier().compareTo(other.versionStamp.getIdentifier());*/
+        return this.versionStamp.compareTo(other.versionStamp);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object object) {
+        if (object == this) return true;
+        if (!(object instanceof HashRingLongTimestamp timestamp)) return false;
 
-        HashRingLongTimestamp<V> otherVersion = (HashRingLongTimestamp) o;
-        return this.versionStamp.equals(otherVersion.versionStamp) && (this.sequence.equals(otherVersion.sequence));
+        return this.sequence.equals(timestamp.sequence) && this.versionStamp.equals(timestamp.versionStamp) && this.value.equals(timestamp.value);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.sequence) + this.versionStamp.hashCode();
+        return Objects.hash(this.sequence, this.versionStamp, this.value);
+    }
+
+    @Override
+    public HashRingOperationMessage.HashRingLogTimestamp toMessage() {
+        HashRingOperationMessage.HashRingLogTimestamp.Builder builder = HashRingOperationMessage.HashRingLogTimestamp.newBuilder();
+
+        builder.setDot(this.versionStamp.getDot());
+        builder.setSequence(this.sequence);
+        builder.setIdentifier(this.versionStamp.getIdentifier());
+
+        HashRingOperationMessage.HashRingOperation operation = this.value.toMessage();
+        builder.setOperation(operation);
+
+        return builder.build();
+    }
+
+    @Override
+    public ByteString toProtoBuf() {
+        return null;
     }
 }
