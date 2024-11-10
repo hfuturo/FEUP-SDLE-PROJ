@@ -54,6 +54,7 @@ public class GossipService {
         this.messageActions.put(MessageFormat.MessageType.HASHRING_LOG_HASH_CHECK, this.node::processRingLogHashCheck);
         this.messageActions.put(MessageFormat.MessageType.HASH_RING_LOG, this.node::processHashRingSyncMessage);
         this.messageActions.put(MessageFormat.MessageType.HASHRING_JOIN, this.node::processAddNodeRequest);
+        this.messageActions.put(MessageFormat.MessageType.HASHRING_GET, this.node::processHashRingView);
     }
 
     /**

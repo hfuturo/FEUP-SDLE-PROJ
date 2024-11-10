@@ -66,7 +66,7 @@ public class HashRingLog implements ProtobufSerializable {
     }
 
     public void add(HashRingLogOperation operation) {
-        this.operations.add(new HashRingLongTimestamp<>(this.localIdentifier, dot, operation, this.currentSequenceNumber));
+        this.operations.add(new HashRingLongTimestamp<>(operation.getNodeIdentifier(), dot, operation, this.currentSequenceNumber));
 
         this.currentSequenceNumber++;
         this.dot++;
@@ -162,9 +162,9 @@ public class HashRingLog implements ProtobufSerializable {
 
         for(HashRingOperationMessage.HashRingLogTimestamp operation: msg.getTimestampsList()) {
             HashRingLongTimestamp<HashRingLogOperation> timestamp = new HashRingLongTimestamp<>(
-                    operation.getIdentifier(),
+                    NodeIdentifier.fromMessageNodeIdentifier(operation.getIdentifier()),
                     operation.getDot(),
-                    HashRingLogOperation.fromHashRingOperationMessage(operation.getOperation(), senderNode),
+                    HashRingLogOperation.fromHashRingOperationMessage(operation.getOperation(), NodeIdentifier.fromMessageNodeIdentifier(operation.getIdentifier())),
                     operation.getSequence()
             );
 

@@ -3,17 +3,21 @@ package feup.sdle.crdts;
 import com.google.protobuf.ByteString;
 import feup.sdle.ProtobufSerializable;
 import feup.sdle.cluster.NodeIdentifier;
+import feup.sdle.cluster.ring.operations.HashRingLogOperation;
 import feup.sdle.message.HashRingOperationMessage;
+import feup.sdle.message.NodeIdentifierMessage;
 
 import java.util.Objects;
 
 public class HashRingLongTimestamp<V extends ProtobufSerializable<HashRingOperationMessage.HashRingOperation>> implements Comparable<HashRingLongTimestamp<V>>, ProtobufSerializable<HashRingOperationMessage.HashRingLogTimestamp> {
     private Integer sequence;
     private VersionStamp versionStamp;
+    private NodeIdentifier identifier;
     private V value;
 
-    public HashRingLongTimestamp(Integer identifier, int dot, V value, Integer sequence) {
-        this.versionStamp = new VersionStamp(identifier, dot);
+    public HashRingLongTimestamp(NodeIdentifier identifier, int dot, V value, Integer sequence) {
+        this.versionStamp = new VersionStamp(identifier.getId(), dot);
+        this.identifier = identifier;
         this.value = value;
         this.sequence = sequence;
     }
@@ -70,7 +74,7 @@ public class HashRingLongTimestamp<V extends ProtobufSerializable<HashRingOperat
 
         builder.setDot(this.versionStamp.getDot());
         builder.setSequence(this.sequence);
-        builder.setIdentifier(this.versionStamp.getIdentifier());
+        builder.setIdentifier(this.identifier.toMessageNodeIdentifier());
 
         HashRingOperationMessage.HashRingOperation operation = this.value.toMessage();
         builder.setOperation(operation);

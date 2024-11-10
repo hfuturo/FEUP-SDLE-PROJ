@@ -26,29 +26,29 @@ public final class HashRingOperationMessage {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   public interface HashRingLogOperationMessageOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:HashRingLogOperationMessage)
+      // @@protoc_insertion_point(interface_extends:feup.sdle.message.HashRingLogOperationMessage)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+     * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
      */
     java.util.List<feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp> 
         getTimestampsList();
     /**
-     * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+     * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
      */
     feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp getTimestamps(int index);
     /**
-     * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+     * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
      */
     int getTimestampsCount();
     /**
-     * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+     * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
      */
     java.util.List<? extends feup.sdle.message.HashRingOperationMessage.HashRingLogTimestampOrBuilder> 
         getTimestampsOrBuilderList();
     /**
-     * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+     * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
      */
     feup.sdle.message.HashRingOperationMessage.HashRingLogTimestampOrBuilder getTimestampsOrBuilder(
         int index);
@@ -60,11 +60,11 @@ public final class HashRingOperationMessage {
     int getReplicaId();
   }
   /**
-   * Protobuf type {@code HashRingLogOperationMessage}
+   * Protobuf type {@code feup.sdle.message.HashRingLogOperationMessage}
    */
   public static final class HashRingLogOperationMessage extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:HashRingLogOperationMessage)
+      // @@protoc_insertion_point(message_implements:feup.sdle.message.HashRingLogOperationMessage)
       HashRingLogOperationMessageOrBuilder {
   private static final long serialVersionUID = 0L;
     static {
@@ -86,13 +86,13 @@ public final class HashRingOperationMessage {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return feup.sdle.message.HashRingOperationMessage.internal_static_HashRingLogOperationMessage_descriptor;
+      return feup.sdle.message.HashRingOperationMessage.internal_static_feup_sdle_message_HashRingLogOperationMessage_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return feup.sdle.message.HashRingOperationMessage.internal_static_HashRingLogOperationMessage_fieldAccessorTable
+      return feup.sdle.message.HashRingOperationMessage.internal_static_feup_sdle_message_HashRingLogOperationMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               feup.sdle.message.HashRingOperationMessage.HashRingLogOperationMessage.class, feup.sdle.message.HashRingOperationMessage.HashRingLogOperationMessage.Builder.class);
     }
@@ -101,14 +101,14 @@ public final class HashRingOperationMessage {
     @SuppressWarnings("serial")
     private java.util.List<feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp> timestamps_;
     /**
-     * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+     * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
      */
     @java.lang.Override
     public java.util.List<feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp> getTimestampsList() {
       return timestamps_;
     }
     /**
-     * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+     * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
      */
     @java.lang.Override
     public java.util.List<? extends feup.sdle.message.HashRingOperationMessage.HashRingLogTimestampOrBuilder> 
@@ -116,21 +116,21 @@ public final class HashRingOperationMessage {
       return timestamps_;
     }
     /**
-     * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+     * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
      */
     @java.lang.Override
     public int getTimestampsCount() {
       return timestamps_.size();
     }
     /**
-     * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+     * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
      */
     @java.lang.Override
     public feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp getTimestamps(int index) {
       return timestamps_.get(index);
     }
     /**
-     * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+     * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
      */
     @java.lang.Override
     public feup.sdle.message.HashRingOperationMessage.HashRingLogTimestampOrBuilder getTimestampsOrBuilder(
@@ -320,21 +320,21 @@ public final class HashRingOperationMessage {
       return builder;
     }
     /**
-     * Protobuf type {@code HashRingLogOperationMessage}
+     * Protobuf type {@code feup.sdle.message.HashRingLogOperationMessage}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:HashRingLogOperationMessage)
+        // @@protoc_insertion_point(builder_implements:feup.sdle.message.HashRingLogOperationMessage)
         feup.sdle.message.HashRingOperationMessage.HashRingLogOperationMessageOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return feup.sdle.message.HashRingOperationMessage.internal_static_HashRingLogOperationMessage_descriptor;
+        return feup.sdle.message.HashRingOperationMessage.internal_static_feup_sdle_message_HashRingLogOperationMessage_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return feup.sdle.message.HashRingOperationMessage.internal_static_HashRingLogOperationMessage_fieldAccessorTable
+        return feup.sdle.message.HashRingOperationMessage.internal_static_feup_sdle_message_HashRingLogOperationMessage_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 feup.sdle.message.HashRingOperationMessage.HashRingLogOperationMessage.class, feup.sdle.message.HashRingOperationMessage.HashRingLogOperationMessage.Builder.class);
       }
@@ -367,7 +367,7 @@ public final class HashRingOperationMessage {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return feup.sdle.message.HashRingOperationMessage.internal_static_HashRingLogOperationMessage_descriptor;
+        return feup.sdle.message.HashRingOperationMessage.internal_static_feup_sdle_message_HashRingLogOperationMessage_descriptor;
       }
 
       @java.lang.Override
@@ -527,7 +527,7 @@ public final class HashRingOperationMessage {
           feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp, feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp.Builder, feup.sdle.message.HashRingOperationMessage.HashRingLogTimestampOrBuilder> timestampsBuilder_;
 
       /**
-       * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+       * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
        */
       public java.util.List<feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp> getTimestampsList() {
         if (timestampsBuilder_ == null) {
@@ -537,7 +537,7 @@ public final class HashRingOperationMessage {
         }
       }
       /**
-       * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+       * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
        */
       public int getTimestampsCount() {
         if (timestampsBuilder_ == null) {
@@ -547,7 +547,7 @@ public final class HashRingOperationMessage {
         }
       }
       /**
-       * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+       * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
        */
       public feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp getTimestamps(int index) {
         if (timestampsBuilder_ == null) {
@@ -557,7 +557,7 @@ public final class HashRingOperationMessage {
         }
       }
       /**
-       * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+       * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
        */
       public Builder setTimestamps(
           int index, feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp value) {
@@ -574,7 +574,7 @@ public final class HashRingOperationMessage {
         return this;
       }
       /**
-       * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+       * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
        */
       public Builder setTimestamps(
           int index, feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp.Builder builderForValue) {
@@ -588,7 +588,7 @@ public final class HashRingOperationMessage {
         return this;
       }
       /**
-       * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+       * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
        */
       public Builder addTimestamps(feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp value) {
         if (timestampsBuilder_ == null) {
@@ -604,7 +604,7 @@ public final class HashRingOperationMessage {
         return this;
       }
       /**
-       * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+       * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
        */
       public Builder addTimestamps(
           int index, feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp value) {
@@ -621,7 +621,7 @@ public final class HashRingOperationMessage {
         return this;
       }
       /**
-       * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+       * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
        */
       public Builder addTimestamps(
           feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp.Builder builderForValue) {
@@ -635,7 +635,7 @@ public final class HashRingOperationMessage {
         return this;
       }
       /**
-       * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+       * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
        */
       public Builder addTimestamps(
           int index, feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp.Builder builderForValue) {
@@ -649,7 +649,7 @@ public final class HashRingOperationMessage {
         return this;
       }
       /**
-       * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+       * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
        */
       public Builder addAllTimestamps(
           java.lang.Iterable<? extends feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp> values) {
@@ -664,7 +664,7 @@ public final class HashRingOperationMessage {
         return this;
       }
       /**
-       * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+       * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
        */
       public Builder clearTimestamps() {
         if (timestampsBuilder_ == null) {
@@ -677,7 +677,7 @@ public final class HashRingOperationMessage {
         return this;
       }
       /**
-       * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+       * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
        */
       public Builder removeTimestamps(int index) {
         if (timestampsBuilder_ == null) {
@@ -690,14 +690,14 @@ public final class HashRingOperationMessage {
         return this;
       }
       /**
-       * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+       * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
        */
       public feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp.Builder getTimestampsBuilder(
           int index) {
         return getTimestampsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+       * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
        */
       public feup.sdle.message.HashRingOperationMessage.HashRingLogTimestampOrBuilder getTimestampsOrBuilder(
           int index) {
@@ -707,7 +707,7 @@ public final class HashRingOperationMessage {
         }
       }
       /**
-       * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+       * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
        */
       public java.util.List<? extends feup.sdle.message.HashRingOperationMessage.HashRingLogTimestampOrBuilder> 
            getTimestampsOrBuilderList() {
@@ -718,14 +718,14 @@ public final class HashRingOperationMessage {
         }
       }
       /**
-       * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+       * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
        */
       public feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp.Builder addTimestampsBuilder() {
         return getTimestampsFieldBuilder().addBuilder(
             feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp.getDefaultInstance());
       }
       /**
-       * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+       * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
        */
       public feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp.Builder addTimestampsBuilder(
           int index) {
@@ -733,7 +733,7 @@ public final class HashRingOperationMessage {
             index, feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp.getDefaultInstance());
       }
       /**
-       * <code>repeated .HashRingLogTimestamp timestamps = 1;</code>
+       * <code>repeated .feup.sdle.message.HashRingLogTimestamp timestamps = 1;</code>
        */
       public java.util.List<feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp.Builder> 
            getTimestampsBuilderList() {
@@ -786,10 +786,10 @@ public final class HashRingOperationMessage {
         return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:HashRingLogOperationMessage)
+      // @@protoc_insertion_point(builder_scope:feup.sdle.message.HashRingLogOperationMessage)
     }
 
-    // @@protoc_insertion_point(class_scope:HashRingLogOperationMessage)
+    // @@protoc_insertion_point(class_scope:feup.sdle.message.HashRingLogOperationMessage)
     private static final feup.sdle.message.HashRingOperationMessage.HashRingLogOperationMessage DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new feup.sdle.message.HashRingOperationMessage.HashRingLogOperationMessage();
@@ -838,14 +838,23 @@ public final class HashRingOperationMessage {
   }
 
   public interface HashRingLogTimestampOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:HashRingLogTimestamp)
+      // @@protoc_insertion_point(interface_extends:feup.sdle.message.HashRingLogTimestamp)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>int32 identifier = 1;</code>
+     * <code>.feup.sdle.message.NodeIdentifier identifier = 1;</code>
+     * @return Whether the identifier field is set.
+     */
+    boolean hasIdentifier();
+    /**
+     * <code>.feup.sdle.message.NodeIdentifier identifier = 1;</code>
      * @return The identifier.
      */
-    int getIdentifier();
+    feup.sdle.message.NodeIdentifierMessage.NodeIdentifier getIdentifier();
+    /**
+     * <code>.feup.sdle.message.NodeIdentifier identifier = 1;</code>
+     */
+    feup.sdle.message.NodeIdentifierMessage.NodeIdentifierOrBuilder getIdentifierOrBuilder();
 
     /**
      * <code>int32 dot = 2;</code>
@@ -860,26 +869,26 @@ public final class HashRingOperationMessage {
     int getSequence();
 
     /**
-     * <code>.HashRingOperation operation = 4;</code>
+     * <code>.feup.sdle.message.HashRingOperation operation = 4;</code>
      * @return Whether the operation field is set.
      */
     boolean hasOperation();
     /**
-     * <code>.HashRingOperation operation = 4;</code>
+     * <code>.feup.sdle.message.HashRingOperation operation = 4;</code>
      * @return The operation.
      */
     feup.sdle.message.HashRingOperationMessage.HashRingOperation getOperation();
     /**
-     * <code>.HashRingOperation operation = 4;</code>
+     * <code>.feup.sdle.message.HashRingOperation operation = 4;</code>
      */
     feup.sdle.message.HashRingOperationMessage.HashRingOperationOrBuilder getOperationOrBuilder();
   }
   /**
-   * Protobuf type {@code HashRingLogTimestamp}
+   * Protobuf type {@code feup.sdle.message.HashRingLogTimestamp}
    */
   public static final class HashRingLogTimestamp extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:HashRingLogTimestamp)
+      // @@protoc_insertion_point(message_implements:feup.sdle.message.HashRingLogTimestamp)
       HashRingLogTimestampOrBuilder {
   private static final long serialVersionUID = 0L;
     static {
@@ -900,27 +909,42 @@ public final class HashRingOperationMessage {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return feup.sdle.message.HashRingOperationMessage.internal_static_HashRingLogTimestamp_descriptor;
+      return feup.sdle.message.HashRingOperationMessage.internal_static_feup_sdle_message_HashRingLogTimestamp_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return feup.sdle.message.HashRingOperationMessage.internal_static_HashRingLogTimestamp_fieldAccessorTable
+      return feup.sdle.message.HashRingOperationMessage.internal_static_feup_sdle_message_HashRingLogTimestamp_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp.class, feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp.Builder.class);
     }
 
     private int bitField0_;
     public static final int IDENTIFIER_FIELD_NUMBER = 1;
-    private int identifier_ = 0;
+    private feup.sdle.message.NodeIdentifierMessage.NodeIdentifier identifier_;
     /**
-     * <code>int32 identifier = 1;</code>
+     * <code>.feup.sdle.message.NodeIdentifier identifier = 1;</code>
+     * @return Whether the identifier field is set.
+     */
+    @java.lang.Override
+    public boolean hasIdentifier() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>.feup.sdle.message.NodeIdentifier identifier = 1;</code>
      * @return The identifier.
      */
     @java.lang.Override
-    public int getIdentifier() {
-      return identifier_;
+    public feup.sdle.message.NodeIdentifierMessage.NodeIdentifier getIdentifier() {
+      return identifier_ == null ? feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.getDefaultInstance() : identifier_;
+    }
+    /**
+     * <code>.feup.sdle.message.NodeIdentifier identifier = 1;</code>
+     */
+    @java.lang.Override
+    public feup.sdle.message.NodeIdentifierMessage.NodeIdentifierOrBuilder getIdentifierOrBuilder() {
+      return identifier_ == null ? feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.getDefaultInstance() : identifier_;
     }
 
     public static final int DOT_FIELD_NUMBER = 2;
@@ -948,15 +972,15 @@ public final class HashRingOperationMessage {
     public static final int OPERATION_FIELD_NUMBER = 4;
     private feup.sdle.message.HashRingOperationMessage.HashRingOperation operation_;
     /**
-     * <code>.HashRingOperation operation = 4;</code>
+     * <code>.feup.sdle.message.HashRingOperation operation = 4;</code>
      * @return Whether the operation field is set.
      */
     @java.lang.Override
     public boolean hasOperation() {
-      return ((bitField0_ & 0x00000001) != 0);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
-     * <code>.HashRingOperation operation = 4;</code>
+     * <code>.feup.sdle.message.HashRingOperation operation = 4;</code>
      * @return The operation.
      */
     @java.lang.Override
@@ -964,7 +988,7 @@ public final class HashRingOperationMessage {
       return operation_ == null ? feup.sdle.message.HashRingOperationMessage.HashRingOperation.getDefaultInstance() : operation_;
     }
     /**
-     * <code>.HashRingOperation operation = 4;</code>
+     * <code>.feup.sdle.message.HashRingOperation operation = 4;</code>
      */
     @java.lang.Override
     public feup.sdle.message.HashRingOperationMessage.HashRingOperationOrBuilder getOperationOrBuilder() {
@@ -985,8 +1009,8 @@ public final class HashRingOperationMessage {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (identifier_ != 0) {
-        output.writeInt32(1, identifier_);
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(1, getIdentifier());
       }
       if (dot_ != 0) {
         output.writeInt32(2, dot_);
@@ -994,7 +1018,7 @@ public final class HashRingOperationMessage {
       if (sequence_ != 0) {
         output.writeInt32(3, sequence_);
       }
-      if (((bitField0_ & 0x00000001) != 0)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeMessage(4, getOperation());
       }
       getUnknownFields().writeTo(output);
@@ -1006,9 +1030,9 @@ public final class HashRingOperationMessage {
       if (size != -1) return size;
 
       size = 0;
-      if (identifier_ != 0) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, identifier_);
+          .computeMessageSize(1, getIdentifier());
       }
       if (dot_ != 0) {
         size += com.google.protobuf.CodedOutputStream
@@ -1018,7 +1042,7 @@ public final class HashRingOperationMessage {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(3, sequence_);
       }
-      if (((bitField0_ & 0x00000001) != 0)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(4, getOperation());
       }
@@ -1037,8 +1061,11 @@ public final class HashRingOperationMessage {
       }
       feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp other = (feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp) obj;
 
-      if (getIdentifier()
-          != other.getIdentifier()) return false;
+      if (hasIdentifier() != other.hasIdentifier()) return false;
+      if (hasIdentifier()) {
+        if (!getIdentifier()
+            .equals(other.getIdentifier())) return false;
+      }
       if (getDot()
           != other.getDot()) return false;
       if (getSequence()
@@ -1059,8 +1086,10 @@ public final class HashRingOperationMessage {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + IDENTIFIER_FIELD_NUMBER;
-      hash = (53 * hash) + getIdentifier();
+      if (hasIdentifier()) {
+        hash = (37 * hash) + IDENTIFIER_FIELD_NUMBER;
+        hash = (53 * hash) + getIdentifier().hashCode();
+      }
       hash = (37 * hash) + DOT_FIELD_NUMBER;
       hash = (53 * hash) + getDot();
       hash = (37 * hash) + SEQUENCE_FIELD_NUMBER;
@@ -1167,21 +1196,21 @@ public final class HashRingOperationMessage {
       return builder;
     }
     /**
-     * Protobuf type {@code HashRingLogTimestamp}
+     * Protobuf type {@code feup.sdle.message.HashRingLogTimestamp}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:HashRingLogTimestamp)
+        // @@protoc_insertion_point(builder_implements:feup.sdle.message.HashRingLogTimestamp)
         feup.sdle.message.HashRingOperationMessage.HashRingLogTimestampOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return feup.sdle.message.HashRingOperationMessage.internal_static_HashRingLogTimestamp_descriptor;
+        return feup.sdle.message.HashRingOperationMessage.internal_static_feup_sdle_message_HashRingLogTimestamp_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return feup.sdle.message.HashRingOperationMessage.internal_static_HashRingLogTimestamp_fieldAccessorTable
+        return feup.sdle.message.HashRingOperationMessage.internal_static_feup_sdle_message_HashRingLogTimestamp_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp.class, feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp.Builder.class);
       }
@@ -1199,6 +1228,7 @@ public final class HashRingOperationMessage {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage
                 .alwaysUseFieldBuilders) {
+          getIdentifierFieldBuilder();
           getOperationFieldBuilder();
         }
       }
@@ -1206,7 +1236,11 @@ public final class HashRingOperationMessage {
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
-        identifier_ = 0;
+        identifier_ = null;
+        if (identifierBuilder_ != null) {
+          identifierBuilder_.dispose();
+          identifierBuilder_ = null;
+        }
         dot_ = 0;
         sequence_ = 0;
         operation_ = null;
@@ -1220,7 +1254,7 @@ public final class HashRingOperationMessage {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return feup.sdle.message.HashRingOperationMessage.internal_static_HashRingLogTimestamp_descriptor;
+        return feup.sdle.message.HashRingOperationMessage.internal_static_feup_sdle_message_HashRingLogTimestamp_descriptor;
       }
 
       @java.lang.Override
@@ -1247,8 +1281,12 @@ public final class HashRingOperationMessage {
 
       private void buildPartial0(feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp result) {
         int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.identifier_ = identifier_;
+          result.identifier_ = identifierBuilder_ == null
+              ? identifier_
+              : identifierBuilder_.build();
+          to_bitField0_ |= 0x00000001;
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
           result.dot_ = dot_;
@@ -1256,12 +1294,11 @@ public final class HashRingOperationMessage {
         if (((from_bitField0_ & 0x00000004) != 0)) {
           result.sequence_ = sequence_;
         }
-        int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000008) != 0)) {
           result.operation_ = operationBuilder_ == null
               ? operation_
               : operationBuilder_.build();
-          to_bitField0_ |= 0x00000001;
+          to_bitField0_ |= 0x00000002;
         }
         result.bitField0_ |= to_bitField0_;
       }
@@ -1278,8 +1315,8 @@ public final class HashRingOperationMessage {
 
       public Builder mergeFrom(feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp other) {
         if (other == feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp.getDefaultInstance()) return this;
-        if (other.getIdentifier() != 0) {
-          setIdentifier(other.getIdentifier());
+        if (other.hasIdentifier()) {
+          mergeIdentifier(other.getIdentifier());
         }
         if (other.getDot() != 0) {
           setDot(other.getDot());
@@ -1316,11 +1353,13 @@ public final class HashRingOperationMessage {
               case 0:
                 done = true;
                 break;
-              case 8: {
-                identifier_ = input.readInt32();
+              case 10: {
+                input.readMessage(
+                    getIdentifierFieldBuilder().getBuilder(),
+                    extensionRegistry);
                 bitField0_ |= 0x00000001;
                 break;
-              } // case 8
+              } // case 10
               case 16: {
                 dot_ = input.readInt32();
                 bitField0_ |= 0x00000002;
@@ -1355,36 +1394,125 @@ public final class HashRingOperationMessage {
       }
       private int bitField0_;
 
-      private int identifier_ ;
+      private feup.sdle.message.NodeIdentifierMessage.NodeIdentifier identifier_;
+      private com.google.protobuf.SingleFieldBuilder<
+          feup.sdle.message.NodeIdentifierMessage.NodeIdentifier, feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.Builder, feup.sdle.message.NodeIdentifierMessage.NodeIdentifierOrBuilder> identifierBuilder_;
       /**
-       * <code>int32 identifier = 1;</code>
-       * @return The identifier.
+       * <code>.feup.sdle.message.NodeIdentifier identifier = 1;</code>
+       * @return Whether the identifier field is set.
        */
-      @java.lang.Override
-      public int getIdentifier() {
-        return identifier_;
+      public boolean hasIdentifier() {
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
-       * <code>int32 identifier = 1;</code>
-       * @param value The identifier to set.
-       * @return This builder for chaining.
+       * <code>.feup.sdle.message.NodeIdentifier identifier = 1;</code>
+       * @return The identifier.
        */
-      public Builder setIdentifier(int value) {
-
-        identifier_ = value;
+      public feup.sdle.message.NodeIdentifierMessage.NodeIdentifier getIdentifier() {
+        if (identifierBuilder_ == null) {
+          return identifier_ == null ? feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.getDefaultInstance() : identifier_;
+        } else {
+          return identifierBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.feup.sdle.message.NodeIdentifier identifier = 1;</code>
+       */
+      public Builder setIdentifier(feup.sdle.message.NodeIdentifierMessage.NodeIdentifier value) {
+        if (identifierBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          identifier_ = value;
+        } else {
+          identifierBuilder_.setMessage(value);
+        }
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
       /**
-       * <code>int32 identifier = 1;</code>
-       * @return This builder for chaining.
+       * <code>.feup.sdle.message.NodeIdentifier identifier = 1;</code>
+       */
+      public Builder setIdentifier(
+          feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.Builder builderForValue) {
+        if (identifierBuilder_ == null) {
+          identifier_ = builderForValue.build();
+        } else {
+          identifierBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.feup.sdle.message.NodeIdentifier identifier = 1;</code>
+       */
+      public Builder mergeIdentifier(feup.sdle.message.NodeIdentifierMessage.NodeIdentifier value) {
+        if (identifierBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0) &&
+            identifier_ != null &&
+            identifier_ != feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.getDefaultInstance()) {
+            getIdentifierBuilder().mergeFrom(value);
+          } else {
+            identifier_ = value;
+          }
+        } else {
+          identifierBuilder_.mergeFrom(value);
+        }
+        if (identifier_ != null) {
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <code>.feup.sdle.message.NodeIdentifier identifier = 1;</code>
        */
       public Builder clearIdentifier() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        identifier_ = 0;
+        identifier_ = null;
+        if (identifierBuilder_ != null) {
+          identifierBuilder_.dispose();
+          identifierBuilder_ = null;
+        }
         onChanged();
         return this;
+      }
+      /**
+       * <code>.feup.sdle.message.NodeIdentifier identifier = 1;</code>
+       */
+      public feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.Builder getIdentifierBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getIdentifierFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.feup.sdle.message.NodeIdentifier identifier = 1;</code>
+       */
+      public feup.sdle.message.NodeIdentifierMessage.NodeIdentifierOrBuilder getIdentifierOrBuilder() {
+        if (identifierBuilder_ != null) {
+          return identifierBuilder_.getMessageOrBuilder();
+        } else {
+          return identifier_ == null ?
+              feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.getDefaultInstance() : identifier_;
+        }
+      }
+      /**
+       * <code>.feup.sdle.message.NodeIdentifier identifier = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          feup.sdle.message.NodeIdentifierMessage.NodeIdentifier, feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.Builder, feup.sdle.message.NodeIdentifierMessage.NodeIdentifierOrBuilder> 
+          getIdentifierFieldBuilder() {
+        if (identifierBuilder_ == null) {
+          identifierBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              feup.sdle.message.NodeIdentifierMessage.NodeIdentifier, feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.Builder, feup.sdle.message.NodeIdentifierMessage.NodeIdentifierOrBuilder>(
+                  getIdentifier(),
+                  getParentForChildren(),
+                  isClean());
+          identifier_ = null;
+        }
+        return identifierBuilder_;
       }
 
       private int dot_ ;
@@ -1455,14 +1583,14 @@ public final class HashRingOperationMessage {
       private com.google.protobuf.SingleFieldBuilder<
           feup.sdle.message.HashRingOperationMessage.HashRingOperation, feup.sdle.message.HashRingOperationMessage.HashRingOperation.Builder, feup.sdle.message.HashRingOperationMessage.HashRingOperationOrBuilder> operationBuilder_;
       /**
-       * <code>.HashRingOperation operation = 4;</code>
+       * <code>.feup.sdle.message.HashRingOperation operation = 4;</code>
        * @return Whether the operation field is set.
        */
       public boolean hasOperation() {
         return ((bitField0_ & 0x00000008) != 0);
       }
       /**
-       * <code>.HashRingOperation operation = 4;</code>
+       * <code>.feup.sdle.message.HashRingOperation operation = 4;</code>
        * @return The operation.
        */
       public feup.sdle.message.HashRingOperationMessage.HashRingOperation getOperation() {
@@ -1473,7 +1601,7 @@ public final class HashRingOperationMessage {
         }
       }
       /**
-       * <code>.HashRingOperation operation = 4;</code>
+       * <code>.feup.sdle.message.HashRingOperation operation = 4;</code>
        */
       public Builder setOperation(feup.sdle.message.HashRingOperationMessage.HashRingOperation value) {
         if (operationBuilder_ == null) {
@@ -1489,7 +1617,7 @@ public final class HashRingOperationMessage {
         return this;
       }
       /**
-       * <code>.HashRingOperation operation = 4;</code>
+       * <code>.feup.sdle.message.HashRingOperation operation = 4;</code>
        */
       public Builder setOperation(
           feup.sdle.message.HashRingOperationMessage.HashRingOperation.Builder builderForValue) {
@@ -1503,7 +1631,7 @@ public final class HashRingOperationMessage {
         return this;
       }
       /**
-       * <code>.HashRingOperation operation = 4;</code>
+       * <code>.feup.sdle.message.HashRingOperation operation = 4;</code>
        */
       public Builder mergeOperation(feup.sdle.message.HashRingOperationMessage.HashRingOperation value) {
         if (operationBuilder_ == null) {
@@ -1524,7 +1652,7 @@ public final class HashRingOperationMessage {
         return this;
       }
       /**
-       * <code>.HashRingOperation operation = 4;</code>
+       * <code>.feup.sdle.message.HashRingOperation operation = 4;</code>
        */
       public Builder clearOperation() {
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -1537,7 +1665,7 @@ public final class HashRingOperationMessage {
         return this;
       }
       /**
-       * <code>.HashRingOperation operation = 4;</code>
+       * <code>.feup.sdle.message.HashRingOperation operation = 4;</code>
        */
       public feup.sdle.message.HashRingOperationMessage.HashRingOperation.Builder getOperationBuilder() {
         bitField0_ |= 0x00000008;
@@ -1545,7 +1673,7 @@ public final class HashRingOperationMessage {
         return getOperationFieldBuilder().getBuilder();
       }
       /**
-       * <code>.HashRingOperation operation = 4;</code>
+       * <code>.feup.sdle.message.HashRingOperation operation = 4;</code>
        */
       public feup.sdle.message.HashRingOperationMessage.HashRingOperationOrBuilder getOperationOrBuilder() {
         if (operationBuilder_ != null) {
@@ -1556,7 +1684,7 @@ public final class HashRingOperationMessage {
         }
       }
       /**
-       * <code>.HashRingOperation operation = 4;</code>
+       * <code>.feup.sdle.message.HashRingOperation operation = 4;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
           feup.sdle.message.HashRingOperationMessage.HashRingOperation, feup.sdle.message.HashRingOperationMessage.HashRingOperation.Builder, feup.sdle.message.HashRingOperationMessage.HashRingOperationOrBuilder> 
@@ -1572,10 +1700,10 @@ public final class HashRingOperationMessage {
         return operationBuilder_;
       }
 
-      // @@protoc_insertion_point(builder_scope:HashRingLogTimestamp)
+      // @@protoc_insertion_point(builder_scope:feup.sdle.message.HashRingLogTimestamp)
     }
 
-    // @@protoc_insertion_point(class_scope:HashRingLogTimestamp)
+    // @@protoc_insertion_point(class_scope:feup.sdle.message.HashRingLogTimestamp)
     private static final feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp();
@@ -1624,16 +1752,16 @@ public final class HashRingOperationMessage {
   }
 
   public interface HashRingOperationOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:HashRingOperation)
+      // @@protoc_insertion_point(interface_extends:feup.sdle.message.HashRingOperation)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.HashRingOperation.OperationType operationType = 2;</code>
+     * <code>.feup.sdle.message.HashRingOperation.OperationType operationType = 2;</code>
      * @return The enum numeric value on the wire for operationType.
      */
     int getOperationTypeValue();
     /**
-     * <code>.HashRingOperation.OperationType operationType = 2;</code>
+     * <code>.feup.sdle.message.HashRingOperation.OperationType operationType = 2;</code>
      * @return The operationType.
      */
     feup.sdle.message.HashRingOperationMessage.HashRingOperation.OperationType getOperationType();
@@ -1656,11 +1784,11 @@ public final class HashRingOperationMessage {
     com.google.protobuf.ByteString getHashes(int index);
   }
   /**
-   * Protobuf type {@code HashRingOperation}
+   * Protobuf type {@code feup.sdle.message.HashRingOperation}
    */
   public static final class HashRingOperation extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:HashRingOperation)
+      // @@protoc_insertion_point(message_implements:feup.sdle.message.HashRingOperation)
       HashRingOperationOrBuilder {
   private static final long serialVersionUID = 0L;
     static {
@@ -1683,19 +1811,19 @@ public final class HashRingOperationMessage {
 
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return feup.sdle.message.HashRingOperationMessage.internal_static_HashRingOperation_descriptor;
+      return feup.sdle.message.HashRingOperationMessage.internal_static_feup_sdle_message_HashRingOperation_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return feup.sdle.message.HashRingOperationMessage.internal_static_HashRingOperation_fieldAccessorTable
+      return feup.sdle.message.HashRingOperationMessage.internal_static_feup_sdle_message_HashRingOperation_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               feup.sdle.message.HashRingOperationMessage.HashRingOperation.class, feup.sdle.message.HashRingOperationMessage.HashRingOperation.Builder.class);
     }
 
     /**
-     * Protobuf enum {@code HashRingOperation.OperationType}
+     * Protobuf enum {@code feup.sdle.message.HashRingOperation.OperationType}
      */
     public enum OperationType
         implements com.google.protobuf.ProtocolMessageEnum {
@@ -1808,20 +1936,20 @@ public final class HashRingOperationMessage {
         this.value = value;
       }
 
-      // @@protoc_insertion_point(enum_scope:HashRingOperation.OperationType)
+      // @@protoc_insertion_point(enum_scope:feup.sdle.message.HashRingOperation.OperationType)
     }
 
     public static final int OPERATIONTYPE_FIELD_NUMBER = 2;
     private int operationType_ = 0;
     /**
-     * <code>.HashRingOperation.OperationType operationType = 2;</code>
+     * <code>.feup.sdle.message.HashRingOperation.OperationType operationType = 2;</code>
      * @return The enum numeric value on the wire for operationType.
      */
     @java.lang.Override public int getOperationTypeValue() {
       return operationType_;
     }
     /**
-     * <code>.HashRingOperation.OperationType operationType = 2;</code>
+     * <code>.feup.sdle.message.HashRingOperation.OperationType operationType = 2;</code>
      * @return The operationType.
      */
     @java.lang.Override public feup.sdle.message.HashRingOperationMessage.HashRingOperation.OperationType getOperationType() {
@@ -2033,21 +2161,21 @@ public final class HashRingOperationMessage {
       return builder;
     }
     /**
-     * Protobuf type {@code HashRingOperation}
+     * Protobuf type {@code feup.sdle.message.HashRingOperation}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:HashRingOperation)
+        // @@protoc_insertion_point(builder_implements:feup.sdle.message.HashRingOperation)
         feup.sdle.message.HashRingOperationMessage.HashRingOperationOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return feup.sdle.message.HashRingOperationMessage.internal_static_HashRingOperation_descriptor;
+        return feup.sdle.message.HashRingOperationMessage.internal_static_feup_sdle_message_HashRingOperation_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return feup.sdle.message.HashRingOperationMessage.internal_static_HashRingOperation_fieldAccessorTable
+        return feup.sdle.message.HashRingOperationMessage.internal_static_feup_sdle_message_HashRingOperation_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 feup.sdle.message.HashRingOperationMessage.HashRingOperation.class, feup.sdle.message.HashRingOperationMessage.HashRingOperation.Builder.class);
       }
@@ -2074,7 +2202,7 @@ public final class HashRingOperationMessage {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return feup.sdle.message.HashRingOperationMessage.internal_static_HashRingOperation_descriptor;
+        return feup.sdle.message.HashRingOperationMessage.internal_static_feup_sdle_message_HashRingOperation_descriptor;
       }
 
       @java.lang.Override
@@ -2192,14 +2320,14 @@ public final class HashRingOperationMessage {
 
       private int operationType_ = 0;
       /**
-       * <code>.HashRingOperation.OperationType operationType = 2;</code>
+       * <code>.feup.sdle.message.HashRingOperation.OperationType operationType = 2;</code>
        * @return The enum numeric value on the wire for operationType.
        */
       @java.lang.Override public int getOperationTypeValue() {
         return operationType_;
       }
       /**
-       * <code>.HashRingOperation.OperationType operationType = 2;</code>
+       * <code>.feup.sdle.message.HashRingOperation.OperationType operationType = 2;</code>
        * @param value The enum numeric value on the wire for operationType to set.
        * @return This builder for chaining.
        */
@@ -2210,7 +2338,7 @@ public final class HashRingOperationMessage {
         return this;
       }
       /**
-       * <code>.HashRingOperation.OperationType operationType = 2;</code>
+       * <code>.feup.sdle.message.HashRingOperation.OperationType operationType = 2;</code>
        * @return The operationType.
        */
       @java.lang.Override
@@ -2219,7 +2347,7 @@ public final class HashRingOperationMessage {
         return result == null ? feup.sdle.message.HashRingOperationMessage.HashRingOperation.OperationType.UNRECOGNIZED : result;
       }
       /**
-       * <code>.HashRingOperation.OperationType operationType = 2;</code>
+       * <code>.feup.sdle.message.HashRingOperation.OperationType operationType = 2;</code>
        * @param value The operationType to set.
        * @return This builder for chaining.
        */
@@ -2233,7 +2361,7 @@ public final class HashRingOperationMessage {
         return this;
       }
       /**
-       * <code>.HashRingOperation.OperationType operationType = 2;</code>
+       * <code>.feup.sdle.message.HashRingOperation.OperationType operationType = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearOperationType() {
@@ -2327,10 +2455,10 @@ public final class HashRingOperationMessage {
         return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:HashRingOperation)
+      // @@protoc_insertion_point(builder_scope:feup.sdle.message.HashRingOperation)
     }
 
-    // @@protoc_insertion_point(class_scope:HashRingOperation)
+    // @@protoc_insertion_point(class_scope:feup.sdle.message.HashRingOperation)
     private static final feup.sdle.message.HashRingOperationMessage.HashRingOperation DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new feup.sdle.message.HashRingOperationMessage.HashRingOperation();
@@ -2379,20 +2507,20 @@ public final class HashRingOperationMessage {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_HashRingLogOperationMessage_descriptor;
+    internal_static_feup_sdle_message_HashRingLogOperationMessage_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_HashRingLogOperationMessage_fieldAccessorTable;
+      internal_static_feup_sdle_message_HashRingLogOperationMessage_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_HashRingLogTimestamp_descriptor;
+    internal_static_feup_sdle_message_HashRingLogTimestamp_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_HashRingLogTimestamp_fieldAccessorTable;
+      internal_static_feup_sdle_message_HashRingLogTimestamp_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_HashRingOperation_descriptor;
+    internal_static_feup_sdle_message_HashRingOperation_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_HashRingOperation_fieldAccessorTable;
+      internal_static_feup_sdle_message_HashRingOperation_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -2402,41 +2530,46 @@ public final class HashRingOperationMessage {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\032hashringlogoperation.proto\"[\n\033HashRing" +
-      "LogOperationMessage\022)\n\ntimestamps\030\001 \003(\0132" +
-      "\025.HashRingLogTimestamp\022\021\n\treplicaId\030\002 \001(" +
-      "\r\"p\n\024HashRingLogTimestamp\022\022\n\nidentifier\030" +
-      "\001 \001(\005\022\013\n\003dot\030\002 \001(\005\022\020\n\010sequence\030\003 \001(\005\022%\n\t" +
-      "operation\030\004 \001(\0132\022.HashRingOperation\"\202\001\n\021" +
-      "HashRingOperation\0227\n\roperationType\030\002 \001(\016" +
-      "2 .HashRingOperation.OperationType\022\016\n\006ha" +
-      "shes\030\003 \003(\014\"$\n\rOperationType\022\007\n\003ADD\020\000\022\n\n\006" +
-      "REMOVE\020\001B-\n\021feup.sdle.messageB\030HashRingO" +
-      "perationMessageb\006proto3"
+      "\n\032hashringlogoperation.proto\022\021feup.sdle." +
+      "message\032\024nodeidentifier.proto\"m\n\033HashRin" +
+      "gLogOperationMessage\022;\n\ntimestamps\030\001 \003(\013" +
+      "2\'.feup.sdle.message.HashRingLogTimestam" +
+      "p\022\021\n\treplicaId\030\002 \001(\r\"\245\001\n\024HashRingLogTime" +
+      "stamp\0225\n\nidentifier\030\001 \001(\0132!.feup.sdle.me" +
+      "ssage.NodeIdentifier\022\013\n\003dot\030\002 \001(\005\022\020\n\010seq" +
+      "uence\030\003 \001(\005\0227\n\toperation\030\004 \001(\0132$.feup.sd" +
+      "le.message.HashRingOperation\"\224\001\n\021HashRin" +
+      "gOperation\022I\n\roperationType\030\002 \001(\01622.feup" +
+      ".sdle.message.HashRingOperation.Operatio" +
+      "nType\022\016\n\006hashes\030\003 \003(\014\"$\n\rOperationType\022\007" +
+      "\n\003ADD\020\000\022\n\n\006REMOVE\020\001B-\n\021feup.sdle.message" +
+      "B\030HashRingOperationMessageb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          feup.sdle.message.NodeIdentifierMessage.getDescriptor(),
         });
-    internal_static_HashRingLogOperationMessage_descriptor =
+    internal_static_feup_sdle_message_HashRingLogOperationMessage_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_HashRingLogOperationMessage_fieldAccessorTable = new
+    internal_static_feup_sdle_message_HashRingLogOperationMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_HashRingLogOperationMessage_descriptor,
+        internal_static_feup_sdle_message_HashRingLogOperationMessage_descriptor,
         new java.lang.String[] { "Timestamps", "ReplicaId", });
-    internal_static_HashRingLogTimestamp_descriptor =
+    internal_static_feup_sdle_message_HashRingLogTimestamp_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_HashRingLogTimestamp_fieldAccessorTable = new
+    internal_static_feup_sdle_message_HashRingLogTimestamp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_HashRingLogTimestamp_descriptor,
+        internal_static_feup_sdle_message_HashRingLogTimestamp_descriptor,
         new java.lang.String[] { "Identifier", "Dot", "Sequence", "Operation", });
-    internal_static_HashRingOperation_descriptor =
+    internal_static_feup_sdle_message_HashRingOperation_descriptor =
       getDescriptor().getMessageTypes().get(2);
-    internal_static_HashRingOperation_fieldAccessorTable = new
+    internal_static_feup_sdle_message_HashRingOperation_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_HashRingOperation_descriptor,
+        internal_static_feup_sdle_message_HashRingOperation_descriptor,
         new java.lang.String[] { "OperationType", "Hashes", });
     descriptor.resolveAllFeaturesImmutable();
+    feup.sdle.message.NodeIdentifierMessage.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

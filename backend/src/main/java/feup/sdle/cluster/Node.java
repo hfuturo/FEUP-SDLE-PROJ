@@ -6,6 +6,7 @@ import feup.sdle.crypto.MD5HashAlgorithm;
 import feup.sdle.message.HashRingMessage;
 import feup.sdle.message.Hashcheck;
 import feup.sdle.message.Message;
+import feup.sdle.message.NodeIdentifierMessage;
 import feup.sdle.storage.FileStorageProvider;
 import feup.sdle.storage.MemoryStorageProvider;
 import org.slf4j.Logger;
@@ -46,22 +47,19 @@ public class Node {
 
         this.starter = starter;
 
-        this.manageHashRing();
+        this.ring = new HashRing(new MD5HashAlgorithm(), this.identifier.getId(), this);
 
         this.storage = new MemoryStorageProvider<>(new FileStorageProvider());
 
         this.gossipService = new GossipService(this, this.zmqContext);
-        this.hashRingSyncService = new HashRingSyncService(this, this.ring, this.gossipService, 10000, 3);
+        this.hashRingSyncService = new HashRingSyncService(this, this.ring, this.gossipService, 2000, 3);
+
+        if(!this.starter) this.tryToJoinRing();
     }
 
-    public void manageHashRing() {
-        this.ring = new HashRing(new MD5HashAlgorithm(), this.identifier.getId(), this );
-
-        if(!this.starter) {
-           this.tryToJoinRing();
-        }
-    }
-
+    /**
+     * This should be executed by a node that wants to try to join the ring
+     */
     private void tryToJoinRing() {
         int ringSize = this.ring.getRing().size();
         int randomIndex = new Random().nextInt(ringSize);
@@ -114,7 +112,20 @@ public class Node {
         return result;
     }
 
+    public void processHashRingView(Message.MessageFormat msgFormat, NodeIdentifier senderNode) {
+        try {
+            HashRingMessage.HashRing hashringMessage = HashRingMessage.HashRing.parseFrom(msgFormat.getMessage());
+
+            for(Map.Entry<String, NodeIdentifierMessage.NodeIdentifier> entry: hashringMessage.getNodesMap().entrySet()) {
+                this.ring.getRing().put(new BigInteger(entry.getKey()), NodeIdentifier.fromMessageNodeIdentifier(entry.getValue()));
+            }
+        } catch(Exception e) {
+            LOGGER.error(Arrays.toString(e.getStackTrace()));
+        }
+    }
+
     public void processAddNodeRequest(Message.MessageFormat msgFormat, NodeIdentifier senderNode) {
+        System.out.println("Processing add node request from: " + senderNode.getId());
         try {
             // 1. Add node to ring
             this.ring.addNode(senderNode);

@@ -63,7 +63,7 @@ public class HashRingSyncService {
                 HashRingLog otherHashRingLog = HashRingLog.fromHashRingLogMessage(hashRingLogOperationMessage, senderNode);
 
                 int startApplyIndex = this.hashRing.getHashRingLog().merge(otherHashRingLog);
-
+                System.out.println("APPLY INDEX: " + startApplyIndex);
                 this.hashRing.applyOperations(startApplyIndex);
             }
         }

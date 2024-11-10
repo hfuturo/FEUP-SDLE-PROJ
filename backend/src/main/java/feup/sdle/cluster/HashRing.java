@@ -59,7 +59,6 @@ public class HashRing {
 
             LOGGER.info(Color.green("Seed Nodes generated"));
         } catch (Exception e) {
-            System.out.println("ESTÁ A  VIR PARA AQUI MEU, QUASE DE CERTEZA");
             LOGGER.error(e.getMessage());
         }
 
@@ -172,12 +171,12 @@ public class HashRing {
             for(BigInteger hash: operation.getHashes()) {
                 switch (operation.getOperationType()) {
                     case ADD -> {
-                        //System.out.println("Added " + hash + " to " + operation.getNodeIdentifier().getId());
-                        //this.ring.put(hash, operation.getNodeIdentifier());
+                        System.out.println("Added " + hash + " to " + operation.getNodeIdentifier().getId());
+                        this.ring.put(hash, operation.getNodeIdentifier());
                     }
                     case REMOVE -> {
-                        //System.out.println("Removed " + hash + " which belonged to " + operation.getNodeIdentifier().getId());
-                        //this.ring.remove(hash);
+                        System.out.println("Removed " + hash + " which belonged to " + operation.getNodeIdentifier().getId());
+                        this.ring.remove(hash);
                     }
                 }
             }
