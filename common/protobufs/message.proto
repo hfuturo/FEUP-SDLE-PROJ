@@ -11,12 +11,14 @@ message MessageFormat {
   enum MessageType {
     HASH_RING_LOG = 0;
     REPLICATION = 1;
-    HASHRING = 2;
+    HASHRING_GET = 2;
+    HASHRING_JOIN = 3;
+    HASHRING_LOG_HASH_CHECK = 4;
   }
 
-  MessageType messageType = 2;
-  bytes message  = 3;
-  feup.sdle.message.NodeIdentifier nodeIdentifier = 4; 
+  MessageType messageType = 1;
+  bytes message  = 2;
+  feup.sdle.message.NodeIdentifier nodeIdentifier = 3; 
 }
 
 

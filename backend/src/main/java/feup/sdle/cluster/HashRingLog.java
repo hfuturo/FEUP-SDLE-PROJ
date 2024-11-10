@@ -4,6 +4,7 @@ import feup.sdle.cluster.ring.operations.AddNodeOperation;
 import feup.sdle.cluster.ring.operations.HashRingLogOperation;
 import feup.sdle.crdts.HashRingLongTimestamp;
 import feup.sdle.crdts.VersionStamp;
+import feup.sdle.message.HashRingOperationMessage;
 
 import java.util.*;
 
@@ -66,10 +67,15 @@ public class HashRingLog {
         this.dot++;
     }
 
-    public void merge(HashRingLog other) {
+    /**
+     *
+     * @return The index of the operations array from where we must start applying the new operations
+     */
+    public int merge(HashRingLog other) {
         int localSeqConflictStart = -1;
         int otherSeqConflictStart = -1;
         boolean conflictFound = false;
+        int applyIndex = -1;
 
         // 1. Detect if there are conflicts (if there are different versions with same sequence number)
         for(int i = 0; i < this.operations.size(); i++) {
@@ -99,17 +105,24 @@ public class HashRingLog {
 
             if(localOperation.getVersionStamp().compareTo(otherOperation.getVersionStamp()) < 0) {
                 common.addAll(this.operations.subList(localSeqConflictStart, this.operations.size()));
+                applyIndex = common.size(); // index from where the local node does not have
 
                 List<HashRingLongTimestamp<HashRingLogOperation>> replacedList = other.operations.subList(otherSeqConflictStart, other.operations.size());
                 replacedList.removeAll(common);
+
+
+                // TODO Revert the operations common to local conflict list and other conflict list
+
 
                 this.updateSequenceNumber(common.getLast().getSequenceNumber() + 1, replacedList);
                 common.addAll(replacedList);
             } else {
                 common.addAll(other.operations.subList(otherSeqConflictStart, other.operations.size()));
+                applyIndex = localSeqConflictStart + 1; // The other operations will be right on the localSeqConflictStart index, so we must start applying from that point
 
                 List<HashRingLongTimestamp<HashRingLogOperation>> replacedList = this.operations.subList(otherSeqConflictStart, other.operations.size());
                 replacedList.removeAll(common);
+
 
                 this.updateSequenceNumber(common.getLast().getSequenceNumber() + 1, replacedList);
                 common.addAll(replacedList);
@@ -117,15 +130,28 @@ public class HashRingLog {
 
             this.operations = common;
         } else {
+            applyIndex = this.operations.size();
+
             List<HashRingLongTimestamp<HashRingLogOperation>> difference = new ArrayList<>(other.operations);
             difference.removeAll(this.operations);
 
             // We don't need to change the sequence numbers because there were not any conflicts
             this.operations.addAll(difference);
+
             Collections.sort(this.operations);
         }
 
         this.sequenceNumberReplicaMapping.put(new VersionStamp(other.localIdentifier, this.operations.size()), this.operations.size());
+
+        return applyIndex;
+    }
+
+    public static HashRingLog fromHashRingLogMessage(HashRingOperationMessage.HashRingLogOperationMessage msg) {
+        HashRingLog log = new HashRingLog(msg.getReplicaId());
+
+        for(HashRingOperationMessage.HashRingOperation operation: msg.getOperationsList()) {
+            log.operations.add()
+        }
     }
 
     /**

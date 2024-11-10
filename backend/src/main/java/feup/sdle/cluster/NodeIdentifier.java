@@ -62,6 +62,14 @@ public class NodeIdentifier {
         );
     }
 
+    public NodeIdentifierMessage.NodeIdentifier toMessageNodeIdentifier() {
+        return NodeIdentifierMessage.NodeIdentifier.newBuilder()
+                .setId(this.id)
+                .setHostname(this.hostname)
+                .setPort(this.port)
+                .build();
+    }
+
     @Override
     public boolean equals(Object object) {
         if (object == this) return true;

@@ -9,5 +9,5 @@ message HashCheck {
   }
 
   string hash = 1;
-  string type = 2;
+  ContextType type = 2;
 }

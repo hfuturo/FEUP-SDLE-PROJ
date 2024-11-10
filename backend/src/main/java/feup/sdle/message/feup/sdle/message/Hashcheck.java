@@ -42,16 +42,15 @@ public final class Hashcheck {
         getHashBytes();
 
     /**
-     * <code>string type = 2;</code>
+     * <code>.HashCheck.ContextType type = 2;</code>
+     * @return The enum numeric value on the wire for type.
+     */
+    int getTypeValue();
+    /**
+     * <code>.HashCheck.ContextType type = 2;</code>
      * @return The type.
      */
-    java.lang.String getType();
-    /**
-     * <code>string type = 2;</code>
-     * @return The bytes for type.
-     */
-    com.google.protobuf.ByteString
-        getTypeBytes();
+    feup.sdle.message.Hashcheck.HashCheck.ContextType getType();
   }
   /**
    * Protobuf type {@code HashCheck}
@@ -76,7 +75,7 @@ public final class Hashcheck {
     }
     private HashCheck() {
       hash_ = "";
-      type_ = "";
+      type_ = 0;
     }
 
     public static final com.google.protobuf.Descriptors.Descriptor
@@ -249,42 +248,21 @@ public final class Hashcheck {
     }
 
     public static final int TYPE_FIELD_NUMBER = 2;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object type_ = "";
+    private int type_ = 0;
     /**
-     * <code>string type = 2;</code>
-     * @return The type.
+     * <code>.HashCheck.ContextType type = 2;</code>
+     * @return The enum numeric value on the wire for type.
      */
-    @java.lang.Override
-    public java.lang.String getType() {
-      java.lang.Object ref = type_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        type_ = s;
-        return s;
-      }
+    @java.lang.Override public int getTypeValue() {
+      return type_;
     }
     /**
-     * <code>string type = 2;</code>
-     * @return The bytes for type.
+     * <code>.HashCheck.ContextType type = 2;</code>
+     * @return The type.
      */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getTypeBytes() {
-      java.lang.Object ref = type_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        type_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    @java.lang.Override public feup.sdle.message.Hashcheck.HashCheck.ContextType getType() {
+      feup.sdle.message.Hashcheck.HashCheck.ContextType result = feup.sdle.message.Hashcheck.HashCheck.ContextType.forNumber(type_);
+      return result == null ? feup.sdle.message.Hashcheck.HashCheck.ContextType.UNRECOGNIZED : result;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -304,8 +282,8 @@ public final class Hashcheck {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(hash_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 1, hash_);
       }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(type_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 2, type_);
+      if (type_ != feup.sdle.message.Hashcheck.HashCheck.ContextType.HASHRINGLOG.getNumber()) {
+        output.writeEnum(2, type_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -319,8 +297,9 @@ public final class Hashcheck {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(hash_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(1, hash_);
       }
-      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(type_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(2, type_);
+      if (type_ != feup.sdle.message.Hashcheck.HashCheck.ContextType.HASHRINGLOG.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, type_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -339,8 +318,7 @@ public final class Hashcheck {
 
       if (!getHash()
           .equals(other.getHash())) return false;
-      if (!getType()
-          .equals(other.getType())) return false;
+      if (type_ != other.type_) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -355,7 +333,7 @@ public final class Hashcheck {
       hash = (37 * hash) + HASH_FIELD_NUMBER;
       hash = (53 * hash) + getHash().hashCode();
       hash = (37 * hash) + TYPE_FIELD_NUMBER;
-      hash = (53 * hash) + getType().hashCode();
+      hash = (53 * hash) + type_;
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -488,7 +466,7 @@ public final class Hashcheck {
         super.clear();
         bitField0_ = 0;
         hash_ = "";
-        type_ = "";
+        type_ = 0;
         return this;
       }
 
@@ -547,10 +525,8 @@ public final class Hashcheck {
           bitField0_ |= 0x00000001;
           onChanged();
         }
-        if (!other.getType().isEmpty()) {
-          type_ = other.type_;
-          bitField0_ |= 0x00000002;
-          onChanged();
+        if (other.type_ != 0) {
+          setTypeValue(other.getTypeValue());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -583,11 +559,11 @@ public final class Hashcheck {
                 bitField0_ |= 0x00000001;
                 break;
               } // case 10
-              case 18: {
-                type_ = input.readStringRequireUtf8();
+              case 16: {
+                type_ = input.readEnum();
                 bitField0_ |= 0x00000002;
                 break;
-              } // case 18
+              } // case 16
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -677,74 +653,55 @@ public final class Hashcheck {
         return this;
       }
 
-      private java.lang.Object type_ = "";
+      private int type_ = 0;
       /**
-       * <code>string type = 2;</code>
+       * <code>.HashCheck.ContextType type = 2;</code>
+       * @return The enum numeric value on the wire for type.
+       */
+      @java.lang.Override public int getTypeValue() {
+        return type_;
+      }
+      /**
+       * <code>.HashCheck.ContextType type = 2;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTypeValue(int value) {
+        type_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.HashCheck.ContextType type = 2;</code>
        * @return The type.
        */
-      public java.lang.String getType() {
-        java.lang.Object ref = type_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          type_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      @java.lang.Override
+      public feup.sdle.message.Hashcheck.HashCheck.ContextType getType() {
+        feup.sdle.message.Hashcheck.HashCheck.ContextType result = feup.sdle.message.Hashcheck.HashCheck.ContextType.forNumber(type_);
+        return result == null ? feup.sdle.message.Hashcheck.HashCheck.ContextType.UNRECOGNIZED : result;
       }
       /**
-       * <code>string type = 2;</code>
-       * @return The bytes for type.
-       */
-      public com.google.protobuf.ByteString
-          getTypeBytes() {
-        java.lang.Object ref = type_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          type_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string type = 2;</code>
+       * <code>.HashCheck.ContextType type = 2;</code>
        * @param value The type to set.
        * @return This builder for chaining.
        */
-      public Builder setType(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        type_ = value;
+      public Builder setType(feup.sdle.message.Hashcheck.HashCheck.ContextType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
         bitField0_ |= 0x00000002;
+        type_ = value.getNumber();
         onChanged();
         return this;
       }
       /**
-       * <code>string type = 2;</code>
+       * <code>.HashCheck.ContextType type = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearType() {
-        type_ = getDefaultInstance().getType();
         bitField0_ = (bitField0_ & ~0x00000002);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string type = 2;</code>
-       * @param value The bytes for type to set.
-       * @return This builder for chaining.
-       */
-      public Builder setTypeBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        type_ = value;
-        bitField0_ |= 0x00000002;
+        type_ = 0;
         onChanged();
         return this;
       }
@@ -814,10 +771,11 @@ public final class Hashcheck {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\017hashcheck.proto\"Y\n\tHashCheck\022\014\n\004hash\030\001" +
-      " \001(\t\022\014\n\004type\030\002 \001(\t\"0\n\013ContextType\022\017\n\013HAS" +
-      "HRINGLOG\020\000\022\020\n\014DOCUMENTCRDT\020\001B\023\n\021feup.sdl" +
-      "e.messageb\006proto3"
+      "\n\017hashcheck.proto\"q\n\tHashCheck\022\014\n\004hash\030\001" +
+      " \001(\t\022$\n\004type\030\002 \001(\0162\026.HashCheck.ContextTy" +
+      "pe\"0\n\013ContextType\022\017\n\013HASHRINGLOG\020\000\022\020\n\014DO" +
+      "CUMENTCRDT\020\001B\023\n\021feup.sdle.messageb\006proto" +
+      "3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

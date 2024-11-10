@@ -52,6 +52,12 @@ public final class HashRingOperationMessage {
      */
     feup.sdle.message.HashRingOperationMessage.HashRingOperationOrBuilder getOperationsOrBuilder(
         int index);
+
+    /**
+     * <code>uint32 replicaId = 2;</code>
+     * @return The replicaId.
+     */
+    int getReplicaId();
   }
   /**
    * Protobuf type {@code HashRingLogOperationMessage}
@@ -132,6 +138,17 @@ public final class HashRingOperationMessage {
       return operations_.get(index);
     }
 
+    public static final int REPLICAID_FIELD_NUMBER = 2;
+    private int replicaId_ = 0;
+    /**
+     * <code>uint32 replicaId = 2;</code>
+     * @return The replicaId.
+     */
+    @java.lang.Override
+    public int getReplicaId() {
+      return replicaId_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -149,6 +166,9 @@ public final class HashRingOperationMessage {
       for (int i = 0; i < operations_.size(); i++) {
         output.writeMessage(1, operations_.get(i));
       }
+      if (replicaId_ != 0) {
+        output.writeUInt32(2, replicaId_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -161,6 +181,10 @@ public final class HashRingOperationMessage {
       for (int i = 0; i < operations_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, operations_.get(i));
+      }
+      if (replicaId_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(2, replicaId_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -179,6 +203,8 @@ public final class HashRingOperationMessage {
 
       if (!getOperationsList()
           .equals(other.getOperationsList())) return false;
+      if (getReplicaId()
+          != other.getReplicaId()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -194,6 +220,8 @@ public final class HashRingOperationMessage {
         hash = (37 * hash) + OPERATIONS_FIELD_NUMBER;
         hash = (53 * hash) + getOperationsList().hashCode();
       }
+      hash = (37 * hash) + REPLICAID_FIELD_NUMBER;
+      hash = (53 * hash) + getReplicaId();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -332,6 +360,7 @@ public final class HashRingOperationMessage {
           operationsBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
+        replicaId_ = 0;
         return this;
       }
 
@@ -378,6 +407,9 @@ public final class HashRingOperationMessage {
 
       private void buildPartial0(feup.sdle.message.HashRingOperationMessage.HashRingLogOperationMessage result) {
         int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.replicaId_ = replicaId_;
+        }
       }
 
       @java.lang.Override
@@ -418,6 +450,9 @@ public final class HashRingOperationMessage {
             }
           }
         }
+        if (other.getReplicaId() != 0) {
+          setReplicaId(other.getReplicaId());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -457,6 +492,11 @@ public final class HashRingOperationMessage {
                 }
                 break;
               } // case 10
+              case 16: {
+                replicaId_ = input.readUInt32();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 16
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -712,6 +752,38 @@ public final class HashRingOperationMessage {
           operations_ = null;
         }
         return operationsBuilder_;
+      }
+
+      private int replicaId_ ;
+      /**
+       * <code>uint32 replicaId = 2;</code>
+       * @return The replicaId.
+       */
+      @java.lang.Override
+      public int getReplicaId() {
+        return replicaId_;
+      }
+      /**
+       * <code>uint32 replicaId = 2;</code>
+       * @param value The replicaId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReplicaId(int value) {
+
+        replicaId_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint32 replicaId = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearReplicaId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        replicaId_ = 0;
+        onChanged();
+        return this;
       }
 
       // @@protoc_insertion_point(builder_scope:HashRingLogOperationMessage)
@@ -1539,14 +1611,14 @@ public final class HashRingOperationMessage {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\032hashringlogoperation.proto\"E\n\033HashRing" +
+      "\n\032hashringlogoperation.proto\"X\n\033HashRing" +
       "LogOperationMessage\022&\n\noperations\030\001 \003(\0132" +
-      "\022.HashRingOperation\"\202\001\n\021HashRingOperatio" +
-      "n\0227\n\roperationType\030\002 \001(\0162 .HashRingOpera" +
-      "tion.OperationType\022\016\n\006hashes\030\003 \003(\014\"$\n\rOp" +
-      "erationType\022\007\n\003ADD\020\000\022\n\n\006REMOVE\020\001B-\n\021feup" +
-      ".sdle.messageB\030HashRingOperationMessageb" +
-      "\006proto3"
+      "\022.HashRingOperation\022\021\n\treplicaId\030\002 \001(\r\"\202" +
+      "\001\n\021HashRingOperation\0227\n\roperationType\030\002 " +
+      "\001(\0162 .HashRingOperation.OperationType\022\016\n" +
+      "\006hashes\030\003 \003(\014\"$\n\rOperationType\022\007\n\003ADD\020\000\022" +
+      "\n\n\006REMOVE\020\001B-\n\021feup.sdle.messageB\030HashRi" +
+      "ngOperationMessageb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1557,7 +1629,7 @@ public final class HashRingOperationMessage {
     internal_static_HashRingLogOperationMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_HashRingLogOperationMessage_descriptor,
-        new java.lang.String[] { "Operations", });
+        new java.lang.String[] { "Operations", "ReplicaId", });
     internal_static_HashRingOperation_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_HashRingOperation_fieldAccessorTable = new

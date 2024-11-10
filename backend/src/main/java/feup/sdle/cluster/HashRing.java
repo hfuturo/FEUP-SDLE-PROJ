@@ -1,9 +1,11 @@
 package feup.sdle.cluster;
 
+import com.google.protobuf.Descriptors;
 import feup.sdle.cluster.ring.operations.AddNodeOperation;
 import feup.sdle.cluster.ring.operations.RemoveNodeOperation;
 import feup.sdle.crypto.HashAlgorithm;
 import feup.sdle.crdts.DotContext;
+import feup.sdle.message.HashRingMessage;
 import feup.sdle.utils.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,10 +24,12 @@ public class HashRing {
     private final HashAlgorithm hashAlgorithm;
     private DotContext dotContext;
     private HashRingLog hashRingLog;
+    private Node node;
 
-    public HashRing(HashAlgorithm hashAlgorithm, Integer nodeIdentifier) {
+    public HashRing(HashAlgorithm hashAlgorithm, Integer nodeIdentifier, Node node) {
         this.ring = new TreeMap<>();
         this.hashAlgorithm = hashAlgorithm;
+        this.node = node;
 
         this.hashRingLog = new HashRingLog(nodeIdentifier);
         this.generateSeedNodes();
@@ -129,6 +133,7 @@ public class HashRing {
 
         for (int i = 0; i < NODE_REPLICAS; i++) {
             BigInteger nodeHash = this.hashAlgorithm.getHash(nodeIdentifier.toString() + i);
+
             this.ring.put(nodeHash, nodeIdentifier);
             nodesToAdd.add(nodeHash);
         }

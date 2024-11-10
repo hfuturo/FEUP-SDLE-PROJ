@@ -1,6 +1,7 @@
 package feup.sdle.cluster.ring.operations;
 
 import feup.sdle.cluster.NodeIdentifier;
+import feup.sdle.message.HashRingOperationMessage;
 
 import java.math.BigInteger;
 import java.util.List;

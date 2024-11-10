@@ -10,6 +10,7 @@ import org.zeromq.SocketType;
 import org.zeromq.ZContext;
 import org.zeromq.ZMQ;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -50,7 +51,9 @@ public class GossipService {
     public void buildMessageActions() {
         this.messageActions = new HashMap<>();
 
+        this.messageActions.put(MessageFormat.MessageType.HASHRING_LOG_HASH_CHECK, this.node::processRingLogHashCheck);
         this.messageActions.put(MessageFormat.MessageType.HASH_RING_LOG, this.node::processHashRingSyncMessage);
+        this.messageActions.put(MessageFormat.MessageType.HASHRING_JOIN, this.node::processAddNodeRequest);
     }
 
     /**
@@ -69,7 +72,8 @@ public class GossipService {
                 try {
                     MessageFormat msgFormat = MessageFormat.parseFrom(reply);
 
-                    this.messageActions.get(msgFormat.getMessageType()).accept(msgFormat, NodeIdentifier.fromMessageNodeIdentifier(msgFormat.getNodeIdentifier()));
+                    BiConsumer<MessageFormat, NodeIdentifier> biconsumer = this.messageActions.get(msgFormat.getMessageType());
+                    if(biconsumer != null) biconsumer.accept(msgFormat, NodeIdentifier.fromMessageNodeIdentifier(msgFormat.getNodeIdentifier()));
                 } catch (InvalidProtocolBufferException e) {
                     LOGGER.error(e.toString());
                 }

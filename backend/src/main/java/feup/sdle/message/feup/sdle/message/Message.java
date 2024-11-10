@@ -30,34 +30,34 @@ public final class Message {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 2;</code>
+     * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 1;</code>
      * @return The enum numeric value on the wire for messageType.
      */
     int getMessageTypeValue();
     /**
-     * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 2;</code>
+     * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 1;</code>
      * @return The messageType.
      */
     feup.sdle.message.Message.MessageFormat.MessageType getMessageType();
 
     /**
-     * <code>bytes message = 3;</code>
+     * <code>bytes message = 2;</code>
      * @return The message.
      */
     com.google.protobuf.ByteString getMessage();
 
     /**
-     * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
+     * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 3;</code>
      * @return Whether the nodeIdentifier field is set.
      */
     boolean hasNodeIdentifier();
     /**
-     * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
+     * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 3;</code>
      * @return The nodeIdentifier.
      */
     feup.sdle.message.NodeIdentifierMessage.NodeIdentifier getNodeIdentifier();
     /**
-     * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
+     * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 3;</code>
      */
     feup.sdle.message.NodeIdentifierMessage.NodeIdentifierOrBuilder getNodeIdentifierOrBuilder();
   }
@@ -114,9 +114,17 @@ public final class Message {
        */
       REPLICATION(1),
       /**
-       * <code>HASHRING = 2;</code>
+       * <code>HASHRING_GET = 2;</code>
        */
-      HASHRING(2),
+      HASHRING_GET(2),
+      /**
+       * <code>HASHRING_JOIN = 3;</code>
+       */
+      HASHRING_JOIN(3),
+      /**
+       * <code>HASHRING_LOG_HASH_CHECK = 4;</code>
+       */
+      HASHRING_LOG_HASH_CHECK(4),
       UNRECOGNIZED(-1),
       ;
 
@@ -138,9 +146,17 @@ public final class Message {
        */
       public static final int REPLICATION_VALUE = 1;
       /**
-       * <code>HASHRING = 2;</code>
+       * <code>HASHRING_GET = 2;</code>
        */
-      public static final int HASHRING_VALUE = 2;
+      public static final int HASHRING_GET_VALUE = 2;
+      /**
+       * <code>HASHRING_JOIN = 3;</code>
+       */
+      public static final int HASHRING_JOIN_VALUE = 3;
+      /**
+       * <code>HASHRING_LOG_HASH_CHECK = 4;</code>
+       */
+      public static final int HASHRING_LOG_HASH_CHECK_VALUE = 4;
 
 
       public final int getNumber() {
@@ -169,7 +185,9 @@ public final class Message {
         switch (value) {
           case 0: return HASH_RING_LOG;
           case 1: return REPLICATION;
-          case 2: return HASHRING;
+          case 2: return HASHRING_GET;
+          case 3: return HASHRING_JOIN;
+          case 4: return HASHRING_LOG_HASH_CHECK;
           default: return null;
         }
       }
@@ -227,17 +245,17 @@ public final class Message {
     }
 
     private int bitField0_;
-    public static final int MESSAGETYPE_FIELD_NUMBER = 2;
+    public static final int MESSAGETYPE_FIELD_NUMBER = 1;
     private int messageType_ = 0;
     /**
-     * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 2;</code>
+     * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 1;</code>
      * @return The enum numeric value on the wire for messageType.
      */
     @java.lang.Override public int getMessageTypeValue() {
       return messageType_;
     }
     /**
-     * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 2;</code>
+     * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 1;</code>
      * @return The messageType.
      */
     @java.lang.Override public feup.sdle.message.Message.MessageFormat.MessageType getMessageType() {
@@ -245,10 +263,10 @@ public final class Message {
       return result == null ? feup.sdle.message.Message.MessageFormat.MessageType.UNRECOGNIZED : result;
     }
 
-    public static final int MESSAGE_FIELD_NUMBER = 3;
+    public static final int MESSAGE_FIELD_NUMBER = 2;
     private com.google.protobuf.ByteString message_ = com.google.protobuf.ByteString.EMPTY;
     /**
-     * <code>bytes message = 3;</code>
+     * <code>bytes message = 2;</code>
      * @return The message.
      */
     @java.lang.Override
@@ -256,10 +274,10 @@ public final class Message {
       return message_;
     }
 
-    public static final int NODEIDENTIFIER_FIELD_NUMBER = 4;
+    public static final int NODEIDENTIFIER_FIELD_NUMBER = 3;
     private feup.sdle.message.NodeIdentifierMessage.NodeIdentifier nodeIdentifier_;
     /**
-     * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
+     * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 3;</code>
      * @return Whether the nodeIdentifier field is set.
      */
     @java.lang.Override
@@ -267,7 +285,7 @@ public final class Message {
       return ((bitField0_ & 0x00000001) != 0);
     }
     /**
-     * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
+     * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 3;</code>
      * @return The nodeIdentifier.
      */
     @java.lang.Override
@@ -275,7 +293,7 @@ public final class Message {
       return nodeIdentifier_ == null ? feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.getDefaultInstance() : nodeIdentifier_;
     }
     /**
-     * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
+     * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 3;</code>
      */
     @java.lang.Override
     public feup.sdle.message.NodeIdentifierMessage.NodeIdentifierOrBuilder getNodeIdentifierOrBuilder() {
@@ -297,13 +315,13 @@ public final class Message {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (messageType_ != feup.sdle.message.Message.MessageFormat.MessageType.HASH_RING_LOG.getNumber()) {
-        output.writeEnum(2, messageType_);
+        output.writeEnum(1, messageType_);
       }
       if (!message_.isEmpty()) {
-        output.writeBytes(3, message_);
+        output.writeBytes(2, message_);
       }
       if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeMessage(4, getNodeIdentifier());
+        output.writeMessage(3, getNodeIdentifier());
       }
       getUnknownFields().writeTo(output);
     }
@@ -316,15 +334,15 @@ public final class Message {
       size = 0;
       if (messageType_ != feup.sdle.message.Message.MessageFormat.MessageType.HASH_RING_LOG.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(2, messageType_);
+          .computeEnumSize(1, messageType_);
       }
       if (!message_.isEmpty()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, message_);
+          .computeBytesSize(2, message_);
       }
       if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, getNodeIdentifier());
+          .computeMessageSize(3, getNodeIdentifier());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -608,23 +626,23 @@ public final class Message {
               case 0:
                 done = true;
                 break;
-              case 16: {
+              case 8: {
                 messageType_ = input.readEnum();
                 bitField0_ |= 0x00000001;
                 break;
-              } // case 16
-              case 26: {
+              } // case 8
+              case 18: {
                 message_ = input.readBytes();
                 bitField0_ |= 0x00000002;
                 break;
-              } // case 26
-              case 34: {
+              } // case 18
+              case 26: {
                 input.readMessage(
                     getNodeIdentifierFieldBuilder().getBuilder(),
                     extensionRegistry);
                 bitField0_ |= 0x00000004;
                 break;
-              } // case 34
+              } // case 26
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -644,14 +662,14 @@ public final class Message {
 
       private int messageType_ = 0;
       /**
-       * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 2;</code>
+       * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 1;</code>
        * @return The enum numeric value on the wire for messageType.
        */
       @java.lang.Override public int getMessageTypeValue() {
         return messageType_;
       }
       /**
-       * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 2;</code>
+       * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 1;</code>
        * @param value The enum numeric value on the wire for messageType to set.
        * @return This builder for chaining.
        */
@@ -662,7 +680,7 @@ public final class Message {
         return this;
       }
       /**
-       * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 2;</code>
+       * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 1;</code>
        * @return The messageType.
        */
       @java.lang.Override
@@ -671,7 +689,7 @@ public final class Message {
         return result == null ? feup.sdle.message.Message.MessageFormat.MessageType.UNRECOGNIZED : result;
       }
       /**
-       * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 2;</code>
+       * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 1;</code>
        * @param value The messageType to set.
        * @return This builder for chaining.
        */
@@ -685,7 +703,7 @@ public final class Message {
         return this;
       }
       /**
-       * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 2;</code>
+       * <code>.feup.sdle.message.MessageFormat.MessageType messageType = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearMessageType() {
@@ -697,7 +715,7 @@ public final class Message {
 
       private com.google.protobuf.ByteString message_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>bytes message = 3;</code>
+       * <code>bytes message = 2;</code>
        * @return The message.
        */
       @java.lang.Override
@@ -705,7 +723,7 @@ public final class Message {
         return message_;
       }
       /**
-       * <code>bytes message = 3;</code>
+       * <code>bytes message = 2;</code>
        * @param value The message to set.
        * @return This builder for chaining.
        */
@@ -717,7 +735,7 @@ public final class Message {
         return this;
       }
       /**
-       * <code>bytes message = 3;</code>
+       * <code>bytes message = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearMessage() {
@@ -731,14 +749,14 @@ public final class Message {
       private com.google.protobuf.SingleFieldBuilder<
           feup.sdle.message.NodeIdentifierMessage.NodeIdentifier, feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.Builder, feup.sdle.message.NodeIdentifierMessage.NodeIdentifierOrBuilder> nodeIdentifierBuilder_;
       /**
-       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
+       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 3;</code>
        * @return Whether the nodeIdentifier field is set.
        */
       public boolean hasNodeIdentifier() {
         return ((bitField0_ & 0x00000004) != 0);
       }
       /**
-       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
+       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 3;</code>
        * @return The nodeIdentifier.
        */
       public feup.sdle.message.NodeIdentifierMessage.NodeIdentifier getNodeIdentifier() {
@@ -749,7 +767,7 @@ public final class Message {
         }
       }
       /**
-       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
+       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 3;</code>
        */
       public Builder setNodeIdentifier(feup.sdle.message.NodeIdentifierMessage.NodeIdentifier value) {
         if (nodeIdentifierBuilder_ == null) {
@@ -765,7 +783,7 @@ public final class Message {
         return this;
       }
       /**
-       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
+       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 3;</code>
        */
       public Builder setNodeIdentifier(
           feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.Builder builderForValue) {
@@ -779,7 +797,7 @@ public final class Message {
         return this;
       }
       /**
-       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
+       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 3;</code>
        */
       public Builder mergeNodeIdentifier(feup.sdle.message.NodeIdentifierMessage.NodeIdentifier value) {
         if (nodeIdentifierBuilder_ == null) {
@@ -800,7 +818,7 @@ public final class Message {
         return this;
       }
       /**
-       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
+       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 3;</code>
        */
       public Builder clearNodeIdentifier() {
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -813,7 +831,7 @@ public final class Message {
         return this;
       }
       /**
-       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
+       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 3;</code>
        */
       public feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.Builder getNodeIdentifierBuilder() {
         bitField0_ |= 0x00000004;
@@ -821,7 +839,7 @@ public final class Message {
         return getNodeIdentifierFieldBuilder().getBuilder();
       }
       /**
-       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
+       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 3;</code>
        */
       public feup.sdle.message.NodeIdentifierMessage.NodeIdentifierOrBuilder getNodeIdentifierOrBuilder() {
         if (nodeIdentifierBuilder_ != null) {
@@ -832,7 +850,7 @@ public final class Message {
         }
       }
       /**
-       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 4;</code>
+       * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
           feup.sdle.message.NodeIdentifierMessage.NodeIdentifier, feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.Builder, feup.sdle.message.NodeIdentifierMessage.NodeIdentifierOrBuilder> 
@@ -914,13 +932,15 @@ public final class Message {
   static {
     java.lang.String[] descriptorData = {
       "\n\rmessage.proto\022\021feup.sdle.message\032\024node" +
-      "identifier.proto\"\337\001\n\rMessageFormat\022A\n\013me" +
-      "ssageType\030\002 \001(\0162,.feup.sdle.message.Mess" +
-      "ageFormat.MessageType\022\017\n\007message\030\003 \001(\014\0229" +
-      "\n\016nodeIdentifier\030\004 \001(\0132!.feup.sdle.messa" +
-      "ge.NodeIdentifier\"?\n\013MessageType\022\021\n\rHASH" +
-      "_RING_LOG\020\000\022\017\n\013REPLICATION\020\001\022\014\n\010HASHRING" +
-      "\020\002B\034\n\021feup.sdle.messageB\007Messageb\006proto3"
+      "identifier.proto\"\223\002\n\rMessageFormat\022A\n\013me" +
+      "ssageType\030\001 \001(\0162,.feup.sdle.message.Mess" +
+      "ageFormat.MessageType\022\017\n\007message\030\002 \001(\014\0229" +
+      "\n\016nodeIdentifier\030\003 \001(\0132!.feup.sdle.messa" +
+      "ge.NodeIdentifier\"s\n\013MessageType\022\021\n\rHASH" +
+      "_RING_LOG\020\000\022\017\n\013REPLICATION\020\001\022\020\n\014HASHRING" +
+      "_GET\020\002\022\021\n\rHASHRING_JOIN\020\003\022\033\n\027HASHRING_LO" +
+      "G_HASH_CHECK\020\004B\034\n\021feup.sdle.messageB\007Mes" +
+      "sageb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

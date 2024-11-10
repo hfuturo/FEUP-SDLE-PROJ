@@ -1,11 +1,13 @@
 package feup.sdle.cluster;
 
+import com.google.protobuf.InvalidProtocolBufferException;
 import feup.sdle.Document;
 import feup.sdle.crypto.MD5HashAlgorithm;
+import feup.sdle.message.HashRingMessage;
+import feup.sdle.message.Hashcheck;
 import feup.sdle.message.Message;
 import feup.sdle.storage.FileStorageProvider;
 import feup.sdle.storage.MemoryStorageProvider;
-import feup.sdle.utils.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,13 +22,14 @@ import java.util.*;
 public class Node {
     private static final Logger LOGGER = LoggerFactory.getLogger(Node.class);
     private final NodeIdentifier identifier;
-    private final HashRing ring;
+    private HashRing ring;
     private ZContext zmqContext;
     private static final int REPLICATION_FACTOR = 2;
     private ZMQ.Socket socket; // TODO change this to allow multiple sockets
     private GossipService gossipService;
     private HashRingSyncService hashRingSyncService;
     private MemoryStorageProvider<String, Document> storage;
+    private boolean starter;
 
     /**
     * The HashRing can already be populated, which is useful for start bootstraping
@@ -34,13 +37,17 @@ public class Node {
     */
     public Node(@Value("${node.id}") int id,
                 @Value("${node.hostname}") String hostname,
-                @Value("${node.port}") int port) {
+                @Value("${node.port}") int port,
+                @Value("${node.starter}") boolean starter) {
 
         this.zmqContext = new ZContext();
 
         this.identifier = new NodeIdentifier(id, hostname, port, true);
 
-        this.ring = this.manageHashRing();
+        this.starter = starter;
+        System.out.println("STARTER NOW: " + this.starter);
+
+        this.manageHashRing();
 
         this.storage = new MemoryStorageProvider<>(new FileStorageProvider());
 
@@ -48,13 +55,33 @@ public class Node {
         this.hashRingSyncService = new HashRingSyncService(this, this.ring, this.gossipService, 10000, 3);
     }
 
-    public HashRing manageHashRing() {
-        HashRing hashRing = new HashRing(new MD5HashAlgorithm(), this.identifier.getId());
+    public void manageHashRing() {
+        this.ring = new HashRing(new MD5HashAlgorithm(), this.identifier.getId(), this );
 
-        try { hashRing.addNode(this.identifier); }
-        catch (Exception e) { LOGGER.error(Color.red(e.getMessage())); }
+        if(!this.starter) {
+           this.tryToJoinRing();
+        }
+    }
 
-        return hashRing;
+    private void tryToJoinRing() {
+        int ringSize = this.ring.getRing().size();
+        int randomIndex = new Random().nextInt(ringSize);
+
+        Iterator<Map.Entry<BigInteger, NodeIdentifier>> iterator = this.ring.getRing().entrySet().iterator();
+        for (int i = 0; i < randomIndex; i++) {
+            iterator.next();
+        }
+
+        NodeIdentifier chosenNode = iterator.next().getValue();
+
+        chosenNode.getSocket(this.zmqContext).send(Message.MessageFormat.newBuilder()
+                .setNodeIdentifier(this.getNodeIdentifier().toMessageNodeIdentifier())
+                .setMessageType(Message.MessageFormat.MessageType.HASHRING_JOIN)
+                .build().toByteArray());
+    }
+
+    public boolean getStarter() {
+        return this.starter;
     }
 
     public int getPort() {
@@ -89,10 +116,51 @@ public class Node {
         return result;
     }
 
+    public void processAddNodeRequest(Message.MessageFormat msgFormat, NodeIdentifier senderNode) {
+        try {
+            // 1. Add node to ring
+            this.ring.addNode(senderNode);
+
+            // 2. Send the current view of the ring to the sender node
+            HashRingMessage.HashRing.Builder hashRingBuilder = HashRingMessage.HashRing.newBuilder();
+            for(Map.Entry<BigInteger, NodeIdentifier> entry : this.ring.getRing().entrySet()) {
+                hashRingBuilder.putNodes(entry.getKey().toString(), entry.getValue().toMessageNodeIdentifier());
+            }
+
+            senderNode.getSocket(this.zmqContext).send(
+                    Message.MessageFormat.newBuilder()
+                            .setMessageType(Message.MessageFormat.MessageType.HASHRING_GET)
+                            .setNodeIdentifier(this.getNodeIdentifier().toMessageNodeIdentifier())
+                            .setMessage(
+                                    hashRingBuilder.build().toByteString()
+                            )
+                            .build()
+                            .toByteArray()
+            );
+
+            for(Map.Entry<BigInteger, NodeIdentifier> entry : this.ring.getRing().entrySet()) {
+                if(entry.getValue().getId() == senderNode.getId()) {
+                    System.out.println("HERE MYMAN!!!");
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.error(e.toString());
+        }
+    }
+
     public void processHashRingSyncMessage(Message.MessageFormat msgFormat, NodeIdentifier senderNode) {
         try {
             this.hashRingSyncService.processMessage(msgFormat.getMessage(), senderNode);
         } catch (Exception e) {
+            System.out.println("Processing hash ring sync message");
+            LOGGER.error(e.toString());
+        }
+    }
+
+    public void processRingLogHashCheck(Message.MessageFormat msgFormat, NodeIdentifier senderNode) {
+        try {
+            this.hashRingSyncService.processMessage(msgFormat.toByteString(), senderNode);
+        } catch (InvalidProtocolBufferException e) {
             LOGGER.error(e.toString());
         }
     }

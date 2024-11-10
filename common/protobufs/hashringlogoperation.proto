@@ -5,6 +5,7 @@ option java_outer_classname = "HashRingOperationMessage";
 
 message HashRingLogOperationMessage {
   repeated HashRingOperation operations = 1;
+  uint32 replicaId = 2;
 }
 
 message HashRingOperation {
