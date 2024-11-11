@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Home() {
     return <>
         <div className="flex flex-col mx-auto w-1/2 gap-x-2 mt-40">
-            <h1 className="text-4xl font-bold text-center mb-8">Faísca</h1>
+            <h1 className="text-4xl font-bold text-center mb-8">!!Ka-Chow!!</h1>
             <div className="flex flex-row w-full gap-x-2">
                 <Card className="p-4 shadow-md w-full mx-auto h-60 flex flex-col justify-center">
                     <CardHeader>
