@@ -129,17 +129,19 @@ public class HashRing {
        }
     }
 
-    public void addNode(NodeIdentifier nodeIdentifier) throws Exception {
-        List<BigInteger> nodesToAdd = new ArrayList<>();
+    public synchronized void addNode(NodeIdentifier nodeIdentifier) throws Exception {
+        synchronized (this) {
+            List<BigInteger> nodesToAdd = new ArrayList<>();
 
-        for (int i = 0; i < NODE_REPLICAS; i++) {
-            BigInteger nodeHash = this.hashAlgorithm.getHash(nodeIdentifier.toString() + i);
+            for (int i = 0; i < NODE_REPLICAS; i++) {
+                BigInteger nodeHash = this.hashAlgorithm.getHash(nodeIdentifier.toString() + i);
 
-            this.ring.put(nodeHash, nodeIdentifier);
-            nodesToAdd.add(nodeHash);
+                this.ring.put(nodeHash, nodeIdentifier);
+                nodesToAdd.add(nodeHash);
+            }
+
+            this.hashRingLog.add(new AddNodeOperation(nodesToAdd, nodeIdentifier));
         }
-
-        this.hashRingLog.add(new AddNodeOperation(nodesToAdd, nodeIdentifier));
     }
 
     public void removeNode(NodeIdentifier nodeIdentifier) throws Exception {

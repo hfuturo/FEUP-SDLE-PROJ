@@ -74,7 +74,9 @@ public class GossipService {
                     MessageFormat msgFormat = MessageFormat.parseFrom(reply);
 
                     BiConsumer<MessageFormat, NodeIdentifier> biconsumer = this.messageActions.get(msgFormat.getMessageType());
-                    if(biconsumer != null) biconsumer.accept(msgFormat, NodeIdentifier.fromMessageNodeIdentifier(msgFormat.getNodeIdentifier()));
+                    if(biconsumer != null) {
+                        Thread.ofVirtual().start(() -> biconsumer.accept(msgFormat, NodeIdentifier.fromMessageNodeIdentifier(msgFormat.getNodeIdentifier())));
+                    }
                 } catch (InvalidProtocolBufferException e) {
                     LOGGER.error(e.toString());
                 }

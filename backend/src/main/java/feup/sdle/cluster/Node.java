@@ -88,6 +88,11 @@ public class Node {
         return this.zmqContext;
     }
 
+    /**
+     * This is used to retrieve the nodes to send a message to.
+     * It skips the unalive nodes and marks others as such.
+     * @return
+     */
     public List<NodeIdentifier> getPreferenceList() {
         List<NodeIdentifier> result = new ArrayList<>();
         boolean foundLocalNode = false;
