@@ -114,6 +114,12 @@ public class HashRingLog implements ProtobufSerializable {
                             new ArrayList<>() :
                             this.operations.subList(0, localSeqConflictStart);
 
+                    // We have to undo the operations which are common between the conflicted sequences
+                    List<HashRingLongTimestamp<HashRingLogOperation>> toUndo = new ArrayList<>(
+                            this.operations.subList(localSeqConflictStart, this.operations.size())
+                    );
+                    toUndo.removeAll(other.operations.subList(otherSeqConflictStart, other.operations.size()));
+
                     // 3. Compare the version stamp of the conflicting timestamps
                     if (localOperation.getVersionStamp().compareTo(otherOperation.getVersionStamp()) < 0) {
                         // 1. Add to the common list between the two hash ring logs the operations of the local replica

@@ -170,18 +170,31 @@ public class HashRing {
         for(int i = startApplyIndex; i < timestamps.size(); i++) {
             HashRingLogOperation operation = timestamps.get(i).getValue();
 
-            for(BigInteger hash: operation.getHashes()) {
-                switch (operation.getOperationType()) {
-                    case ADD -> {
-                        System.out.println("Added " + hash + " to " + operation.getNodeIdentifier().getId());
-                        this.ring.put(hash, operation.getNodeIdentifier());
-                    }
-                    case REMOVE -> {
-                        System.out.println("Removed " + hash + " which belonged to " + operation.getNodeIdentifier().getId());
-                        this.ring.remove(hash);
-                    }
+            this.applyOperation(operation);
+        }
+    }
+
+    public void applyOperation(HashRingLogOperation operation) {
+        for(BigInteger hash: operation.getHashes()) {
+            switch (operation.getOperationType()) {
+                case ADD -> {
+                    System.out.println("Added " + hash + " to " + operation.getNodeIdentifier().getId());
+                    this.ring.put(hash, operation.getNodeIdentifier());
+                }
+                case REMOVE -> {
+                    System.out.println("Removed " + hash + " which belonged to " + operation.getNodeIdentifier().getId());
+                    this.ring.remove(hash);
                 }
             }
+        }
+    }
+
+    /**
+     * Applies the reverse operations of each operation inside the list
+     */
+    public void undoOperations(List<HashRingLogOperation> operations) {
+        for(HashRingLogOperation operation: operations) {
+            this.applyOperation(operation.reverse());
         }
     }
 
