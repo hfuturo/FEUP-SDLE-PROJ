@@ -8,6 +8,7 @@ import feup.sdle.crdts.VersionStamp;
 import feup.sdle.message.HashRingOperationMessage;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * It is a list of the operations done over the hash ring. It can only add elements.
@@ -18,6 +19,7 @@ import java.util.*;
  */
 public class HashRingLog implements ProtobufSerializable {
     private List<HashRingLongTimestamp<HashRingLogOperation>> operations;
+    private HashRing ring;
     private int localIdentifier;
     private int dot;
     private int currentSequenceNumber;
@@ -32,8 +34,12 @@ public class HashRingLog implements ProtobufSerializable {
         this.localIdentifier = localIdentifier;
         this.currentSequenceNumber = 1;
         this.dot = 1;
-
         this.sequenceNumberReplicaMapping = new HashMap<>();
+    }
+
+    public HashRingLog(int localIdentifier, HashRing ring) {
+        this(localIdentifier);
+        this.ring = ring;
     }
 
     @Override
@@ -118,7 +124,8 @@ public class HashRingLog implements ProtobufSerializable {
                     List<HashRingLongTimestamp<HashRingLogOperation>> toUndo = new ArrayList<>(
                             this.operations.subList(localSeqConflictStart, this.operations.size())
                     );
-                    toUndo.removeAll(other.operations.subList(otherSeqConflictStart, other.operations.size()));
+                    toUndo.retainAll(other.operations.subList(otherSeqConflictStart, other.operations.size()));
+                    this.ring.undoOperations(toUndo.stream().map(HashRingLongTimestamp::getValue).toList());
 
                     // 3. Compare the version stamp of the conflicting timestamps
                     if (localOperation.getVersionStamp().compareTo(otherOperation.getVersionStamp()) < 0) {
@@ -136,6 +143,7 @@ public class HashRingLog implements ProtobufSerializable {
                         applyIndex = localSeqConflictStart + 1; // The other operations will be right on the localSeqConflictStart index, so we must start applying from that point
 
                         List<HashRingLongTimestamp<HashRingLogOperation>> replacedList = this.operations.subList(localSeqConflictStart, this.operations.size());
+                        this.ring.undoOperations(replacedList.stream().map(HashRingLongTimestamp::getValue).toList());
                         replacedList.removeAll(common);
 
                         this.updateSequenceNumber(common.getLast().getSequenceNumber() + 1, replacedList);

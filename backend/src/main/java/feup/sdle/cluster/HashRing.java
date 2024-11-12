@@ -33,7 +33,7 @@ public class HashRing {
         this.hashAlgorithm = hashAlgorithm;
         this.node = node;
 
-        this.hashRingLog = new HashRingLog(nodeIdentifier);
+        this.hashRingLog = new HashRingLog(nodeIdentifier, this);
         this.generateSeedNodes();
     }
 
@@ -51,7 +51,7 @@ public class HashRing {
         NodeIdentifier seed3 = new NodeIdentifier(100003, "localhost", 4323, true);
 
         try {
-            this.addNode(seed1);
+            //this.addNode(seed1);
             this.addNode(seed2);
             this.addNode(seed3);
 
