@@ -50,6 +50,7 @@ public class CCounter {
     /**
      * Merges a CCounter into myself.
      */
+    //TODO: find a way to fix when two reset counters are merged (see testMergeResetCounters)
     public void merge(CCounter other) {
         var otherSet = other.getSet();
 

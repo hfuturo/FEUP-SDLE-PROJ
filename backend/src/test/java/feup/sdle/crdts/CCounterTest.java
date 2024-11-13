@@ -143,4 +143,28 @@ public class CCounterTest {
         Assertions.assertEquals(0, this.c2.getValue());
     }
 
+    @Test
+    public void testMergeResetCounters() {
+        this.c1.update(4);
+        this.c2.update(2);
+
+        this.c1.merge(this.c2);
+        this.c2.merge(this.c1);
+
+        Assertions.assertEquals(this.c1.getValue(), this.c2.getValue());
+        Assertions.assertEquals(6, this.c1.getValue());
+
+        this.c1.update(-6);
+        this.c2.update(-6);
+
+        Assertions.assertEquals(0, this.c1.getValue());
+        Assertions.assertEquals(0, this.c2.getValue());
+
+        this.c1.merge(this.c2);
+        this.c2.merge(this.c1);
+
+        Assertions.assertEquals(this.c1.getValue(), this.c2.getValue());
+        Assertions.assertEquals(0, this.c1.getValue());
+    }
+
 }
