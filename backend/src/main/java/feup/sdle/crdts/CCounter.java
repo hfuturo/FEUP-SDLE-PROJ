@@ -30,12 +30,20 @@ public class CCounter {
         Optional<DottedValue<Integer, Integer, Integer>> optDV = this.find(this.id);
 
         if (optDV.isEmpty()) {
-            this.set.add(new DottedValue<>(this.id, 1, Math.max(0, value)));
+            if (value > 0)
+                this.set.add(new DottedValue<>(this.id, 1, value));
+            else
+                this.set.add(new DottedValue<>(this.id, 1, this.getValue() + value < 0 ? -this.getValue() : value));
         }
         else {
             DottedValue<Integer, Integer, Integer> dv = optDV.get();
+
+            if (value > 0)
+                this.set.add(new DottedValue<>(this.id, dv.event() + 1, dv.value() + value));
+            else
+                this.set.add(new DottedValue<>(this.id, dv.event() + 1, this.getValue() + value < 0 ? dv.value() - this.getValue() : dv.value() + value));
+
             this.set.remove(dv);
-            this.set.add(new DottedValue<>(this.id, dv.event() + 1, Math.max(0, dv.value() + value)));
         }
     }
 

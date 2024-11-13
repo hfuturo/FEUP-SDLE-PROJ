@@ -99,4 +99,48 @@ public class CCounterTest {
 
         Assertions.assertEquals(5, this.c1.getValue());
     }
+
+    @Test
+    public void testMerge2() {
+        this.c1.update(2);
+        this.c2.merge(this.c1);
+
+        Assertions.assertEquals(2, this.c1.getValue());
+
+        this.c1.update(3);
+        this.c2.update(-2);
+
+        Assertions.assertEquals(5, this.c1.getValue());
+        Assertions.assertEquals(0, this.c2.getValue());
+
+        this.c1.merge(this.c2);
+
+        Assertions.assertEquals(3, this.c1.getValue());
+    }
+
+    @Test
+    public void testDecrement2() {
+        this.c1.update(5);
+        this.c2.merge(this.c1);
+
+        this.c2.update(-3);
+        this.c2.update(-17);
+
+        Assertions.assertEquals(0, this.c2.getValue());
+
+        this.c1.merge(this.c2);
+
+        Assertions.assertEquals(0, this.c1.getValue());
+    }
+
+    @Test
+    public void testDecrement3() {
+        this.c1.update(5);
+        this.c2.merge(this.c1);
+
+        this.c2.update(-17);
+
+        Assertions.assertEquals(0, this.c2.getValue());
+    }
+
 }
