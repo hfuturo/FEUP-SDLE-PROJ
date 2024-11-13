@@ -31,15 +31,16 @@ public class Node {
     private HashRingSyncService hashRingSyncService;
     private MemoryStorageProvider<String, Document> storage;
     private boolean starter;
+    private NodeReceiver receiver;
 
     /**
-    * The HashRing can already be populated, which is useful for start bootstraping
-    * purposes as well as testing
-    */
+     * The HashRing can already be populated, which is useful for start bootstraping
+     * purposes as well as testing
+     */
     public Node(@Value("${node.id}") int id,
-                @Value("${node.hostname}") String hostname,
-                @Value("${node.port}") int port,
-                @Value("${node.starter}") boolean starter) {
+            @Value("${node.hostname}") String hostname,
+            @Value("${node.port}") int port,
+            @Value("${node.starter}") boolean starter) {
 
         this.zmqContext = new ZContext();
 
@@ -52,9 +53,13 @@ public class Node {
         this.storage = new MemoryStorageProvider<>(new FileStorageProvider());
 
         this.gossipService = new GossipService(this, this.zmqContext);
+
         this.hashRingSyncService = new HashRingSyncService(this, this.ring, this.gossipService, 2000, 3);
 
-        if(!this.starter) this.tryToJoinRing();
+        this.receiver = new NodeReceiver(this);
+
+        if (!this.starter)
+            this.tryToJoinRing();
     }
 
     /**
@@ -91,6 +96,7 @@ public class Node {
     /**
      * This is used to retrieve the nodes to send a message to.
      * It skips the unalive nodes and marks others as such.
+     * 
      * @return
      */
     public List<NodeIdentifier> getPreferenceList() {
@@ -104,11 +110,11 @@ public class Node {
                 foundLocalNode = true;
             }
 
-            if(count >= REPLICATION_FACTOR) {
+            if (count >= REPLICATION_FACTOR) {
                 break;
             }
 
-            if(!nodeIsLocalNode && foundLocalNode) {
+            if (!nodeIsLocalNode && foundLocalNode) {
                 result.add(entry.getValue());
                 count++;
             }
@@ -121,10 +127,12 @@ public class Node {
         try {
             HashRingMessage.HashRing hashringMessage = HashRingMessage.HashRing.parseFrom(msgFormat.getMessage());
 
-            for(Map.Entry<String, NodeIdentifierMessage.NodeIdentifier> entry: hashringMessage.getNodesMap().entrySet()) {
-                this.ring.getRing().put(new BigInteger(entry.getKey()), NodeIdentifier.fromMessageNodeIdentifier(entry.getValue()));
+            for (Map.Entry<String, NodeIdentifierMessage.NodeIdentifier> entry : hashringMessage.getNodesMap()
+                    .entrySet()) {
+                this.ring.getRing().put(new BigInteger(entry.getKey()),
+                        NodeIdentifier.fromMessageNodeIdentifier(entry.getValue()));
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             LOGGER.error(Arrays.toString(e.getStackTrace()));
         }
     }
@@ -137,7 +145,7 @@ public class Node {
 
             // 2. Send the current view of the ring to the sender node
             HashRingMessage.HashRing.Builder hashRingBuilder = HashRingMessage.HashRing.newBuilder();
-            for(Map.Entry<BigInteger, NodeIdentifier> entry : this.ring.getRing().entrySet()) {
+            for (Map.Entry<BigInteger, NodeIdentifier> entry : this.ring.getRing().entrySet()) {
                 hashRingBuilder.putNodes(entry.getKey().toString(), entry.getValue().toMessageNodeIdentifier());
             }
 
@@ -146,14 +154,12 @@ public class Node {
                             .setMessageType(Message.MessageFormat.MessageType.HASHRING_GET)
                             .setNodeIdentifier(senderNode.toMessageNodeIdentifier())
                             .setMessage(
-                                    hashRingBuilder.build().toByteString()
-                            )
+                                    hashRingBuilder.build().toByteString())
                             .build()
-                            .toByteArray()
-            );
+                            .toByteArray());
 
-            for(Map.Entry<BigInteger, NodeIdentifier> entry : this.ring.getRing().entrySet()) {
-                if(entry.getValue().getId() == senderNode.getId()) {
+            for (Map.Entry<BigInteger, NodeIdentifier> entry : this.ring.getRing().entrySet()) {
+                if (entry.getValue().getId() == senderNode.getId()) {
                     System.out.println("HERE MYMAN!!!");
                 }
             }
@@ -205,8 +211,10 @@ public class Node {
 
     @Override
     public boolean equals(Object object) {
-        if (object == this) return true;
-        if (!(object instanceof Node node)) return false;
+        if (object == this)
+            return true;
+        if (!(object instanceof Node node))
+            return false;
 
         return this.identifier.equals(node.getNodeIdentifier());
     }
