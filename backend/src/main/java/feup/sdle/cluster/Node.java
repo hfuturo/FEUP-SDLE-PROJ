@@ -14,6 +14,7 @@ import org.zeromq.ZMQ;
 import org.zeromq.ZContext;
 
 import java.math.BigInteger;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 @Component
@@ -26,6 +27,7 @@ public class Node {
     private ZMQ.Socket socket; // TODO change this to allow multiple sockets
     private GossipService gossipService;
     private HashRingSyncService hashRingSyncService;
+    private HashRingDocumentsService hashRingDataService;
     private MemoryStorageProvider<String, Document> storage;
 
     /**
@@ -51,10 +53,80 @@ public class Node {
     public HashRing manageHashRing() {
         HashRing hashRing = new HashRing(new MD5HashAlgorithm(), this.identifier.getId());
 
-        try { hashRing.addNode(this.identifier); }
+        try {
+            hashRing.addNode(this.identifier);
+            this.retrieveDocumentsFromRing();
+        }
         catch (Exception e) { LOGGER.error(Color.red(e.getMessage())); }
 
         return hashRing;
+    }
+
+    private void retrieveDocumentsFromRing() throws NoSuchAlgorithmException {
+        // get positions of all the identifiers in the ring
+        for (int i = 0; i < HashRing.VIRTUAL_NODES; i++) {
+            Set<HashRange> ranges = new HashSet<>();
+
+            BigInteger nodeHash = this.ring.hashAlgorithm.getHash(this.identifier.toString() + i);
+            BigInteger nextNodeHash = this.ring.ceilingKey(nodeHash);
+            if (nextNodeHash.equals(nodeHash)) {
+                nextNodeHash = this.ring.higherKey(nextNodeHash);
+            }
+
+            BigInteger previousNodeHash = this.ring.floorKey(nodeHash);
+            if (previousNodeHash.equals(nodeHash)) {
+                previousNodeHash = this.ring.lowerKey(previousNodeHash);
+            }
+            ranges.add(new HashRange(previousNodeHash, nodeHash));
+
+            int counter = 0;
+            BigInteger previousPreviousNodeHash = this.ring.lowerKey(previousNodeHash);
+            for (int j = 0; j < this.ring.getRing().size(); j++) { // avoiding infinite loops
+                // otimization: if finds a range that virtual node is responsible, stop retrieving ranges
+                if (counter >= REPLICATION_FACTOR || this.ring.get(previousNodeHash).equals(this.identifier)) {
+                    break;
+                }
+                ranges.add(new HashRange(previousPreviousNodeHash, previousNodeHash));
+                previousNodeHash = previousPreviousNodeHash;
+                counter++;
+            }
+
+            Map<HashRange, List<NodeIdentifier>> rangeSourcesMap = new HashMap<>();
+            for (var range : ranges) {
+                rangeSourcesMap.put(range, this.getOtherResponsibleNodes(range).reversed()); // reverse to prioritize the node that will lost the documents
+            }
+
+            //get every document between ranges from respective nodes
+            for (var item : rangeSourcesMap.entrySet()) {
+                HashRange range = item.getKey();
+                List<NodeIdentifier> sources = item.getValue();
+
+                for (var source : sources) {
+                    Boolean ok = this.hashRingDataService.requestDocumentsFromRange(source, range);
+                    if (ok) {
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    private List<NodeIdentifier> getOtherResponsibleNodes(HashRange range) {
+        List<NodeIdentifier> sources = new LinkedList<>();
+        sources.add(this.ring.get(range.end()));
+        int counter = 0;
+        BigInteger nextHash = this.ring.higherKey(range.end());
+        for (int i = 0; i < this.ring.getRing().size(); i++) {
+            if (counter >= REPLICATION_FACTOR) {
+                break;
+            }
+            NodeIdentifier nextNode = this.ring.get(nextHash);
+            if (!nextNode.equals(this.identifier)) {
+                sources.add(nextNode);
+                counter++;
+            }
+        }
+        return sources;
     }
 
     public int getPort() {

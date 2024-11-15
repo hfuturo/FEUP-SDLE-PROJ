@@ -17,9 +17,9 @@ import java.util.TreeMap;
 public class HashRing {
     private static final Logger LOGGER = LoggerFactory.getLogger(HashRing.class);
     private static final int REPLICATION_FACTOR = 2;
-    private static final int NODE_REPLICAS = 3;
+    protected static final int VIRTUAL_NODES = 3;
     private final TreeMap<BigInteger, NodeIdentifier> ring;
-    private final HashAlgorithm hashAlgorithm;
+    protected final HashAlgorithm hashAlgorithm;
     private DotContext dotContext;
     private HashRingLog hashRingLog;
 
@@ -59,14 +59,54 @@ public class HashRing {
         }
     }
 
-    private NodeIdentifier findKeyMasterNode(BigInteger hash) {
-        BigInteger possibleKey = this.ring.ceilingKey(hash);
+    public NodeIdentifier get(BigInteger hash) {
+        return this.ring.get(hash);
+    }
 
-        if(possibleKey == null) {
-            possibleKey = this.ring.firstKey();
+    protected BigInteger lowerKey(BigInteger hash) {
+        BigInteger previousKey = this.ring.lowerKey(hash);
+
+        if(previousKey == null) {
+            previousKey = this.ring.lastKey();
         }
 
-        return this.ring.get(possibleKey);
+        return previousKey;
+    }
+
+    protected BigInteger floorKey(BigInteger hash) {
+        BigInteger floorKey = this.ring.floorKey(hash);
+
+        if(floorKey == null) {
+            floorKey = this.ring.lastKey();
+        }
+
+        return floorKey;
+    }
+
+    protected BigInteger higherKey(BigInteger hash) {
+        BigInteger nextKey = this.ring.higherKey(hash);
+
+        if(nextKey == null) {
+            nextKey = this.ring.firstKey();
+        }
+
+        return nextKey;
+    }
+
+    protected BigInteger ceilingKey(BigInteger hash) {
+        BigInteger ceilingKey = this.ring.ceilingKey(hash);
+
+        if(ceilingKey == null) {
+            ceilingKey = this.ring.firstKey();
+        }
+
+        return ceilingKey;
+    }
+
+    protected NodeIdentifier findKeyMasterNode(BigInteger hash) {
+        BigInteger masterNodeKey = this.ceilingKey(hash);
+
+        return this.ring.get(masterNodeKey);
     }
 
     /**
@@ -127,7 +167,7 @@ public class HashRing {
 
         List<BigInteger> nodesToAdd = new ArrayList<>();
 
-        for (int i = 0; i < NODE_REPLICAS; i++) {
+        for (int i = 0; i < VIRTUAL_NODES; i++) {
             BigInteger nodeHash = this.hashAlgorithm.getHash(nodeIdentifier.toString() + i);
             this.ring.put(nodeHash, nodeIdentifier);
             nodesToAdd.add(nodeHash);

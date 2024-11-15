@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option java_package = "com.example.protobuf";
+option java_outer_classname = "DocumentProto";
+
+message Document {
+  oneof document_type {
+    ShoppingList shopping_list = 1;
+    // Add other document types here in the future
+  }
+}
+
+message ShoppingList {
+  map<string, int32> items = 1;
+}
+
