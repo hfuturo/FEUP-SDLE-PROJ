@@ -1,6 +1,8 @@
 syntax = "proto3";
 
-option java_package = "com.example.protobuf";
+package feup.sdle.message;
+
+option java_package = "feup.sdle.message";
 option java_outer_classname = "DocumentProto";
 
 message Document {

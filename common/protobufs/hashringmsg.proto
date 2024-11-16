@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package feup.sdle.message;
+
+option java_package = "feup.sdle.message";
+option java_outer_classname = "HashRingMessage";
+
+import "nodeidentifier.proto";
+
+message HashRing {
+  map<string, feup.sdle.message.NodeIdentifier> nodes = 1;
+}

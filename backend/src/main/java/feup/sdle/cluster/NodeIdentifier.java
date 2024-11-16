@@ -1,8 +1,11 @@
 package feup.sdle.cluster;
 
 import feup.sdle.message.Message;
+import feup.sdle.message.NodeIdentifierMessage;
 import org.zeromq.ZContext;
 import org.zeromq.ZMQ;
+
+import java.util.Objects;
 
 public class NodeIdentifier {
     private int id;
@@ -52,13 +55,26 @@ public class NodeIdentifier {
         return this.hostname;
     }
 
-    public static NodeIdentifier fromMessageNodeIdentifier(Message.NodeIdentifier msgNodeIdentifier) {
+    public static NodeIdentifier fromMessageNodeIdentifier(NodeIdentifierMessage.NodeIdentifier msgNodeIdentifier) {
         return new NodeIdentifier(
                 msgNodeIdentifier.getId(),
                 msgNodeIdentifier.getHostname(),
                 msgNodeIdentifier.getPort(),
                 true
         );
+    }
+
+    public NodeIdentifierMessage.NodeIdentifier toMessageNodeIdentifier() {
+        return NodeIdentifierMessage.NodeIdentifier.newBuilder()
+                .setId(this.id)
+                .setHostname(this.hostname)
+                .setPort(this.port)
+                .build();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.id, this.hostname, this.port);
     }
 
     @Override

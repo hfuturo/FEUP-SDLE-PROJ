@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package feup.sdle.message;
+
+option java_package = "feup.sdle.message";
+option java_outer_classname = "NodeIdentifierMessage";
+
+message NodeIdentifier {
+  int32 id = 1;
+  string hostname = 2;
+  int32 port = 3;
+}

@@ -1,9 +1,13 @@
 package feup.sdle.cluster;
 
+import com.google.protobuf.Descriptors;
 import feup.sdle.cluster.ring.operations.AddNodeOperation;
+import feup.sdle.cluster.ring.operations.HashRingLogOperation;
 import feup.sdle.cluster.ring.operations.RemoveNodeOperation;
+import feup.sdle.crdts.HashRingLongTimestamp;
 import feup.sdle.crypto.HashAlgorithm;
 import feup.sdle.crdts.DotContext;
+import feup.sdle.message.HashRingMessage;
 import feup.sdle.utils.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,12 +26,14 @@ public class HashRing {
     protected final HashAlgorithm hashAlgorithm;
     private DotContext dotContext;
     private HashRingLog hashRingLog;
+    private Node node;
 
-    public HashRing(HashAlgorithm hashAlgorithm, Integer nodeIdentifier) {
+    public HashRing(HashAlgorithm hashAlgorithm, Integer nodeIdentifier, Node node) {
         this.ring = new TreeMap<>();
         this.hashAlgorithm = hashAlgorithm;
+        this.node = node;
 
-        this.hashRingLog = new HashRingLog(nodeIdentifier);
+        this.hashRingLog = new HashRingLog(nodeIdentifier, this);
         this.generateSeedNodes();
     }
 
@@ -48,6 +54,8 @@ public class HashRing {
             this.addNode(seed1);
             this.addNode(seed2);
             this.addNode(seed3);
+
+            this.hashRingLog.getOperationsStr();
 
             LOGGER.info(Color.green("Seed Nodes generated"));
         } catch (Exception e) {
@@ -161,19 +169,22 @@ public class HashRing {
        }
     }
 
-    public void addNode(NodeIdentifier nodeIdentifier) throws Exception {
+    public synchronized void addNode(NodeIdentifier nodeIdentifier) throws Exception {
         if (this.ring.containsValue(nodeIdentifier))
             throw new Exception("Node with identifier " + nodeIdentifier.toString() + " already exists.");
 
-        List<BigInteger> nodesToAdd = new ArrayList<>();
+        synchronized (this) {
+            List<BigInteger> nodesToAdd = new ArrayList<>();
 
-        for (int i = 0; i < VIRTUAL_NODES; i++) {
-            BigInteger nodeHash = this.hashAlgorithm.getHash(nodeIdentifier.toString() + i);
-            this.ring.put(nodeHash, nodeIdentifier);
-            nodesToAdd.add(nodeHash);
+            for (int i = 0; i < VIRTUAL_NODES; i++) {
+                BigInteger nodeHash = this.hashAlgorithm.getHash(nodeIdentifier.toString() + i);
+
+                this.ring.put(nodeHash, nodeIdentifier);
+                nodesToAdd.add(nodeHash);
+            }
+
+            this.hashRingLog.add(new AddNodeOperation(nodesToAdd, nodeIdentifier));
         }
-
-        this.hashRingLog.add(new AddNodeOperation(nodesToAdd, nodeIdentifier));
     }
 
     public void removeNode(NodeIdentifier nodeIdentifier) throws Exception {
@@ -191,6 +202,43 @@ public class HashRing {
         }
 
         this.hashRingLog.add(new RemoveNodeOperation(nodesToRemove, nodeIdentifier));
+    }
+
+    /**
+     * Based on the current HashRingLog, it applies the operations that it did not have beforehand
+     * @param startApplyIndex The index of the operations inside the log that we did not already have
+     */
+    public void applyOperations(int startApplyIndex) {
+        List<HashRingLongTimestamp<HashRingLogOperation>> timestamps = this.hashRingLog.getOperations();
+        for(int i = startApplyIndex; i < timestamps.size(); i++) {
+            HashRingLogOperation operation = timestamps.get(i).getValue();
+
+            this.applyOperation(operation);
+        }
+    }
+
+    public void applyOperation(HashRingLogOperation operation) {
+        for(BigInteger hash: operation.getHashes()) {
+            switch (operation.getOperationType()) {
+                case ADD -> {
+                    System.out.println("Added " + hash + " to " + operation.getNodeIdentifier().getId());
+                    this.ring.put(hash, operation.getNodeIdentifier());
+                }
+                case REMOVE -> {
+                    System.out.println("Removed " + hash + " which belonged to " + operation.getNodeIdentifier().getId());
+                    this.ring.remove(hash);
+                }
+            }
+        }
+    }
+
+    /**
+     * Applies the reverse operations of each operation inside the list
+     */
+    public void undoOperations(List<HashRingLogOperation> operations) {
+        for(HashRingLogOperation operation: operations) {
+            this.applyOperation(operation.reverse());
+        }
     }
 
 }

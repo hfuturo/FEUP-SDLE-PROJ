@@ -3,8 +3,20 @@ syntax = "proto3";
 option java_package = "feup.sdle.message";
 option java_outer_classname = "HashRingOperationMessage";
 
+package feup.sdle.message;
+
+import "nodeidentifier.proto";
+
 message HashRingLogOperationMessage {
-  repeated HashRingOperation operations = 1;
+  repeated HashRingLogTimestamp timestamps = 1;
+  uint32 replicaId = 2;
+}
+
+message HashRingLogTimestamp {
+  NodeIdentifier identifier = 1;
+  int32 dot = 2;
+  int32 sequence = 3;
+  HashRingOperation operation = 4;
 }
 
 message HashRingOperation {

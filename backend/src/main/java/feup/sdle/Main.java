@@ -18,11 +18,15 @@ public class Main {
                              new HashRing(new MD5HashAlgorithm(), 2)
         );
 
-        Node node2 = new Node(1, "localhost", 5001, new HashRing(new MD5HashAlgorithm(), 1));
+        Node node2 = new Node(1, "localhost", 5001, new HashRing(new MD5HashAlgorithm(), 1));*/
 
-        HashRingLog log1 = new HashRingLog(1);
+        /*HashRingLog log1 = new HashRingLog(1);
         HashRingLog log2 = new HashRingLog(2);
         HashRingLog log3 = new HashRingLog(3);
+
+        log1.add(new AddNodeOperation(1));
+        log1.add(new AddNodeOperation(2));
+        log1.add(new AddNodeOperation(3));
 
         log3.add(new AddNodeOperation(9));
         log1.add(new AddNodeOperation(2));
