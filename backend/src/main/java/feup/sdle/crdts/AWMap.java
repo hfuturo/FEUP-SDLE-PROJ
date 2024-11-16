@@ -8,11 +8,16 @@ import java.util.Set;
 public class AWMap<K, V extends CRDTSingleMergeable<V>> {
     private DotContext dotContext;
     private NodeIdentifier localIdentifier;
+    private AWSet<K> keys;
     private HashMap<K, DottedValue<Integer, Integer, V>> values;
 
     public AWMap(NodeIdentifier localIdentifier) {
         this.localIdentifier = localIdentifier;
         this.dotContext = new DotContext(this.localIdentifier.getId());
+    }
+
+    public DottedValue<Integer, Integer, V> getValue(K key) {
+        return this.values.get(key);
     }
 
     public void add(K id, V value) {
