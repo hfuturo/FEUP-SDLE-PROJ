@@ -33,6 +33,10 @@ public class DotContext {
         return Optional.of(this.dots.get(identifier));
     }
 
+    public int latestReplicaDot(Integer identifier) {
+        return this.dots.get(identifier);
+    }
+
     /**
      * This is used to get the new entry on the map related to a certain
      * replica identifier

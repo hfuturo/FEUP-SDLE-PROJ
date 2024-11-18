@@ -7,6 +7,10 @@ public class ShoppingListItem implements CRDTSingleMergeable<ShoppingListItem> {
         this.counter = new CCounter(localIdentifier);
     }
 
+    public CCounter getCounter() {
+        return this.counter;
+    }
+
     public int getQuantity() {
         return this.counter.getValue();
     }

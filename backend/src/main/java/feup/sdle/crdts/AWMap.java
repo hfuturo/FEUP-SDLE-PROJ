@@ -16,6 +16,10 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
         this.dotContext = new DotContext(this.localIdentifier.getId());
     }
 
+    public int latestDot(Integer id) {
+        return this.dotContext.latestReplicaDot(id);
+    }
+
     public DottedValue<Integer, Integer, V> getValue(K key) {
         return this.values.get(key);
     }
@@ -40,7 +44,7 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
 
     // (𝑚, 𝑐) ⊔ (𝑚′, 𝑐′) = ({𝑘 ↦ → v(𝑘) | 𝑘 ∈ dom 𝑚 ∪ dom 𝑚′ ∧ v(𝑘) ≠ ⊥}, 𝑐 ∪ 𝑐′)
     // where v(𝑘) = fst ((𝑚[𝑘], 𝑐) ⊔ (𝑚′ [𝑘], 𝑐′))
-    public void merge(AWMap<K, V> other, DotContext otherContext) {
+    public void merge(AWMap<K, V> other) {
         Set<K> localKeys = this.values.keySet();
         Set<K> otherKeys = other.values.keySet();
 
@@ -55,6 +59,6 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
            this.values.put(key, other.values.get(key));
         }
 
-        this.dotContext.merge(otherContext);
+        this.dotContext.merge(other.dotContext);
     }
 }
