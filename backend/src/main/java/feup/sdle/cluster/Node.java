@@ -65,6 +65,10 @@ public class Node {
             this.tryToJoinRing();
     }
 
+    public HashRing getRing() {
+        return this.ring;
+    }
+
     public HashRing manageHashRing() {
         HashRing hashRing = new HashRing(new MD5HashAlgorithm(), this.identifier.getId(), this);
 

@@ -1,6 +1,11 @@
 package feup.sdle.cluster;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.google.protobuf.ByteString;
 import com.google.protobuf.Descriptors;
+import feup.sdle.ProtobufSerializable;
+import feup.sdle.ShoppingList;
 import feup.sdle.cluster.ring.operations.AddNodeOperation;
 import feup.sdle.cluster.ring.operations.HashRingLogOperation;
 import feup.sdle.cluster.ring.operations.RemoveNodeOperation;
@@ -18,7 +23,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class HashRing {
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = HashRing.class, name = "hashRing")
+})
+
+public class HashRing implements ProtobufSerializable<HashRingMessage.HashRing> {
     private static final Logger LOGGER = LoggerFactory.getLogger(HashRing.class);
     private static final int REPLICATION_FACTOR = 2;
     protected static final int VIRTUAL_NODES = 3;
@@ -241,4 +255,13 @@ public class HashRing {
         }
     }
 
+    @Override
+    public ByteString toProtoBuf() {
+        return null;
+    }
+
+    @Override
+    public HashRingMessage.HashRing toMessage() {
+        return null;
+    }
 }
