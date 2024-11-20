@@ -1,9 +1,15 @@
+"use client"
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import useHashRing from "@/lib/hooks/useHashRing";
+import { HashRing } from "@/lib/p2p/HashRing";
 import Link from "next/link";
 
-export default function Home() {
+export default function Home({ }) {
+    const { ring } = useHashRing();
+
     return <>
         <div className="flex flex-col mx-auto w-1/2 gap-x-2 mt-40">
             <h1 className="text-4xl font-bold text-center mb-8">!!Ka-Chow!!</h1>
