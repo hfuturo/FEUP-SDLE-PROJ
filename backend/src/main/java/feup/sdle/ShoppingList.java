@@ -1,17 +1,15 @@
 package feup.sdle;
 
+import com.google.protobuf.MapEntry;
 import feup.sdle.Document;
 import feup.sdle.cluster.NodeIdentifier;
 import feup.sdle.crdts.AWMap;
 import feup.sdle.crdts.DottedValue;
 import feup.sdle.crdts.ShoppingListItem;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
- /**
+/**
     * This is a CRDT set that will need to mantain a list of removed items, so in cases of a concurrent edit
     * the behaviour of the counters will not be wrong
 */
@@ -19,14 +17,20 @@ public class ShoppingList implements Document {
     // The String key will never change. This is an id of the shopping list and not the name of the list itself.
     private AWMap<String, ShoppingListItem> items;
     private NodeIdentifier localIdentifier;
+    private HashMap<String, DottedValue<Integer, Integer, Integer>> removedCounters;
 
     public ShoppingList(NodeIdentifier localIdentifier) {
         this.items = new AWMap<>(localIdentifier);
         this.localIdentifier = localIdentifier;
+        this.removedCounters = new HashMap<>();
+    }
+
+    public void addItem(String key, int quantity) {
+        this.items.add(key, new ShoppingListItem(this.localIdentifier.getId(), quantity));
     }
 
     public void remove(String key) {
-        /*DottedValue<Integer, Integer, ShoppingListItem> item = this.items.getValue(key);
+        DottedValue<Integer, Integer, ShoppingListItem> item = this.items.getValue(key);
 
         DottedValue<Integer, Integer, Integer> removed = this.removedCounters.get(key);
         if(removed != null) {
@@ -35,7 +39,7 @@ public class ShoppingList implements Document {
             this.removedCounters.put(key, new DottedValue<>(item.identifier(), item.event(), item.value().getQuantity()));
         }
 
-        this.items.remove(key);*/
+        this.items.remove(key);
     }
 
      /**
@@ -45,7 +49,17 @@ public class ShoppingList implements Document {
       * For example, if someone removes the item with the original value 1 but the other one adds 2 to the quantity, the item should remain with value 1.vgit
       */
     public void merge(ShoppingList other) {
+        Optional<Integer> latestOtherDot = this.items.getDotContext().latestReplicaDot(other.localIdentifier.getId());
+
         this.items.merge(other.items);
+
+        if(latestOtherDot.isEmpty()) return;
+
+        for(Map.Entry<String, DottedValue<Integer, Integer, Integer>> entry: other.removedCounters.entrySet()) {
+            if(entry.getValue().identifier() == other.localIdentifier.getId() && entry.getValue().event() > latestOtherDot.get()) {
+                this.items.getValue(entry.getKey()).value().updateQuantity(-entry.getValue().value());
+            }
+        }
     }
 
     public AWMap<String, ShoppingListItem> getItems() {

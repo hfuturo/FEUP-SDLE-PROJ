@@ -4,6 +4,7 @@ import feup.sdle.cluster.NodeIdentifier;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 public class AWMap<K, V extends CRDTSingleMergeable<V>> {
@@ -18,8 +19,12 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
         this.values = new HashMap<>();
     }
 
-    public int latestDot(Integer id) {
-        return this.dotContext.latestReplicaDot(id);
+    public Optional<Optional<Integer>> latestDot(Integer id) {
+        return Optional.of(this.dotContext.latestReplicaDot(id));
+    }
+
+    public DotContext getDotContext() {
+        return this.dotContext;
     }
 
     public DottedValue<Integer, Integer, V> getValue(K key) {

@@ -33,8 +33,12 @@ public class DotContext {
         return Optional.of(this.dots.get(identifier));
     }
 
-    public int latestReplicaDot(Integer identifier) {
-        return this.dots.get(identifier);
+    public Optional<Integer> latestReplicaDot(Integer identifier) {
+       if(this.dots.get(identifier) != null) {
+           return Optional.of(this.dots.get(identifier));
+       }
+
+       return Optional.empty();
     }
 
     /**
