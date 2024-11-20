@@ -3,6 +3,7 @@ package feup.sdle.crdts;
 import feup.sdle.cluster.NodeIdentifier;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
 public class AWMap<K, V extends CRDTSingleMergeable<V>> {
@@ -14,6 +15,7 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
     public AWMap(NodeIdentifier localIdentifier) {
         this.localIdentifier = localIdentifier;
         this.dotContext = new DotContext(this.localIdentifier.getId());
+        this.values = new HashMap<>();
     }
 
     public int latestDot(Integer id) {
@@ -22,6 +24,10 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
 
     public DottedValue<Integer, Integer, V> getValue(K key) {
         return this.values.get(key);
+    }
+
+    public AWSet<K> getKeys() {
+        return this.keys;
     }
 
     public void add(K id, V value) {
@@ -46,13 +52,14 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
     // where v(𝑘) = fst ((𝑚[𝑘], 𝑐) ⊔ (𝑚′ [𝑘], 𝑐′))
     public void merge(AWMap<K, V> other) {
         Set<K> localKeys = this.values.keySet();
-        Set<K> otherKeys = other.values.keySet();
+        Set<K> otherKeys = new HashSet<>(other.values.keySet());
 
-        localKeys.forEach(el -> {
-            if(!otherKeys.contains(el)) {
-                this.values.remove(el);
-            }
-        });
+        Set<K> commonKeys = new HashSet<>(localKeys);
+        commonKeys.retainAll(otherKeys);
+
+        for(K key : commonKeys) {
+            this.values.get(key).value().merge(other.values.get(key).value());
+        }
 
         otherKeys.removeAll(localKeys);
         for(K key: otherKeys) {
