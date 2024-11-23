@@ -69,7 +69,7 @@ public class ShoppingList implements Document {
 
     public DocumentProto.ShoppingList toMessageShoppingList() {
         return DocumentProto.ShoppingList.newBuilder()
-                .putAllItems(this.items)
+//                .putAllItems(this.items)
                 .build();
     }
 }
