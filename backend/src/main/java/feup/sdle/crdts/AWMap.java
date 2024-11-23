@@ -16,6 +16,7 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
         this.localIdentifier = localIdentifier;
         this.dotContext = new DotContext(this.localIdentifier.getId());
         this.values = new HashMap<>();
+        this.keys = new AWSet<>(this.localIdentifier.getId());
     }
 
     public Optional<Optional<Integer>> latestDot(Integer id) {

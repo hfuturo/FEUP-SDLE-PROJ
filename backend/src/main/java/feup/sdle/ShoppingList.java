@@ -1,5 +1,8 @@
 package feup.sdle;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.google.protobuf.MapEntry;
 import feup.sdle.Document;
 import feup.sdle.cluster.NodeIdentifier;
@@ -8,6 +11,7 @@ import feup.sdle.crdts.DottedValue;
 import feup.sdle.crdts.ShoppingListItem;
 import feup.sdle.message.DocumentProto;
 import feup.sdle.message.DottedValueProto;
+import feup.sdle.message.NodeIdentifierMessage;
 
 import java.nio.channels.InterruptedByTimeoutException;
 import java.util.*;
@@ -17,6 +21,7 @@ import java.util.*;
     * the behaviour of the counters will not be wrong
 */
 public class ShoppingList implements Document {
+    private String id;
     // The String key will never change. This is an id of the shopping list and not the name of the list itself.
     private AWMap<String, ShoppingListItem> items;
     private NodeIdentifier localIdentifier;
@@ -26,6 +31,14 @@ public class ShoppingList implements Document {
         this.items = new AWMap<>(localIdentifier);
         this.localIdentifier = localIdentifier;
         this.removedCounters = new HashMap<>();
+    }
+
+    public void setNodeIdentifier(NodeIdentifier nodeIdentifier) {
+        this.localIdentifier = nodeIdentifier;
+    }
+
+    public void setItems(AWMap<String, ShoppingListItem> items) {
+        this.items = items;
     }
 
     public void addItem(String key, int quantity) {
