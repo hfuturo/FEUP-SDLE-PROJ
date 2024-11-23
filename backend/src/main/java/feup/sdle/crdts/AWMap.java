@@ -1,11 +1,10 @@
 package feup.sdle.crdts;
 
 import feup.sdle.cluster.NodeIdentifier;
+import feup.sdle.message.AWMapProto;
+import feup.sdle.message.DottedValueProto;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public class AWMap<K, V extends CRDTSingleMergeable<V>> {
     private DotContext dotContext;
@@ -72,5 +71,20 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
         }
 
         this.dotContext.merge(other.dotContext);
+    }
+
+    public AWMapProto.AWMap toMessageProto() {
+        var builder = AWMapProto.AWMap.newBuilder()
+                .setDotContext(this.dotContext.toMessageDotContext())
+                .setLocalIdentifier(this.localIdentifier.toMessageNodeIdentifier())
+                .setKeys(this.keys.toMessageAWSet());
+
+        HashMap<String, DottedValueProto.DottedValue> protoEntries = new HashMap<>();
+
+        for (Map.Entry<K, DottedValue<Integer, Integer, V>> entry : this.values.entrySet()) {
+            protoEntries.put((String) entry.getKey(), entry.getValue().toMessageDottedValue());
+        }
+
+        return builder.putAllValues(protoEntries).build();
     }
 }

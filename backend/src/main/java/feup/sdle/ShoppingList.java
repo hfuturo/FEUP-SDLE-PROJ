@@ -7,7 +7,9 @@ import feup.sdle.crdts.AWMap;
 import feup.sdle.crdts.DottedValue;
 import feup.sdle.crdts.ShoppingListItem;
 import feup.sdle.message.DocumentProto;
+import feup.sdle.message.DottedValueProto;
 
+import java.nio.channels.InterruptedByTimeoutException;
 import java.util.*;
 
 /**
@@ -68,8 +70,16 @@ public class ShoppingList implements Document {
     }
 
     public DocumentProto.ShoppingList toMessageShoppingList() {
-        return DocumentProto.ShoppingList.newBuilder()
-//                .putAllItems(this.items)
-                .build();
+        var builder = DocumentProto.ShoppingList.newBuilder()
+                .setItems(this.items.toMessageProto())
+                .setLocalIdentifier(this.localIdentifier.toMessageNodeIdentifier());
+
+        HashMap<String, DottedValueProto.DottedValue> protoEntries = new HashMap<>();
+
+        for (Map.Entry<String, DottedValue<Integer, Integer, Integer>> entry : this.removedCounters.entrySet()) {
+            protoEntries.put(entry.getKey(), entry.getValue().toMessageDottedValue());
+        }
+
+        return builder.putAllRemovedCounters(protoEntries).build();
     }
 }

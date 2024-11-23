@@ -1,5 +1,9 @@
 package feup.sdle.crdts;
 
+import feup.sdle.message.AWSetProto;
+import feup.sdle.message.DocumentProto;
+import feup.sdle.message.DottedValueProto;
+
 import java.util.HashSet;
 import java.util.stream.Collectors;
 
@@ -39,5 +43,17 @@ public class AWSet<V> {
 
     public HashSet<V> getValues() {
         return (HashSet<V>) this.values.stream().map(DottedValue::value).collect(Collectors.toSet());
+    }
+
+    public AWSetProto.AWSet toMessageAWSet() {
+        var builder = AWSetProto.AWSet.newBuilder()
+                .setDotContext(this.dotContext.toMessageDotContext())
+                .setLocalIdentifier(this.localIdentifier);
+
+        HashSet<DottedValueProto.DottedValue> protoSet = new HashSet<>();
+
+        this.values.forEach(value -> protoSet.add(value.toMessageDottedValue()));
+
+        return builder.addAllValues(protoSet).build();
     }
 }

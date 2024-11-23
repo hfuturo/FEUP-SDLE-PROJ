@@ -1122,16 +1122,15 @@ public final class DocumentRequestProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\025documentrequest.proto\032\rmessage.proto\"1" +
-      "\n\024DocumentRangeRequest\022\031\n\005range\030\001 \001(\0132\n." +
-      "HashRange\"\'\n\tHashRange\022\r\n\005start\030\001 \001(\014\022\013\n" +
-      "\003end\030\002 \001(\014B)\n\021feup.sdle.messageB\024Documen" +
-      "tRequestProtob\006proto3"
+      "\n\025documentrequest.proto\"1\n\024DocumentRange" +
+      "Request\022\031\n\005range\030\001 \001(\0132\n.HashRange\"\'\n\tHa" +
+      "shRange\022\r\n\005start\030\001 \001(\014\022\013\n\003end\030\002 \001(\014B)\n\021f" +
+      "eup.sdle.messageB\024DocumentRequestProtob\006" +
+      "proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          feup.sdle.message.Message.getDescriptor(),
         });
     internal_static_DocumentRangeRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -1146,7 +1145,6 @@ public final class DocumentRequestProto {
         internal_static_HashRange_descriptor,
         new java.lang.String[] { "Start", "End", });
     descriptor.resolveAllFeaturesImmutable();
-    feup.sdle.message.Message.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

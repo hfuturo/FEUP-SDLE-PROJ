@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package feup.sdle.message;
+
+option java_package = "feup.sdle.message";
+option java_outer_classname = "ShoppingListItemProto";
+
+import "ccounter.proto";
+
+message ShoppingListItem {
+    CCounter ccounter = 1;
+}

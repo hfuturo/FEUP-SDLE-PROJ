@@ -1,5 +1,7 @@
 package feup.sdle.crdts;
 
+import feup.sdle.message.DotContextProto;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -111,5 +113,11 @@ public class DotContext {
         }
 
         return localHasItemsOtherDoesNot && otherHasItemLocalHasNot;
+    }
+
+    public DotContextProto.DotContext toMessageDotContext() {
+        return DotContextProto.DotContext.newBuilder()
+                .putAllDots(this.dots)
+                .build();
     }
 }

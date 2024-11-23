@@ -855,35 +855,67 @@ public final class DocumentProto {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>map&lt;string, int32&gt; items = 1;</code>
+     * <code>.feup.sdle.message.AWMap items = 1;</code>
+     * @return Whether the items field is set.
      */
-    int getItemsCount();
+    boolean hasItems();
     /**
-     * <code>map&lt;string, int32&gt; items = 1;</code>
+     * <code>.feup.sdle.message.AWMap items = 1;</code>
+     * @return The items.
      */
-    boolean containsItems(
+    feup.sdle.message.AWMapProto.AWMap getItems();
+    /**
+     * <code>.feup.sdle.message.AWMap items = 1;</code>
+     */
+    feup.sdle.message.AWMapProto.AWMapOrBuilder getItemsOrBuilder();
+
+    /**
+     * <code>.feup.sdle.message.NodeIdentifier localIdentifier = 2;</code>
+     * @return Whether the localIdentifier field is set.
+     */
+    boolean hasLocalIdentifier();
+    /**
+     * <code>.feup.sdle.message.NodeIdentifier localIdentifier = 2;</code>
+     * @return The localIdentifier.
+     */
+    feup.sdle.message.NodeIdentifierMessage.NodeIdentifier getLocalIdentifier();
+    /**
+     * <code>.feup.sdle.message.NodeIdentifier localIdentifier = 2;</code>
+     */
+    feup.sdle.message.NodeIdentifierMessage.NodeIdentifierOrBuilder getLocalIdentifierOrBuilder();
+
+    /**
+     * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; removedCounters = 3;</code>
+     */
+    int getRemovedCountersCount();
+    /**
+     * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; removedCounters = 3;</code>
+     */
+    boolean containsRemovedCounters(
         java.lang.String key);
     /**
-     * Use {@link #getItemsMap()} instead.
+     * Use {@link #getRemovedCountersMap()} instead.
      */
     @java.lang.Deprecated
-    java.util.Map<java.lang.String, java.lang.Integer>
-    getItems();
+    java.util.Map<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue>
+    getRemovedCounters();
     /**
-     * <code>map&lt;string, int32&gt; items = 1;</code>
+     * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; removedCounters = 3;</code>
      */
-    java.util.Map<java.lang.String, java.lang.Integer>
-    getItemsMap();
+    java.util.Map<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue>
+    getRemovedCountersMap();
     /**
-     * <code>map&lt;string, int32&gt; items = 1;</code>
+     * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; removedCounters = 3;</code>
      */
-    int getItemsOrDefault(
+    /* nullable */
+feup.sdle.message.DottedValueProto.DottedValue getRemovedCountersOrDefault(
         java.lang.String key,
-        int defaultValue);
+        /* nullable */
+feup.sdle.message.DottedValueProto.DottedValue defaultValue);
     /**
-     * <code>map&lt;string, int32&gt; items = 1;</code>
+     * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; removedCounters = 3;</code>
      */
-    int getItemsOrThrow(
+    feup.sdle.message.DottedValueProto.DottedValue getRemovedCountersOrThrow(
         java.lang.String key);
   }
   /**
@@ -920,8 +952,8 @@ public final class DocumentProto {
     protected com.google.protobuf.MapFieldReflectionAccessor internalGetMapFieldReflection(
         int number) {
       switch (number) {
-        case 1:
-          return internalGetItems();
+        case 3:
+          return internalGetRemovedCounters();
         default:
           throw new RuntimeException(
               "Invalid map field number: " + number);
@@ -935,77 +967,132 @@ public final class DocumentProto {
               feup.sdle.message.DocumentProto.ShoppingList.class, feup.sdle.message.DocumentProto.ShoppingList.Builder.class);
     }
 
+    private int bitField0_;
     public static final int ITEMS_FIELD_NUMBER = 1;
-    private static final class ItemsDefaultEntryHolder {
+    private feup.sdle.message.AWMapProto.AWMap items_;
+    /**
+     * <code>.feup.sdle.message.AWMap items = 1;</code>
+     * @return Whether the items field is set.
+     */
+    @java.lang.Override
+    public boolean hasItems() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>.feup.sdle.message.AWMap items = 1;</code>
+     * @return The items.
+     */
+    @java.lang.Override
+    public feup.sdle.message.AWMapProto.AWMap getItems() {
+      return items_ == null ? feup.sdle.message.AWMapProto.AWMap.getDefaultInstance() : items_;
+    }
+    /**
+     * <code>.feup.sdle.message.AWMap items = 1;</code>
+     */
+    @java.lang.Override
+    public feup.sdle.message.AWMapProto.AWMapOrBuilder getItemsOrBuilder() {
+      return items_ == null ? feup.sdle.message.AWMapProto.AWMap.getDefaultInstance() : items_;
+    }
+
+    public static final int LOCALIDENTIFIER_FIELD_NUMBER = 2;
+    private feup.sdle.message.NodeIdentifierMessage.NodeIdentifier localIdentifier_;
+    /**
+     * <code>.feup.sdle.message.NodeIdentifier localIdentifier = 2;</code>
+     * @return Whether the localIdentifier field is set.
+     */
+    @java.lang.Override
+    public boolean hasLocalIdentifier() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>.feup.sdle.message.NodeIdentifier localIdentifier = 2;</code>
+     * @return The localIdentifier.
+     */
+    @java.lang.Override
+    public feup.sdle.message.NodeIdentifierMessage.NodeIdentifier getLocalIdentifier() {
+      return localIdentifier_ == null ? feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.getDefaultInstance() : localIdentifier_;
+    }
+    /**
+     * <code>.feup.sdle.message.NodeIdentifier localIdentifier = 2;</code>
+     */
+    @java.lang.Override
+    public feup.sdle.message.NodeIdentifierMessage.NodeIdentifierOrBuilder getLocalIdentifierOrBuilder() {
+      return localIdentifier_ == null ? feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.getDefaultInstance() : localIdentifier_;
+    }
+
+    public static final int REMOVEDCOUNTERS_FIELD_NUMBER = 3;
+    private static final class RemovedCountersDefaultEntryHolder {
       static final com.google.protobuf.MapEntry<
-          java.lang.String, java.lang.Integer> defaultEntry =
+          java.lang.String, feup.sdle.message.DottedValueProto.DottedValue> defaultEntry =
               com.google.protobuf.MapEntry
-              .<java.lang.String, java.lang.Integer>newDefaultInstance(
-                  feup.sdle.message.DocumentProto.internal_static_feup_sdle_message_ShoppingList_ItemsEntry_descriptor, 
+              .<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue>newDefaultInstance(
+                  feup.sdle.message.DocumentProto.internal_static_feup_sdle_message_ShoppingList_RemovedCountersEntry_descriptor, 
                   com.google.protobuf.WireFormat.FieldType.STRING,
                   "",
-                  com.google.protobuf.WireFormat.FieldType.INT32,
-                  0);
+                  com.google.protobuf.WireFormat.FieldType.MESSAGE,
+                  feup.sdle.message.DottedValueProto.DottedValue.getDefaultInstance());
     }
     @SuppressWarnings("serial")
     private com.google.protobuf.MapField<
-        java.lang.String, java.lang.Integer> items_;
-    private com.google.protobuf.MapField<java.lang.String, java.lang.Integer>
-    internalGetItems() {
-      if (items_ == null) {
+        java.lang.String, feup.sdle.message.DottedValueProto.DottedValue> removedCounters_;
+    private com.google.protobuf.MapField<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue>
+    internalGetRemovedCounters() {
+      if (removedCounters_ == null) {
         return com.google.protobuf.MapField.emptyMapField(
-            ItemsDefaultEntryHolder.defaultEntry);
+            RemovedCountersDefaultEntryHolder.defaultEntry);
       }
-      return items_;
+      return removedCounters_;
     }
-    public int getItemsCount() {
-      return internalGetItems().getMap().size();
+    public int getRemovedCountersCount() {
+      return internalGetRemovedCounters().getMap().size();
     }
     /**
-     * <code>map&lt;string, int32&gt; items = 1;</code>
+     * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; removedCounters = 3;</code>
      */
     @java.lang.Override
-    public boolean containsItems(
+    public boolean containsRemovedCounters(
         java.lang.String key) {
       if (key == null) { throw new NullPointerException("map key"); }
-      return internalGetItems().getMap().containsKey(key);
+      return internalGetRemovedCounters().getMap().containsKey(key);
     }
     /**
-     * Use {@link #getItemsMap()} instead.
+     * Use {@link #getRemovedCountersMap()} instead.
      */
     @java.lang.Override
     @java.lang.Deprecated
-    public java.util.Map<java.lang.String, java.lang.Integer> getItems() {
-      return getItemsMap();
+    public java.util.Map<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue> getRemovedCounters() {
+      return getRemovedCountersMap();
     }
     /**
-     * <code>map&lt;string, int32&gt; items = 1;</code>
+     * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; removedCounters = 3;</code>
      */
     @java.lang.Override
-    public java.util.Map<java.lang.String, java.lang.Integer> getItemsMap() {
-      return internalGetItems().getMap();
+    public java.util.Map<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue> getRemovedCountersMap() {
+      return internalGetRemovedCounters().getMap();
     }
     /**
-     * <code>map&lt;string, int32&gt; items = 1;</code>
+     * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; removedCounters = 3;</code>
      */
     @java.lang.Override
-    public int getItemsOrDefault(
+    public /* nullable */
+feup.sdle.message.DottedValueProto.DottedValue getRemovedCountersOrDefault(
         java.lang.String key,
-        int defaultValue) {
+        /* nullable */
+feup.sdle.message.DottedValueProto.DottedValue defaultValue) {
       if (key == null) { throw new NullPointerException("map key"); }
-      java.util.Map<java.lang.String, java.lang.Integer> map =
-          internalGetItems().getMap();
+      java.util.Map<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue> map =
+          internalGetRemovedCounters().getMap();
       return map.containsKey(key) ? map.get(key) : defaultValue;
     }
     /**
-     * <code>map&lt;string, int32&gt; items = 1;</code>
+     * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; removedCounters = 3;</code>
      */
     @java.lang.Override
-    public int getItemsOrThrow(
+    public feup.sdle.message.DottedValueProto.DottedValue getRemovedCountersOrThrow(
         java.lang.String key) {
       if (key == null) { throw new NullPointerException("map key"); }
-      java.util.Map<java.lang.String, java.lang.Integer> map =
-          internalGetItems().getMap();
+      java.util.Map<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue> map =
+          internalGetRemovedCounters().getMap();
       if (!map.containsKey(key)) {
         throw new java.lang.IllegalArgumentException();
       }
@@ -1026,12 +1113,18 @@ public final class DocumentProto {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(1, getItems());
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeMessage(2, getLocalIdentifier());
+      }
       com.google.protobuf.GeneratedMessage
         .serializeStringMapTo(
           output,
-          internalGetItems(),
-          ItemsDefaultEntryHolder.defaultEntry,
-          1);
+          internalGetRemovedCounters(),
+          RemovedCountersDefaultEntryHolder.defaultEntry,
+          3);
       getUnknownFields().writeTo(output);
     }
 
@@ -1041,15 +1134,23 @@ public final class DocumentProto {
       if (size != -1) return size;
 
       size = 0;
-      for (java.util.Map.Entry<java.lang.String, java.lang.Integer> entry
-           : internalGetItems().getMap().entrySet()) {
-        com.google.protobuf.MapEntry<java.lang.String, java.lang.Integer>
-        items__ = ItemsDefaultEntryHolder.defaultEntry.newBuilderForType()
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getItems());
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getLocalIdentifier());
+      }
+      for (java.util.Map.Entry<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue> entry
+           : internalGetRemovedCounters().getMap().entrySet()) {
+        com.google.protobuf.MapEntry<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue>
+        removedCounters__ = RemovedCountersDefaultEntryHolder.defaultEntry.newBuilderForType()
             .setKey(entry.getKey())
             .setValue(entry.getValue())
             .build();
         size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(1, items__);
+            .computeMessageSize(3, removedCounters__);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -1066,8 +1167,18 @@ public final class DocumentProto {
       }
       feup.sdle.message.DocumentProto.ShoppingList other = (feup.sdle.message.DocumentProto.ShoppingList) obj;
 
-      if (!internalGetItems().equals(
-          other.internalGetItems())) return false;
+      if (hasItems() != other.hasItems()) return false;
+      if (hasItems()) {
+        if (!getItems()
+            .equals(other.getItems())) return false;
+      }
+      if (hasLocalIdentifier() != other.hasLocalIdentifier()) return false;
+      if (hasLocalIdentifier()) {
+        if (!getLocalIdentifier()
+            .equals(other.getLocalIdentifier())) return false;
+      }
+      if (!internalGetRemovedCounters().equals(
+          other.internalGetRemovedCounters())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -1079,9 +1190,17 @@ public final class DocumentProto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (!internalGetItems().getMap().isEmpty()) {
+      if (hasItems()) {
         hash = (37 * hash) + ITEMS_FIELD_NUMBER;
-        hash = (53 * hash) + internalGetItems().hashCode();
+        hash = (53 * hash) + getItems().hashCode();
+      }
+      if (hasLocalIdentifier()) {
+        hash = (37 * hash) + LOCALIDENTIFIER_FIELD_NUMBER;
+        hash = (53 * hash) + getLocalIdentifier().hashCode();
+      }
+      if (!internalGetRemovedCounters().getMap().isEmpty()) {
+        hash = (37 * hash) + REMOVEDCOUNTERS_FIELD_NUMBER;
+        hash = (53 * hash) + internalGetRemovedCounters().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -1196,8 +1315,8 @@ public final class DocumentProto {
       protected com.google.protobuf.MapFieldReflectionAccessor internalGetMapFieldReflection(
           int number) {
         switch (number) {
-          case 1:
-            return internalGetItems();
+          case 3:
+            return internalGetRemovedCounters();
           default:
             throw new RuntimeException(
                 "Invalid map field number: " + number);
@@ -1207,8 +1326,8 @@ public final class DocumentProto {
       protected com.google.protobuf.MapFieldReflectionAccessor internalGetMutableMapFieldReflection(
           int number) {
         switch (number) {
-          case 1:
-            return internalGetMutableItems();
+          case 3:
+            return internalGetMutableRemovedCounters();
           default:
             throw new RuntimeException(
                 "Invalid map field number: " + number);
@@ -1224,19 +1343,36 @@ public final class DocumentProto {
 
       // Construct using feup.sdle.message.DocumentProto.ShoppingList.newBuilder()
       private Builder() {
-
+        maybeForceBuilderInitialization();
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
-
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage
+                .alwaysUseFieldBuilders) {
+          getItemsFieldBuilder();
+          getLocalIdentifierFieldBuilder();
+        }
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
-        internalGetMutableItems().clear();
+        items_ = null;
+        if (itemsBuilder_ != null) {
+          itemsBuilder_.dispose();
+          itemsBuilder_ = null;
+        }
+        localIdentifier_ = null;
+        if (localIdentifierBuilder_ != null) {
+          localIdentifierBuilder_.dispose();
+          localIdentifierBuilder_ = null;
+        }
+        internalGetMutableRemovedCounters().clear();
         return this;
       }
 
@@ -1270,10 +1406,23 @@ public final class DocumentProto {
 
       private void buildPartial0(feup.sdle.message.DocumentProto.ShoppingList result) {
         int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.items_ = internalGetItems();
-          result.items_.makeImmutable();
+          result.items_ = itemsBuilder_ == null
+              ? items_
+              : itemsBuilder_.build();
+          to_bitField0_ |= 0x00000001;
         }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.localIdentifier_ = localIdentifierBuilder_ == null
+              ? localIdentifier_
+              : localIdentifierBuilder_.build();
+          to_bitField0_ |= 0x00000002;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.removedCounters_ = internalGetRemovedCounters().build(RemovedCountersDefaultEntryHolder.defaultEntry);
+        }
+        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -1288,9 +1437,15 @@ public final class DocumentProto {
 
       public Builder mergeFrom(feup.sdle.message.DocumentProto.ShoppingList other) {
         if (other == feup.sdle.message.DocumentProto.ShoppingList.getDefaultInstance()) return this;
-        internalGetMutableItems().mergeFrom(
-            other.internalGetItems());
-        bitField0_ |= 0x00000001;
+        if (other.hasItems()) {
+          mergeItems(other.getItems());
+        }
+        if (other.hasLocalIdentifier()) {
+          mergeLocalIdentifier(other.getLocalIdentifier());
+        }
+        internalGetMutableRemovedCounters().mergeFrom(
+            other.internalGetRemovedCounters());
+        bitField0_ |= 0x00000004;
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -1318,14 +1473,28 @@ public final class DocumentProto {
                 done = true;
                 break;
               case 10: {
-                com.google.protobuf.MapEntry<java.lang.String, java.lang.Integer>
-                items__ = input.readMessage(
-                    ItemsDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
-                internalGetMutableItems().getMutableMap().put(
-                    items__.getKey(), items__.getValue());
+                input.readMessage(
+                    getItemsFieldBuilder().getBuilder(),
+                    extensionRegistry);
                 bitField0_ |= 0x00000001;
                 break;
               } // case 10
+              case 18: {
+                input.readMessage(
+                    getLocalIdentifierFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
+              case 26: {
+                com.google.protobuf.MapEntry<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue>
+                removedCounters__ = input.readMessage(
+                    RemovedCountersDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+                internalGetMutableRemovedCounters().ensureBuilderMap().put(
+                    removedCounters__.getKey(), removedCounters__.getValue());
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -1343,95 +1512,345 @@ public final class DocumentProto {
       }
       private int bitField0_;
 
-      private com.google.protobuf.MapField<
-          java.lang.String, java.lang.Integer> items_;
-      private com.google.protobuf.MapField<java.lang.String, java.lang.Integer>
-          internalGetItems() {
-        if (items_ == null) {
-          return com.google.protobuf.MapField.emptyMapField(
-              ItemsDefaultEntryHolder.defaultEntry);
-        }
-        return items_;
+      private feup.sdle.message.AWMapProto.AWMap items_;
+      private com.google.protobuf.SingleFieldBuilder<
+          feup.sdle.message.AWMapProto.AWMap, feup.sdle.message.AWMapProto.AWMap.Builder, feup.sdle.message.AWMapProto.AWMapOrBuilder> itemsBuilder_;
+      /**
+       * <code>.feup.sdle.message.AWMap items = 1;</code>
+       * @return Whether the items field is set.
+       */
+      public boolean hasItems() {
+        return ((bitField0_ & 0x00000001) != 0);
       }
-      private com.google.protobuf.MapField<java.lang.String, java.lang.Integer>
-          internalGetMutableItems() {
-        if (items_ == null) {
-          items_ = com.google.protobuf.MapField.newMapField(
-              ItemsDefaultEntryHolder.defaultEntry);
+      /**
+       * <code>.feup.sdle.message.AWMap items = 1;</code>
+       * @return The items.
+       */
+      public feup.sdle.message.AWMapProto.AWMap getItems() {
+        if (itemsBuilder_ == null) {
+          return items_ == null ? feup.sdle.message.AWMapProto.AWMap.getDefaultInstance() : items_;
+        } else {
+          return itemsBuilder_.getMessage();
         }
-        if (!items_.isMutable()) {
-          items_ = items_.copy();
+      }
+      /**
+       * <code>.feup.sdle.message.AWMap items = 1;</code>
+       */
+      public Builder setItems(feup.sdle.message.AWMapProto.AWMap value) {
+        if (itemsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          items_ = value;
+        } else {
+          itemsBuilder_.setMessage(value);
         }
         bitField0_ |= 0x00000001;
         onChanged();
-        return items_;
-      }
-      public int getItemsCount() {
-        return internalGetItems().getMap().size();
-      }
-      /**
-       * <code>map&lt;string, int32&gt; items = 1;</code>
-       */
-      @java.lang.Override
-      public boolean containsItems(
-          java.lang.String key) {
-        if (key == null) { throw new NullPointerException("map key"); }
-        return internalGetItems().getMap().containsKey(key);
-      }
-      /**
-       * Use {@link #getItemsMap()} instead.
-       */
-      @java.lang.Override
-      @java.lang.Deprecated
-      public java.util.Map<java.lang.String, java.lang.Integer> getItems() {
-        return getItemsMap();
-      }
-      /**
-       * <code>map&lt;string, int32&gt; items = 1;</code>
-       */
-      @java.lang.Override
-      public java.util.Map<java.lang.String, java.lang.Integer> getItemsMap() {
-        return internalGetItems().getMap();
-      }
-      /**
-       * <code>map&lt;string, int32&gt; items = 1;</code>
-       */
-      @java.lang.Override
-      public int getItemsOrDefault(
-          java.lang.String key,
-          int defaultValue) {
-        if (key == null) { throw new NullPointerException("map key"); }
-        java.util.Map<java.lang.String, java.lang.Integer> map =
-            internalGetItems().getMap();
-        return map.containsKey(key) ? map.get(key) : defaultValue;
-      }
-      /**
-       * <code>map&lt;string, int32&gt; items = 1;</code>
-       */
-      @java.lang.Override
-      public int getItemsOrThrow(
-          java.lang.String key) {
-        if (key == null) { throw new NullPointerException("map key"); }
-        java.util.Map<java.lang.String, java.lang.Integer> map =
-            internalGetItems().getMap();
-        if (!map.containsKey(key)) {
-          throw new java.lang.IllegalArgumentException();
-        }
-        return map.get(key);
-      }
-      public Builder clearItems() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        internalGetMutableItems().getMutableMap()
-            .clear();
         return this;
       }
       /**
-       * <code>map&lt;string, int32&gt; items = 1;</code>
+       * <code>.feup.sdle.message.AWMap items = 1;</code>
        */
-      public Builder removeItems(
+      public Builder setItems(
+          feup.sdle.message.AWMapProto.AWMap.Builder builderForValue) {
+        if (itemsBuilder_ == null) {
+          items_ = builderForValue.build();
+        } else {
+          itemsBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.feup.sdle.message.AWMap items = 1;</code>
+       */
+      public Builder mergeItems(feup.sdle.message.AWMapProto.AWMap value) {
+        if (itemsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0) &&
+            items_ != null &&
+            items_ != feup.sdle.message.AWMapProto.AWMap.getDefaultInstance()) {
+            getItemsBuilder().mergeFrom(value);
+          } else {
+            items_ = value;
+          }
+        } else {
+          itemsBuilder_.mergeFrom(value);
+        }
+        if (items_ != null) {
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <code>.feup.sdle.message.AWMap items = 1;</code>
+       */
+      public Builder clearItems() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        items_ = null;
+        if (itemsBuilder_ != null) {
+          itemsBuilder_.dispose();
+          itemsBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.feup.sdle.message.AWMap items = 1;</code>
+       */
+      public feup.sdle.message.AWMapProto.AWMap.Builder getItemsBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getItemsFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.feup.sdle.message.AWMap items = 1;</code>
+       */
+      public feup.sdle.message.AWMapProto.AWMapOrBuilder getItemsOrBuilder() {
+        if (itemsBuilder_ != null) {
+          return itemsBuilder_.getMessageOrBuilder();
+        } else {
+          return items_ == null ?
+              feup.sdle.message.AWMapProto.AWMap.getDefaultInstance() : items_;
+        }
+      }
+      /**
+       * <code>.feup.sdle.message.AWMap items = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          feup.sdle.message.AWMapProto.AWMap, feup.sdle.message.AWMapProto.AWMap.Builder, feup.sdle.message.AWMapProto.AWMapOrBuilder> 
+          getItemsFieldBuilder() {
+        if (itemsBuilder_ == null) {
+          itemsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              feup.sdle.message.AWMapProto.AWMap, feup.sdle.message.AWMapProto.AWMap.Builder, feup.sdle.message.AWMapProto.AWMapOrBuilder>(
+                  getItems(),
+                  getParentForChildren(),
+                  isClean());
+          items_ = null;
+        }
+        return itemsBuilder_;
+      }
+
+      private feup.sdle.message.NodeIdentifierMessage.NodeIdentifier localIdentifier_;
+      private com.google.protobuf.SingleFieldBuilder<
+          feup.sdle.message.NodeIdentifierMessage.NodeIdentifier, feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.Builder, feup.sdle.message.NodeIdentifierMessage.NodeIdentifierOrBuilder> localIdentifierBuilder_;
+      /**
+       * <code>.feup.sdle.message.NodeIdentifier localIdentifier = 2;</code>
+       * @return Whether the localIdentifier field is set.
+       */
+      public boolean hasLocalIdentifier() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>.feup.sdle.message.NodeIdentifier localIdentifier = 2;</code>
+       * @return The localIdentifier.
+       */
+      public feup.sdle.message.NodeIdentifierMessage.NodeIdentifier getLocalIdentifier() {
+        if (localIdentifierBuilder_ == null) {
+          return localIdentifier_ == null ? feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.getDefaultInstance() : localIdentifier_;
+        } else {
+          return localIdentifierBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.feup.sdle.message.NodeIdentifier localIdentifier = 2;</code>
+       */
+      public Builder setLocalIdentifier(feup.sdle.message.NodeIdentifierMessage.NodeIdentifier value) {
+        if (localIdentifierBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          localIdentifier_ = value;
+        } else {
+          localIdentifierBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.feup.sdle.message.NodeIdentifier localIdentifier = 2;</code>
+       */
+      public Builder setLocalIdentifier(
+          feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.Builder builderForValue) {
+        if (localIdentifierBuilder_ == null) {
+          localIdentifier_ = builderForValue.build();
+        } else {
+          localIdentifierBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.feup.sdle.message.NodeIdentifier localIdentifier = 2;</code>
+       */
+      public Builder mergeLocalIdentifier(feup.sdle.message.NodeIdentifierMessage.NodeIdentifier value) {
+        if (localIdentifierBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0) &&
+            localIdentifier_ != null &&
+            localIdentifier_ != feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.getDefaultInstance()) {
+            getLocalIdentifierBuilder().mergeFrom(value);
+          } else {
+            localIdentifier_ = value;
+          }
+        } else {
+          localIdentifierBuilder_.mergeFrom(value);
+        }
+        if (localIdentifier_ != null) {
+          bitField0_ |= 0x00000002;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <code>.feup.sdle.message.NodeIdentifier localIdentifier = 2;</code>
+       */
+      public Builder clearLocalIdentifier() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        localIdentifier_ = null;
+        if (localIdentifierBuilder_ != null) {
+          localIdentifierBuilder_.dispose();
+          localIdentifierBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.feup.sdle.message.NodeIdentifier localIdentifier = 2;</code>
+       */
+      public feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.Builder getLocalIdentifierBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return getLocalIdentifierFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.feup.sdle.message.NodeIdentifier localIdentifier = 2;</code>
+       */
+      public feup.sdle.message.NodeIdentifierMessage.NodeIdentifierOrBuilder getLocalIdentifierOrBuilder() {
+        if (localIdentifierBuilder_ != null) {
+          return localIdentifierBuilder_.getMessageOrBuilder();
+        } else {
+          return localIdentifier_ == null ?
+              feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.getDefaultInstance() : localIdentifier_;
+        }
+      }
+      /**
+       * <code>.feup.sdle.message.NodeIdentifier localIdentifier = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          feup.sdle.message.NodeIdentifierMessage.NodeIdentifier, feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.Builder, feup.sdle.message.NodeIdentifierMessage.NodeIdentifierOrBuilder> 
+          getLocalIdentifierFieldBuilder() {
+        if (localIdentifierBuilder_ == null) {
+          localIdentifierBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              feup.sdle.message.NodeIdentifierMessage.NodeIdentifier, feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.Builder, feup.sdle.message.NodeIdentifierMessage.NodeIdentifierOrBuilder>(
+                  getLocalIdentifier(),
+                  getParentForChildren(),
+                  isClean());
+          localIdentifier_ = null;
+        }
+        return localIdentifierBuilder_;
+      }
+
+      private static final class RemovedCountersConverter implements com.google.protobuf.MapFieldBuilder.Converter<java.lang.String, feup.sdle.message.DottedValueProto.DottedValueOrBuilder, feup.sdle.message.DottedValueProto.DottedValue> {
+        @java.lang.Override
+        public feup.sdle.message.DottedValueProto.DottedValue build(feup.sdle.message.DottedValueProto.DottedValueOrBuilder val) {
+          if (val instanceof feup.sdle.message.DottedValueProto.DottedValue) { return (feup.sdle.message.DottedValueProto.DottedValue) val; }
+          return ((feup.sdle.message.DottedValueProto.DottedValue.Builder) val).build();
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.MapEntry<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue> defaultEntry() {
+          return RemovedCountersDefaultEntryHolder.defaultEntry;
+        }
+      };
+      private static final RemovedCountersConverter removedCountersConverter = new RemovedCountersConverter();
+
+      private com.google.protobuf.MapFieldBuilder<
+          java.lang.String, feup.sdle.message.DottedValueProto.DottedValueOrBuilder, feup.sdle.message.DottedValueProto.DottedValue, feup.sdle.message.DottedValueProto.DottedValue.Builder> removedCounters_;
+      private com.google.protobuf.MapFieldBuilder<java.lang.String, feup.sdle.message.DottedValueProto.DottedValueOrBuilder, feup.sdle.message.DottedValueProto.DottedValue, feup.sdle.message.DottedValueProto.DottedValue.Builder>
+          internalGetRemovedCounters() {
+        if (removedCounters_ == null) {
+          return new com.google.protobuf.MapFieldBuilder<>(removedCountersConverter);
+        }
+        return removedCounters_;
+      }
+      private com.google.protobuf.MapFieldBuilder<java.lang.String, feup.sdle.message.DottedValueProto.DottedValueOrBuilder, feup.sdle.message.DottedValueProto.DottedValue, feup.sdle.message.DottedValueProto.DottedValue.Builder>
+          internalGetMutableRemovedCounters() {
+        if (removedCounters_ == null) {
+          removedCounters_ = new com.google.protobuf.MapFieldBuilder<>(removedCountersConverter);
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return removedCounters_;
+      }
+      public int getRemovedCountersCount() {
+        return internalGetRemovedCounters().ensureBuilderMap().size();
+      }
+      /**
+       * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; removedCounters = 3;</code>
+       */
+      @java.lang.Override
+      public boolean containsRemovedCounters(
           java.lang.String key) {
         if (key == null) { throw new NullPointerException("map key"); }
-        internalGetMutableItems().getMutableMap()
+        return internalGetRemovedCounters().ensureBuilderMap().containsKey(key);
+      }
+      /**
+       * Use {@link #getRemovedCountersMap()} instead.
+       */
+      @java.lang.Override
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue> getRemovedCounters() {
+        return getRemovedCountersMap();
+      }
+      /**
+       * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; removedCounters = 3;</code>
+       */
+      @java.lang.Override
+      public java.util.Map<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue> getRemovedCountersMap() {
+        return internalGetRemovedCounters().getImmutableMap();
+      }
+      /**
+       * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; removedCounters = 3;</code>
+       */
+      @java.lang.Override
+      public /* nullable */
+feup.sdle.message.DottedValueProto.DottedValue getRemovedCountersOrDefault(
+          java.lang.String key,
+          /* nullable */
+feup.sdle.message.DottedValueProto.DottedValue defaultValue) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        java.util.Map<java.lang.String, feup.sdle.message.DottedValueProto.DottedValueOrBuilder> map = internalGetMutableRemovedCounters().ensureBuilderMap();
+        return map.containsKey(key) ? removedCountersConverter.build(map.get(key)) : defaultValue;
+      }
+      /**
+       * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; removedCounters = 3;</code>
+       */
+      @java.lang.Override
+      public feup.sdle.message.DottedValueProto.DottedValue getRemovedCountersOrThrow(
+          java.lang.String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        java.util.Map<java.lang.String, feup.sdle.message.DottedValueProto.DottedValueOrBuilder> map = internalGetMutableRemovedCounters().ensureBuilderMap();
+        if (!map.containsKey(key)) {
+          throw new java.lang.IllegalArgumentException();
+        }
+        return removedCountersConverter.build(map.get(key));
+      }
+      public Builder clearRemovedCounters() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        internalGetMutableRemovedCounters().clear();
+        return this;
+      }
+      /**
+       * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; removedCounters = 3;</code>
+       */
+      public Builder removeRemovedCounters(
+          java.lang.String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        internalGetMutableRemovedCounters().ensureBuilderMap()
             .remove(key);
         return this;
       }
@@ -1439,33 +1858,55 @@ public final class DocumentProto {
        * Use alternate mutation accessors instead.
        */
       @java.lang.Deprecated
-      public java.util.Map<java.lang.String, java.lang.Integer>
-          getMutableItems() {
-        bitField0_ |= 0x00000001;
-        return internalGetMutableItems().getMutableMap();
+      public java.util.Map<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue>
+          getMutableRemovedCounters() {
+        bitField0_ |= 0x00000004;
+        return internalGetMutableRemovedCounters().ensureMessageMap();
       }
       /**
-       * <code>map&lt;string, int32&gt; items = 1;</code>
+       * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; removedCounters = 3;</code>
        */
-      public Builder putItems(
+      public Builder putRemovedCounters(
           java.lang.String key,
-          int value) {
+          feup.sdle.message.DottedValueProto.DottedValue value) {
         if (key == null) { throw new NullPointerException("map key"); }
-
-        internalGetMutableItems().getMutableMap()
+        if (value == null) { throw new NullPointerException("map value"); }
+        internalGetMutableRemovedCounters().ensureBuilderMap()
             .put(key, value);
-        bitField0_ |= 0x00000001;
+        bitField0_ |= 0x00000004;
         return this;
       }
       /**
-       * <code>map&lt;string, int32&gt; items = 1;</code>
+       * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; removedCounters = 3;</code>
        */
-      public Builder putAllItems(
-          java.util.Map<java.lang.String, java.lang.Integer> values) {
-        internalGetMutableItems().getMutableMap()
+      public Builder putAllRemovedCounters(
+          java.util.Map<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue> values) {
+        for (java.util.Map.Entry<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue> e : values.entrySet()) {
+          if (e.getKey() == null || e.getValue() == null) {
+            throw new NullPointerException();
+          }
+        }
+        internalGetMutableRemovedCounters().ensureBuilderMap()
             .putAll(values);
-        bitField0_ |= 0x00000001;
+        bitField0_ |= 0x00000004;
         return this;
+      }
+      /**
+       * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; removedCounters = 3;</code>
+       */
+      public feup.sdle.message.DottedValueProto.DottedValue.Builder putRemovedCountersBuilderIfAbsent(
+          java.lang.String key) {
+        java.util.Map<java.lang.String, feup.sdle.message.DottedValueProto.DottedValueOrBuilder> builderMap = internalGetMutableRemovedCounters().ensureBuilderMap();
+        feup.sdle.message.DottedValueProto.DottedValueOrBuilder entry = builderMap.get(key);
+        if (entry == null) {
+          entry = feup.sdle.message.DottedValueProto.DottedValue.newBuilder();
+          builderMap.put(key, entry);
+        }
+        if (entry instanceof feup.sdle.message.DottedValueProto.DottedValue) {
+          entry = ((feup.sdle.message.DottedValueProto.DottedValue) entry).toBuilder();
+          builderMap.put(key, entry);
+        }
+        return (feup.sdle.message.DottedValueProto.DottedValue.Builder) entry;
       }
 
       // @@protoc_insertion_point(builder_scope:feup.sdle.message.ShoppingList)
@@ -1530,10 +1971,10 @@ public final class DocumentProto {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_feup_sdle_message_ShoppingList_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_feup_sdle_message_ShoppingList_ItemsEntry_descriptor;
+    internal_static_feup_sdle_message_ShoppingList_RemovedCountersEntry_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_feup_sdle_message_ShoppingList_ItemsEntry_fieldAccessorTable;
+      internal_static_feup_sdle_message_ShoppingList_RemovedCountersEntry_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1543,19 +1984,27 @@ public final class DocumentProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\016document.proto\022\021feup.sdle.message\"{\n\010D" +
-      "ocument\0228\n\rshopping_list\030\001 \001(\0132\037.feup.sd" +
-      "le.message.ShoppingListH\000\022\026\n\treplicate\030\002" +
-      " \001(\010H\001\210\001\001B\017\n\rdocument_typeB\014\n\n_replicate" +
-      "\"w\n\014ShoppingList\0229\n\005items\030\001 \003(\0132*.feup.s" +
-      "dle.message.ShoppingList.ItemsEntry\032,\n\nI" +
-      "temsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\005:\0028" +
-      "\001B\"\n\021feup.sdle.messageB\rDocumentProtob\006p" +
-      "roto3"
+      "\n\016document.proto\022\021feup.sdle.message\032\013awm" +
+      "ap.proto\032\024nodeidentifier.proto\032\021dottedva" +
+      "lue.proto\"{\n\010Document\0228\n\rshopping_list\030\001" +
+      " \001(\0132\037.feup.sdle.message.ShoppingListH\000\022" +
+      "\026\n\treplicate\030\002 \001(\010H\001\210\001\001B\017\n\rdocument_type" +
+      "B\014\n\n_replicate\"\232\002\n\014ShoppingList\022\'\n\005items" +
+      "\030\001 \001(\0132\030.feup.sdle.message.AWMap\022:\n\017loca" +
+      "lIdentifier\030\002 \001(\0132!.feup.sdle.message.No" +
+      "deIdentifier\022M\n\017removedCounters\030\003 \003(\01324." +
+      "feup.sdle.message.ShoppingList.RemovedCo" +
+      "untersEntry\032V\n\024RemovedCountersEntry\022\013\n\003k" +
+      "ey\030\001 \001(\t\022-\n\005value\030\002 \001(\0132\036.feup.sdle.mess" +
+      "age.DottedValue:\0028\001B\"\n\021feup.sdle.message" +
+      "B\rDocumentProtob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          feup.sdle.message.AWMapProto.getDescriptor(),
+          feup.sdle.message.NodeIdentifierMessage.getDescriptor(),
+          feup.sdle.message.DottedValueProto.getDescriptor(),
         });
     internal_static_feup_sdle_message_Document_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -1568,14 +2017,17 @@ public final class DocumentProto {
     internal_static_feup_sdle_message_ShoppingList_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_feup_sdle_message_ShoppingList_descriptor,
-        new java.lang.String[] { "Items", });
-    internal_static_feup_sdle_message_ShoppingList_ItemsEntry_descriptor =
+        new java.lang.String[] { "Items", "LocalIdentifier", "RemovedCounters", });
+    internal_static_feup_sdle_message_ShoppingList_RemovedCountersEntry_descriptor =
       internal_static_feup_sdle_message_ShoppingList_descriptor.getNestedTypes().get(0);
-    internal_static_feup_sdle_message_ShoppingList_ItemsEntry_fieldAccessorTable = new
+    internal_static_feup_sdle_message_ShoppingList_RemovedCountersEntry_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_feup_sdle_message_ShoppingList_ItemsEntry_descriptor,
+        internal_static_feup_sdle_message_ShoppingList_RemovedCountersEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     descriptor.resolveAllFeaturesImmutable();
+    feup.sdle.message.AWMapProto.getDescriptor();
+    feup.sdle.message.NodeIdentifierMessage.getDescriptor();
+    feup.sdle.message.DottedValueProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)
