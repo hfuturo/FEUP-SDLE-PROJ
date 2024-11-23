@@ -31,7 +31,7 @@ public class Node {
     private ZMQ.Socket socket; // TODO change this to allow multiple sockets
     private GossipService gossipService;
     private HashRingSyncService hashRingSyncService;
-    private HashRingDocumentsService hashRingDataService;
+    private HashRingDocumentsService hashRingDocumentsService;
     private MemoryStorageProvider<String, Document> storage;
     private boolean starter;
     private NodeReceiver receiver;
@@ -58,6 +58,8 @@ public class Node {
         this.gossipService = new GossipService(this, this.zmqContext);
 
         this.hashRingSyncService = new HashRingSyncService(this, this.ring, this.gossipService, 2000, 3);
+
+        this.hashRingDocumentsService = new HashRingDocumentsService(this);
 
         this.receiver = new NodeReceiver(this);
 
@@ -144,7 +146,7 @@ public class Node {
                 List<NodeIdentifier> sources = item.getValue();
 
                 for (var source : sources) {
-                    Boolean ok = this.hashRingDataService.requestDocumentsFromRange(source, range);
+                    Boolean ok = this.hashRingDocumentsService.requestDocumentsFromRange(source, range);
                     if (ok) {
                         break;
                     }
@@ -278,7 +280,9 @@ public class Node {
     public GossipService getGossipService() {
         return gossipService;
     }
-
+    public HashRingDocumentsService getHashRingDocumentsService() {
+        return this.hashRingDocumentsService;
+    }
     public Optional<Document> retrieveDocument(String key) {
         return this.storage.retrieve(key);
     }
@@ -304,4 +308,6 @@ public class Node {
 
         return this.identifier.equals(node.getNodeIdentifier());
     }
+
+
 }

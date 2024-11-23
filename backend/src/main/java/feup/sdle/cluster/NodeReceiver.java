@@ -15,12 +15,14 @@ public class NodeReceiver {
     private Node node;
     private ZMQ.Socket socket;
     private GossipService gossipService;
+    private HashRingDocumentsService hashRingDocumentsService;
     private HashMap<MessageType, MessagingService> msgTypeToServices;
 
     public NodeReceiver(Node node) {
         this.node = node;
 
         this.gossipService = node.getGossipService();
+        this.hashRingDocumentsService = node.getHashRingDocumentsService();
 
         this.socket = node.getZmqContext().createSocket(SocketType.REP);
         this.socket.bind(String.format("tcp://:%d", node.getPort()));
@@ -37,6 +39,7 @@ public class NodeReceiver {
         this.msgTypeToServices.put(Message.MessageFormat.MessageType.HASH_RING_LOG, this.gossipService);
         this.msgTypeToServices.put(Message.MessageFormat.MessageType.HASHRING_JOIN, this.gossipService);
         this.msgTypeToServices.put(Message.MessageFormat.MessageType.HASHRING_GET, this.gossipService);
+        this.msgTypeToServices.put(Message.MessageFormat.MessageType.DOCUMENT_REQUEST, this.hashRingDocumentsService);
     }
 
     public void startReceiver() {

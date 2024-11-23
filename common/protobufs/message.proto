@@ -14,6 +14,7 @@ message MessageFormat {
     HASHRING_GET = 2;
     HASHRING_JOIN = 3;
     HASHRING_LOG_HASH_CHECK = 4;
+    DOCUMENT_REQUEST = 5;
   }
 
   MessageType messageType = 1;
