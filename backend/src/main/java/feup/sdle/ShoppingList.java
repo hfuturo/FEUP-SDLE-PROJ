@@ -6,6 +6,7 @@ import feup.sdle.cluster.NodeIdentifier;
 import feup.sdle.crdts.AWMap;
 import feup.sdle.crdts.DottedValue;
 import feup.sdle.crdts.ShoppingListItem;
+import feup.sdle.message.DocumentProto;
 
 import java.util.*;
 
@@ -64,5 +65,11 @@ public class ShoppingList implements Document {
 
     public AWMap<String, ShoppingListItem> getItems() {
         return this.items;
+    }
+
+    public DocumentProto.ShoppingList toMessageShoppingList() {
+        return DocumentProto.ShoppingList.newBuilder()
+                .putAllItems(this.items)
+                .build();
     }
 }

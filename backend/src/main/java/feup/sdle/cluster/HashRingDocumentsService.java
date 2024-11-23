@@ -2,12 +2,16 @@ package feup.sdle.cluster;
 
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
+import feup.sdle.ShoppingList;
+import feup.sdle.message.DocumentProto;
 import feup.sdle.message.DocumentRequestProto;
 import feup.sdle.message.Message;
 import feup.sdle.utils.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.zeromq.ZContext;
+
+import java.util.List;
 
 public class HashRingDocumentsService extends MessagingService {
 
@@ -53,6 +57,18 @@ public class HashRingDocumentsService extends MessagingService {
                 LOGGER.error(Color.red(e.toString()));
             }
         }
+    }
+
+    public void processDocumentReplication(ZContext senderContext, ShoppingList list, List<NodeIdentifier> nodesToReplicate) {
+        nodesToReplicate.forEach(node -> {
+            node.getSocket(senderContext).send(
+                DocumentProto.Document.newBuilder()
+                        .setShoppingList(list.toMessageShoppingList())
+                        .setReplicate(false)
+                        .build()
+                        .toByteArray()
+            );
+        });
     }
 
 }

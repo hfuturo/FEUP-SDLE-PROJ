@@ -2,6 +2,7 @@ package feup.sdle.cluster;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import feup.sdle.Document;
+import feup.sdle.ShoppingList;
 import feup.sdle.crypto.MD5HashAlgorithm;
 import feup.sdle.message.HashRingMessage;
 import feup.sdle.message.Hashcheck;
@@ -293,6 +294,16 @@ public class Node {
 
     public void storeDocument(String key, Document document) {
         this.storage.store(key, document);
+    }
+
+    private void replicateDocument(String key, Document document) {
+        List<NodeIdentifier> nodesToReplicate = this.ring.getPreferenceNodes(key, this.identifier, Node.REPLICATION_FACTOR);
+        if (nodesToReplicate == null) return;
+        this.hashRingDocumentsService.processDocumentReplication(
+                this.zmqContext,
+                (ShoppingList) document,
+                nodesToReplicate
+        );
     }
 
     public void deleteDocument(String key) {
