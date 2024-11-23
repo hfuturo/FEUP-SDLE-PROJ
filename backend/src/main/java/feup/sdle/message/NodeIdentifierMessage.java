@@ -65,11 +65,6 @@ public final class NodeIdentifierMessage {
       return new NodeIdentifier();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.NodeIdentifierMessage.internal_static_feup_sdle_message_NodeIdentifier_descriptor;
@@ -274,11 +269,13 @@ public final class NodeIdentifierMessage {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static feup.sdle.message.NodeIdentifierMessage.NodeIdentifier parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static feup.sdle.message.NodeIdentifierMessage.NodeIdentifier parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -529,7 +526,7 @@ public final class NodeIdentifierMessage {
        * @return This builder for chaining.
        */
       public Builder setId(int value) {
-        
+
         id_ = value;
         bitField0_ |= 0x00000001;
         onChanged();
@@ -633,7 +630,7 @@ public final class NodeIdentifierMessage {
        * @return This builder for chaining.
        */
       public Builder setPort(int value) {
-        
+
         port_ = value;
         bitField0_ |= 0x00000004;
         onChanged();

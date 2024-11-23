@@ -45,7 +45,18 @@ public final class DocumentProto {
      */
     feup.sdle.message.DocumentProto.ShoppingListOrBuilder getShoppingListOrBuilder();
 
-    public feup.sdle.message.DocumentProto.Document.DocumentTypeCase getDocumentTypeCase();
+    /**
+     * <code>optional bool replicate = 2;</code>
+     * @return Whether the replicate field is set.
+     */
+    boolean hasReplicate();
+    /**
+     * <code>optional bool replicate = 2;</code>
+     * @return The replicate.
+     */
+    boolean getReplicate();
+
+    feup.sdle.message.DocumentProto.Document.DocumentTypeCase getDocumentTypeCase();
   }
   /**
    * Protobuf type {@code feup.sdle.message.Document}
@@ -69,11 +80,6 @@ public final class DocumentProto {
       return new Document();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.DocumentProto.internal_static_feup_sdle_message_Document_descriptor;
@@ -87,7 +93,9 @@ public final class DocumentProto {
               feup.sdle.message.DocumentProto.Document.class, feup.sdle.message.DocumentProto.Document.Builder.class);
     }
 
+    private int bitField0_;
     private int documentTypeCase_ = 0;
+    @SuppressWarnings("serial")
     private java.lang.Object documentType_;
     public enum DocumentTypeCase
         implements com.google.protobuf.Internal.EnumLite,
@@ -169,6 +177,25 @@ public final class DocumentProto {
       return feup.sdle.message.DocumentProto.ShoppingList.getDefaultInstance();
     }
 
+    public static final int REPLICATE_FIELD_NUMBER = 2;
+    private boolean replicate_ = false;
+    /**
+     * <code>optional bool replicate = 2;</code>
+     * @return Whether the replicate field is set.
+     */
+    @java.lang.Override
+    public boolean hasReplicate() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>optional bool replicate = 2;</code>
+     * @return The replicate.
+     */
+    @java.lang.Override
+    public boolean getReplicate() {
+      return replicate_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -186,6 +213,9 @@ public final class DocumentProto {
       if (documentTypeCase_ == 1) {
         output.writeMessage(1, (feup.sdle.message.DocumentProto.ShoppingList) documentType_);
       }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeBool(2, replicate_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -198,6 +228,10 @@ public final class DocumentProto {
       if (documentTypeCase_ == 1) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, (feup.sdle.message.DocumentProto.ShoppingList) documentType_);
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(2, replicate_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -214,6 +248,11 @@ public final class DocumentProto {
       }
       feup.sdle.message.DocumentProto.Document other = (feup.sdle.message.DocumentProto.Document) obj;
 
+      if (hasReplicate() != other.hasReplicate()) return false;
+      if (hasReplicate()) {
+        if (getReplicate()
+            != other.getReplicate()) return false;
+      }
       if (!getDocumentTypeCase().equals(other.getDocumentTypeCase())) return false;
       switch (documentTypeCase_) {
         case 1:
@@ -234,6 +273,11 @@ public final class DocumentProto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasReplicate()) {
+        hash = (37 * hash) + REPLICATE_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+            getReplicate());
+      }
       switch (documentTypeCase_) {
         case 1:
           hash = (37 * hash) + SHOPPING_LIST_FIELD_NUMBER;
@@ -291,11 +335,13 @@ public final class DocumentProto {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static feup.sdle.message.DocumentProto.Document parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static feup.sdle.message.DocumentProto.Document parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -374,6 +420,7 @@ public final class DocumentProto {
         if (shoppingListBuilder_ != null) {
           shoppingListBuilder_.clear();
         }
+        replicate_ = false;
         documentTypeCase_ = 0;
         documentType_ = null;
         return this;
@@ -410,6 +457,12 @@ public final class DocumentProto {
 
       private void buildPartial0(feup.sdle.message.DocumentProto.Document result) {
         int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.replicate_ = replicate_;
+          to_bitField0_ |= 0x00000001;
+        }
+        result.bitField0_ |= to_bitField0_;
       }
 
       private void buildPartialOneofs(feup.sdle.message.DocumentProto.Document result) {
@@ -465,6 +518,9 @@ public final class DocumentProto {
 
       public Builder mergeFrom(feup.sdle.message.DocumentProto.Document other) {
         if (other == feup.sdle.message.DocumentProto.Document.getDefaultInstance()) return this;
+        if (other.hasReplicate()) {
+          setReplicate(other.getReplicate());
+        }
         switch (other.getDocumentTypeCase()) {
           case SHOPPING_LIST: {
             mergeShoppingList(other.getShoppingList());
@@ -507,6 +563,11 @@ public final class DocumentProto {
                 documentTypeCase_ = 1;
                 break;
               } // case 10
+              case 16: {
+                replicate_ = input.readBool();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 16
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -716,6 +777,46 @@ public final class DocumentProto {
         onChanged();
         return shoppingListBuilder_;
       }
+
+      private boolean replicate_ ;
+      /**
+       * <code>optional bool replicate = 2;</code>
+       * @return Whether the replicate field is set.
+       */
+      @java.lang.Override
+      public boolean hasReplicate() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>optional bool replicate = 2;</code>
+       * @return The replicate.
+       */
+      @java.lang.Override
+      public boolean getReplicate() {
+        return replicate_;
+      }
+      /**
+       * <code>optional bool replicate = 2;</code>
+       * @param value The replicate to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReplicate(boolean value) {
+
+        replicate_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bool replicate = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearReplicate() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        replicate_ = false;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -838,11 +939,6 @@ public final class DocumentProto {
       return new ShoppingList();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.DocumentProto.internal_static_feup_sdle_message_ShoppingList_descriptor;
@@ -1065,11 +1161,13 @@ public final class DocumentProto {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static feup.sdle.message.DocumentProto.ShoppingList parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static feup.sdle.message.DocumentProto.ShoppingList parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1414,7 +1512,7 @@ public final class DocumentProto {
           java.lang.String key,
           int value) {
         if (key == null) { throw new NullPointerException("map key"); }
-        
+
         internalGetMutableItems().getMutableMap()
             .put(key, value);
         bitField0_ |= 0x00000001;
@@ -1518,14 +1616,15 @@ public final class DocumentProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\016document.proto\022\021feup.sdle.message\"U\n\010D" +
+      "\n\016document.proto\022\021feup.sdle.message\"{\n\010D" +
       "ocument\0228\n\rshopping_list\030\001 \001(\0132\037.feup.sd" +
-      "le.message.ShoppingListH\000B\017\n\rdocument_ty" +
-      "pe\"w\n\014ShoppingList\0229\n\005items\030\001 \003(\0132*.feup" +
-      ".sdle.message.ShoppingList.ItemsEntry\032,\n" +
-      "\nItemsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\005:" +
-      "\0028\001B\"\n\021feup.sdle.messageB\rDocumentProtob" +
-      "\006proto3"
+      "le.message.ShoppingListH\000\022\026\n\treplicate\030\002" +
+      " \001(\010H\001\210\001\001B\017\n\rdocument_typeB\014\n\n_replicate" +
+      "\"w\n\014ShoppingList\0229\n\005items\030\001 \003(\0132*.feup.s" +
+      "dle.message.ShoppingList.ItemsEntry\032,\n\nI" +
+      "temsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\005:\0028" +
+      "\001B\"\n\021feup.sdle.messageB\rDocumentProtob\006p" +
+      "roto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1536,7 +1635,7 @@ public final class DocumentProto {
     internal_static_feup_sdle_message_Document_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_feup_sdle_message_Document_descriptor,
-        new java.lang.String[] { "ShoppingList", "DocumentType", });
+        new java.lang.String[] { "ShoppingList", "Replicate", "DocumentType", "Replicate", });
     internal_static_feup_sdle_message_ShoppingList_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_feup_sdle_message_ShoppingList_fieldAccessorTable = new

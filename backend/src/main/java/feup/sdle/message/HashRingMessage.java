@@ -74,11 +74,6 @@ feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue);
       return new HashRing();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.HashRingMessage.internal_static_feup_sdle_message_HashRing_descriptor;
@@ -303,11 +298,13 @@ feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue) {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static feup.sdle.message.HashRingMessage.HashRing parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static feup.sdle.message.HashRingMessage.HashRing parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)

@@ -55,11 +55,6 @@ public final class DocumentRequestProto {
       return new DocumentRangeRequest();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.DocumentRequestProto.internal_static_DocumentRangeRequest_descriptor;
@@ -73,6 +68,7 @@ public final class DocumentRequestProto {
               feup.sdle.message.DocumentRequestProto.DocumentRangeRequest.class, feup.sdle.message.DocumentRequestProto.DocumentRangeRequest.Builder.class);
     }
 
+    private int bitField0_;
     public static final int RANGE_FIELD_NUMBER = 1;
     private feup.sdle.message.DocumentRequestProto.HashRange range_;
     /**
@@ -81,7 +77,7 @@ public final class DocumentRequestProto {
      */
     @java.lang.Override
     public boolean hasRange() {
-      return range_ != null;
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>.HashRange range = 1;</code>
@@ -113,7 +109,7 @@ public final class DocumentRequestProto {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (range_ != null) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeMessage(1, getRange());
       }
       getUnknownFields().writeTo(output);
@@ -125,7 +121,7 @@ public final class DocumentRequestProto {
       if (size != -1) return size;
 
       size = 0;
-      if (range_ != null) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, getRange());
       }
@@ -213,11 +209,13 @@ public final class DocumentRequestProto {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static feup.sdle.message.DocumentRequestProto.DocumentRangeRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static feup.sdle.message.DocumentRequestProto.DocumentRangeRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -281,13 +279,19 @@ public final class DocumentRequestProto {
 
       // Construct using feup.sdle.message.DocumentRequestProto.DocumentRangeRequest.newBuilder()
       private Builder() {
-
+        maybeForceBuilderInitialization();
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
-
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getRangeFieldBuilder();
+        }
       }
       @java.lang.Override
       public Builder clear() {
@@ -331,11 +335,14 @@ public final class DocumentRequestProto {
 
       private void buildPartial0(feup.sdle.message.DocumentRequestProto.DocumentRangeRequest result) {
         int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.range_ = rangeBuilder_ == null
               ? range_
               : rangeBuilder_.build();
+          to_bitField0_ |= 0x00000001;
         }
+        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -501,8 +508,10 @@ public final class DocumentRequestProto {
         } else {
           rangeBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000001;
-        onChanged();
+        if (range_ != null) {
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
         return this;
       }
       /**
@@ -657,11 +666,6 @@ public final class DocumentRequestProto {
       return new HashRange();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.DocumentRequestProto.internal_static_HashRange_descriptor;
@@ -817,11 +821,13 @@ public final class DocumentRequestProto {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static feup.sdle.message.DocumentRequestProto.HashRange parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static feup.sdle.message.DocumentRequestProto.HashRange parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)

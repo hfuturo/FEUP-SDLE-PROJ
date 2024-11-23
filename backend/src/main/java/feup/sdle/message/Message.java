@@ -74,11 +74,6 @@ public final class Message {
       return new MessageFormat();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.Message.internal_static_feup_sdle_message_MessageFormat_descriptor;
@@ -236,6 +231,7 @@ public final class Message {
       // @@protoc_insertion_point(enum_scope:feup.sdle.message.MessageFormat.MessageType)
     }
 
+    private int bitField0_;
     public static final int MESSAGETYPE_FIELD_NUMBER = 1;
     private int messageType_ = 0;
     /**
@@ -273,7 +269,7 @@ public final class Message {
      */
     @java.lang.Override
     public boolean hasNodeIdentifier() {
-      return nodeIdentifier_ != null;
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 3;</code>
@@ -311,7 +307,7 @@ public final class Message {
       if (!message_.isEmpty()) {
         output.writeBytes(2, message_);
       }
-      if (nodeIdentifier_ != null) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeMessage(3, getNodeIdentifier());
       }
       getUnknownFields().writeTo(output);
@@ -331,7 +327,7 @@ public final class Message {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(2, message_);
       }
-      if (nodeIdentifier_ != null) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, getNodeIdentifier());
       }
@@ -426,11 +422,13 @@ public final class Message {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static feup.sdle.message.Message.MessageFormat parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static feup.sdle.message.Message.MessageFormat parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -494,13 +492,19 @@ public final class Message {
 
       // Construct using feup.sdle.message.Message.MessageFormat.newBuilder()
       private Builder() {
-
+        maybeForceBuilderInitialization();
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
-
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getNodeIdentifierFieldBuilder();
+        }
       }
       @java.lang.Override
       public Builder clear() {
@@ -552,11 +556,14 @@ public final class Message {
         if (((from_bitField0_ & 0x00000002) != 0)) {
           result.message_ = message_;
         }
+        int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000004) != 0)) {
           result.nodeIdentifier_ = nodeIdentifierBuilder_ == null
               ? nodeIdentifier_
               : nodeIdentifierBuilder_.build();
+          to_bitField0_ |= 0x00000001;
         }
+        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -823,8 +830,10 @@ public final class Message {
         } else {
           nodeIdentifierBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000004;
-        onChanged();
+        if (nodeIdentifier_ != null) {
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
         return this;
       }
       /**

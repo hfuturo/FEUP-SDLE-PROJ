@@ -71,11 +71,6 @@ public final class HashRingOperationMessage {
       return new HashRingLogOperationMessage();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.HashRingOperationMessage.internal_static_feup_sdle_message_HashRingLogOperationMessage_descriptor;
@@ -263,11 +258,13 @@ public final class HashRingOperationMessage {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static feup.sdle.message.HashRingOperationMessage.HashRingLogOperationMessage parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static feup.sdle.message.HashRingOperationMessage.HashRingLogOperationMessage parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -791,7 +788,7 @@ public final class HashRingOperationMessage {
        * @return This builder for chaining.
        */
       public Builder setReplicaId(int value) {
-        
+
         replicaId_ = value;
         bitField0_ |= 0x00000002;
         onChanged();
@@ -939,11 +936,6 @@ public final class HashRingOperationMessage {
       return new HashRingLogTimestamp();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.HashRingOperationMessage.internal_static_feup_sdle_message_HashRingLogTimestamp_descriptor;
@@ -957,6 +949,7 @@ public final class HashRingOperationMessage {
               feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp.class, feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp.Builder.class);
     }
 
+    private int bitField0_;
     public static final int IDENTIFIER_FIELD_NUMBER = 1;
     private feup.sdle.message.NodeIdentifierMessage.NodeIdentifier identifier_;
     /**
@@ -965,7 +958,7 @@ public final class HashRingOperationMessage {
      */
     @java.lang.Override
     public boolean hasIdentifier() {
-      return identifier_ != null;
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>.feup.sdle.message.NodeIdentifier identifier = 1;</code>
@@ -1013,7 +1006,7 @@ public final class HashRingOperationMessage {
      */
     @java.lang.Override
     public boolean hasOperation() {
-      return operation_ != null;
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <code>.feup.sdle.message.HashRingOperation operation = 4;</code>
@@ -1045,7 +1038,7 @@ public final class HashRingOperationMessage {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (identifier_ != null) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeMessage(1, getIdentifier());
       }
       if (dot_ != 0) {
@@ -1054,7 +1047,7 @@ public final class HashRingOperationMessage {
       if (sequence_ != 0) {
         output.writeInt32(3, sequence_);
       }
-      if (operation_ != null) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeMessage(4, getOperation());
       }
       getUnknownFields().writeTo(output);
@@ -1066,7 +1059,7 @@ public final class HashRingOperationMessage {
       if (size != -1) return size;
 
       size = 0;
-      if (identifier_ != null) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, getIdentifier());
       }
@@ -1078,7 +1071,7 @@ public final class HashRingOperationMessage {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(3, sequence_);
       }
-      if (operation_ != null) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(4, getOperation());
       }
@@ -1183,11 +1176,13 @@ public final class HashRingOperationMessage {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1251,13 +1246,20 @@ public final class HashRingOperationMessage {
 
       // Construct using feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp.newBuilder()
       private Builder() {
-
+        maybeForceBuilderInitialization();
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
-
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getIdentifierFieldBuilder();
+          getOperationFieldBuilder();
+        }
       }
       @java.lang.Override
       public Builder clear() {
@@ -1308,10 +1310,12 @@ public final class HashRingOperationMessage {
 
       private void buildPartial0(feup.sdle.message.HashRingOperationMessage.HashRingLogTimestamp result) {
         int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.identifier_ = identifierBuilder_ == null
               ? identifier_
               : identifierBuilder_.build();
+          to_bitField0_ |= 0x00000001;
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
           result.dot_ = dot_;
@@ -1323,7 +1327,9 @@ public final class HashRingOperationMessage {
           result.operation_ = operationBuilder_ == null
               ? operation_
               : operationBuilder_.build();
+          to_bitField0_ |= 0x00000002;
         }
+        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -1515,8 +1521,10 @@ public final class HashRingOperationMessage {
         } else {
           identifierBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000001;
-        onChanged();
+        if (identifier_ != null) {
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
         return this;
       }
       /**
@@ -1583,7 +1591,7 @@ public final class HashRingOperationMessage {
        * @return This builder for chaining.
        */
       public Builder setDot(int value) {
-        
+
         dot_ = value;
         bitField0_ |= 0x00000002;
         onChanged();
@@ -1615,7 +1623,7 @@ public final class HashRingOperationMessage {
        * @return This builder for chaining.
        */
       public Builder setSequence(int value) {
-        
+
         sequence_ = value;
         bitField0_ |= 0x00000004;
         onChanged();
@@ -1698,8 +1706,10 @@ public final class HashRingOperationMessage {
         } else {
           operationBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000008;
-        onChanged();
+        if (operation_ != null) {
+          bitField0_ |= 0x00000008;
+          onChanged();
+        }
         return this;
       }
       /**
@@ -1860,7 +1870,7 @@ public final class HashRingOperationMessage {
     }
     private HashRingOperation() {
       operationType_ = 0;
-      hashes_ = java.util.Collections.emptyList();
+      hashes_ = emptyList(com.google.protobuf.ByteString.class);
     }
 
     @java.lang.Override
@@ -1870,11 +1880,6 @@ public final class HashRingOperationMessage {
       return new HashRingOperation();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.HashRingOperationMessage.internal_static_feup_sdle_message_HashRingOperation_descriptor;
@@ -2016,7 +2021,8 @@ public final class HashRingOperationMessage {
 
     public static final int HASHES_FIELD_NUMBER = 3;
     @SuppressWarnings("serial")
-    private java.util.List<com.google.protobuf.ByteString> hashes_;
+    private com.google.protobuf.Internal.ProtobufList<com.google.protobuf.ByteString> hashes_ =
+        emptyList(com.google.protobuf.ByteString.class);
     /**
      * <code>repeated bytes hashes = 3;</code>
      * @return A list containing the hashes.
@@ -2168,11 +2174,13 @@ public final class HashRingOperationMessage {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static feup.sdle.message.HashRingOperationMessage.HashRingOperation parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static feup.sdle.message.HashRingOperationMessage.HashRingOperation parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2249,7 +2257,7 @@ public final class HashRingOperationMessage {
         super.clear();
         bitField0_ = 0;
         operationType_ = 0;
-        hashes_ = java.util.Collections.emptyList();
+        hashes_ = emptyList(com.google.protobuf.ByteString.class);
         return this;
       }
 
@@ -2276,24 +2284,19 @@ public final class HashRingOperationMessage {
       @java.lang.Override
       public feup.sdle.message.HashRingOperationMessage.HashRingOperation buildPartial() {
         feup.sdle.message.HashRingOperationMessage.HashRingOperation result = new feup.sdle.message.HashRingOperationMessage.HashRingOperation(this);
-        buildPartialRepeatedFields(result);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
-      }
-
-      private void buildPartialRepeatedFields(feup.sdle.message.HashRingOperationMessage.HashRingOperation result) {
-        if (((bitField0_ & 0x00000002) != 0)) {
-          hashes_ = java.util.Collections.unmodifiableList(hashes_);
-          bitField0_ = (bitField0_ & ~0x00000002);
-        }
-        result.hashes_ = hashes_;
       }
 
       private void buildPartial0(feup.sdle.message.HashRingOperationMessage.HashRingOperation result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.operationType_ = operationType_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          hashes_.makeImmutable();
+          result.hashes_ = hashes_;
         }
       }
 
@@ -2347,7 +2350,8 @@ public final class HashRingOperationMessage {
         if (!other.hashes_.isEmpty()) {
           if (hashes_.isEmpty()) {
             hashes_ = other.hashes_;
-            bitField0_ = (bitField0_ & ~0x00000002);
+            hashes_.makeImmutable();
+            bitField0_ |= 0x00000002;
           } else {
             ensureHashesIsMutable();
             hashes_.addAll(other.hashes_);
@@ -2461,12 +2465,12 @@ public final class HashRingOperationMessage {
         return this;
       }
 
-      private java.util.List<com.google.protobuf.ByteString> hashes_ = java.util.Collections.emptyList();
+      private com.google.protobuf.Internal.ProtobufList<com.google.protobuf.ByteString> hashes_ = emptyList(com.google.protobuf.ByteString.class);
       private void ensureHashesIsMutable() {
-        if (!((bitField0_ & 0x00000002) != 0)) {
-          hashes_ = new java.util.ArrayList<com.google.protobuf.ByteString>(hashes_);
-          bitField0_ |= 0x00000002;
+        if (!hashes_.isModifiable()) {
+          hashes_ = makeMutableCopy(hashes_);
         }
+        bitField0_ |= 0x00000002;
       }
       /**
        * <code>repeated bytes hashes = 3;</code>
@@ -2474,8 +2478,8 @@ public final class HashRingOperationMessage {
        */
       public java.util.List<com.google.protobuf.ByteString>
           getHashesList() {
-        return ((bitField0_ & 0x00000002) != 0) ?
-                 java.util.Collections.unmodifiableList(hashes_) : hashes_;
+        hashes_.makeImmutable();
+        return hashes_;
       }
       /**
        * <code>repeated bytes hashes = 3;</code>
@@ -2503,6 +2507,7 @@ public final class HashRingOperationMessage {
         if (value == null) { throw new NullPointerException(); }
         ensureHashesIsMutable();
         hashes_.set(index, value);
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
@@ -2515,6 +2520,7 @@ public final class HashRingOperationMessage {
         if (value == null) { throw new NullPointerException(); }
         ensureHashesIsMutable();
         hashes_.add(value);
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
@@ -2528,6 +2534,7 @@ public final class HashRingOperationMessage {
         ensureHashesIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
             values, hashes_);
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
@@ -2536,7 +2543,7 @@ public final class HashRingOperationMessage {
        * @return This builder for chaining.
        */
       public Builder clearHashes() {
-        hashes_ = java.util.Collections.emptyList();
+        hashes_ = emptyList(com.google.protobuf.ByteString.class);
         bitField0_ = (bitField0_ & ~0x00000002);
         onChanged();
         return this;

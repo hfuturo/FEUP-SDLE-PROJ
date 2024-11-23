@@ -10,6 +10,8 @@ message Document {
     ShoppingList shopping_list = 1;
     // Add other document types here in the future
   }
+  
+  optional bool replicate = 2;
 }
 
 message ShoppingList {
