@@ -294,6 +294,7 @@ public class Node {
 
     public void storeDocument(String key, Document document) {
         this.storage.store(key, document);
+        this.replicateDocument(key, document);
     }
 
     private void replicateDocument(String key, Document document) {
