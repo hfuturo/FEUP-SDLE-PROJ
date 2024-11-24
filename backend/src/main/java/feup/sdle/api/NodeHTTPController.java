@@ -40,13 +40,13 @@ public class NodeHTTPController {
     public ResponseEntity<Document> createDocument() {
         String key = UUID.randomUUID().toString();
         ShoppingList shoppingList = new ShoppingList(this.node.getNodeIdentifier());
-        node.storeDocument(key, shoppingList);
+        node.storeDocumentAndReplicate(key, shoppingList);
         return ResponseEntity.status(HttpStatus.CREATED).body(shoppingList);
     }
 
     @PutMapping("/{key}")
     public ResponseEntity<Document> updateDocument(@PathVariable String key, @RequestBody Document document) {
-        node.storeDocument(key, document);
+        node.storeDocumentAndReplicate(key, document);
         return ResponseEntity.ok(document);
     }
 

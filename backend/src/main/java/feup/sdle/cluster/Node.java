@@ -292,16 +292,20 @@ public class Node {
         return this.storage.retrieveAll();
     }
 
-    public void storeDocument(String key, Document document) {
+    public void storeDocumentAndReplicate(String key, Document document) {
         this.storage.store(key, document);
         this.replicateDocument(key, document);
+    }
+
+    public void storeDocument(String key, Document document) {
+        this.storage.store(key, document);
     }
 
     private void replicateDocument(String key, Document document) {
         List<NodeIdentifier> nodesToReplicate = this.ring.getPreferenceNodes(key, this.identifier, Node.REPLICATION_FACTOR);
         if (nodesToReplicate == null) return;
-        this.hashRingDocumentsService.processDocumentReplication(
-                this.zmqContext,
+        nodesToReplicate.forEach(n -> System.out.println(Color.yellow("" + n.getPort())));
+        this.hashRingDocumentsService.sendDocumentReplication(
                 (ShoppingList) document,
                 nodesToReplicate
         );

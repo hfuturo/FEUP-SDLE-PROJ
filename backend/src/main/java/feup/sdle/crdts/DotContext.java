@@ -27,6 +27,10 @@ public class DotContext {
         return this.dots;
     }
 
+    public void setDots(HashMap<Integer, Integer> dots) {
+        this.dots = dots;
+    }
+
     /**
      * This will be used to get the maximum counter value the local replica has of another replica
      * which will be extremely when merging the both of them
@@ -120,4 +124,10 @@ public class DotContext {
                 .putAllDots(this.dots)
                 .build();
     }
+
+//    public static DotContext fromMessageDotContext(DotContextProto.DotContext msgDotContext) {
+//        DotContext dotContext = new DotContext(0);
+//        dotContext.setDots((HashMap<Integer, Integer>) msgDotContext.getDotsMap());
+//        return dotContext;
+//    }
 }

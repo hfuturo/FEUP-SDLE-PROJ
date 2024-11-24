@@ -189,7 +189,7 @@ public class HashRing implements ProtobufSerializable<HashRingMessage.HashRing> 
                 NodeIdentifier replicatorIdentifier = this.get(replicatorHash);
 
                 if (!replicatorIdentifier.equals(nodeIdentifier) && !nodesToReplicate.contains(replicatorIdentifier)) {
-                    nodesToReplicate.add(nodeIdentifier);
+                    nodesToReplicate.add(replicatorIdentifier);
                     counter++;
                 }
 

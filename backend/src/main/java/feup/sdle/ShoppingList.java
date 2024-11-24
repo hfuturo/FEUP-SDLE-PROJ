@@ -41,6 +41,10 @@ public class ShoppingList implements Document {
         this.items = items;
     }
 
+    public void setRemovedCounters(HashMap<String, DottedValue<Integer, Integer, Integer>> removedCounters) {
+        this.removedCounters = removedCounters;
+    }
+
     public void addItem(String key, int quantity) {
         this.items.add(key, new ShoppingListItem(this.localIdentifier.getId(), quantity));
     }
@@ -95,4 +99,10 @@ public class ShoppingList implements Document {
 
         return builder.putAllRemovedCounters(protoEntries).build();
     }
+
+//    public static ShoppingList fromMessageShoppingList(DocumentProto.ShoppingList msgShoppingList) {
+//        ShoppingList shoppingList = new ShoppingList(NodeIdentifier.fromMessageNodeIdentifier(msgShoppingList.getLocalIdentifier()));
+//        shoppingList.setItems(AWMap.fromMessageAWMap(msgShoppingList.getItems()));
+//        shoppingList.setRemovedCounters(msgShoppingList.getRemovedCountersMap());
+//    }
 }

@@ -22,4 +22,12 @@ public record DottedValue<I, E, V>(I identifier, E event, V value) {
 
         return builder.build();
     }
+
+//    public static <I,E,V>DottedValue<I,E,V> fromMessageDottedValue(I identifier, E event, V value) {
+//        return new DottedValue<>(identifier, event, value);
+//    }
+
+//    public static DottedValue<Integer, Integer, Integer> fromMessageDottedValue(Integer identifier, Integer event, Integer value) {
+//        return new DottedValue<>(identifier, value, event);
+//    }
 }

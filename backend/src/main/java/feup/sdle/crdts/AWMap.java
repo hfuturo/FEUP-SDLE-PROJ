@@ -23,6 +23,18 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
         return Optional.of(this.dotContext.latestReplicaDot(id));
     }
 
+    public void setDotContext(DotContext dotContext) {
+        this.dotContext = dotContext;
+    }
+
+    public void setKeys(AWSet<K> keys) {
+        this.keys = keys;
+    }
+
+    public void setValues(HashMap<K, DottedValue<Integer, Integer, V>> values) {
+        this.values = values;
+    }
+
     public DotContext getDotContext() {
         return this.dotContext;
     }
@@ -88,4 +100,22 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
 
         return builder.putAllValues(protoEntries).build();
     }
+
+//    public static <K,V extends CRDTSingleMergeable<V>> AWMap fromMessageAWMap(AWMapProto.AWMap msgAWMap) {
+//        AWMap<K, V> awMap = new AWMap<>(NodeIdentifier.fromMessageNodeIdentifier(msgAWMap.getLocalIdentifier()));
+//
+//        HashMap<K, DottedValue<Integer, Integer, V>> values = new HashMap<>();
+//        for (Map.Entry<String, DottedValueProto.DottedValue> entry : msgAWMap.getValuesMap().entrySet()) {
+//            if (entry.getValue().hasValueInt()) {
+//                values.put(entry.getKey(), DottedValue.fromMessageDottedValue(entry.getValue().getIdentifier(), entry.getValue().getEvent(), entry.getValue().getValueInt()));
+//            }
+//            else if (entry.getValue().hasValueStr()) {
+//                values.put(entry.getKey(), DottedValue.fromMessageDottedValue(entry.getValue().getIdentifier(), entry.getValue().getEvent(), entry.getValue().getValueStr()));
+//            }
+//        }
+//
+//        awMap.setValues(msgAWMap.getValuesMap());
+//        awMap.setDotContext(DotContext.fromMessageDotContext(msgAWMap.getDotContext()));
+//        return awMap;
+//    }
 }
