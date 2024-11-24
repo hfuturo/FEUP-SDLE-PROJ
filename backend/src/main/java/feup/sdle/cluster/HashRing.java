@@ -34,7 +34,6 @@ import java.util.TreeMap;
 
 public class HashRing implements ProtobufSerializable<HashRingMessage.HashRing> {
     private static final Logger LOGGER = LoggerFactory.getLogger(HashRing.class);
-    private static final int REPLICATION_FACTOR = 2;
     protected static final int VIRTUAL_NODES = 3;
     private final TreeMap<BigInteger, NodeIdentifier> ring;
     protected final HashAlgorithm hashAlgorithm;
@@ -173,14 +172,32 @@ public class HashRing implements ProtobufSerializable<HashRingMessage.HashRing> 
      * This should be used when the node that receives the request for the key is not the node
      * that is the main responsible for that key
     */
-    public NodeIdentifier getPreferenceNodes(String key, int n) {
-       try {
-           BigInteger hashedKey = this.hashAlgorithm.getHash(key);
-           return null;
-       } catch(Exception e) {
-           System.out.println(e.toString());
-           return null;
-       }
+    public List<NodeIdentifier> getPreferenceNodes(String key, NodeIdentifier nodeIdentifier, int replicatorNumber) {
+        BigInteger hashedKey;
+
+        try { hashedKey = this.hashAlgorithm.getHash(key); }
+        catch (Exception e) { LOGGER.error(Color.red(e.getMessage())); return null;}
+
+        BigInteger nodeHash = this.ceilingKey(hashedKey);
+        List<NodeIdentifier> nodesToReplicate = new ArrayList<>();
+        int counter = 0;
+        BigInteger prevHash = nodeHash;
+
+        synchronized (this) {
+            while (counter < replicatorNumber) {
+                BigInteger replicatorHash =  this.higherKey(prevHash);
+                NodeIdentifier replicatorIdentifier = this.get(replicatorHash);
+
+                if (!replicatorIdentifier.equals(nodeIdentifier) && !nodesToReplicate.contains(replicatorIdentifier)) {
+                    nodesToReplicate.add(replicatorIdentifier);
+                    counter++;
+                }
+
+                prevHash = replicatorHash;
+            }
+        }
+
+        return nodesToReplicate;
     }
 
     public synchronized void addNode(NodeIdentifier nodeIdentifier) throws Exception {

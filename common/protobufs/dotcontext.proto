@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package feup.sdle.message;
+
+option java_package = "feup.sdle.message";
+option java_outer_classname = "DotContextProto";
+
+message DotContext {
+    map<int32, int32> dots = 1;
+}

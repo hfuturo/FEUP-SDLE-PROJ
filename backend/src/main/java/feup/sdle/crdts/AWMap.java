@@ -1,11 +1,10 @@
 package feup.sdle.crdts;
 
 import feup.sdle.cluster.NodeIdentifier;
+import feup.sdle.message.AWMapProto;
+import feup.sdle.message.DottedValueProto;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public class AWMap<K, V extends CRDTSingleMergeable<V>> {
     private DotContext dotContext;
@@ -17,10 +16,23 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
         this.localIdentifier = localIdentifier;
         this.dotContext = new DotContext(this.localIdentifier.getId());
         this.values = new HashMap<>();
+        this.keys = new AWSet<>(this.localIdentifier.getId());
     }
 
     public Optional<Optional<Integer>> latestDot(Integer id) {
         return Optional.of(this.dotContext.latestReplicaDot(id));
+    }
+
+    public void setDotContext(DotContext dotContext) {
+        this.dotContext = dotContext;
+    }
+
+    public void setKeys(AWSet<K> keys) {
+        this.keys = keys;
+    }
+
+    public void setValues(HashMap<K, DottedValue<Integer, Integer, V>> values) {
+        this.values = values;
     }
 
     public DotContext getDotContext() {
@@ -73,4 +85,37 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
 
         this.dotContext.merge(other.dotContext);
     }
+
+    public AWMapProto.AWMap toMessageProto() {
+        var builder = AWMapProto.AWMap.newBuilder()
+                .setDotContext(this.dotContext.toMessageDotContext())
+                .setLocalIdentifier(this.localIdentifier.toMessageNodeIdentifier())
+                .setKeys(this.keys.toMessageAWSet());
+
+        HashMap<String, DottedValueProto.DottedValue> protoEntries = new HashMap<>();
+
+        for (Map.Entry<K, DottedValue<Integer, Integer, V>> entry : this.values.entrySet()) {
+            protoEntries.put((String) entry.getKey(), entry.getValue().toMessageDottedValue());
+        }
+
+        return builder.putAllValues(protoEntries).build();
+    }
+
+//    public static <K,V extends CRDTSingleMergeable<V>> AWMap fromMessageAWMap(AWMapProto.AWMap msgAWMap) {
+//        AWMap<K, V> awMap = new AWMap<>(NodeIdentifier.fromMessageNodeIdentifier(msgAWMap.getLocalIdentifier()));
+//
+//        HashMap<K, DottedValue<Integer, Integer, V>> values = new HashMap<>();
+//        for (Map.Entry<String, DottedValueProto.DottedValue> entry : msgAWMap.getValuesMap().entrySet()) {
+//            if (entry.getValue().hasValueInt()) {
+//                values.put(entry.getKey(), DottedValue.fromMessageDottedValue(entry.getValue().getIdentifier(), entry.getValue().getEvent(), entry.getValue().getValueInt()));
+//            }
+//            else if (entry.getValue().hasValueStr()) {
+//                values.put(entry.getKey(), DottedValue.fromMessageDottedValue(entry.getValue().getIdentifier(), entry.getValue().getEvent(), entry.getValue().getValueStr()));
+//            }
+//        }
+//
+//        awMap.setValues(msgAWMap.getValuesMap());
+//        awMap.setDotContext(DotContext.fromMessageDotContext(msgAWMap.getDotContext()));
+//        return awMap;
+//    }
 }

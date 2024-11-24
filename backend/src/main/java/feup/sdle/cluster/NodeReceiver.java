@@ -3,6 +3,7 @@ package feup.sdle.cluster;
 import com.google.protobuf.InvalidProtocolBufferException;
 import feup.sdle.message.Message;
 import feup.sdle.message.Message.MessageFormat.MessageType;
+import feup.sdle.utils.Color;
 import org.zeromq.SocketType;
 import org.zeromq.ZMQ;
 
@@ -40,6 +41,7 @@ public class NodeReceiver {
         this.msgTypeToServices.put(Message.MessageFormat.MessageType.HASHRING_JOIN, this.gossipService);
         this.msgTypeToServices.put(Message.MessageFormat.MessageType.HASHRING_GET, this.gossipService);
         this.msgTypeToServices.put(Message.MessageFormat.MessageType.DOCUMENT_REQUEST, this.hashRingDocumentsService);
+        this.msgTypeToServices.put(Message.MessageFormat.MessageType.DOCUMENT_REPLICATION, this.hashRingDocumentsService);
     }
 
     public void startReceiver() {
@@ -48,7 +50,8 @@ public class NodeReceiver {
             byte[] reply = this.socket.recv(0);
             try {
                 Message.MessageFormat msgFormat = Message.MessageFormat.parseFrom(reply);
-
+                if (msgFormat.getMessageType() == MessageType.DOCUMENT_REPLICATION)
+                    System.out.println(Color.yellow("RECEIVED DOCUMENT REPLICATION"));
                 this.msgTypeToServices.get(msgFormat.getMessageType()).addToQueue(msgFormat);
             } catch (InvalidProtocolBufferException e) {
                 System.out.println(Arrays.toString(e.getStackTrace()));

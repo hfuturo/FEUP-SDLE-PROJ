@@ -1,6 +1,7 @@
 package feup.sdle.api;
 
 import feup.sdle.Document;
+import feup.sdle.ShoppingList;
 import feup.sdle.cluster.Node;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,15 +37,16 @@ public class NodeHTTPController {
     }
 
     @PostMapping
-    public ResponseEntity<Document> createDocument(@RequestBody Document document) {
+    public ResponseEntity<Document> createDocument() {
         String key = UUID.randomUUID().toString();
-        node.storeDocument(key, document);
-        return ResponseEntity.status(HttpStatus.CREATED).body(document);
+        ShoppingList shoppingList = new ShoppingList(this.node.getNodeIdentifier());
+        node.storeDocumentAndReplicate(key, shoppingList);
+        return ResponseEntity.status(HttpStatus.CREATED).body(shoppingList);
     }
 
     @PutMapping("/{key}")
     public ResponseEntity<Document> updateDocument(@PathVariable String key, @RequestBody Document document) {
-        node.storeDocument(key, document);
+        node.storeDocumentAndReplicate(key, document);
         return ResponseEntity.ok(document);
     }
 

@@ -3,8 +3,6 @@ syntax = "proto3";
 option java_package = "feup.sdle.message";
 option java_outer_classname = "DocumentRequestProto";
 
-import "message.proto";
-
 message DocumentRangeRequest {
   HashRange range = 1;
 }
