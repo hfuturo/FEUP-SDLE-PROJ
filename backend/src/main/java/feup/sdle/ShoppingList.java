@@ -21,16 +21,25 @@ import java.util.*;
     * the behaviour of the counters will not be wrong
 */
 public class ShoppingList implements Document {
+    @JsonProperty("id")
     private String id;
     // The String key will never change. This is an id of the shopping list and not the name of the list itself.
     private AWMap<String, ShoppingListItem> items;
     private NodeIdentifier localIdentifier;
     private HashMap<String, DottedValue<Integer, Integer, Integer>> removedCounters;
 
+    public ShoppingList(NodeIdentifier localIdentifier, String id) {
+        this.items = new AWMap<>(localIdentifier);
+        this.localIdentifier = localIdentifier;
+        this.removedCounters = new HashMap<>();
+        this.id = id;
+    }
+
     public ShoppingList(NodeIdentifier localIdentifier) {
         this.items = new AWMap<>(localIdentifier);
         this.localIdentifier = localIdentifier;
         this.removedCounters = new HashMap<>();
+        this.id = UUID.randomUUID().toString();
     }
 
     public void setNodeIdentifier(NodeIdentifier nodeIdentifier) {

@@ -20,7 +20,8 @@
     "swr": "^2.2.5",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
-    "zeromq": "^6.1.0"
+    "zeromq": "^6.1.0",
+    "zustand": "^5.0.1"
   },
   "devDependencies": {
     "@types/node": "^20",
