@@ -125,9 +125,9 @@ public class DotContext {
                 .build();
     }
 
-//    public static DotContext fromMessageDotContext(DotContextProto.DotContext msgDotContext) {
-//        DotContext dotContext = new DotContext(0);
-//        dotContext.setDots((HashMap<Integer, Integer>) msgDotContext.getDotsMap());
-//        return dotContext;
-//    }
+    public static DotContext fromMessageDotContext(DotContextProto.DotContext msgDotContext) {
+        DotContext dotContext = new DotContext(0);
+        dotContext.setDots((HashMap<Integer, Integer>) msgDotContext.getDotsMap());
+        return dotContext;
+    }
 }

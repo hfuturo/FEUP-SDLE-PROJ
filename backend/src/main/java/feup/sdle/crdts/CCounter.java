@@ -1,10 +1,14 @@
 package feup.sdle.crdts;
 
+import feup.sdle.message.CCounterProto;
+import feup.sdle.message.DottedValueProto;
+
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Optional;
 
 public class CCounter {
-    private final HashSet<DottedValue<Integer, Integer, Integer>> set;
+    private HashSet<DottedValue<Integer, Integer, Integer>> set;
     private final int id;
 
     public CCounter(int id) {
@@ -14,6 +18,10 @@ public class CCounter {
 
     public HashSet<DottedValue<Integer, Integer, Integer>> getSet() {
         return this.set;
+    }
+
+    public void setSet(HashSet<DottedValue<Integer, Integer, Integer>> set) {
+        this.set = set;
     }
 
     public int getValue() {
@@ -83,5 +91,33 @@ public class CCounter {
         }
 
         return Optional.empty();
+    }
+
+    public CCounterProto.CCounter toMessageCCounter() {
+        var builder = CCounterProto.CCounter.newBuilder()
+                .setId(this.id);
+
+        for (DottedValue<Integer, Integer, Integer> dv : this.set) {
+            builder.addSet(DottedValueProto.DottedValue.newBuilder()
+                    .setIdentifier(dv.identifier())
+                    .setEvent(dv.event())
+                    .setValueInt(dv.value())
+            );
+        }
+
+        return builder.build();
+    }
+
+    public static CCounter fromMessageCCounter(CCounterProto.CCounter msgCCounter) {
+        CCounter cCounter = new CCounter(msgCCounter.getId());
+
+        HashSet<DottedValue<Integer, Integer, Integer>> set = new HashSet<>();
+        for (DottedValueProto.DottedValue dv : msgCCounter.getSetList()) {
+            set.add(DottedValue.fromMessageDottedValueInt(dv));
+        }
+
+        cCounter.setSet(set);
+
+        return cCounter;
     }
 }

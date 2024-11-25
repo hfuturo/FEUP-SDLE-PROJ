@@ -89,7 +89,7 @@ public class HashRingDocumentsService extends MessagingService {
 
             System.out.println(Color.green("RECEIVED DOCUMENT REPLICATION IN process"));
             DocumentProto.Document document = DocumentProto.Document.parseFrom(msgFormat.getMessage());
-
+            this.node.storeDocument("1", ShoppingList.fromMessageShoppingList(document.getShoppingList()));
         } catch (Exception e) {
             LOGGER.error(Color.red(e.getMessage()));
         }
