@@ -298,7 +298,9 @@ public class Node {
     }
 
     public void storeDocument(String key, Document document) {
+        System.out.println(Color.green("BEFORE: " + this.storage.retrieveAll().size()));
         this.storage.store(key, document);
+        System.out.println(Color.green("AFTER: " + this.storage.retrieveAll().size()));
     }
 
     private void replicateDocument(String key, Document document) {
@@ -306,6 +308,7 @@ public class Node {
         if (nodesToReplicate == null) return;
         nodesToReplicate.forEach(n -> System.out.println(Color.yellow("" + n.getPort())));
         this.hashRingDocumentsService.sendDocumentReplication(
+                key,
                 (ShoppingList) document,
                 nodesToReplicate
         );

@@ -15,7 +15,8 @@ message Document {
     // Add other document types here in the future
   }
   
-  optional bool replicate = 2;
+  string key = 2;
+  optional bool replicate = 3;
 }
 
 message ShoppingList {

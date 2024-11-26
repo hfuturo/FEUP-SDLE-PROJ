@@ -2,6 +2,7 @@ package feup.sdle.crdts;
 
 import feup.sdle.message.DotContextProto;
 
+import java.beans.IntrospectionException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -127,7 +128,7 @@ public class DotContext {
 
     public static DotContext fromMessageDotContext(DotContextProto.DotContext msgDotContext) {
         DotContext dotContext = new DotContext(0);
-        dotContext.setDots((HashMap<Integer, Integer>) msgDotContext.getDotsMap());
+        dotContext.setDots(new HashMap<>(msgDotContext.getDotsMap()));
         return dotContext;
     }
 }
