@@ -86,7 +86,6 @@ public final class AWMapProto {
     /**
      * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; values = 4;</code>
      */
-
     /* nullable */
 feup.sdle.message.DottedValueProto.DottedValue getValuesOrDefault(
         java.lang.String key,
@@ -95,7 +94,6 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
     /**
      * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; values = 4;</code>
      */
-
     feup.sdle.message.DottedValueProto.DottedValue getValuesOrThrow(
         java.lang.String key);
   }
@@ -121,11 +119,6 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
       return new AWMap();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.AWMapProto.internal_static_feup_sdle_message_AWMap_descriptor;
@@ -151,6 +144,7 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
               feup.sdle.message.AWMapProto.AWMap.class, feup.sdle.message.AWMapProto.AWMap.Builder.class);
     }
 
+    private int bitField0_;
     public static final int DOTCONTEXT_FIELD_NUMBER = 1;
     private feup.sdle.message.DotContextProto.DotContext dotContext_;
     /**
@@ -159,7 +153,7 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
      */
     @java.lang.Override
     public boolean hasDotContext() {
-      return dotContext_ != null;
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>.feup.sdle.message.DotContext dotContext = 1;</code>
@@ -174,7 +168,7 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
      */
     @java.lang.Override
     public feup.sdle.message.DotContextProto.DotContextOrBuilder getDotContextOrBuilder() {
-      return getDotContext();
+      return dotContext_ == null ? feup.sdle.message.DotContextProto.DotContext.getDefaultInstance() : dotContext_;
     }
 
     public static final int LOCALIDENTIFIER_FIELD_NUMBER = 2;
@@ -185,7 +179,7 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
      */
     @java.lang.Override
     public boolean hasLocalIdentifier() {
-      return localIdentifier_ != null;
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <code>.feup.sdle.message.NodeIdentifier localIdentifier = 2;</code>
@@ -200,7 +194,7 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
      */
     @java.lang.Override
     public feup.sdle.message.NodeIdentifierMessage.NodeIdentifierOrBuilder getLocalIdentifierOrBuilder() {
-      return getLocalIdentifier();
+      return localIdentifier_ == null ? feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.getDefaultInstance() : localIdentifier_;
     }
 
     public static final int KEYS_FIELD_NUMBER = 3;
@@ -211,7 +205,7 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
      */
     @java.lang.Override
     public boolean hasKeys() {
-      return keys_ != null;
+      return ((bitField0_ & 0x00000004) != 0);
     }
     /**
      * <code>.feup.sdle.message.AWSet keys = 3;</code>
@@ -226,7 +220,7 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
      */
     @java.lang.Override
     public feup.sdle.message.AWSetProto.AWSetOrBuilder getKeysOrBuilder() {
-      return getKeys();
+      return keys_ == null ? feup.sdle.message.AWSetProto.AWSet.getDefaultInstance() : keys_;
     }
 
     public static final int VALUES_FIELD_NUMBER = 4;
@@ -241,6 +235,7 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
                   com.google.protobuf.WireFormat.FieldType.MESSAGE,
                   feup.sdle.message.DottedValueProto.DottedValue.getDefaultInstance());
     }
+    @SuppressWarnings("serial")
     private com.google.protobuf.MapField<
         java.lang.String, feup.sdle.message.DottedValueProto.DottedValue> values_;
     private com.google.protobuf.MapField<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue>
@@ -251,14 +246,12 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
       }
       return values_;
     }
-
     public int getValuesCount() {
       return internalGetValues().getMap().size();
     }
     /**
      * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; values = 4;</code>
      */
-
     @java.lang.Override
     public boolean containsValues(
         java.lang.String key) {
@@ -277,7 +270,6 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
      * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; values = 4;</code>
      */
     @java.lang.Override
-
     public java.util.Map<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue> getValuesMap() {
       return internalGetValues().getMap();
     }
@@ -285,10 +277,11 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
      * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; values = 4;</code>
      */
     @java.lang.Override
-
-    public feup.sdle.message.DottedValueProto.DottedValue getValuesOrDefault(
+    public /* nullable */
+feup.sdle.message.DottedValueProto.DottedValue getValuesOrDefault(
         java.lang.String key,
-        feup.sdle.message.DottedValueProto.DottedValue defaultValue) {
+        /* nullable */
+feup.sdle.message.DottedValueProto.DottedValue defaultValue) {
       if (key == null) { throw new NullPointerException("map key"); }
       java.util.Map<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue> map =
           internalGetValues().getMap();
@@ -298,7 +291,6 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
      * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; values = 4;</code>
      */
     @java.lang.Override
-
     public feup.sdle.message.DottedValueProto.DottedValue getValuesOrThrow(
         java.lang.String key) {
       if (key == null) { throw new NullPointerException("map key"); }
@@ -324,13 +316,13 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (dotContext_ != null) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeMessage(1, getDotContext());
       }
-      if (localIdentifier_ != null) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeMessage(2, getLocalIdentifier());
       }
-      if (keys_ != null) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         output.writeMessage(3, getKeys());
       }
       com.google.protobuf.GeneratedMessageV3
@@ -348,15 +340,15 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
       if (size != -1) return size;
 
       size = 0;
-      if (dotContext_ != null) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, getDotContext());
       }
-      if (localIdentifier_ != null) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, getLocalIdentifier());
       }
-      if (keys_ != null) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, getKeys());
       }
@@ -478,11 +470,13 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static feup.sdle.message.AWMapProto.AWMap parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static feup.sdle.message.AWMapProto.AWMap parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -568,33 +562,39 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
 
       // Construct using feup.sdle.message.AWMapProto.AWMap.newBuilder()
       private Builder() {
-
+        maybeForceBuilderInitialization();
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
-
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getDotContextFieldBuilder();
+          getLocalIdentifierFieldBuilder();
+          getKeysFieldBuilder();
+        }
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        if (dotContextBuilder_ == null) {
-          dotContext_ = null;
-        } else {
-          dotContext_ = null;
+        bitField0_ = 0;
+        dotContext_ = null;
+        if (dotContextBuilder_ != null) {
+          dotContextBuilder_.dispose();
           dotContextBuilder_ = null;
         }
-        if (localIdentifierBuilder_ == null) {
-          localIdentifier_ = null;
-        } else {
-          localIdentifier_ = null;
+        localIdentifier_ = null;
+        if (localIdentifierBuilder_ != null) {
+          localIdentifierBuilder_.dispose();
           localIdentifierBuilder_ = null;
         }
-        if (keysBuilder_ == null) {
-          keys_ = null;
-        } else {
-          keys_ = null;
+        keys_ = null;
+        if (keysBuilder_ != null) {
+          keysBuilder_.dispose();
           keysBuilder_ = null;
         }
         internalGetMutableValues().clear();
@@ -624,26 +624,37 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
       @java.lang.Override
       public feup.sdle.message.AWMapProto.AWMap buildPartial() {
         feup.sdle.message.AWMapProto.AWMap result = new feup.sdle.message.AWMapProto.AWMap(this);
-        int from_bitField0_ = bitField0_;
-        if (dotContextBuilder_ == null) {
-          result.dotContext_ = dotContext_;
-        } else {
-          result.dotContext_ = dotContextBuilder_.build();
-        }
-        if (localIdentifierBuilder_ == null) {
-          result.localIdentifier_ = localIdentifier_;
-        } else {
-          result.localIdentifier_ = localIdentifierBuilder_.build();
-        }
-        if (keysBuilder_ == null) {
-          result.keys_ = keys_;
-        } else {
-          result.keys_ = keysBuilder_.build();
-        }
-        result.values_ = internalGetValues();
-        result.values_.makeImmutable();
+        if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
+      }
+
+      private void buildPartial0(feup.sdle.message.AWMapProto.AWMap result) {
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.dotContext_ = dotContextBuilder_ == null
+              ? dotContext_
+              : dotContextBuilder_.build();
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.localIdentifier_ = localIdentifierBuilder_ == null
+              ? localIdentifier_
+              : localIdentifierBuilder_.build();
+          to_bitField0_ |= 0x00000002;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.keys_ = keysBuilder_ == null
+              ? keys_
+              : keysBuilder_.build();
+          to_bitField0_ |= 0x00000004;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.values_ = internalGetValues();
+          result.values_.makeImmutable();
+        }
+        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -701,6 +712,7 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
         }
         internalGetMutableValues().mergeFrom(
             other.internalGetValues());
+        bitField0_ |= 0x00000008;
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -731,21 +743,21 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
                 input.readMessage(
                     getDotContextFieldBuilder().getBuilder(),
                     extensionRegistry);
-
+                bitField0_ |= 0x00000001;
                 break;
               } // case 10
               case 18: {
                 input.readMessage(
                     getLocalIdentifierFieldBuilder().getBuilder(),
                     extensionRegistry);
-
+                bitField0_ |= 0x00000002;
                 break;
               } // case 18
               case 26: {
                 input.readMessage(
                     getKeysFieldBuilder().getBuilder(),
                     extensionRegistry);
-
+                bitField0_ |= 0x00000004;
                 break;
               } // case 26
               case 34: {
@@ -754,6 +766,7 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
                     ValuesDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
                 internalGetMutableValues().getMutableMap().put(
                     values__.getKey(), values__.getValue());
+                bitField0_ |= 0x00000008;
                 break;
               } // case 34
               default: {
@@ -781,7 +794,7 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
        * @return Whether the dotContext field is set.
        */
       public boolean hasDotContext() {
-        return dotContextBuilder_ != null || dotContext_ != null;
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>.feup.sdle.message.DotContext dotContext = 1;</code>
@@ -803,11 +816,11 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
             throw new NullPointerException();
           }
           dotContext_ = value;
-          onChanged();
         } else {
           dotContextBuilder_.setMessage(value);
         }
-
+        bitField0_ |= 0x00000001;
+        onChanged();
         return this;
       }
       /**
@@ -817,11 +830,11 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
           feup.sdle.message.DotContextProto.DotContext.Builder builderForValue) {
         if (dotContextBuilder_ == null) {
           dotContext_ = builderForValue.build();
-          onChanged();
         } else {
           dotContextBuilder_.setMessage(builderForValue.build());
         }
-
+        bitField0_ |= 0x00000001;
+        onChanged();
         return this;
       }
       /**
@@ -829,38 +842,40 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
        */
       public Builder mergeDotContext(feup.sdle.message.DotContextProto.DotContext value) {
         if (dotContextBuilder_ == null) {
-          if (dotContext_ != null) {
-            dotContext_ =
-              feup.sdle.message.DotContextProto.DotContext.newBuilder(dotContext_).mergeFrom(value).buildPartial();
+          if (((bitField0_ & 0x00000001) != 0) &&
+            dotContext_ != null &&
+            dotContext_ != feup.sdle.message.DotContextProto.DotContext.getDefaultInstance()) {
+            getDotContextBuilder().mergeFrom(value);
           } else {
             dotContext_ = value;
           }
-          onChanged();
         } else {
           dotContextBuilder_.mergeFrom(value);
         }
-
+        if (dotContext_ != null) {
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
         return this;
       }
       /**
        * <code>.feup.sdle.message.DotContext dotContext = 1;</code>
        */
       public Builder clearDotContext() {
-        if (dotContextBuilder_ == null) {
-          dotContext_ = null;
-          onChanged();
-        } else {
-          dotContext_ = null;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        dotContext_ = null;
+        if (dotContextBuilder_ != null) {
+          dotContextBuilder_.dispose();
           dotContextBuilder_ = null;
         }
-
+        onChanged();
         return this;
       }
       /**
        * <code>.feup.sdle.message.DotContext dotContext = 1;</code>
        */
       public feup.sdle.message.DotContextProto.DotContext.Builder getDotContextBuilder() {
-        
+        bitField0_ |= 0x00000001;
         onChanged();
         return getDotContextFieldBuilder().getBuilder();
       }
@@ -900,7 +915,7 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
        * @return Whether the localIdentifier field is set.
        */
       public boolean hasLocalIdentifier() {
-        return localIdentifierBuilder_ != null || localIdentifier_ != null;
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <code>.feup.sdle.message.NodeIdentifier localIdentifier = 2;</code>
@@ -922,11 +937,11 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
             throw new NullPointerException();
           }
           localIdentifier_ = value;
-          onChanged();
         } else {
           localIdentifierBuilder_.setMessage(value);
         }
-
+        bitField0_ |= 0x00000002;
+        onChanged();
         return this;
       }
       /**
@@ -936,11 +951,11 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
           feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.Builder builderForValue) {
         if (localIdentifierBuilder_ == null) {
           localIdentifier_ = builderForValue.build();
-          onChanged();
         } else {
           localIdentifierBuilder_.setMessage(builderForValue.build());
         }
-
+        bitField0_ |= 0x00000002;
+        onChanged();
         return this;
       }
       /**
@@ -948,38 +963,40 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
        */
       public Builder mergeLocalIdentifier(feup.sdle.message.NodeIdentifierMessage.NodeIdentifier value) {
         if (localIdentifierBuilder_ == null) {
-          if (localIdentifier_ != null) {
-            localIdentifier_ =
-              feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.newBuilder(localIdentifier_).mergeFrom(value).buildPartial();
+          if (((bitField0_ & 0x00000002) != 0) &&
+            localIdentifier_ != null &&
+            localIdentifier_ != feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.getDefaultInstance()) {
+            getLocalIdentifierBuilder().mergeFrom(value);
           } else {
             localIdentifier_ = value;
           }
-          onChanged();
         } else {
           localIdentifierBuilder_.mergeFrom(value);
         }
-
+        if (localIdentifier_ != null) {
+          bitField0_ |= 0x00000002;
+          onChanged();
+        }
         return this;
       }
       /**
        * <code>.feup.sdle.message.NodeIdentifier localIdentifier = 2;</code>
        */
       public Builder clearLocalIdentifier() {
-        if (localIdentifierBuilder_ == null) {
-          localIdentifier_ = null;
-          onChanged();
-        } else {
-          localIdentifier_ = null;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        localIdentifier_ = null;
+        if (localIdentifierBuilder_ != null) {
+          localIdentifierBuilder_.dispose();
           localIdentifierBuilder_ = null;
         }
-
+        onChanged();
         return this;
       }
       /**
        * <code>.feup.sdle.message.NodeIdentifier localIdentifier = 2;</code>
        */
       public feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.Builder getLocalIdentifierBuilder() {
-        
+        bitField0_ |= 0x00000002;
         onChanged();
         return getLocalIdentifierFieldBuilder().getBuilder();
       }
@@ -1019,7 +1036,7 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
        * @return Whether the keys field is set.
        */
       public boolean hasKeys() {
-        return keysBuilder_ != null || keys_ != null;
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
        * <code>.feup.sdle.message.AWSet keys = 3;</code>
@@ -1041,11 +1058,11 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
             throw new NullPointerException();
           }
           keys_ = value;
-          onChanged();
         } else {
           keysBuilder_.setMessage(value);
         }
-
+        bitField0_ |= 0x00000004;
+        onChanged();
         return this;
       }
       /**
@@ -1055,11 +1072,11 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
           feup.sdle.message.AWSetProto.AWSet.Builder builderForValue) {
         if (keysBuilder_ == null) {
           keys_ = builderForValue.build();
-          onChanged();
         } else {
           keysBuilder_.setMessage(builderForValue.build());
         }
-
+        bitField0_ |= 0x00000004;
+        onChanged();
         return this;
       }
       /**
@@ -1067,38 +1084,40 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
        */
       public Builder mergeKeys(feup.sdle.message.AWSetProto.AWSet value) {
         if (keysBuilder_ == null) {
-          if (keys_ != null) {
-            keys_ =
-              feup.sdle.message.AWSetProto.AWSet.newBuilder(keys_).mergeFrom(value).buildPartial();
+          if (((bitField0_ & 0x00000004) != 0) &&
+            keys_ != null &&
+            keys_ != feup.sdle.message.AWSetProto.AWSet.getDefaultInstance()) {
+            getKeysBuilder().mergeFrom(value);
           } else {
             keys_ = value;
           }
-          onChanged();
         } else {
           keysBuilder_.mergeFrom(value);
         }
-
+        if (keys_ != null) {
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
         return this;
       }
       /**
        * <code>.feup.sdle.message.AWSet keys = 3;</code>
        */
       public Builder clearKeys() {
-        if (keysBuilder_ == null) {
-          keys_ = null;
-          onChanged();
-        } else {
-          keys_ = null;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        keys_ = null;
+        if (keysBuilder_ != null) {
+          keysBuilder_.dispose();
           keysBuilder_ = null;
         }
-
+        onChanged();
         return this;
       }
       /**
        * <code>.feup.sdle.message.AWSet keys = 3;</code>
        */
       public feup.sdle.message.AWSetProto.AWSet.Builder getKeysBuilder() {
-        
+        bitField0_ |= 0x00000004;
         onChanged();
         return getKeysFieldBuilder().getBuilder();
       }
@@ -1133,7 +1152,7 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
       private com.google.protobuf.MapField<
           java.lang.String, feup.sdle.message.DottedValueProto.DottedValue> values_;
       private com.google.protobuf.MapField<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue>
-      internalGetValues() {
+          internalGetValues() {
         if (values_ == null) {
           return com.google.protobuf.MapField.emptyMapField(
               ValuesDefaultEntryHolder.defaultEntry);
@@ -1141,8 +1160,7 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
         return values_;
       }
       private com.google.protobuf.MapField<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue>
-      internalGetMutableValues() {
-        onChanged();;
+          internalGetMutableValues() {
         if (values_ == null) {
           values_ = com.google.protobuf.MapField.newMapField(
               ValuesDefaultEntryHolder.defaultEntry);
@@ -1150,16 +1168,16 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
         if (!values_.isMutable()) {
           values_ = values_.copy();
         }
+        bitField0_ |= 0x00000008;
+        onChanged();
         return values_;
       }
-
       public int getValuesCount() {
         return internalGetValues().getMap().size();
       }
       /**
        * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; values = 4;</code>
        */
-
       @java.lang.Override
       public boolean containsValues(
           java.lang.String key) {
@@ -1178,7 +1196,6 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
        * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; values = 4;</code>
        */
       @java.lang.Override
-
       public java.util.Map<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue> getValuesMap() {
         return internalGetValues().getMap();
       }
@@ -1186,10 +1203,11 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
        * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; values = 4;</code>
        */
       @java.lang.Override
-
-      public feup.sdle.message.DottedValueProto.DottedValue getValuesOrDefault(
+      public /* nullable */
+feup.sdle.message.DottedValueProto.DottedValue getValuesOrDefault(
           java.lang.String key,
-          feup.sdle.message.DottedValueProto.DottedValue defaultValue) {
+          /* nullable */
+feup.sdle.message.DottedValueProto.DottedValue defaultValue) {
         if (key == null) { throw new NullPointerException("map key"); }
         java.util.Map<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue> map =
             internalGetValues().getMap();
@@ -1199,7 +1217,6 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
        * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; values = 4;</code>
        */
       @java.lang.Override
-
       public feup.sdle.message.DottedValueProto.DottedValue getValuesOrThrow(
           java.lang.String key) {
         if (key == null) { throw new NullPointerException("map key"); }
@@ -1210,8 +1227,8 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
         }
         return map.get(key);
       }
-
       public Builder clearValues() {
+        bitField0_ = (bitField0_ & ~0x00000008);
         internalGetMutableValues().getMutableMap()
             .clear();
         return this;
@@ -1219,7 +1236,6 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
       /**
        * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; values = 4;</code>
        */
-
       public Builder removeValues(
           java.lang.String key) {
         if (key == null) { throw new NullPointerException("map key"); }
@@ -1232,7 +1248,8 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
        */
       @java.lang.Deprecated
       public java.util.Map<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue>
-      getMutableValues() {
+          getMutableValues() {
+        bitField0_ |= 0x00000008;
         return internalGetMutableValues().getMutableMap();
       }
       /**
@@ -1242,22 +1259,20 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
           java.lang.String key,
           feup.sdle.message.DottedValueProto.DottedValue value) {
         if (key == null) { throw new NullPointerException("map key"); }
-        if (value == null) {
-  throw new NullPointerException("map value");
-}
-
+        if (value == null) { throw new NullPointerException("map value"); }
         internalGetMutableValues().getMutableMap()
             .put(key, value);
+        bitField0_ |= 0x00000008;
         return this;
       }
       /**
        * <code>map&lt;string, .feup.sdle.message.DottedValue&gt; values = 4;</code>
        */
-
       public Builder putAllValues(
           java.util.Map<java.lang.String, feup.sdle.message.DottedValueProto.DottedValue> values) {
         internalGetMutableValues().getMutableMap()
             .putAll(values);
+        bitField0_ |= 0x00000008;
         return this;
       }
       @java.lang.Override

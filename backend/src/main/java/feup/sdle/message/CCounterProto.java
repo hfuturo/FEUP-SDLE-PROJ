@@ -71,11 +71,6 @@ public final class CCounterProto {
       return new CCounter();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.CCounterProto.internal_static_feup_sdle_message_CCounter_descriptor;
@@ -90,7 +85,7 @@ public final class CCounterProto {
     }
 
     public static final int ID_FIELD_NUMBER = 1;
-    private int id_;
+    private int id_ = 0;
     /**
      * <code>int32 id = 1;</code>
      * @return The id.
@@ -101,6 +96,7 @@ public final class CCounterProto {
     }
 
     public static final int SET_FIELD_NUMBER = 2;
+    @SuppressWarnings("serial")
     private java.util.List<feup.sdle.message.DottedValueProto.DottedValue> set_;
     /**
      * <code>repeated .feup.sdle.message.DottedValue set = 2;</code>
@@ -262,11 +258,13 @@ public final class CCounterProto {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static feup.sdle.message.CCounterProto.CCounter parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static feup.sdle.message.CCounterProto.CCounter parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -341,15 +339,15 @@ public final class CCounterProto {
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        bitField0_ = 0;
         id_ = 0;
-
         if (setBuilder_ == null) {
           set_ = java.util.Collections.emptyList();
         } else {
           set_ = null;
           setBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000001);
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
@@ -376,19 +374,29 @@ public final class CCounterProto {
       @java.lang.Override
       public feup.sdle.message.CCounterProto.CCounter buildPartial() {
         feup.sdle.message.CCounterProto.CCounter result = new feup.sdle.message.CCounterProto.CCounter(this);
-        int from_bitField0_ = bitField0_;
-        result.id_ = id_;
+        buildPartialRepeatedFields(result);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartialRepeatedFields(feup.sdle.message.CCounterProto.CCounter result) {
         if (setBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0)) {
+          if (((bitField0_ & 0x00000002) != 0)) {
             set_ = java.util.Collections.unmodifiableList(set_);
-            bitField0_ = (bitField0_ & ~0x00000001);
+            bitField0_ = (bitField0_ & ~0x00000002);
           }
           result.set_ = set_;
         } else {
           result.set_ = setBuilder_.build();
         }
-        onBuilt();
-        return result;
+      }
+
+      private void buildPartial0(feup.sdle.message.CCounterProto.CCounter result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.id_ = id_;
+        }
       }
 
       @java.lang.Override
@@ -442,7 +450,7 @@ public final class CCounterProto {
           if (!other.set_.isEmpty()) {
             if (set_.isEmpty()) {
               set_ = other.set_;
-              bitField0_ = (bitField0_ & ~0x00000001);
+              bitField0_ = (bitField0_ & ~0x00000002);
             } else {
               ensureSetIsMutable();
               set_.addAll(other.set_);
@@ -455,7 +463,7 @@ public final class CCounterProto {
               setBuilder_.dispose();
               setBuilder_ = null;
               set_ = other.set_;
-              bitField0_ = (bitField0_ & ~0x00000001);
+              bitField0_ = (bitField0_ & ~0x00000002);
               setBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getSetFieldBuilder() : null;
@@ -492,7 +500,7 @@ public final class CCounterProto {
                 break;
               case 8: {
                 id_ = input.readInt32();
-
+                bitField0_ |= 0x00000001;
                 break;
               } // case 8
               case 18: {
@@ -540,8 +548,9 @@ public final class CCounterProto {
        * @return This builder for chaining.
        */
       public Builder setId(int value) {
-        
+
         id_ = value;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
@@ -550,7 +559,7 @@ public final class CCounterProto {
        * @return This builder for chaining.
        */
       public Builder clearId() {
-        
+        bitField0_ = (bitField0_ & ~0x00000001);
         id_ = 0;
         onChanged();
         return this;
@@ -559,9 +568,9 @@ public final class CCounterProto {
       private java.util.List<feup.sdle.message.DottedValueProto.DottedValue> set_ =
         java.util.Collections.emptyList();
       private void ensureSetIsMutable() {
-        if (!((bitField0_ & 0x00000001) != 0)) {
+        if (!((bitField0_ & 0x00000002) != 0)) {
           set_ = new java.util.ArrayList<feup.sdle.message.DottedValueProto.DottedValue>(set_);
-          bitField0_ |= 0x00000001;
+          bitField0_ |= 0x00000002;
          }
       }
 
@@ -711,7 +720,7 @@ public final class CCounterProto {
       public Builder clearSet() {
         if (setBuilder_ == null) {
           set_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
+          bitField0_ = (bitField0_ & ~0x00000002);
           onChanged();
         } else {
           setBuilder_.clear();
@@ -788,7 +797,7 @@ public final class CCounterProto {
           setBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               feup.sdle.message.DottedValueProto.DottedValue, feup.sdle.message.DottedValueProto.DottedValue.Builder, feup.sdle.message.DottedValueProto.DottedValueOrBuilder>(
                   set_,
-                  ((bitField0_ & 0x00000001) != 0),
+                  ((bitField0_ & 0x00000002) != 0),
                   getParentForChildren(),
                   isClean());
           set_ = null;

@@ -55,11 +55,6 @@ public final class ShoppingListItemProto {
       return new ShoppingListItem();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.ShoppingListItemProto.internal_static_feup_sdle_message_ShoppingListItem_descriptor;
@@ -73,6 +68,7 @@ public final class ShoppingListItemProto {
               feup.sdle.message.ShoppingListItemProto.ShoppingListItem.class, feup.sdle.message.ShoppingListItemProto.ShoppingListItem.Builder.class);
     }
 
+    private int bitField0_;
     public static final int CCOUNTER_FIELD_NUMBER = 1;
     private feup.sdle.message.CCounterProto.CCounter ccounter_;
     /**
@@ -81,7 +77,7 @@ public final class ShoppingListItemProto {
      */
     @java.lang.Override
     public boolean hasCcounter() {
-      return ccounter_ != null;
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>.feup.sdle.message.CCounter ccounter = 1;</code>
@@ -96,7 +92,7 @@ public final class ShoppingListItemProto {
      */
     @java.lang.Override
     public feup.sdle.message.CCounterProto.CCounterOrBuilder getCcounterOrBuilder() {
-      return getCcounter();
+      return ccounter_ == null ? feup.sdle.message.CCounterProto.CCounter.getDefaultInstance() : ccounter_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -113,7 +109,7 @@ public final class ShoppingListItemProto {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (ccounter_ != null) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeMessage(1, getCcounter());
       }
       getUnknownFields().writeTo(output);
@@ -125,7 +121,7 @@ public final class ShoppingListItemProto {
       if (size != -1) return size;
 
       size = 0;
-      if (ccounter_ != null) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, getCcounter());
       }
@@ -213,11 +209,13 @@ public final class ShoppingListItemProto {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static feup.sdle.message.ShoppingListItemProto.ShoppingListItem parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static feup.sdle.message.ShoppingListItemProto.ShoppingListItem parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -281,21 +279,27 @@ public final class ShoppingListItemProto {
 
       // Construct using feup.sdle.message.ShoppingListItemProto.ShoppingListItem.newBuilder()
       private Builder() {
-
+        maybeForceBuilderInitialization();
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
-
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getCcounterFieldBuilder();
+        }
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        if (ccounterBuilder_ == null) {
-          ccounter_ = null;
-        } else {
-          ccounter_ = null;
+        bitField0_ = 0;
+        ccounter_ = null;
+        if (ccounterBuilder_ != null) {
+          ccounterBuilder_.dispose();
           ccounterBuilder_ = null;
         }
         return this;
@@ -324,13 +328,21 @@ public final class ShoppingListItemProto {
       @java.lang.Override
       public feup.sdle.message.ShoppingListItemProto.ShoppingListItem buildPartial() {
         feup.sdle.message.ShoppingListItemProto.ShoppingListItem result = new feup.sdle.message.ShoppingListItemProto.ShoppingListItem(this);
-        if (ccounterBuilder_ == null) {
-          result.ccounter_ = ccounter_;
-        } else {
-          result.ccounter_ = ccounterBuilder_.build();
-        }
+        if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
+      }
+
+      private void buildPartial0(feup.sdle.message.ShoppingListItemProto.ShoppingListItem result) {
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.ccounter_ = ccounterBuilder_ == null
+              ? ccounter_
+              : ccounterBuilder_.build();
+          to_bitField0_ |= 0x00000001;
+        }
+        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -410,7 +422,7 @@ public final class ShoppingListItemProto {
                 input.readMessage(
                     getCcounterFieldBuilder().getBuilder(),
                     extensionRegistry);
-
+                bitField0_ |= 0x00000001;
                 break;
               } // case 10
               default: {
@@ -428,6 +440,7 @@ public final class ShoppingListItemProto {
         } // finally
         return this;
       }
+      private int bitField0_;
 
       private feup.sdle.message.CCounterProto.CCounter ccounter_;
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -437,7 +450,7 @@ public final class ShoppingListItemProto {
        * @return Whether the ccounter field is set.
        */
       public boolean hasCcounter() {
-        return ccounterBuilder_ != null || ccounter_ != null;
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>.feup.sdle.message.CCounter ccounter = 1;</code>
@@ -459,11 +472,11 @@ public final class ShoppingListItemProto {
             throw new NullPointerException();
           }
           ccounter_ = value;
-          onChanged();
         } else {
           ccounterBuilder_.setMessage(value);
         }
-
+        bitField0_ |= 0x00000001;
+        onChanged();
         return this;
       }
       /**
@@ -473,11 +486,11 @@ public final class ShoppingListItemProto {
           feup.sdle.message.CCounterProto.CCounter.Builder builderForValue) {
         if (ccounterBuilder_ == null) {
           ccounter_ = builderForValue.build();
-          onChanged();
         } else {
           ccounterBuilder_.setMessage(builderForValue.build());
         }
-
+        bitField0_ |= 0x00000001;
+        onChanged();
         return this;
       }
       /**
@@ -485,38 +498,40 @@ public final class ShoppingListItemProto {
        */
       public Builder mergeCcounter(feup.sdle.message.CCounterProto.CCounter value) {
         if (ccounterBuilder_ == null) {
-          if (ccounter_ != null) {
-            ccounter_ =
-              feup.sdle.message.CCounterProto.CCounter.newBuilder(ccounter_).mergeFrom(value).buildPartial();
+          if (((bitField0_ & 0x00000001) != 0) &&
+            ccounter_ != null &&
+            ccounter_ != feup.sdle.message.CCounterProto.CCounter.getDefaultInstance()) {
+            getCcounterBuilder().mergeFrom(value);
           } else {
             ccounter_ = value;
           }
-          onChanged();
         } else {
           ccounterBuilder_.mergeFrom(value);
         }
-
+        if (ccounter_ != null) {
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
         return this;
       }
       /**
        * <code>.feup.sdle.message.CCounter ccounter = 1;</code>
        */
       public Builder clearCcounter() {
-        if (ccounterBuilder_ == null) {
-          ccounter_ = null;
-          onChanged();
-        } else {
-          ccounter_ = null;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        ccounter_ = null;
+        if (ccounterBuilder_ != null) {
+          ccounterBuilder_.dispose();
           ccounterBuilder_ = null;
         }
-
+        onChanged();
         return this;
       }
       /**
        * <code>.feup.sdle.message.CCounter ccounter = 1;</code>
        */
       public feup.sdle.message.CCounterProto.CCounter.Builder getCcounterBuilder() {
-        
+        bitField0_ |= 0x00000001;
         onChanged();
         return getCcounterFieldBuilder().getBuilder();
       }

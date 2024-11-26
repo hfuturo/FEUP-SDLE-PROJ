@@ -41,14 +41,12 @@ public final class DotContextProto {
     /**
      * <code>map&lt;int32, int32&gt; dots = 1;</code>
      */
-
     int getDotsOrDefault(
         int key,
         int defaultValue);
     /**
      * <code>map&lt;int32, int32&gt; dots = 1;</code>
      */
-
     int getDotsOrThrow(
         int key);
   }
@@ -74,11 +72,6 @@ public final class DotContextProto {
       return new DotContext();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.DotContextProto.internal_static_feup_sdle_message_DotContext_descriptor;
@@ -116,6 +109,7 @@ public final class DotContextProto {
                   com.google.protobuf.WireFormat.FieldType.INT32,
                   0);
     }
+    @SuppressWarnings("serial")
     private com.google.protobuf.MapField<
         java.lang.Integer, java.lang.Integer> dots_;
     private com.google.protobuf.MapField<java.lang.Integer, java.lang.Integer>
@@ -126,18 +120,16 @@ public final class DotContextProto {
       }
       return dots_;
     }
-
     public int getDotsCount() {
       return internalGetDots().getMap().size();
     }
     /**
      * <code>map&lt;int32, int32&gt; dots = 1;</code>
      */
-
     @java.lang.Override
     public boolean containsDots(
         int key) {
-      
+
       return internalGetDots().getMap().containsKey(key);
     }
     /**
@@ -152,7 +144,6 @@ public final class DotContextProto {
      * <code>map&lt;int32, int32&gt; dots = 1;</code>
      */
     @java.lang.Override
-
     public java.util.Map<java.lang.Integer, java.lang.Integer> getDotsMap() {
       return internalGetDots().getMap();
     }
@@ -160,11 +151,10 @@ public final class DotContextProto {
      * <code>map&lt;int32, int32&gt; dots = 1;</code>
      */
     @java.lang.Override
-
     public int getDotsOrDefault(
         int key,
         int defaultValue) {
-      
+
       java.util.Map<java.lang.Integer, java.lang.Integer> map =
           internalGetDots().getMap();
       return map.containsKey(key) ? map.get(key) : defaultValue;
@@ -173,10 +163,9 @@ public final class DotContextProto {
      * <code>map&lt;int32, int32&gt; dots = 1;</code>
      */
     @java.lang.Override
-
     public int getDotsOrThrow(
         int key) {
-      
+
       java.util.Map<java.lang.Integer, java.lang.Integer> map =
           internalGetDots().getMap();
       if (!map.containsKey(key)) {
@@ -305,11 +294,13 @@ public final class DotContextProto {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static feup.sdle.message.DotContextProto.DotContext parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static feup.sdle.message.DotContextProto.DotContext parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -406,6 +397,7 @@ public final class DotContextProto {
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        bitField0_ = 0;
         internalGetMutableDots().clear();
         return this;
       }
@@ -433,11 +425,17 @@ public final class DotContextProto {
       @java.lang.Override
       public feup.sdle.message.DotContextProto.DotContext buildPartial() {
         feup.sdle.message.DotContextProto.DotContext result = new feup.sdle.message.DotContextProto.DotContext(this);
-        int from_bitField0_ = bitField0_;
-        result.dots_ = internalGetDots();
-        result.dots_.makeImmutable();
+        if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
+      }
+
+      private void buildPartial0(feup.sdle.message.DotContextProto.DotContext result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.dots_ = internalGetDots();
+          result.dots_.makeImmutable();
+        }
       }
 
       @java.lang.Override
@@ -486,6 +484,7 @@ public final class DotContextProto {
         if (other == feup.sdle.message.DotContextProto.DotContext.getDefaultInstance()) return this;
         internalGetMutableDots().mergeFrom(
             other.internalGetDots());
+        bitField0_ |= 0x00000001;
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -518,6 +517,7 @@ public final class DotContextProto {
                     DotsDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
                 internalGetMutableDots().getMutableMap().put(
                     dots__.getKey(), dots__.getValue());
+                bitField0_ |= 0x00000001;
                 break;
               } // case 10
               default: {
@@ -540,7 +540,7 @@ public final class DotContextProto {
       private com.google.protobuf.MapField<
           java.lang.Integer, java.lang.Integer> dots_;
       private com.google.protobuf.MapField<java.lang.Integer, java.lang.Integer>
-      internalGetDots() {
+          internalGetDots() {
         if (dots_ == null) {
           return com.google.protobuf.MapField.emptyMapField(
               DotsDefaultEntryHolder.defaultEntry);
@@ -548,8 +548,7 @@ public final class DotContextProto {
         return dots_;
       }
       private com.google.protobuf.MapField<java.lang.Integer, java.lang.Integer>
-      internalGetMutableDots() {
-        onChanged();;
+          internalGetMutableDots() {
         if (dots_ == null) {
           dots_ = com.google.protobuf.MapField.newMapField(
               DotsDefaultEntryHolder.defaultEntry);
@@ -557,20 +556,20 @@ public final class DotContextProto {
         if (!dots_.isMutable()) {
           dots_ = dots_.copy();
         }
+        bitField0_ |= 0x00000001;
+        onChanged();
         return dots_;
       }
-
       public int getDotsCount() {
         return internalGetDots().getMap().size();
       }
       /**
        * <code>map&lt;int32, int32&gt; dots = 1;</code>
        */
-
       @java.lang.Override
       public boolean containsDots(
           int key) {
-        
+
         return internalGetDots().getMap().containsKey(key);
       }
       /**
@@ -585,7 +584,6 @@ public final class DotContextProto {
        * <code>map&lt;int32, int32&gt; dots = 1;</code>
        */
       @java.lang.Override
-
       public java.util.Map<java.lang.Integer, java.lang.Integer> getDotsMap() {
         return internalGetDots().getMap();
       }
@@ -593,11 +591,10 @@ public final class DotContextProto {
        * <code>map&lt;int32, int32&gt; dots = 1;</code>
        */
       @java.lang.Override
-
       public int getDotsOrDefault(
           int key,
           int defaultValue) {
-        
+
         java.util.Map<java.lang.Integer, java.lang.Integer> map =
             internalGetDots().getMap();
         return map.containsKey(key) ? map.get(key) : defaultValue;
@@ -606,10 +603,9 @@ public final class DotContextProto {
        * <code>map&lt;int32, int32&gt; dots = 1;</code>
        */
       @java.lang.Override
-
       public int getDotsOrThrow(
           int key) {
-        
+
         java.util.Map<java.lang.Integer, java.lang.Integer> map =
             internalGetDots().getMap();
         if (!map.containsKey(key)) {
@@ -617,8 +613,8 @@ public final class DotContextProto {
         }
         return map.get(key);
       }
-
       public Builder clearDots() {
+        bitField0_ = (bitField0_ & ~0x00000001);
         internalGetMutableDots().getMutableMap()
             .clear();
         return this;
@@ -626,10 +622,9 @@ public final class DotContextProto {
       /**
        * <code>map&lt;int32, int32&gt; dots = 1;</code>
        */
-
       public Builder removeDots(
           int key) {
-        
+
         internalGetMutableDots().getMutableMap()
             .remove(key);
         return this;
@@ -639,7 +634,8 @@ public final class DotContextProto {
        */
       @java.lang.Deprecated
       public java.util.Map<java.lang.Integer, java.lang.Integer>
-      getMutableDots() {
+          getMutableDots() {
+        bitField0_ |= 0x00000001;
         return internalGetMutableDots().getMutableMap();
       }
       /**
@@ -648,20 +644,21 @@ public final class DotContextProto {
       public Builder putDots(
           int key,
           int value) {
-        
-        
+
+
         internalGetMutableDots().getMutableMap()
             .put(key, value);
+        bitField0_ |= 0x00000001;
         return this;
       }
       /**
        * <code>map&lt;int32, int32&gt; dots = 1;</code>
        */
-
       public Builder putAllDots(
           java.util.Map<java.lang.Integer, java.lang.Integer> values) {
         internalGetMutableDots().getMutableMap()
             .putAll(values);
+        bitField0_ |= 0x00000001;
         return this;
       }
       @java.lang.Override

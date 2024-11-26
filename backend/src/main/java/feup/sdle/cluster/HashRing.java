@@ -59,13 +59,13 @@ public class HashRing implements ProtobufSerializable<HashRingMessage.HashRing> 
     }
 
     private void generateSeedNodes() {
-        NodeIdentifier seed1 = new NodeIdentifier(100001, "localhost", 4321, true);
-        NodeIdentifier seed2 = new NodeIdentifier(100002, "localhost", 4322, true);
-        NodeIdentifier seed3 = new NodeIdentifier(100003, "localhost", 4323, true);
+        NodeIdentifier seed1 = new NodeIdentifier(100001, "localhost", 4321, true, 8081);
+        NodeIdentifier seed2 = new NodeIdentifier(100002, "localhost", 4322, true, 8082);
+        NodeIdentifier seed3 = new NodeIdentifier(100003, "localhost", 4323, true, 8083);
 
         try {
             this.addNode(seed1);
-            this.addNode(seed2);
+            //this.addNode(seed2);
             this.addNode(seed3);
 
             this.hashRingLog.getOperationsStr();

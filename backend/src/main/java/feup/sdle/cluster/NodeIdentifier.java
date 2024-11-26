@@ -11,22 +11,25 @@ public class NodeIdentifier {
     private int id;
     private String hostname;
     private int port;
+    private int httpPort;
     private boolean alive;
     private ZMQ.Socket socket;
 
-    public NodeIdentifier(int id, String hostname, int port, boolean alive) {
+    public NodeIdentifier(int id, String hostname, int port, boolean alive, int httpPort) {
         this.id = id;
         this.hostname = hostname;
         this.port = port;
         this.alive = alive;
+        this.httpPort = httpPort;
     }
 
-    public NodeIdentifier(int id, String hostname, int port, boolean alive, ZMQ.Socket socket) {
+    public NodeIdentifier(int id, String hostname, int port, boolean alive, ZMQ.Socket socket, int httpPort) {
         this.id = id;
         this.hostname = hostname;
         this.port = port;
         this.alive = alive;
         this.socket = socket;
+        this.httpPort = httpPort;
     }
 
     public void setAlive(boolean alive) {
@@ -60,7 +63,8 @@ public class NodeIdentifier {
                 msgNodeIdentifier.getId(),
                 msgNodeIdentifier.getHostname(),
                 msgNodeIdentifier.getPort(),
-                true
+                true,
+                msgNodeIdentifier.getHttpPort()
         );
     }
 

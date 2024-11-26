@@ -86,11 +86,6 @@ public final class AWSetProto {
       return new AWSet();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.AWSetProto.internal_static_feup_sdle_message_AWSet_descriptor;
@@ -104,7 +99,9 @@ public final class AWSetProto {
               feup.sdle.message.AWSetProto.AWSet.class, feup.sdle.message.AWSetProto.AWSet.Builder.class);
     }
 
+    private int bitField0_;
     public static final int VALUES_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
     private java.util.List<feup.sdle.message.DottedValueProto.DottedValue> values_;
     /**
      * <code>repeated .feup.sdle.message.DottedValue values = 1;</code>
@@ -152,7 +149,7 @@ public final class AWSetProto {
      */
     @java.lang.Override
     public boolean hasDotContext() {
-      return dotContext_ != null;
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>.feup.sdle.message.DotContext dotContext = 2;</code>
@@ -167,11 +164,11 @@ public final class AWSetProto {
      */
     @java.lang.Override
     public feup.sdle.message.DotContextProto.DotContextOrBuilder getDotContextOrBuilder() {
-      return getDotContext();
+      return dotContext_ == null ? feup.sdle.message.DotContextProto.DotContext.getDefaultInstance() : dotContext_;
     }
 
     public static final int LOCALIDENTIFIER_FIELD_NUMBER = 3;
-    private int localIdentifier_;
+    private int localIdentifier_ = 0;
     /**
      * <code>int32 localIdentifier = 3;</code>
      * @return The localIdentifier.
@@ -198,7 +195,7 @@ public final class AWSetProto {
       for (int i = 0; i < values_.size(); i++) {
         output.writeMessage(1, values_.get(i));
       }
-      if (dotContext_ != null) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeMessage(2, getDotContext());
       }
       if (localIdentifier_ != 0) {
@@ -217,7 +214,7 @@ public final class AWSetProto {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, values_.get(i));
       }
-      if (dotContext_ != null) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, getDotContext());
       }
@@ -319,11 +316,13 @@ public final class AWSetProto {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static feup.sdle.message.AWSetProto.AWSet parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static feup.sdle.message.AWSetProto.AWSet parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -387,17 +386,25 @@ public final class AWSetProto {
 
       // Construct using feup.sdle.message.AWSetProto.AWSet.newBuilder()
       private Builder() {
-
+        maybeForceBuilderInitialization();
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
-
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getValuesFieldBuilder();
+          getDotContextFieldBuilder();
+        }
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        bitField0_ = 0;
         if (valuesBuilder_ == null) {
           values_ = java.util.Collections.emptyList();
         } else {
@@ -405,14 +412,12 @@ public final class AWSetProto {
           valuesBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
-        if (dotContextBuilder_ == null) {
-          dotContext_ = null;
-        } else {
-          dotContext_ = null;
+        dotContext_ = null;
+        if (dotContextBuilder_ != null) {
+          dotContextBuilder_.dispose();
           dotContextBuilder_ = null;
         }
         localIdentifier_ = 0;
-
         return this;
       }
 
@@ -439,7 +444,13 @@ public final class AWSetProto {
       @java.lang.Override
       public feup.sdle.message.AWSetProto.AWSet buildPartial() {
         feup.sdle.message.AWSetProto.AWSet result = new feup.sdle.message.AWSetProto.AWSet(this);
-        int from_bitField0_ = bitField0_;
+        buildPartialRepeatedFields(result);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartialRepeatedFields(feup.sdle.message.AWSetProto.AWSet result) {
         if (valuesBuilder_ == null) {
           if (((bitField0_ & 0x00000001) != 0)) {
             values_ = java.util.Collections.unmodifiableList(values_);
@@ -449,14 +460,21 @@ public final class AWSetProto {
         } else {
           result.values_ = valuesBuilder_.build();
         }
-        if (dotContextBuilder_ == null) {
-          result.dotContext_ = dotContext_;
-        } else {
-          result.dotContext_ = dotContextBuilder_.build();
+      }
+
+      private void buildPartial0(feup.sdle.message.AWSetProto.AWSet result) {
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.dotContext_ = dotContextBuilder_ == null
+              ? dotContext_
+              : dotContextBuilder_.build();
+          to_bitField0_ |= 0x00000001;
         }
-        result.localIdentifier_ = localIdentifier_;
-        onBuilt();
-        return result;
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.localIdentifier_ = localIdentifier_;
+        }
+        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -578,12 +596,12 @@ public final class AWSetProto {
                 input.readMessage(
                     getDotContextFieldBuilder().getBuilder(),
                     extensionRegistry);
-
+                bitField0_ |= 0x00000002;
                 break;
               } // case 18
               case 24: {
                 localIdentifier_ = input.readInt32();
-
+                bitField0_ |= 0x00000004;
                 break;
               } // case 24
               default: {
@@ -851,7 +869,7 @@ public final class AWSetProto {
        * @return Whether the dotContext field is set.
        */
       public boolean hasDotContext() {
-        return dotContextBuilder_ != null || dotContext_ != null;
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <code>.feup.sdle.message.DotContext dotContext = 2;</code>
@@ -873,11 +891,11 @@ public final class AWSetProto {
             throw new NullPointerException();
           }
           dotContext_ = value;
-          onChanged();
         } else {
           dotContextBuilder_.setMessage(value);
         }
-
+        bitField0_ |= 0x00000002;
+        onChanged();
         return this;
       }
       /**
@@ -887,11 +905,11 @@ public final class AWSetProto {
           feup.sdle.message.DotContextProto.DotContext.Builder builderForValue) {
         if (dotContextBuilder_ == null) {
           dotContext_ = builderForValue.build();
-          onChanged();
         } else {
           dotContextBuilder_.setMessage(builderForValue.build());
         }
-
+        bitField0_ |= 0x00000002;
+        onChanged();
         return this;
       }
       /**
@@ -899,38 +917,40 @@ public final class AWSetProto {
        */
       public Builder mergeDotContext(feup.sdle.message.DotContextProto.DotContext value) {
         if (dotContextBuilder_ == null) {
-          if (dotContext_ != null) {
-            dotContext_ =
-              feup.sdle.message.DotContextProto.DotContext.newBuilder(dotContext_).mergeFrom(value).buildPartial();
+          if (((bitField0_ & 0x00000002) != 0) &&
+            dotContext_ != null &&
+            dotContext_ != feup.sdle.message.DotContextProto.DotContext.getDefaultInstance()) {
+            getDotContextBuilder().mergeFrom(value);
           } else {
             dotContext_ = value;
           }
-          onChanged();
         } else {
           dotContextBuilder_.mergeFrom(value);
         }
-
+        if (dotContext_ != null) {
+          bitField0_ |= 0x00000002;
+          onChanged();
+        }
         return this;
       }
       /**
        * <code>.feup.sdle.message.DotContext dotContext = 2;</code>
        */
       public Builder clearDotContext() {
-        if (dotContextBuilder_ == null) {
-          dotContext_ = null;
-          onChanged();
-        } else {
-          dotContext_ = null;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        dotContext_ = null;
+        if (dotContextBuilder_ != null) {
+          dotContextBuilder_.dispose();
           dotContextBuilder_ = null;
         }
-
+        onChanged();
         return this;
       }
       /**
        * <code>.feup.sdle.message.DotContext dotContext = 2;</code>
        */
       public feup.sdle.message.DotContextProto.DotContext.Builder getDotContextBuilder() {
-        
+        bitField0_ |= 0x00000002;
         onChanged();
         return getDotContextFieldBuilder().getBuilder();
       }
@@ -977,8 +997,9 @@ public final class AWSetProto {
        * @return This builder for chaining.
        */
       public Builder setLocalIdentifier(int value) {
-        
+
         localIdentifier_ = value;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
@@ -987,7 +1008,7 @@ public final class AWSetProto {
        * @return This builder for chaining.
        */
       public Builder clearLocalIdentifier() {
-        
+        bitField0_ = (bitField0_ & ~0x00000004);
         localIdentifier_ = 0;
         onChanged();
         return this;

@@ -41,6 +41,12 @@ public final class NodeIdentifierMessage {
      * @return The port.
      */
     int getPort();
+
+    /**
+     * <code>int32 httpPort = 4;</code>
+     * @return The httpPort.
+     */
+    int getHttpPort();
   }
   /**
    * Protobuf type {@code feup.sdle.message.NodeIdentifier}
@@ -65,11 +71,6 @@ public final class NodeIdentifierMessage {
       return new NodeIdentifier();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.NodeIdentifierMessage.internal_static_feup_sdle_message_NodeIdentifier_descriptor;
@@ -84,7 +85,7 @@ public final class NodeIdentifierMessage {
     }
 
     public static final int ID_FIELD_NUMBER = 1;
-    private int id_;
+    private int id_ = 0;
     /**
      * <code>int32 id = 1;</code>
      * @return The id.
@@ -95,7 +96,8 @@ public final class NodeIdentifierMessage {
     }
 
     public static final int HOSTNAME_FIELD_NUMBER = 2;
-    private volatile java.lang.Object hostname_;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object hostname_ = "";
     /**
      * <code>string hostname = 2;</code>
      * @return The hostname.
@@ -133,7 +135,7 @@ public final class NodeIdentifierMessage {
     }
 
     public static final int PORT_FIELD_NUMBER = 3;
-    private int port_;
+    private int port_ = 0;
     /**
      * <code>int32 port = 3;</code>
      * @return The port.
@@ -141,6 +143,17 @@ public final class NodeIdentifierMessage {
     @java.lang.Override
     public int getPort() {
       return port_;
+    }
+
+    public static final int HTTPPORT_FIELD_NUMBER = 4;
+    private int httpPort_ = 0;
+    /**
+     * <code>int32 httpPort = 4;</code>
+     * @return The httpPort.
+     */
+    @java.lang.Override
+    public int getHttpPort() {
+      return httpPort_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -166,6 +179,9 @@ public final class NodeIdentifierMessage {
       if (port_ != 0) {
         output.writeInt32(3, port_);
       }
+      if (httpPort_ != 0) {
+        output.writeInt32(4, httpPort_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -185,6 +201,10 @@ public final class NodeIdentifierMessage {
       if (port_ != 0) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(3, port_);
+      }
+      if (httpPort_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, httpPort_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -207,6 +227,8 @@ public final class NodeIdentifierMessage {
           .equals(other.getHostname())) return false;
       if (getPort()
           != other.getPort()) return false;
+      if (getHttpPort()
+          != other.getHttpPort()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -224,6 +246,8 @@ public final class NodeIdentifierMessage {
       hash = (53 * hash) + getHostname().hashCode();
       hash = (37 * hash) + PORT_FIELD_NUMBER;
       hash = (53 * hash) + getPort();
+      hash = (37 * hash) + HTTPPORT_FIELD_NUMBER;
+      hash = (53 * hash) + getHttpPort();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -273,11 +297,13 @@ public final class NodeIdentifierMessage {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static feup.sdle.message.NodeIdentifierMessage.NodeIdentifier parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static feup.sdle.message.NodeIdentifierMessage.NodeIdentifier parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -352,12 +378,11 @@ public final class NodeIdentifierMessage {
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        bitField0_ = 0;
         id_ = 0;
-
         hostname_ = "";
-
         port_ = 0;
-
+        httpPort_ = 0;
         return this;
       }
 
@@ -384,11 +409,25 @@ public final class NodeIdentifierMessage {
       @java.lang.Override
       public feup.sdle.message.NodeIdentifierMessage.NodeIdentifier buildPartial() {
         feup.sdle.message.NodeIdentifierMessage.NodeIdentifier result = new feup.sdle.message.NodeIdentifierMessage.NodeIdentifier(this);
-        result.id_ = id_;
-        result.hostname_ = hostname_;
-        result.port_ = port_;
+        if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
+      }
+
+      private void buildPartial0(feup.sdle.message.NodeIdentifierMessage.NodeIdentifier result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.id_ = id_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.hostname_ = hostname_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.port_ = port_;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.httpPort_ = httpPort_;
+        }
       }
 
       @java.lang.Override
@@ -440,10 +479,14 @@ public final class NodeIdentifierMessage {
         }
         if (!other.getHostname().isEmpty()) {
           hostname_ = other.hostname_;
+          bitField0_ |= 0x00000002;
           onChanged();
         }
         if (other.getPort() != 0) {
           setPort(other.getPort());
+        }
+        if (other.getHttpPort() != 0) {
+          setHttpPort(other.getHttpPort());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -473,19 +516,24 @@ public final class NodeIdentifierMessage {
                 break;
               case 8: {
                 id_ = input.readInt32();
-
+                bitField0_ |= 0x00000001;
                 break;
               } // case 8
               case 18: {
                 hostname_ = input.readStringRequireUtf8();
-
+                bitField0_ |= 0x00000002;
                 break;
               } // case 18
               case 24: {
                 port_ = input.readInt32();
-
+                bitField0_ |= 0x00000004;
                 break;
               } // case 24
+              case 32: {
+                httpPort_ = input.readInt32();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 32
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -501,6 +549,7 @@ public final class NodeIdentifierMessage {
         } // finally
         return this;
       }
+      private int bitField0_;
 
       private int id_ ;
       /**
@@ -517,8 +566,9 @@ public final class NodeIdentifierMessage {
        * @return This builder for chaining.
        */
       public Builder setId(int value) {
-        
+
         id_ = value;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
@@ -527,7 +577,7 @@ public final class NodeIdentifierMessage {
        * @return This builder for chaining.
        */
       public Builder clearId() {
-        
+        bitField0_ = (bitField0_ & ~0x00000001);
         id_ = 0;
         onChanged();
         return this;
@@ -574,11 +624,9 @@ public final class NodeIdentifierMessage {
        */
       public Builder setHostname(
           java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
+        if (value == null) { throw new NullPointerException(); }
         hostname_ = value;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
@@ -587,8 +635,8 @@ public final class NodeIdentifierMessage {
        * @return This builder for chaining.
        */
       public Builder clearHostname() {
-        
         hostname_ = getDefaultInstance().getHostname();
+        bitField0_ = (bitField0_ & ~0x00000002);
         onChanged();
         return this;
       }
@@ -599,12 +647,10 @@ public final class NodeIdentifierMessage {
        */
       public Builder setHostnameBytes(
           com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
         hostname_ = value;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
@@ -624,8 +670,9 @@ public final class NodeIdentifierMessage {
        * @return This builder for chaining.
        */
       public Builder setPort(int value) {
-        
+
         port_ = value;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
@@ -634,8 +681,40 @@ public final class NodeIdentifierMessage {
        * @return This builder for chaining.
        */
       public Builder clearPort() {
-        
+        bitField0_ = (bitField0_ & ~0x00000004);
         port_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int httpPort_ ;
+      /**
+       * <code>int32 httpPort = 4;</code>
+       * @return The httpPort.
+       */
+      @java.lang.Override
+      public int getHttpPort() {
+        return httpPort_;
+      }
+      /**
+       * <code>int32 httpPort = 4;</code>
+       * @param value The httpPort to set.
+       * @return This builder for chaining.
+       */
+      public Builder setHttpPort(int value) {
+
+        httpPort_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 httpPort = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearHttpPort() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        httpPort_ = 0;
         onChanged();
         return this;
       }
@@ -718,9 +797,10 @@ public final class NodeIdentifierMessage {
   static {
     java.lang.String[] descriptorData = {
       "\n\024nodeidentifier.proto\022\021feup.sdle.messag" +
-      "e\"<\n\016NodeIdentifier\022\n\n\002id\030\001 \001(\005\022\020\n\010hostn" +
-      "ame\030\002 \001(\t\022\014\n\004port\030\003 \001(\005B*\n\021feup.sdle.mes" +
-      "sageB\025NodeIdentifierMessageb\006proto3"
+      "e\"N\n\016NodeIdentifier\022\n\n\002id\030\001 \001(\005\022\020\n\010hostn" +
+      "ame\030\002 \001(\t\022\014\n\004port\030\003 \001(\005\022\020\n\010httpPort\030\004 \001(" +
+      "\005B*\n\021feup.sdle.messageB\025NodeIdentifierMe" +
+      "ssageb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -731,7 +811,7 @@ public final class NodeIdentifierMessage {
     internal_static_feup_sdle_message_NodeIdentifier_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_feup_sdle_message_NodeIdentifier_descriptor,
-        new java.lang.String[] { "Id", "Hostname", "Port", });
+        new java.lang.String[] { "Id", "Hostname", "Port", "HttpPort", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -41,7 +41,6 @@ public final class HashRingMessage {
     /**
      * <code>map&lt;string, .feup.sdle.message.NodeIdentifier&gt; nodes = 1;</code>
      */
-
     /* nullable */
 feup.sdle.message.NodeIdentifierMessage.NodeIdentifier getNodesOrDefault(
         java.lang.String key,
@@ -50,7 +49,6 @@ feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue);
     /**
      * <code>map&lt;string, .feup.sdle.message.NodeIdentifier&gt; nodes = 1;</code>
      */
-
     feup.sdle.message.NodeIdentifierMessage.NodeIdentifier getNodesOrThrow(
         java.lang.String key);
   }
@@ -76,11 +74,6 @@ feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue);
       return new HashRing();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.HashRingMessage.internal_static_feup_sdle_message_HashRing_descriptor;
@@ -118,6 +111,7 @@ feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue);
                   com.google.protobuf.WireFormat.FieldType.MESSAGE,
                   feup.sdle.message.NodeIdentifierMessage.NodeIdentifier.getDefaultInstance());
     }
+    @SuppressWarnings("serial")
     private com.google.protobuf.MapField<
         java.lang.String, feup.sdle.message.NodeIdentifierMessage.NodeIdentifier> nodes_;
     private com.google.protobuf.MapField<java.lang.String, feup.sdle.message.NodeIdentifierMessage.NodeIdentifier>
@@ -128,14 +122,12 @@ feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue);
       }
       return nodes_;
     }
-
     public int getNodesCount() {
       return internalGetNodes().getMap().size();
     }
     /**
      * <code>map&lt;string, .feup.sdle.message.NodeIdentifier&gt; nodes = 1;</code>
      */
-
     @java.lang.Override
     public boolean containsNodes(
         java.lang.String key) {
@@ -154,7 +146,6 @@ feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue);
      * <code>map&lt;string, .feup.sdle.message.NodeIdentifier&gt; nodes = 1;</code>
      */
     @java.lang.Override
-
     public java.util.Map<java.lang.String, feup.sdle.message.NodeIdentifierMessage.NodeIdentifier> getNodesMap() {
       return internalGetNodes().getMap();
     }
@@ -162,10 +153,11 @@ feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue);
      * <code>map&lt;string, .feup.sdle.message.NodeIdentifier&gt; nodes = 1;</code>
      */
     @java.lang.Override
-
-    public feup.sdle.message.NodeIdentifierMessage.NodeIdentifier getNodesOrDefault(
+    public /* nullable */
+feup.sdle.message.NodeIdentifierMessage.NodeIdentifier getNodesOrDefault(
         java.lang.String key,
-        feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue) {
+        /* nullable */
+feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue) {
       if (key == null) { throw new NullPointerException("map key"); }
       java.util.Map<java.lang.String, feup.sdle.message.NodeIdentifierMessage.NodeIdentifier> map =
           internalGetNodes().getMap();
@@ -175,7 +167,6 @@ feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue);
      * <code>map&lt;string, .feup.sdle.message.NodeIdentifier&gt; nodes = 1;</code>
      */
     @java.lang.Override
-
     public feup.sdle.message.NodeIdentifierMessage.NodeIdentifier getNodesOrThrow(
         java.lang.String key) {
       if (key == null) { throw new NullPointerException("map key"); }
@@ -307,11 +298,13 @@ feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue);
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static feup.sdle.message.HashRingMessage.HashRing parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static feup.sdle.message.HashRingMessage.HashRing parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -408,6 +401,7 @@ feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue);
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        bitField0_ = 0;
         internalGetMutableNodes().clear();
         return this;
       }
@@ -435,11 +429,17 @@ feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue);
       @java.lang.Override
       public feup.sdle.message.HashRingMessage.HashRing buildPartial() {
         feup.sdle.message.HashRingMessage.HashRing result = new feup.sdle.message.HashRingMessage.HashRing(this);
-        int from_bitField0_ = bitField0_;
-        result.nodes_ = internalGetNodes();
-        result.nodes_.makeImmutable();
+        if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
+      }
+
+      private void buildPartial0(feup.sdle.message.HashRingMessage.HashRing result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.nodes_ = internalGetNodes();
+          result.nodes_.makeImmutable();
+        }
       }
 
       @java.lang.Override
@@ -488,6 +488,7 @@ feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue);
         if (other == feup.sdle.message.HashRingMessage.HashRing.getDefaultInstance()) return this;
         internalGetMutableNodes().mergeFrom(
             other.internalGetNodes());
+        bitField0_ |= 0x00000001;
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -520,6 +521,7 @@ feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue);
                     NodesDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
                 internalGetMutableNodes().getMutableMap().put(
                     nodes__.getKey(), nodes__.getValue());
+                bitField0_ |= 0x00000001;
                 break;
               } // case 10
               default: {
@@ -542,7 +544,7 @@ feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue);
       private com.google.protobuf.MapField<
           java.lang.String, feup.sdle.message.NodeIdentifierMessage.NodeIdentifier> nodes_;
       private com.google.protobuf.MapField<java.lang.String, feup.sdle.message.NodeIdentifierMessage.NodeIdentifier>
-      internalGetNodes() {
+          internalGetNodes() {
         if (nodes_ == null) {
           return com.google.protobuf.MapField.emptyMapField(
               NodesDefaultEntryHolder.defaultEntry);
@@ -550,8 +552,7 @@ feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue);
         return nodes_;
       }
       private com.google.protobuf.MapField<java.lang.String, feup.sdle.message.NodeIdentifierMessage.NodeIdentifier>
-      internalGetMutableNodes() {
-        onChanged();;
+          internalGetMutableNodes() {
         if (nodes_ == null) {
           nodes_ = com.google.protobuf.MapField.newMapField(
               NodesDefaultEntryHolder.defaultEntry);
@@ -559,16 +560,16 @@ feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue);
         if (!nodes_.isMutable()) {
           nodes_ = nodes_.copy();
         }
+        bitField0_ |= 0x00000001;
+        onChanged();
         return nodes_;
       }
-
       public int getNodesCount() {
         return internalGetNodes().getMap().size();
       }
       /**
        * <code>map&lt;string, .feup.sdle.message.NodeIdentifier&gt; nodes = 1;</code>
        */
-
       @java.lang.Override
       public boolean containsNodes(
           java.lang.String key) {
@@ -587,7 +588,6 @@ feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue);
        * <code>map&lt;string, .feup.sdle.message.NodeIdentifier&gt; nodes = 1;</code>
        */
       @java.lang.Override
-
       public java.util.Map<java.lang.String, feup.sdle.message.NodeIdentifierMessage.NodeIdentifier> getNodesMap() {
         return internalGetNodes().getMap();
       }
@@ -595,10 +595,11 @@ feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue);
        * <code>map&lt;string, .feup.sdle.message.NodeIdentifier&gt; nodes = 1;</code>
        */
       @java.lang.Override
-
-      public feup.sdle.message.NodeIdentifierMessage.NodeIdentifier getNodesOrDefault(
+      public /* nullable */
+feup.sdle.message.NodeIdentifierMessage.NodeIdentifier getNodesOrDefault(
           java.lang.String key,
-          feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue) {
+          /* nullable */
+feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue) {
         if (key == null) { throw new NullPointerException("map key"); }
         java.util.Map<java.lang.String, feup.sdle.message.NodeIdentifierMessage.NodeIdentifier> map =
             internalGetNodes().getMap();
@@ -608,7 +609,6 @@ feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue);
        * <code>map&lt;string, .feup.sdle.message.NodeIdentifier&gt; nodes = 1;</code>
        */
       @java.lang.Override
-
       public feup.sdle.message.NodeIdentifierMessage.NodeIdentifier getNodesOrThrow(
           java.lang.String key) {
         if (key == null) { throw new NullPointerException("map key"); }
@@ -619,8 +619,8 @@ feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue);
         }
         return map.get(key);
       }
-
       public Builder clearNodes() {
+        bitField0_ = (bitField0_ & ~0x00000001);
         internalGetMutableNodes().getMutableMap()
             .clear();
         return this;
@@ -628,7 +628,6 @@ feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue);
       /**
        * <code>map&lt;string, .feup.sdle.message.NodeIdentifier&gt; nodes = 1;</code>
        */
-
       public Builder removeNodes(
           java.lang.String key) {
         if (key == null) { throw new NullPointerException("map key"); }
@@ -641,7 +640,8 @@ feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue);
        */
       @java.lang.Deprecated
       public java.util.Map<java.lang.String, feup.sdle.message.NodeIdentifierMessage.NodeIdentifier>
-      getMutableNodes() {
+          getMutableNodes() {
+        bitField0_ |= 0x00000001;
         return internalGetMutableNodes().getMutableMap();
       }
       /**
@@ -651,22 +651,20 @@ feup.sdle.message.NodeIdentifierMessage.NodeIdentifier defaultValue);
           java.lang.String key,
           feup.sdle.message.NodeIdentifierMessage.NodeIdentifier value) {
         if (key == null) { throw new NullPointerException("map key"); }
-        if (value == null) {
-  throw new NullPointerException("map value");
-}
-
+        if (value == null) { throw new NullPointerException("map value"); }
         internalGetMutableNodes().getMutableMap()
             .put(key, value);
+        bitField0_ |= 0x00000001;
         return this;
       }
       /**
        * <code>map&lt;string, .feup.sdle.message.NodeIdentifier&gt; nodes = 1;</code>
        */
-
       public Builder putAllNodes(
           java.util.Map<java.lang.String, feup.sdle.message.NodeIdentifierMessage.NodeIdentifier> values) {
         internalGetMutableNodes().getMutableMap()
             .putAll(values);
+        bitField0_ |= 0x00000001;
         return this;
       }
       @java.lang.Override

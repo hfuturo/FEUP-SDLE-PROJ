@@ -40,11 +40,6 @@ public final class HashRingJoinMessage {
       return new HashRingJoin();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.HashRingJoinMessage.internal_static_feup_sdle_message_HashRingJoin_descriptor;
@@ -156,11 +151,13 @@ public final class HashRingJoinMessage {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static feup.sdle.message.HashRingJoinMessage.HashRingJoin parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static feup.sdle.message.HashRingJoinMessage.HashRingJoin parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)

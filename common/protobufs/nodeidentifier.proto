@@ -9,4 +9,5 @@ message NodeIdentifier {
   int32 id = 1;
   string hostname = 2;
   int32 port = 3;
+  int32 httpPort = 4;
 }

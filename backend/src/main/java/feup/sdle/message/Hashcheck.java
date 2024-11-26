@@ -65,11 +65,6 @@ public final class Hashcheck {
       return new HashCheck();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.Hashcheck.internal_static_HashCheck_descriptor;
@@ -192,7 +187,8 @@ public final class Hashcheck {
     }
 
     public static final int HASH_FIELD_NUMBER = 1;
-    private volatile java.lang.Object hash_;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object hash_ = "";
     /**
      * <code>string hash = 1;</code>
      * @return The hash.
@@ -230,7 +226,7 @@ public final class Hashcheck {
     }
 
     public static final int TYPE_FIELD_NUMBER = 2;
-    private int type_;
+    private int type_ = 0;
     /**
      * <code>.HashCheck.ContextType type = 2;</code>
      * @return The enum numeric value on the wire for type.
@@ -243,8 +239,7 @@ public final class Hashcheck {
      * @return The type.
      */
     @java.lang.Override public feup.sdle.message.Hashcheck.HashCheck.ContextType getType() {
-      @SuppressWarnings("deprecation")
-      feup.sdle.message.Hashcheck.HashCheck.ContextType result = feup.sdle.message.Hashcheck.HashCheck.ContextType.valueOf(type_);
+      feup.sdle.message.Hashcheck.HashCheck.ContextType result = feup.sdle.message.Hashcheck.HashCheck.ContextType.forNumber(type_);
       return result == null ? feup.sdle.message.Hashcheck.HashCheck.ContextType.UNRECOGNIZED : result;
     }
 
@@ -366,11 +361,13 @@ public final class Hashcheck {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static feup.sdle.message.Hashcheck.HashCheck parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static feup.sdle.message.Hashcheck.HashCheck parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -445,10 +442,9 @@ public final class Hashcheck {
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        bitField0_ = 0;
         hash_ = "";
-
         type_ = 0;
-
         return this;
       }
 
@@ -475,10 +471,19 @@ public final class Hashcheck {
       @java.lang.Override
       public feup.sdle.message.Hashcheck.HashCheck buildPartial() {
         feup.sdle.message.Hashcheck.HashCheck result = new feup.sdle.message.Hashcheck.HashCheck(this);
-        result.hash_ = hash_;
-        result.type_ = type_;
+        if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
+      }
+
+      private void buildPartial0(feup.sdle.message.Hashcheck.HashCheck result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.hash_ = hash_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.type_ = type_;
+        }
       }
 
       @java.lang.Override
@@ -527,6 +532,7 @@ public final class Hashcheck {
         if (other == feup.sdle.message.Hashcheck.HashCheck.getDefaultInstance()) return this;
         if (!other.getHash().isEmpty()) {
           hash_ = other.hash_;
+          bitField0_ |= 0x00000001;
           onChanged();
         }
         if (other.type_ != 0) {
@@ -560,12 +566,12 @@ public final class Hashcheck {
                 break;
               case 10: {
                 hash_ = input.readStringRequireUtf8();
-
+                bitField0_ |= 0x00000001;
                 break;
               } // case 10
               case 16: {
                 type_ = input.readEnum();
-
+                bitField0_ |= 0x00000002;
                 break;
               } // case 16
               default: {
@@ -583,6 +589,7 @@ public final class Hashcheck {
         } // finally
         return this;
       }
+      private int bitField0_;
 
       private java.lang.Object hash_ = "";
       /**
@@ -625,11 +632,9 @@ public final class Hashcheck {
        */
       public Builder setHash(
           java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
+        if (value == null) { throw new NullPointerException(); }
         hash_ = value;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
@@ -638,8 +643,8 @@ public final class Hashcheck {
        * @return This builder for chaining.
        */
       public Builder clearHash() {
-        
         hash_ = getDefaultInstance().getHash();
+        bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
@@ -650,12 +655,10 @@ public final class Hashcheck {
        */
       public Builder setHashBytes(
           com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
         hash_ = value;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
@@ -674,8 +677,8 @@ public final class Hashcheck {
        * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
-        
         type_ = value;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
@@ -685,8 +688,7 @@ public final class Hashcheck {
        */
       @java.lang.Override
       public feup.sdle.message.Hashcheck.HashCheck.ContextType getType() {
-        @SuppressWarnings("deprecation")
-        feup.sdle.message.Hashcheck.HashCheck.ContextType result = feup.sdle.message.Hashcheck.HashCheck.ContextType.valueOf(type_);
+        feup.sdle.message.Hashcheck.HashCheck.ContextType result = feup.sdle.message.Hashcheck.HashCheck.ContextType.forNumber(type_);
         return result == null ? feup.sdle.message.Hashcheck.HashCheck.ContextType.UNRECOGNIZED : result;
       }
       /**
@@ -698,7 +700,7 @@ public final class Hashcheck {
         if (value == null) {
           throw new NullPointerException();
         }
-        
+        bitField0_ |= 0x00000002;
         type_ = value.getNumber();
         onChanged();
         return this;
@@ -708,7 +710,7 @@ public final class Hashcheck {
        * @return This builder for chaining.
        */
       public Builder clearType() {
-        
+        bitField0_ = (bitField0_ & ~0x00000002);
         type_ = 0;
         onChanged();
         return this;

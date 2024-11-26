@@ -69,7 +69,7 @@ public final class DottedValueProto {
      */
     com.google.protobuf.ByteString getValueObj();
 
-    public feup.sdle.message.DottedValueProto.DottedValue.ValueTypeCase getValueTypeCase();
+    feup.sdle.message.DottedValueProto.DottedValue.ValueTypeCase getValueTypeCase();
   }
   /**
    * Protobuf type {@code feup.sdle.message.DottedValue}
@@ -93,11 +93,6 @@ public final class DottedValueProto {
       return new DottedValue();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.DottedValueProto.internal_static_feup_sdle_message_DottedValue_descriptor;
@@ -112,6 +107,7 @@ public final class DottedValueProto {
     }
 
     private int valueTypeCase_ = 0;
+    @SuppressWarnings("serial")
     private java.lang.Object valueType_;
     public enum ValueTypeCase
         implements com.google.protobuf.Internal.EnumLite,
@@ -155,7 +151,7 @@ public final class DottedValueProto {
     }
 
     public static final int IDENTIFIER_FIELD_NUMBER = 1;
-    private int identifier_;
+    private int identifier_ = 0;
     /**
      * <code>int32 identifier = 1;</code>
      * @return The identifier.
@@ -166,7 +162,7 @@ public final class DottedValueProto {
     }
 
     public static final int EVENT_FIELD_NUMBER = 2;
-    private int event_;
+    private int event_ = 0;
     /**
      * <code>int32 event = 2;</code>
      * @return The event.
@@ -447,11 +443,13 @@ public final class DottedValueProto {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static feup.sdle.message.DottedValueProto.DottedValue parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static feup.sdle.message.DottedValueProto.DottedValue parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -526,10 +524,9 @@ public final class DottedValueProto {
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        bitField0_ = 0;
         identifier_ = 0;
-
         event_ = 0;
-
         valueTypeCase_ = 0;
         valueType_ = null;
         return this;
@@ -558,20 +555,25 @@ public final class DottedValueProto {
       @java.lang.Override
       public feup.sdle.message.DottedValueProto.DottedValue buildPartial() {
         feup.sdle.message.DottedValueProto.DottedValue result = new feup.sdle.message.DottedValueProto.DottedValue(this);
-        result.identifier_ = identifier_;
-        result.event_ = event_;
-        if (valueTypeCase_ == 3) {
-          result.valueType_ = valueType_;
-        }
-        if (valueTypeCase_ == 4) {
-          result.valueType_ = valueType_;
-        }
-        if (valueTypeCase_ == 5) {
-          result.valueType_ = valueType_;
-        }
-        result.valueTypeCase_ = valueTypeCase_;
+        if (bitField0_ != 0) { buildPartial0(result); }
+        buildPartialOneofs(result);
         onBuilt();
         return result;
+      }
+
+      private void buildPartial0(feup.sdle.message.DottedValueProto.DottedValue result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.identifier_ = identifier_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.event_ = event_;
+        }
+      }
+
+      private void buildPartialOneofs(feup.sdle.message.DottedValueProto.DottedValue result) {
+        result.valueTypeCase_ = valueTypeCase_;
+        result.valueType_ = this.valueType_;
       }
 
       @java.lang.Override
@@ -671,12 +673,12 @@ public final class DottedValueProto {
                 break;
               case 8: {
                 identifier_ = input.readInt32();
-
+                bitField0_ |= 0x00000001;
                 break;
               } // case 8
               case 16: {
                 event_ = input.readInt32();
-
+                bitField0_ |= 0x00000002;
                 break;
               } // case 16
               case 24: {
@@ -725,6 +727,7 @@ public final class DottedValueProto {
         return this;
       }
 
+      private int bitField0_;
 
       private int identifier_ ;
       /**
@@ -741,8 +744,9 @@ public final class DottedValueProto {
        * @return This builder for chaining.
        */
       public Builder setIdentifier(int value) {
-        
+
         identifier_ = value;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
@@ -751,7 +755,7 @@ public final class DottedValueProto {
        * @return This builder for chaining.
        */
       public Builder clearIdentifier() {
-        
+        bitField0_ = (bitField0_ & ~0x00000001);
         identifier_ = 0;
         onChanged();
         return this;
@@ -772,8 +776,9 @@ public final class DottedValueProto {
        * @return This builder for chaining.
        */
       public Builder setEvent(int value) {
-        
+
         event_ = value;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
@@ -782,7 +787,7 @@ public final class DottedValueProto {
        * @return This builder for chaining.
        */
       public Builder clearEvent() {
-        
+        bitField0_ = (bitField0_ & ~0x00000002);
         event_ = 0;
         onChanged();
         return this;
@@ -811,6 +816,7 @@ public final class DottedValueProto {
        * @return This builder for chaining.
        */
       public Builder setValueInt(int value) {
+
         valueTypeCase_ = 3;
         valueType_ = value;
         onChanged();
@@ -889,10 +895,8 @@ public final class DottedValueProto {
        */
       public Builder setValueStr(
           java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  valueTypeCase_ = 4;
+        if (value == null) { throw new NullPointerException(); }
+        valueTypeCase_ = 4;
         valueType_ = value;
         onChanged();
         return this;
@@ -916,10 +920,8 @@ public final class DottedValueProto {
        */
       public Builder setValueStrBytes(
           com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
         valueTypeCase_ = 4;
         valueType_ = value;
         onChanged();
@@ -949,10 +951,8 @@ public final class DottedValueProto {
        * @return This builder for chaining.
        */
       public Builder setValueObj(com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  valueTypeCase_ = 5;
+        if (value == null) { throw new NullPointerException(); }
+        valueTypeCase_ = 5;
         valueType_ = value;
         onChanged();
         return this;

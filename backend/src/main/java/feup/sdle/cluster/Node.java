@@ -44,11 +44,13 @@ public class Node {
     public Node(@Value("${node.id}") int id,
             @Value("${node.hostname}") String hostname,
             @Value("${node.port}") int port,
-            @Value("${node.starter}") boolean starter) {
+            @Value("${node.starter}") boolean starter,
+            @Value("${api.port}") int httpPort
+    ) {
 
         this.zmqContext = new ZContext();
 
-        this.identifier = new NodeIdentifier(id, hostname, port, true);
+        this.identifier = new NodeIdentifier(id, hostname, port, true, httpPort);
 
         this.starter = starter;
 
