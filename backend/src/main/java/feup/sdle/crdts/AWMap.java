@@ -1,5 +1,6 @@
 package feup.sdle.crdts;
 
+import feup.sdle.ShoppingList;
 import feup.sdle.cluster.NodeIdentifier;
 import feup.sdle.message.AWMapProto;
 import feup.sdle.message.DottedValueProto;
@@ -101,21 +102,16 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
         return builder.putAllValues(protoEntries).build();
     }
 
-//    public static <K,V extends CRDTSingleMergeable<V>> AWMap fromMessageAWMap(AWMapProto.AWMap msgAWMap) {
-//        AWMap<K, V> awMap = new AWMap<>(NodeIdentifier.fromMessageNodeIdentifier(msgAWMap.getLocalIdentifier()));
-//
-//        HashMap<K, DottedValue<Integer, Integer, V>> values = new HashMap<>();
-//        for (Map.Entry<String, DottedValueProto.DottedValue> entry : msgAWMap.getValuesMap().entrySet()) {
-//            if (entry.getValue().hasValueInt()) {
-//                values.put(entry.getKey(), DottedValue.fromMessageDottedValue(entry.getValue().getIdentifier(), entry.getValue().getEvent(), entry.getValue().getValueInt()));
-//            }
-//            else if (entry.getValue().hasValueStr()) {
-//                values.put(entry.getKey(), DottedValue.fromMessageDottedValue(entry.getValue().getIdentifier(), entry.getValue().getEvent(), entry.getValue().getValueStr()));
-//            }
-//        }
-//
-//        awMap.setValues(msgAWMap.getValuesMap());
-//        awMap.setDotContext(DotContext.fromMessageDotContext(msgAWMap.getDotContext()));
-//        return awMap;
-//    }
+    public static AWMap<String, ShoppingListItem> fromMessageAWMap(AWMapProto.AWMap msgAWMap) {
+        AWMap<String, ShoppingListItem> awMap = new AWMap<>(NodeIdentifier.fromMessageNodeIdentifier(msgAWMap.getLocalIdentifier()));
+        awMap.setDotContext(DotContext.fromMessageDotContext(msgAWMap.getDotContext()));
+
+        HashMap<String, DottedValue<Integer, Integer, ShoppingListItem>> values = new HashMap<>();
+        for (Map.Entry<String, DottedValueProto.DottedValue> entry : msgAWMap.getValuesMap().entrySet()) {
+            values.put(entry.getKey(), DottedValue.fromMessageDottedValueSLI(entry.getValue()));
+        }
+
+        awMap.setValues(values);
+        return awMap;
+    }
 }

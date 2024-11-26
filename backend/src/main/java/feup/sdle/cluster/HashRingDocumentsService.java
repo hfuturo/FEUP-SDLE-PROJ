@@ -89,19 +89,20 @@ public class HashRingDocumentsService extends MessagingService {
 
             System.out.println(Color.green("RECEIVED DOCUMENT REPLICATION IN process"));
             DocumentProto.Document document = DocumentProto.Document.parseFrom(msgFormat.getMessage());
-
+            this.node.storeDocument(document.getKey(), ShoppingList.fromMessageShoppingList(document.getShoppingList()));
         } catch (Exception e) {
             LOGGER.error(Color.red(e.getMessage()));
         }
     }
 
-    public void sendDocumentReplication(ShoppingList list, List<NodeIdentifier> nodesToReplicate) {
+    public void sendDocumentReplication(String key, ShoppingList list, List<NodeIdentifier> nodesToReplicate) {
         var messageTemplate = Message.MessageFormat.newBuilder()
                         .setMessageType(Message.MessageFormat.MessageType.DOCUMENT_REPLICATION)
                         .setNodeIdentifier(this.node.getNodeIdentifier().toMessageNodeIdentifier());
 
         nodesToReplicate.forEach(node -> {
             var document = DocumentProto.Document.newBuilder()
+                    .setKey(key)
                     .setShoppingList(list.toMessageShoppingList())
                     .setReplicate(false)
                     .build();

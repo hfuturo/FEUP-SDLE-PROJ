@@ -109,9 +109,16 @@ public class ShoppingList implements Document {
         return builder.putAllRemovedCounters(protoEntries).build();
     }
 
-//    public static ShoppingList fromMessageShoppingList(DocumentProto.ShoppingList msgShoppingList) {
-//        ShoppingList shoppingList = new ShoppingList(NodeIdentifier.fromMessageNodeIdentifier(msgShoppingList.getLocalIdentifier()));
-//        shoppingList.setItems(AWMap.fromMessageAWMap(msgShoppingList.getItems()));
-//        shoppingList.setRemovedCounters(msgShoppingList.getRemovedCountersMap());
-//    }
+    public static ShoppingList fromMessageShoppingList(DocumentProto.ShoppingList msgShoppingList) {
+        ShoppingList shoppingList = new ShoppingList(NodeIdentifier.fromMessageNodeIdentifier(msgShoppingList.getLocalIdentifier()));
+        shoppingList.setItems(AWMap.fromMessageAWMap(msgShoppingList.getItems()));
+
+        HashMap<String , DottedValue<Integer, Integer, Integer>> removedCounters = new HashMap<>();
+        for (Map.Entry<String, DottedValueProto.DottedValue> entry : msgShoppingList.getRemovedCountersMap().entrySet()) {
+            removedCounters.put(entry.getKey(), DottedValue.fromMessageDottedValueInt(entry.getValue()));
+        }
+
+        shoppingList.setRemovedCounters(removedCounters);
+        return shoppingList;
+    }
 }
