@@ -12,7 +12,7 @@ export function CreateCard() {
     const database = useAppStore((state) => state.database);
 
     return (
-        <Card className="p-4 shadow-md w-full mx-auto h-60 flex flex-col justify-center">
+        <Card className="p-4 shadow-md w-full mx-auto h-96 flex flex-col justify-center">
             <CardHeader>
                 <CardTitle>Create shopping list</CardTitle>
                 <CardDescription>Create shopping list</CardDescription>

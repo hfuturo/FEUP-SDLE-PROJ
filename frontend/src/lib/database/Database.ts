@@ -39,4 +39,44 @@ export class Database {
             console.error(event);
         };
     }
+
+    async getShoppingList(id: string) {
+        return new Promise((resolve, reject) => {
+            const transaction = this.db.transaction(this.dbName, "readonly");
+            const store = transaction.objectStore(this.dbName);
+            const request = store.get(id);
+    
+            request.onsuccess = (event) => {
+                console.log("Shopping list retrieved");
+                const shoppingList = request.result;
+
+                resolve(shoppingList);
+            };
+    
+            request.onerror = (event) => {
+                console.error(event);
+                reject(event);
+            };
+        })
+    }
+
+    async getShoppingLists() {  
+        return new Promise((resolve, reject) => {
+            const transaction = this.db.transaction(this.dbName, "readonly");
+            const store = transaction.objectStore(this.dbName);
+            const request = store.getAll();
+    
+            request.onsuccess = (event) => {
+                console.log("Shopping lists retrieved");
+                const shoppingLists = request.result;
+
+                resolve(shoppingLists);
+            };
+    
+            request.onerror = (event) => {
+                console.error(event);
+                reject(event);
+            };
+        })      
+    }
 }

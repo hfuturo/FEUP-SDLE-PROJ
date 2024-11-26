@@ -2,6 +2,18 @@ import { HashRing } from "../p2p/HashRing";
 import { NodeIdentifier } from "../p2p/NodeIdentifier";
 
 export class ShoppingList {
+    private type: string;
+    private id: string;
+    private items: any;
+
+    constructor(id: string, items: any) {
+        this.id = id;
+        this.items = items;
+    }
+
+    addItem(name: string) {
+    }
+
     static async createShoppingList(ring): Promise<ShoppingList | null> {
         const tries = 10;
         for(let i = 0; i < tries; i++) {
@@ -27,13 +39,5 @@ export class ShoppingList {
         }
 
         return null;
-    }
-
-    static async getShoppingList(id: string, ring): Promise<string> {
-        try {
-
-        } catch (e) {
-
-        }
     }
 }

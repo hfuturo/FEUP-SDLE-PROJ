@@ -1,3 +1,0 @@
-type ShoppingList = {
-    id: string
-}
