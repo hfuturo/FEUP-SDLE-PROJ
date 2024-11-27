@@ -7,7 +7,6 @@ import java.util.Map;
 
 public class FileStorageProvider implements PersistentStorageProvider {
     public FileStorageProvider() {
-
     }
 
     @Override

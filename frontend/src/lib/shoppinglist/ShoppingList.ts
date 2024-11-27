@@ -22,7 +22,7 @@ export class ShoppingList {
 
             try {
                 // Switch api port from 8081 to dynamic once the backend is changed to reflect that
-                const res = await fetch(`http://${node.hostName}:${8081}/api/cart/`, {
+                const res = await fetch(`http://${node.hostName}:${node.httpPort}/api/cart/`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

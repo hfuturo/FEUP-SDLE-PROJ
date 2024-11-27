@@ -1,5 +1,6 @@
 package feup.sdle.cluster;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import feup.sdle.message.Message;
 import feup.sdle.message.NodeIdentifierMessage;
 import org.zeromq.ZContext;
@@ -11,6 +12,7 @@ public class NodeIdentifier {
     private int id;
     private String hostname;
     private int port;
+    @JsonProperty("httpPort")
     private int httpPort;
     private boolean alive;
     private ZMQ.Socket socket;
