@@ -16,6 +16,7 @@ message MessageFormat {
     HASHRING_LOG_HASH_CHECK = 4;
     DOCUMENT_REQUEST = 5;
     DOCUMENT_REPLICATION = 6;
+    ACK = 7;
   }
 
   MessageType messageType = 1;

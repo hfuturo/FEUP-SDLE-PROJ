@@ -120,6 +120,10 @@ public final class Message {
        * <code>DOCUMENT_REPLICATION = 6;</code>
        */
       DOCUMENT_REPLICATION(6),
+      /**
+       * <code>ACK = 7;</code>
+       */
+      ACK(7),
       UNRECOGNIZED(-1),
       ;
 
@@ -151,6 +155,10 @@ public final class Message {
        * <code>DOCUMENT_REPLICATION = 6;</code>
        */
       public static final int DOCUMENT_REPLICATION_VALUE = 6;
+      /**
+       * <code>ACK = 7;</code>
+       */
+      public static final int ACK_VALUE = 7;
 
 
       public final int getNumber() {
@@ -184,6 +192,7 @@ public final class Message {
           case 4: return HASHRING_LOG_HASH_CHECK;
           case 5: return DOCUMENT_REQUEST;
           case 6: return DOCUMENT_REPLICATION;
+          case 7: return ACK;
           default: return null;
         }
       }
@@ -972,16 +981,16 @@ public final class Message {
   static {
     java.lang.String[] descriptorData = {
       "\n\rmessage.proto\022\021feup.sdle.message\032\024node" +
-      "identifier.proto\"\304\002\n\rMessageFormat\022A\n\013me" +
+      "identifier.proto\"\315\002\n\rMessageFormat\022A\n\013me" +
       "ssageType\030\001 \001(\0162,.feup.sdle.message.Mess" +
       "ageFormat.MessageType\022\017\n\007message\030\002 \001(\014\0229" +
       "\n\016nodeIdentifier\030\003 \001(\0132!.feup.sdle.messa" +
-      "ge.NodeIdentifier\"\243\001\n\013MessageType\022\021\n\rHAS" +
+      "ge.NodeIdentifier\"\254\001\n\013MessageType\022\021\n\rHAS" +
       "H_RING_LOG\020\000\022\017\n\013REPLICATION\020\001\022\020\n\014HASHRIN" +
       "G_GET\020\002\022\021\n\rHASHRING_JOIN\020\003\022\033\n\027HASHRING_L" +
       "OG_HASH_CHECK\020\004\022\024\n\020DOCUMENT_REQUEST\020\005\022\030\n" +
-      "\024DOCUMENT_REPLICATION\020\006B\034\n\021feup.sdle.mes" +
-      "sageB\007Messageb\006proto3"
+      "\024DOCUMENT_REPLICATION\020\006\022\007\n\003ACK\020\007B\034\n\021feup" +
+      ".sdle.messageB\007Messageb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

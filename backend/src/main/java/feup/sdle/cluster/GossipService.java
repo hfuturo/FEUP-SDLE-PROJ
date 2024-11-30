@@ -68,7 +68,10 @@ public class GossipService extends MessagingService {
 
                     BiConsumer<MessageFormat, NodeIdentifier> biconsumer = this.messageActions.get(msgFormat.getMessageType());
                     if(biconsumer != null) {
-                        Thread.ofVirtual().start(() -> biconsumer.accept(msgFormat, NodeIdentifier.fromMessageNodeIdentifier(msgFormat.getNodeIdentifier())));
+                        Thread.ofVirtual().start(() -> {
+                            var peer = NodeIdentifier.fromMessageNodeIdentifier(msgFormat.getNodeIdentifier());
+                            biconsumer.accept(msgFormat, peer);
+                        });
                     }
                 } catch (InterruptedException e) {
                     LOGGER.error(e.toString());
@@ -96,6 +99,10 @@ public class GossipService extends MessagingService {
 
             ZMQ.Socket otherPeerSocket = otherPeer.getSocket(this.node.getZmqContext());
             otherPeerSocket.send(msg);
+
+            byte[] msg2 = otherPeerSocket.recv();
+
+            otherPeerSocket.close();
         }
     }
 }

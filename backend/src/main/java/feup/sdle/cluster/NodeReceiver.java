@@ -42,6 +42,7 @@ public class NodeReceiver {
         this.msgTypeToServices.put(Message.MessageFormat.MessageType.HASHRING_GET, this.gossipService);
         this.msgTypeToServices.put(Message.MessageFormat.MessageType.DOCUMENT_REQUEST, this.hashRingDocumentsService);
         this.msgTypeToServices.put(Message.MessageFormat.MessageType.DOCUMENT_REPLICATION, this.hashRingDocumentsService);
+        this.msgTypeToServices.put(MessageType.ACK, this.gossipService);
     }
 
     public void startReceiver() {
@@ -50,9 +51,13 @@ public class NodeReceiver {
             byte[] reply = this.socket.recv(0);
             try {
                 Message.MessageFormat msgFormat = Message.MessageFormat.parseFrom(reply);
-                if (msgFormat.getMessageType() == MessageType.DOCUMENT_REPLICATION)
-                    System.out.println(Color.yellow("RECEIVED DOCUMENT REPLICATION"));
-                this.msgTypeToServices.get(msgFormat.getMessageType()).addToQueue(msgFormat);
+                if (msgFormat.getMessageType() == MessageType.ACK) {
+                    System.out.println(Color.yellow("RECEIVED ACK"));
+                } else {
+                    this.msgTypeToServices.get(msgFormat.getMessageType()).addToQueue(msgFormat);
+
+                    this.socket.send(Message.MessageFormat.newBuilder().setMessageType(MessageType.ACK).setNodeIdentifier(this.node.getNodeIdentifier().toMessageNodeIdentifier()).build().toByteArray());
+                }
             } catch (InvalidProtocolBufferException e) {
                 System.out.println(Arrays.toString(e.getStackTrace()));
             }
