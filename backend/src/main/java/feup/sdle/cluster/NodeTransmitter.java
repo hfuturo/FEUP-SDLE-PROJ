@@ -59,6 +59,7 @@ public class NodeTransmitter {
                             if (msgFormat.getMessageType() == Message.MessageFormat.MessageType.ACK) {
                                 successfullySent = true;
                                 online = true;
+                                break;
                             }
                         }
 
