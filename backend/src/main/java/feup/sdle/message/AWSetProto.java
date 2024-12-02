@@ -86,6 +86,11 @@ public final class AWSetProto {
       return new AWSet();
     }
 
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.AWSetProto.internal_static_feup_sdle_message_AWSet_descriptor;
@@ -99,7 +104,6 @@ public final class AWSetProto {
               feup.sdle.message.AWSetProto.AWSet.class, feup.sdle.message.AWSetProto.AWSet.Builder.class);
     }
 
-    private int bitField0_;
     public static final int VALUES_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
     private java.util.List<feup.sdle.message.DottedValueProto.DottedValue> values_;
@@ -149,7 +153,7 @@ public final class AWSetProto {
      */
     @java.lang.Override
     public boolean hasDotContext() {
-      return ((bitField0_ & 0x00000001) != 0);
+      return dotContext_ != null;
     }
     /**
      * <code>.feup.sdle.message.DotContext dotContext = 2;</code>
@@ -195,7 +199,7 @@ public final class AWSetProto {
       for (int i = 0; i < values_.size(); i++) {
         output.writeMessage(1, values_.get(i));
       }
-      if (((bitField0_ & 0x00000001) != 0)) {
+      if (dotContext_ != null) {
         output.writeMessage(2, getDotContext());
       }
       if (localIdentifier_ != 0) {
@@ -214,7 +218,7 @@ public final class AWSetProto {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, values_.get(i));
       }
-      if (((bitField0_ & 0x00000001) != 0)) {
+      if (dotContext_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, getDotContext());
       }
@@ -316,13 +320,11 @@ public final class AWSetProto {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-
     public static feup.sdle.message.AWSetProto.AWSet parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-
     public static feup.sdle.message.AWSetProto.AWSet parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -386,20 +388,13 @@ public final class AWSetProto {
 
       // Construct using feup.sdle.message.AWSetProto.AWSet.newBuilder()
       private Builder() {
-        maybeForceBuilderInitialization();
+
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-          getValuesFieldBuilder();
-          getDotContextFieldBuilder();
-        }
+
       }
       @java.lang.Override
       public Builder clear() {
@@ -464,17 +459,14 @@ public final class AWSetProto {
 
       private void buildPartial0(feup.sdle.message.AWSetProto.AWSet result) {
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000002) != 0)) {
           result.dotContext_ = dotContextBuilder_ == null
               ? dotContext_
               : dotContextBuilder_.build();
-          to_bitField0_ |= 0x00000001;
         }
         if (((from_bitField0_ & 0x00000004) != 0)) {
           result.localIdentifier_ = localIdentifier_;
         }
-        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -927,10 +919,8 @@ public final class AWSetProto {
         } else {
           dotContextBuilder_.mergeFrom(value);
         }
-        if (dotContext_ != null) {
-          bitField0_ |= 0x00000002;
-          onChanged();
-        }
+        bitField0_ |= 0x00000002;
+        onChanged();
         return this;
       }
       /**
@@ -997,7 +987,7 @@ public final class AWSetProto {
        * @return This builder for chaining.
        */
       public Builder setLocalIdentifier(int value) {
-
+        
         localIdentifier_ = value;
         bitField0_ |= 0x00000004;
         onChanged();

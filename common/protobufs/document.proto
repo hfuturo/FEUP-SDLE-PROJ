@@ -19,6 +19,10 @@ message Document {
   optional bool replicate = 3;
 }
 
+message DocumentList {
+  repeated Document documents = 1;
+}
+
 message ShoppingList {
   AWMap items = 1;
   NodeIdentifier localIdentifier = 2;

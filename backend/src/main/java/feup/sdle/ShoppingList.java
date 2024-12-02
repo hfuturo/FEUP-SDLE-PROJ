@@ -3,6 +3,7 @@ package feup.sdle;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.google.protobuf.ByteString;
 import com.google.protobuf.MapEntry;
 import feup.sdle.Document;
 import feup.sdle.cluster.NodeIdentifier;
@@ -95,7 +96,18 @@ public class ShoppingList implements Document {
         return this.items;
     }
 
-    public DocumentProto.ShoppingList toMessageShoppingList() {
+    @Override
+    public String getId() {
+        return this.id;
+    }
+
+    @Override
+    public ByteString toProtoBuf() {
+        return this.toMessage().toByteString();
+    }
+
+    @Override
+    public DocumentProto.Document toMessage() {
         var builder = DocumentProto.ShoppingList.newBuilder()
                 .setItems(this.items.toMessageProto())
                 .setLocalIdentifier(this.localIdentifier.toMessageNodeIdentifier());
@@ -106,7 +118,14 @@ public class ShoppingList implements Document {
             protoEntries.put(entry.getKey(), entry.getValue().toMessageDottedValue());
         }
 
-        return builder.putAllRemovedCounters(protoEntries).build();
+        var shoppingList = builder.putAllRemovedCounters(protoEntries).build();
+
+        var documentMessage = DocumentProto.Document.newBuilder()
+                .setShoppingList(shoppingList)
+                .setKey(this.id)
+                .build();
+
+        return documentMessage;
     }
 
     public static ShoppingList fromMessageShoppingList(DocumentProto.ShoppingList msgShoppingList) {

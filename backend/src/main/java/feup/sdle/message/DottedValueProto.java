@@ -69,7 +69,7 @@ public final class DottedValueProto {
      */
     com.google.protobuf.ByteString getValueObj();
 
-    feup.sdle.message.DottedValueProto.DottedValue.ValueTypeCase getValueTypeCase();
+    public feup.sdle.message.DottedValueProto.DottedValue.ValueTypeCase getValueTypeCase();
   }
   /**
    * Protobuf type {@code feup.sdle.message.DottedValue}
@@ -93,6 +93,11 @@ public final class DottedValueProto {
       return new DottedValue();
     }
 
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.DottedValueProto.internal_static_feup_sdle_message_DottedValue_descriptor;
@@ -107,7 +112,6 @@ public final class DottedValueProto {
     }
 
     private int valueTypeCase_ = 0;
-    @SuppressWarnings("serial")
     private java.lang.Object valueType_;
     public enum ValueTypeCase
         implements com.google.protobuf.Internal.EnumLite,
@@ -443,13 +447,11 @@ public final class DottedValueProto {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-
     public static feup.sdle.message.DottedValueProto.DottedValue parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-
     public static feup.sdle.message.DottedValueProto.DottedValue parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -744,7 +746,7 @@ public final class DottedValueProto {
        * @return This builder for chaining.
        */
       public Builder setIdentifier(int value) {
-
+        
         identifier_ = value;
         bitField0_ |= 0x00000001;
         onChanged();
@@ -776,7 +778,7 @@ public final class DottedValueProto {
        * @return This builder for chaining.
        */
       public Builder setEvent(int value) {
-
+        
         event_ = value;
         bitField0_ |= 0x00000002;
         onChanged();
@@ -816,7 +818,7 @@ public final class DottedValueProto {
        * @return This builder for chaining.
        */
       public Builder setValueInt(int value) {
-
+        
         valueTypeCase_ = 3;
         valueType_ = value;
         onChanged();
