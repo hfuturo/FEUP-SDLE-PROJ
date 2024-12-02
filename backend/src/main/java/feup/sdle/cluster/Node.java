@@ -110,34 +110,9 @@ public class Node {
     }
 
     private void retrieveDocumentsFromRing() throws NoSuchAlgorithmException {
-        // get positions of all the identifiers in the ring
         for (int i = 0; i < HashRing.VIRTUAL_NODES; i++) {
-            Set<HashRange> ranges = new HashSet<>();
 
-            BigInteger nodeHash = this.ring.hashAlgorithm.getHash(this.identifier.toString() + i);
-            BigInteger nextNodeHash = this.ring.ceilingKey(nodeHash);
-            if (nextNodeHash.equals(nodeHash)) {
-                nextNodeHash = this.ring.higherKey(nextNodeHash);
-            }
-
-            BigInteger previousNodeHash = this.ring.floorKey(nodeHash);
-            if (previousNodeHash.equals(nodeHash)) {
-                previousNodeHash = this.ring.lowerKey(previousNodeHash);
-            }
-            ranges.add(new HashRange(previousNodeHash, nodeHash));
-
-            int counter = 0;
-            BigInteger previousPreviousNodeHash = this.ring.lowerKey(previousNodeHash);
-            for (int j = 0; j < this.ring.getRing().size(); j++) { // avoiding infinite loops
-                // otimization: if finds a range that virtual node is responsible, stop retrieving ranges
-                if (counter >= REPLICATION_FACTOR || this.ring.get(previousNodeHash).equals(this.identifier)) {
-                    break;
-                }
-                ranges.add(new HashRange(previousPreviousNodeHash, previousNodeHash));
-                previousNodeHash = previousPreviousNodeHash;
-                counter++;
-            }
-
+            List<HashRange> ranges = getOwnedRanges(i);
             Map<HashRange, List<NodeIdentifier>> rangeSourcesMap = new HashMap<>();
             for (var range : ranges) {
                 rangeSourcesMap.put(range, this.getOtherResponsibleNodes(range).reversed()); // reverse to prioritize the node that will lost the documents
@@ -157,7 +132,31 @@ public class Node {
             }
         }
     }
+    private List<HashRange> getOwnedRanges(int i) throws NoSuchAlgorithmException {
 
+        List<HashRange> ranges = new LinkedList<>();
+
+        // getting the "main" range
+        BigInteger nodeHash = this.ring.hashAlgorithm.getHash(this.identifier.toString() + i);
+        BigInteger nextNodeHash = this.ring.ceilingKey(nodeHash);
+
+        BigInteger previousNodeHash = this.ring.floorKey(nodeHash);
+        ranges.add(new HashRange(previousNodeHash, nodeHash));
+
+        // getting other previous ranges
+        int counter = 0;
+        BigInteger previousPreviousNodeHash = this.ring.lowerKey(previousNodeHash);
+        for (int j = 0; j < this.ring.getRing().size(); j++) { // avoiding infinite loops
+            // otimization: if finds a range that virtual node is responsible, stop retrieving ranges
+            if (counter >= REPLICATION_FACTOR || this.ring.get(previousNodeHash).equals(this.identifier)) {
+                break;
+            }
+            ranges.add(new HashRange(previousPreviousNodeHash, previousNodeHash));
+            previousNodeHash = previousPreviousNodeHash;
+            counter++;
+        }
+        return ranges;
+    }
     private List<NodeIdentifier> getOtherResponsibleNodes(HashRange range) {
         List<NodeIdentifier> sources = new LinkedList<>();
         sources.add(this.ring.get(range.end()));
@@ -174,6 +173,16 @@ public class Node {
             }
         }
         return sources;
+    }
+
+    protected List<Document> getDocumentsFromRange(HashRange range) throws NoSuchAlgorithmException {
+        List<Document> documentList = new ArrayList<>();
+        for (var entry : this.retrieveAllDocuments().entrySet()) {
+            if (range.inRange(this.ring.hashAlgorithm.getHash(entry.getKey()))) {
+                documentList.add(entry.getValue());
+            }
+        }
+        return documentList;
     }
 
     public int getPort() {
@@ -311,7 +320,7 @@ public class Node {
         nodesToReplicate.forEach(n -> System.out.println(Color.yellow("" + n.getPort())));
         this.hashRingDocumentsService.sendDocumentReplication(
                 key,
-                (ShoppingList) document,
+                document,
                 nodesToReplicate
         );
     }

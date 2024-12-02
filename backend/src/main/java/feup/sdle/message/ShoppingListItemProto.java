@@ -55,6 +55,11 @@ public final class ShoppingListItemProto {
       return new ShoppingListItem();
     }
 
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.ShoppingListItemProto.internal_static_feup_sdle_message_ShoppingListItem_descriptor;
@@ -68,7 +73,6 @@ public final class ShoppingListItemProto {
               feup.sdle.message.ShoppingListItemProto.ShoppingListItem.class, feup.sdle.message.ShoppingListItemProto.ShoppingListItem.Builder.class);
     }
 
-    private int bitField0_;
     public static final int CCOUNTER_FIELD_NUMBER = 1;
     private feup.sdle.message.CCounterProto.CCounter ccounter_;
     /**
@@ -77,7 +81,7 @@ public final class ShoppingListItemProto {
      */
     @java.lang.Override
     public boolean hasCcounter() {
-      return ((bitField0_ & 0x00000001) != 0);
+      return ccounter_ != null;
     }
     /**
      * <code>.feup.sdle.message.CCounter ccounter = 1;</code>
@@ -109,7 +113,7 @@ public final class ShoppingListItemProto {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
+      if (ccounter_ != null) {
         output.writeMessage(1, getCcounter());
       }
       getUnknownFields().writeTo(output);
@@ -121,7 +125,7 @@ public final class ShoppingListItemProto {
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) != 0)) {
+      if (ccounter_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, getCcounter());
       }
@@ -209,13 +213,11 @@ public final class ShoppingListItemProto {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-
     public static feup.sdle.message.ShoppingListItemProto.ShoppingListItem parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-
     public static feup.sdle.message.ShoppingListItemProto.ShoppingListItem parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -279,19 +281,13 @@ public final class ShoppingListItemProto {
 
       // Construct using feup.sdle.message.ShoppingListItemProto.ShoppingListItem.newBuilder()
       private Builder() {
-        maybeForceBuilderInitialization();
+
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-          getCcounterFieldBuilder();
-        }
+
       }
       @java.lang.Override
       public Builder clear() {
@@ -335,14 +331,11 @@ public final class ShoppingListItemProto {
 
       private void buildPartial0(feup.sdle.message.ShoppingListItemProto.ShoppingListItem result) {
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.ccounter_ = ccounterBuilder_ == null
               ? ccounter_
               : ccounterBuilder_.build();
-          to_bitField0_ |= 0x00000001;
         }
-        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -508,10 +501,8 @@ public final class ShoppingListItemProto {
         } else {
           ccounterBuilder_.mergeFrom(value);
         }
-        if (ccounter_ != null) {
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
+        bitField0_ |= 0x00000001;
+        onChanged();
         return this;
       }
       /**

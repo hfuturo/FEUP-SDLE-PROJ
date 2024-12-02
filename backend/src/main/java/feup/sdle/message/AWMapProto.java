@@ -119,6 +119,11 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
       return new AWMap();
     }
 
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.AWMapProto.internal_static_feup_sdle_message_AWMap_descriptor;
@@ -144,7 +149,6 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
               feup.sdle.message.AWMapProto.AWMap.class, feup.sdle.message.AWMapProto.AWMap.Builder.class);
     }
 
-    private int bitField0_;
     public static final int DOTCONTEXT_FIELD_NUMBER = 1;
     private feup.sdle.message.DotContextProto.DotContext dotContext_;
     /**
@@ -153,7 +157,7 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
      */
     @java.lang.Override
     public boolean hasDotContext() {
-      return ((bitField0_ & 0x00000001) != 0);
+      return dotContext_ != null;
     }
     /**
      * <code>.feup.sdle.message.DotContext dotContext = 1;</code>
@@ -179,7 +183,7 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
      */
     @java.lang.Override
     public boolean hasLocalIdentifier() {
-      return ((bitField0_ & 0x00000002) != 0);
+      return localIdentifier_ != null;
     }
     /**
      * <code>.feup.sdle.message.NodeIdentifier localIdentifier = 2;</code>
@@ -205,7 +209,7 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
      */
     @java.lang.Override
     public boolean hasKeys() {
-      return ((bitField0_ & 0x00000004) != 0);
+      return keys_ != null;
     }
     /**
      * <code>.feup.sdle.message.AWSet keys = 3;</code>
@@ -316,13 +320,13 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue) {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
+      if (dotContext_ != null) {
         output.writeMessage(1, getDotContext());
       }
-      if (((bitField0_ & 0x00000002) != 0)) {
+      if (localIdentifier_ != null) {
         output.writeMessage(2, getLocalIdentifier());
       }
-      if (((bitField0_ & 0x00000004) != 0)) {
+      if (keys_ != null) {
         output.writeMessage(3, getKeys());
       }
       com.google.protobuf.GeneratedMessageV3
@@ -340,15 +344,15 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue) {
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) != 0)) {
+      if (dotContext_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, getDotContext());
       }
-      if (((bitField0_ & 0x00000002) != 0)) {
+      if (localIdentifier_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, getLocalIdentifier());
       }
-      if (((bitField0_ & 0x00000004) != 0)) {
+      if (keys_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, getKeys());
       }
@@ -470,13 +474,11 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue) {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-
     public static feup.sdle.message.AWMapProto.AWMap parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-
     public static feup.sdle.message.AWMapProto.AWMap parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -562,21 +564,13 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue) {
 
       // Construct using feup.sdle.message.AWMapProto.AWMap.newBuilder()
       private Builder() {
-        maybeForceBuilderInitialization();
+
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-          getDotContextFieldBuilder();
-          getLocalIdentifierFieldBuilder();
-          getKeysFieldBuilder();
-        }
+
       }
       @java.lang.Override
       public Builder clear() {
@@ -631,30 +625,25 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue) {
 
       private void buildPartial0(feup.sdle.message.AWMapProto.AWMap result) {
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.dotContext_ = dotContextBuilder_ == null
               ? dotContext_
               : dotContextBuilder_.build();
-          to_bitField0_ |= 0x00000001;
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
           result.localIdentifier_ = localIdentifierBuilder_ == null
               ? localIdentifier_
               : localIdentifierBuilder_.build();
-          to_bitField0_ |= 0x00000002;
         }
         if (((from_bitField0_ & 0x00000004) != 0)) {
           result.keys_ = keysBuilder_ == null
               ? keys_
               : keysBuilder_.build();
-          to_bitField0_ |= 0x00000004;
         }
         if (((from_bitField0_ & 0x00000008) != 0)) {
           result.values_ = internalGetValues();
           result.values_.makeImmutable();
         }
-        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -852,10 +841,8 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue) {
         } else {
           dotContextBuilder_.mergeFrom(value);
         }
-        if (dotContext_ != null) {
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
+        bitField0_ |= 0x00000001;
+        onChanged();
         return this;
       }
       /**
@@ -973,10 +960,8 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue) {
         } else {
           localIdentifierBuilder_.mergeFrom(value);
         }
-        if (localIdentifier_ != null) {
-          bitField0_ |= 0x00000002;
-          onChanged();
-        }
+        bitField0_ |= 0x00000002;
+        onChanged();
         return this;
       }
       /**
@@ -1094,10 +1079,8 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue) {
         } else {
           keysBuilder_.mergeFrom(value);
         }
-        if (keys_ != null) {
-          bitField0_ |= 0x00000004;
-          onChanged();
-        }
+        bitField0_ |= 0x00000004;
+        onChanged();
         return this;
       }
       /**

@@ -68,7 +68,7 @@ public final class DocumentProto {
      */
     boolean getReplicate();
 
-    feup.sdle.message.DocumentProto.Document.DocumentTypeCase getDocumentTypeCase();
+    public feup.sdle.message.DocumentProto.Document.DocumentTypeCase getDocumentTypeCase();
   }
   /**
    * Protobuf type {@code feup.sdle.message.Document}
@@ -93,6 +93,11 @@ public final class DocumentProto {
       return new Document();
     }
 
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.DocumentProto.internal_static_feup_sdle_message_Document_descriptor;
@@ -108,7 +113,6 @@ public final class DocumentProto {
 
     private int bitField0_;
     private int documentTypeCase_ = 0;
-    @SuppressWarnings("serial")
     private java.lang.Object documentType_;
     public enum DocumentTypeCase
         implements com.google.protobuf.Internal.EnumLite,
@@ -397,13 +401,11 @@ public final class DocumentProto {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-
     public static feup.sdle.message.DocumentProto.Document parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-
     public static feup.sdle.message.DocumentProto.Document parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -949,7 +951,7 @@ public final class DocumentProto {
        * @return This builder for chaining.
        */
       public Builder setReplicate(boolean value) {
-
+        
         replicate_ = value;
         bitField0_ |= 0x00000004;
         onChanged();
@@ -1024,6 +1026,791 @@ public final class DocumentProto {
 
     @java.lang.Override
     public feup.sdle.message.DocumentProto.Document getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface DocumentListOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:feup.sdle.message.DocumentList)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+     */
+    java.util.List<feup.sdle.message.DocumentProto.Document> 
+        getDocumentsList();
+    /**
+     * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+     */
+    feup.sdle.message.DocumentProto.Document getDocuments(int index);
+    /**
+     * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+     */
+    int getDocumentsCount();
+    /**
+     * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+     */
+    java.util.List<? extends feup.sdle.message.DocumentProto.DocumentOrBuilder> 
+        getDocumentsOrBuilderList();
+    /**
+     * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+     */
+    feup.sdle.message.DocumentProto.DocumentOrBuilder getDocumentsOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code feup.sdle.message.DocumentList}
+   */
+  public static final class DocumentList extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:feup.sdle.message.DocumentList)
+      DocumentListOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use DocumentList.newBuilder() to construct.
+    private DocumentList(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private DocumentList() {
+      documents_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new DocumentList();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return feup.sdle.message.DocumentProto.internal_static_feup_sdle_message_DocumentList_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return feup.sdle.message.DocumentProto.internal_static_feup_sdle_message_DocumentList_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              feup.sdle.message.DocumentProto.DocumentList.class, feup.sdle.message.DocumentProto.DocumentList.Builder.class);
+    }
+
+    public static final int DOCUMENTS_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private java.util.List<feup.sdle.message.DocumentProto.Document> documents_;
+    /**
+     * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<feup.sdle.message.DocumentProto.Document> getDocumentsList() {
+      return documents_;
+    }
+    /**
+     * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends feup.sdle.message.DocumentProto.DocumentOrBuilder> 
+        getDocumentsOrBuilderList() {
+      return documents_;
+    }
+    /**
+     * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+     */
+    @java.lang.Override
+    public int getDocumentsCount() {
+      return documents_.size();
+    }
+    /**
+     * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+     */
+    @java.lang.Override
+    public feup.sdle.message.DocumentProto.Document getDocuments(int index) {
+      return documents_.get(index);
+    }
+    /**
+     * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+     */
+    @java.lang.Override
+    public feup.sdle.message.DocumentProto.DocumentOrBuilder getDocumentsOrBuilder(
+        int index) {
+      return documents_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < documents_.size(); i++) {
+        output.writeMessage(1, documents_.get(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < documents_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, documents_.get(i));
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof feup.sdle.message.DocumentProto.DocumentList)) {
+        return super.equals(obj);
+      }
+      feup.sdle.message.DocumentProto.DocumentList other = (feup.sdle.message.DocumentProto.DocumentList) obj;
+
+      if (!getDocumentsList()
+          .equals(other.getDocumentsList())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getDocumentsCount() > 0) {
+        hash = (37 * hash) + DOCUMENTS_FIELD_NUMBER;
+        hash = (53 * hash) + getDocumentsList().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static feup.sdle.message.DocumentProto.DocumentList parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static feup.sdle.message.DocumentProto.DocumentList parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static feup.sdle.message.DocumentProto.DocumentList parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static feup.sdle.message.DocumentProto.DocumentList parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static feup.sdle.message.DocumentProto.DocumentList parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static feup.sdle.message.DocumentProto.DocumentList parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static feup.sdle.message.DocumentProto.DocumentList parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static feup.sdle.message.DocumentProto.DocumentList parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static feup.sdle.message.DocumentProto.DocumentList parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static feup.sdle.message.DocumentProto.DocumentList parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static feup.sdle.message.DocumentProto.DocumentList parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static feup.sdle.message.DocumentProto.DocumentList parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(feup.sdle.message.DocumentProto.DocumentList prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code feup.sdle.message.DocumentList}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:feup.sdle.message.DocumentList)
+        feup.sdle.message.DocumentProto.DocumentListOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return feup.sdle.message.DocumentProto.internal_static_feup_sdle_message_DocumentList_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return feup.sdle.message.DocumentProto.internal_static_feup_sdle_message_DocumentList_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                feup.sdle.message.DocumentProto.DocumentList.class, feup.sdle.message.DocumentProto.DocumentList.Builder.class);
+      }
+
+      // Construct using feup.sdle.message.DocumentProto.DocumentList.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        if (documentsBuilder_ == null) {
+          documents_ = java.util.Collections.emptyList();
+        } else {
+          documents_ = null;
+          documentsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return feup.sdle.message.DocumentProto.internal_static_feup_sdle_message_DocumentList_descriptor;
+      }
+
+      @java.lang.Override
+      public feup.sdle.message.DocumentProto.DocumentList getDefaultInstanceForType() {
+        return feup.sdle.message.DocumentProto.DocumentList.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public feup.sdle.message.DocumentProto.DocumentList build() {
+        feup.sdle.message.DocumentProto.DocumentList result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public feup.sdle.message.DocumentProto.DocumentList buildPartial() {
+        feup.sdle.message.DocumentProto.DocumentList result = new feup.sdle.message.DocumentProto.DocumentList(this);
+        buildPartialRepeatedFields(result);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartialRepeatedFields(feup.sdle.message.DocumentProto.DocumentList result) {
+        if (documentsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            documents_ = java.util.Collections.unmodifiableList(documents_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.documents_ = documents_;
+        } else {
+          result.documents_ = documentsBuilder_.build();
+        }
+      }
+
+      private void buildPartial0(feup.sdle.message.DocumentProto.DocumentList result) {
+        int from_bitField0_ = bitField0_;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof feup.sdle.message.DocumentProto.DocumentList) {
+          return mergeFrom((feup.sdle.message.DocumentProto.DocumentList)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(feup.sdle.message.DocumentProto.DocumentList other) {
+        if (other == feup.sdle.message.DocumentProto.DocumentList.getDefaultInstance()) return this;
+        if (documentsBuilder_ == null) {
+          if (!other.documents_.isEmpty()) {
+            if (documents_.isEmpty()) {
+              documents_ = other.documents_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureDocumentsIsMutable();
+              documents_.addAll(other.documents_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.documents_.isEmpty()) {
+            if (documentsBuilder_.isEmpty()) {
+              documentsBuilder_.dispose();
+              documentsBuilder_ = null;
+              documents_ = other.documents_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              documentsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getDocumentsFieldBuilder() : null;
+            } else {
+              documentsBuilder_.addAllMessages(other.documents_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                feup.sdle.message.DocumentProto.Document m =
+                    input.readMessage(
+                        feup.sdle.message.DocumentProto.Document.parser(),
+                        extensionRegistry);
+                if (documentsBuilder_ == null) {
+                  ensureDocumentsIsMutable();
+                  documents_.add(m);
+                } else {
+                  documentsBuilder_.addMessage(m);
+                }
+                break;
+              } // case 10
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<feup.sdle.message.DocumentProto.Document> documents_ =
+        java.util.Collections.emptyList();
+      private void ensureDocumentsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          documents_ = new java.util.ArrayList<feup.sdle.message.DocumentProto.Document>(documents_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          feup.sdle.message.DocumentProto.Document, feup.sdle.message.DocumentProto.Document.Builder, feup.sdle.message.DocumentProto.DocumentOrBuilder> documentsBuilder_;
+
+      /**
+       * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+       */
+      public java.util.List<feup.sdle.message.DocumentProto.Document> getDocumentsList() {
+        if (documentsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(documents_);
+        } else {
+          return documentsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+       */
+      public int getDocumentsCount() {
+        if (documentsBuilder_ == null) {
+          return documents_.size();
+        } else {
+          return documentsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+       */
+      public feup.sdle.message.DocumentProto.Document getDocuments(int index) {
+        if (documentsBuilder_ == null) {
+          return documents_.get(index);
+        } else {
+          return documentsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+       */
+      public Builder setDocuments(
+          int index, feup.sdle.message.DocumentProto.Document value) {
+        if (documentsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDocumentsIsMutable();
+          documents_.set(index, value);
+          onChanged();
+        } else {
+          documentsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+       */
+      public Builder setDocuments(
+          int index, feup.sdle.message.DocumentProto.Document.Builder builderForValue) {
+        if (documentsBuilder_ == null) {
+          ensureDocumentsIsMutable();
+          documents_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          documentsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+       */
+      public Builder addDocuments(feup.sdle.message.DocumentProto.Document value) {
+        if (documentsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDocumentsIsMutable();
+          documents_.add(value);
+          onChanged();
+        } else {
+          documentsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+       */
+      public Builder addDocuments(
+          int index, feup.sdle.message.DocumentProto.Document value) {
+        if (documentsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDocumentsIsMutable();
+          documents_.add(index, value);
+          onChanged();
+        } else {
+          documentsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+       */
+      public Builder addDocuments(
+          feup.sdle.message.DocumentProto.Document.Builder builderForValue) {
+        if (documentsBuilder_ == null) {
+          ensureDocumentsIsMutable();
+          documents_.add(builderForValue.build());
+          onChanged();
+        } else {
+          documentsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+       */
+      public Builder addDocuments(
+          int index, feup.sdle.message.DocumentProto.Document.Builder builderForValue) {
+        if (documentsBuilder_ == null) {
+          ensureDocumentsIsMutable();
+          documents_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          documentsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+       */
+      public Builder addAllDocuments(
+          java.lang.Iterable<? extends feup.sdle.message.DocumentProto.Document> values) {
+        if (documentsBuilder_ == null) {
+          ensureDocumentsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, documents_);
+          onChanged();
+        } else {
+          documentsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+       */
+      public Builder clearDocuments() {
+        if (documentsBuilder_ == null) {
+          documents_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          documentsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+       */
+      public Builder removeDocuments(int index) {
+        if (documentsBuilder_ == null) {
+          ensureDocumentsIsMutable();
+          documents_.remove(index);
+          onChanged();
+        } else {
+          documentsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+       */
+      public feup.sdle.message.DocumentProto.Document.Builder getDocumentsBuilder(
+          int index) {
+        return getDocumentsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+       */
+      public feup.sdle.message.DocumentProto.DocumentOrBuilder getDocumentsOrBuilder(
+          int index) {
+        if (documentsBuilder_ == null) {
+          return documents_.get(index);  } else {
+          return documentsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+       */
+      public java.util.List<? extends feup.sdle.message.DocumentProto.DocumentOrBuilder> 
+           getDocumentsOrBuilderList() {
+        if (documentsBuilder_ != null) {
+          return documentsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(documents_);
+        }
+      }
+      /**
+       * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+       */
+      public feup.sdle.message.DocumentProto.Document.Builder addDocumentsBuilder() {
+        return getDocumentsFieldBuilder().addBuilder(
+            feup.sdle.message.DocumentProto.Document.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+       */
+      public feup.sdle.message.DocumentProto.Document.Builder addDocumentsBuilder(
+          int index) {
+        return getDocumentsFieldBuilder().addBuilder(
+            index, feup.sdle.message.DocumentProto.Document.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .feup.sdle.message.Document documents = 1;</code>
+       */
+      public java.util.List<feup.sdle.message.DocumentProto.Document.Builder> 
+           getDocumentsBuilderList() {
+        return getDocumentsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          feup.sdle.message.DocumentProto.Document, feup.sdle.message.DocumentProto.Document.Builder, feup.sdle.message.DocumentProto.DocumentOrBuilder> 
+          getDocumentsFieldBuilder() {
+        if (documentsBuilder_ == null) {
+          documentsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              feup.sdle.message.DocumentProto.Document, feup.sdle.message.DocumentProto.Document.Builder, feup.sdle.message.DocumentProto.DocumentOrBuilder>(
+                  documents_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          documents_ = null;
+        }
+        return documentsBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:feup.sdle.message.DocumentList)
+    }
+
+    // @@protoc_insertion_point(class_scope:feup.sdle.message.DocumentList)
+    private static final feup.sdle.message.DocumentProto.DocumentList DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new feup.sdle.message.DocumentProto.DocumentList();
+    }
+
+    public static feup.sdle.message.DocumentProto.DocumentList getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<DocumentList>
+        PARSER = new com.google.protobuf.AbstractParser<DocumentList>() {
+      @java.lang.Override
+      public DocumentList parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<DocumentList> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<DocumentList> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public feup.sdle.message.DocumentProto.DocumentList getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1119,6 +1906,11 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
       return new ShoppingList();
     }
 
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.DocumentProto.internal_static_feup_sdle_message_ShoppingList_descriptor;
@@ -1144,7 +1936,6 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
               feup.sdle.message.DocumentProto.ShoppingList.class, feup.sdle.message.DocumentProto.ShoppingList.Builder.class);
     }
 
-    private int bitField0_;
     public static final int ITEMS_FIELD_NUMBER = 1;
     private feup.sdle.message.AWMapProto.AWMap items_;
     /**
@@ -1153,7 +1944,7 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
      */
     @java.lang.Override
     public boolean hasItems() {
-      return ((bitField0_ & 0x00000001) != 0);
+      return items_ != null;
     }
     /**
      * <code>.feup.sdle.message.AWMap items = 1;</code>
@@ -1179,7 +1970,7 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue);
      */
     @java.lang.Override
     public boolean hasLocalIdentifier() {
-      return ((bitField0_ & 0x00000002) != 0);
+      return localIdentifier_ != null;
     }
     /**
      * <code>.feup.sdle.message.NodeIdentifier localIdentifier = 2;</code>
@@ -1290,10 +2081,10 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue) {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
+      if (items_ != null) {
         output.writeMessage(1, getItems());
       }
-      if (((bitField0_ & 0x00000002) != 0)) {
+      if (localIdentifier_ != null) {
         output.writeMessage(2, getLocalIdentifier());
       }
       com.google.protobuf.GeneratedMessageV3
@@ -1311,11 +2102,11 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue) {
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) != 0)) {
+      if (items_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, getItems());
       }
-      if (((bitField0_ & 0x00000002) != 0)) {
+      if (localIdentifier_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, getLocalIdentifier());
       }
@@ -1428,13 +2219,11 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue) {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-
     public static feup.sdle.message.DocumentProto.ShoppingList parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-
     public static feup.sdle.message.DocumentProto.ShoppingList parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1520,20 +2309,13 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue) {
 
       // Construct using feup.sdle.message.DocumentProto.ShoppingList.newBuilder()
       private Builder() {
-        maybeForceBuilderInitialization();
+
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-          getItemsFieldBuilder();
-          getLocalIdentifierFieldBuilder();
-        }
+
       }
       @java.lang.Override
       public Builder clear() {
@@ -1583,24 +2365,20 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue) {
 
       private void buildPartial0(feup.sdle.message.DocumentProto.ShoppingList result) {
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.items_ = itemsBuilder_ == null
               ? items_
               : itemsBuilder_.build();
-          to_bitField0_ |= 0x00000001;
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
           result.localIdentifier_ = localIdentifierBuilder_ == null
               ? localIdentifier_
               : localIdentifierBuilder_.build();
-          to_bitField0_ |= 0x00000002;
         }
         if (((from_bitField0_ & 0x00000004) != 0)) {
           result.removedCounters_ = internalGetRemovedCounters();
           result.removedCounters_.makeImmutable();
         }
-        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -1788,10 +2566,8 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue) {
         } else {
           itemsBuilder_.mergeFrom(value);
         }
-        if (items_ != null) {
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
+        bitField0_ |= 0x00000001;
+        onChanged();
         return this;
       }
       /**
@@ -1909,10 +2685,8 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue) {
         } else {
           localIdentifierBuilder_.mergeFrom(value);
         }
-        if (localIdentifier_ != null) {
-          bitField0_ |= 0x00000002;
-          onChanged();
-        }
+        bitField0_ |= 0x00000002;
+        onChanged();
         return this;
       }
       /**
@@ -2160,6 +2934,11 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue) {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_feup_sdle_message_Document_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_feup_sdle_message_DocumentList_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_feup_sdle_message_DocumentList_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_feup_sdle_message_ShoppingList_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -2183,15 +2962,17 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue) {
       "lue.proto\"\210\001\n\010Document\0228\n\rshopping_list\030" +
       "\001 \001(\0132\037.feup.sdle.message.ShoppingListH\000" +
       "\022\013\n\003key\030\002 \001(\t\022\026\n\treplicate\030\003 \001(\010H\001\210\001\001B\017\n" +
-      "\rdocument_typeB\014\n\n_replicate\"\232\002\n\014Shoppin" +
-      "gList\022\'\n\005items\030\001 \001(\0132\030.feup.sdle.message" +
-      ".AWMap\022:\n\017localIdentifier\030\002 \001(\0132!.feup.s" +
-      "dle.message.NodeIdentifier\022M\n\017removedCou" +
-      "nters\030\003 \003(\01324.feup.sdle.message.Shopping" +
-      "List.RemovedCountersEntry\032V\n\024RemovedCoun" +
-      "tersEntry\022\013\n\003key\030\001 \001(\t\022-\n\005value\030\002 \001(\0132\036." +
-      "feup.sdle.message.DottedValue:\0028\001B\"\n\021feu" +
-      "p.sdle.messageB\rDocumentProtob\006proto3"
+      "\rdocument_typeB\014\n\n_replicate\">\n\014Document" +
+      "List\022.\n\tdocuments\030\001 \003(\0132\033.feup.sdle.mess" +
+      "age.Document\"\232\002\n\014ShoppingList\022\'\n\005items\030\001" +
+      " \001(\0132\030.feup.sdle.message.AWMap\022:\n\017localI" +
+      "dentifier\030\002 \001(\0132!.feup.sdle.message.Node" +
+      "Identifier\022M\n\017removedCounters\030\003 \003(\01324.fe" +
+      "up.sdle.message.ShoppingList.RemovedCoun" +
+      "tersEntry\032V\n\024RemovedCountersEntry\022\013\n\003key" +
+      "\030\001 \001(\t\022-\n\005value\030\002 \001(\0132\036.feup.sdle.messag" +
+      "e.DottedValue:\0028\001B\"\n\021feup.sdle.messageB\r" +
+      "DocumentProtob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2206,8 +2987,14 @@ feup.sdle.message.DottedValueProto.DottedValue defaultValue) {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_feup_sdle_message_Document_descriptor,
         new java.lang.String[] { "ShoppingList", "Key", "Replicate", "DocumentType", "Replicate", });
-    internal_static_feup_sdle_message_ShoppingList_descriptor =
+    internal_static_feup_sdle_message_DocumentList_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_feup_sdle_message_DocumentList_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_feup_sdle_message_DocumentList_descriptor,
+        new java.lang.String[] { "Documents", });
+    internal_static_feup_sdle_message_ShoppingList_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_feup_sdle_message_ShoppingList_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_feup_sdle_message_ShoppingList_descriptor,

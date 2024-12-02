@@ -74,6 +74,11 @@ public final class Message {
       return new MessageFormat();
     }
 
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return feup.sdle.message.Message.internal_static_feup_sdle_message_MessageFormat_descriptor;
@@ -124,6 +129,10 @@ public final class Message {
        * <code>ACK = 7;</code>
        */
       ACK(7),
+      /**
+       * <code>DOCUMENT_LIST = 8;</code>
+       */
+      DOCUMENT_LIST(8),
       UNRECOGNIZED(-1),
       ;
 
@@ -159,6 +168,10 @@ public final class Message {
        * <code>ACK = 7;</code>
        */
       public static final int ACK_VALUE = 7;
+      /**
+       * <code>DOCUMENT_LIST = 8;</code>
+       */
+      public static final int DOCUMENT_LIST_VALUE = 8;
 
 
       public final int getNumber() {
@@ -193,6 +206,7 @@ public final class Message {
           case 5: return DOCUMENT_REQUEST;
           case 6: return DOCUMENT_REPLICATION;
           case 7: return ACK;
+          case 8: return DOCUMENT_LIST;
           default: return null;
         }
       }
@@ -249,7 +263,6 @@ public final class Message {
       // @@protoc_insertion_point(enum_scope:feup.sdle.message.MessageFormat.MessageType)
     }
 
-    private int bitField0_;
     public static final int MESSAGETYPE_FIELD_NUMBER = 1;
     private int messageType_ = 0;
     /**
@@ -287,7 +300,7 @@ public final class Message {
      */
     @java.lang.Override
     public boolean hasNodeIdentifier() {
-      return ((bitField0_ & 0x00000001) != 0);
+      return nodeIdentifier_ != null;
     }
     /**
      * <code>.feup.sdle.message.NodeIdentifier nodeIdentifier = 3;</code>
@@ -325,7 +338,7 @@ public final class Message {
       if (!message_.isEmpty()) {
         output.writeBytes(2, message_);
       }
-      if (((bitField0_ & 0x00000001) != 0)) {
+      if (nodeIdentifier_ != null) {
         output.writeMessage(3, getNodeIdentifier());
       }
       getUnknownFields().writeTo(output);
@@ -345,7 +358,7 @@ public final class Message {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(2, message_);
       }
-      if (((bitField0_ & 0x00000001) != 0)) {
+      if (nodeIdentifier_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, getNodeIdentifier());
       }
@@ -440,13 +453,11 @@ public final class Message {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-
     public static feup.sdle.message.Message.MessageFormat parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-
     public static feup.sdle.message.Message.MessageFormat parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -510,19 +521,13 @@ public final class Message {
 
       // Construct using feup.sdle.message.Message.MessageFormat.newBuilder()
       private Builder() {
-        maybeForceBuilderInitialization();
+
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-          getNodeIdentifierFieldBuilder();
-        }
+
       }
       @java.lang.Override
       public Builder clear() {
@@ -574,14 +579,11 @@ public final class Message {
         if (((from_bitField0_ & 0x00000002) != 0)) {
           result.message_ = message_;
         }
-        int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000004) != 0)) {
           result.nodeIdentifier_ = nodeIdentifierBuilder_ == null
               ? nodeIdentifier_
               : nodeIdentifierBuilder_.build();
-          to_bitField0_ |= 0x00000001;
         }
-        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -848,10 +850,8 @@ public final class Message {
         } else {
           nodeIdentifierBuilder_.mergeFrom(value);
         }
-        if (nodeIdentifier_ != null) {
-          bitField0_ |= 0x00000004;
-          onChanged();
-        }
+        bitField0_ |= 0x00000004;
+        onChanged();
         return this;
       }
       /**
@@ -981,16 +981,17 @@ public final class Message {
   static {
     java.lang.String[] descriptorData = {
       "\n\rmessage.proto\022\021feup.sdle.message\032\024node" +
-      "identifier.proto\"\315\002\n\rMessageFormat\022A\n\013me" +
+      "identifier.proto\"\340\002\n\rMessageFormat\022A\n\013me" +
       "ssageType\030\001 \001(\0162,.feup.sdle.message.Mess" +
       "ageFormat.MessageType\022\017\n\007message\030\002 \001(\014\0229" +
       "\n\016nodeIdentifier\030\003 \001(\0132!.feup.sdle.messa" +
-      "ge.NodeIdentifier\"\254\001\n\013MessageType\022\021\n\rHAS" +
+      "ge.NodeIdentifier\"\277\001\n\013MessageType\022\021\n\rHAS" +
       "H_RING_LOG\020\000\022\017\n\013REPLICATION\020\001\022\020\n\014HASHRIN" +
       "G_GET\020\002\022\021\n\rHASHRING_JOIN\020\003\022\033\n\027HASHRING_L" +
       "OG_HASH_CHECK\020\004\022\024\n\020DOCUMENT_REQUEST\020\005\022\030\n" +
-      "\024DOCUMENT_REPLICATION\020\006\022\007\n\003ACK\020\007B\034\n\021feup" +
-      ".sdle.messageB\007Messageb\006proto3"
+      "\024DOCUMENT_REPLICATION\020\006\022\007\n\003ACK\020\007\022\021\n\rDOCU" +
+      "MENT_LIST\020\010B\034\n\021feup.sdle.messageB\007Messag" +
+      "eb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
