@@ -296,7 +296,9 @@ public class Node {
 
     public void storeDocumentAndReplicate(String key, Document document) {
         this.storage.store(key, document);
-        this.replicateDocument(key, document);
+        Thread.ofVirtual().start(() -> {
+            this.replicateDocument(key, document);
+        });
     }
 
     public void storeDocument(String key, Document document) {

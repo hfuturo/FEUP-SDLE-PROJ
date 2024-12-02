@@ -41,6 +41,7 @@ public class NodeHTTPController {
         String key = UUID.randomUUID().toString();
         ShoppingList shoppingList = new ShoppingList(this.node.getNodeIdentifier(), key);
         node.storeDocumentAndReplicate(key, shoppingList);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(shoppingList);
     }
 
