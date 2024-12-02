@@ -47,6 +47,7 @@ public class NodeTransmitter {
                         peerSocket.send(msg);
 
                         byte[] reply = peerSocket.recv(0);
+                        boolean receivedAck = false;
 
                         if(reply != null) {
                             Message.MessageFormat msgFormat = null;
@@ -59,11 +60,13 @@ public class NodeTransmitter {
                             if (msgFormat.getMessageType() == Message.MessageFormat.MessageType.ACK) {
                                 successfullySent = true;
                                 online = true;
-                                break;
+                                receivedAck = true;
                             }
                         }
 
                         peerSocket.close();
+
+                        if (receivedAck) break;
                     }
 
                     if (!online) {
