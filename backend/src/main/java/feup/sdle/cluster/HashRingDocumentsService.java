@@ -126,11 +126,12 @@ public class HashRingDocumentsService extends MessagingService {
         try {
             if (msgFormat.getMessageType() != Message.MessageFormat.MessageType.DOCUMENT_REPLICATION) {
                 LOGGER.error(Color.red("Unexpected message type: " + msgFormat.getMessageType() + " in Documents Service REPLICATION"));
-
-                System.out.println(Color.green("RECEIVED DOCUMENT REPLICATION IN process"));
-                DocumentProto.Document document = DocumentProto.Document.parseFrom(msgFormat.getMessage());
-                this.node.storeDocument(document.getKey(), Document.fromMessage(document));
+                return;
             }
+
+            System.out.println(Color.green("RECEIVED DOCUMENT REPLICATION IN process"));
+            DocumentProto.Document document = DocumentProto.Document.parseFrom(msgFormat.getMessage());
+            this.node.storeDocument(document.getKey(), Document.fromMessage(document));
         } catch (Exception e) {
             LOGGER.error(Color.red(e.getMessage()));
         }
