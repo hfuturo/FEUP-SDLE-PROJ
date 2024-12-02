@@ -2,10 +2,8 @@ package feup.sdle.cluster;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import feup.sdle.Document;
-import feup.sdle.ShoppingList;
 import feup.sdle.crypto.MD5HashAlgorithm;
 import feup.sdle.message.HashRingMessage;
-import feup.sdle.message.Hashcheck;
 import feup.sdle.message.Message;
 import feup.sdle.message.NodeIdentifierMessage;
 import feup.sdle.storage.FileStorageProvider;
@@ -28,7 +26,7 @@ public class Node {
     private final NodeIdentifier identifier;
     private HashRing ring;
     private ZContext zmqContext;
-    private static final int REPLICATION_FACTOR = 2;
+    public static final int REPLICATION_FACTOR = 2;
     private ZMQ.Socket socket; // TODO change this to allow multiple sockets
     private GossipService gossipService;
     private HashRingSyncService hashRingSyncService;
@@ -36,6 +34,7 @@ public class Node {
     private MemoryStorageProvider<String, Document> storage;
     private boolean starter;
     private NodeReceiver receiver;
+    private NodeTransmitter transmitter;
 
     /**
      * The HashRing can already be populated, which is useful for start bootstraping
@@ -49,6 +48,8 @@ public class Node {
     ) {
 
         this.zmqContext = new ZContext();
+
+        this.transmitter = new NodeTransmitter(this, 2000, 3);
 
         this.identifier = new NodeIdentifier(id, hostname, port, true, httpPort);
 
@@ -72,6 +73,10 @@ public class Node {
 
     public HashRing getRing() {
         return this.ring;
+    }
+
+    public NodeTransmitter getTransmitter() {
+        return this.transmitter;
     }
 
     public HashRing manageHashRing() {
@@ -317,7 +322,7 @@ public class Node {
     }
 
     private void replicateDocument(String key, Document document) {
-        List<NodeIdentifier> nodesToReplicate = this.ring.getPreferenceNodes(key, this.identifier, Node.REPLICATION_FACTOR);
+        List<NodeIdentifier> nodesToReplicate = this.ring.getPreferenceNodes(key, this.identifier);
         if (nodesToReplicate == null) return;
         nodesToReplicate.forEach(n -> System.out.println(Color.yellow("" + n.getPort())));
         this.hashRingDocumentsService.sendDocumentReplication(

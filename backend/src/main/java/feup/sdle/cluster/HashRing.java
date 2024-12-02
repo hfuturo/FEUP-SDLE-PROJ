@@ -14,6 +14,7 @@ import feup.sdle.crypto.HashAlgorithm;
 import feup.sdle.crdts.DotContext;
 import feup.sdle.message.HashRingMessage;
 import feup.sdle.utils.Color;
+import feup.sdle.utils.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -172,7 +173,7 @@ public class HashRing implements ProtobufSerializable<HashRingMessage.HashRing> 
      * This should be used when the node that receives the request for the key is not the node
      * that is the main responsible for that key
     */
-    public List<NodeIdentifier> getPreferenceNodes(String key, NodeIdentifier nodeIdentifier, int replicatorNumber) {
+    public List<NodeIdentifier> getPreferenceNodes(String key, NodeIdentifier nodeIdentifier) {
         BigInteger hashedKey;
 
         try { hashedKey = this.hashAlgorithm.getHash(key); }
@@ -180,17 +181,15 @@ public class HashRing implements ProtobufSerializable<HashRingMessage.HashRing> 
 
         BigInteger nodeHash = this.ceilingKey(hashedKey);
         List<NodeIdentifier> nodesToReplicate = new ArrayList<>();
-        int counter = 0;
         BigInteger prevHash = nodeHash;
 
         synchronized (this) {
-            while (counter < replicatorNumber) {
-                BigInteger replicatorHash =  this.higherKey(prevHash);
+            for (int i = 0; i < this.ring.size(); i++) {
+                BigInteger replicatorHash = this.higherKey(prevHash);
                 NodeIdentifier replicatorIdentifier = this.get(replicatorHash);
 
                 if (!replicatorIdentifier.equals(nodeIdentifier) && !nodesToReplicate.contains(replicatorIdentifier)) {
                     nodesToReplicate.add(replicatorIdentifier);
-                    counter++;
                 }
 
                 prevHash = replicatorHash;

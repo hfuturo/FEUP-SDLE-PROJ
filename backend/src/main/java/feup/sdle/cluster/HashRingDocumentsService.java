@@ -141,12 +141,9 @@ public class HashRingDocumentsService extends MessagingService {
                         .setMessageType(Message.MessageFormat.MessageType.DOCUMENT_REPLICATION)
                         .setNodeIdentifier(this.node.getNodeIdentifier().toMessageNodeIdentifier());
 
-        nodesToReplicate.forEach(node -> {
-            var documentMessage = document.toMessage();
+        var documentMessage = document.toMessage();
+        var message = messageTemplate.setMessage(documentMessage.toByteString()).build().toByteArray();
 
-            var message = messageTemplate.setMessage(documentMessage.toByteString()).build().toByteArray();
-
-            node.getSocket(this.node.getZmqContext()).send(message);
-        });
+        this.node.getTransmitter().sendMultipleWithOfflineDetection(message, nodesToReplicate, Node.REPLICATION_FACTOR);
     }
 }

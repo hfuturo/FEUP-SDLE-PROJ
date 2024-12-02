@@ -94,15 +94,7 @@ public class GossipService extends MessagingService {
             fanout = preferenceList.size();
         }
 
-        for(int n = 0; n < fanout; n++) {
-            NodeIdentifier otherPeer = preferenceList.get(n);
 
-            ZMQ.Socket otherPeerSocket = otherPeer.getSocket(this.node.getZmqContext());
-            otherPeerSocket.send(msg);
-
-            byte[] msg2 = otherPeerSocket.recv();
-
-            otherPeerSocket.close();
-        }
+        this.node.getTransmitter().sendMultipleWithOfflineDetection(msg, preferenceList, fanout);
     }
 }
