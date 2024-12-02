@@ -65,7 +65,7 @@ public class HashRing implements ProtobufSerializable<HashRingMessage.HashRing> 
 
         try {
             this.addNode(seed1);
-            //this.addNode(seed2);
+            this.addNode(seed2);
             this.addNode(seed3);
 
             this.hashRingLog.getOperationsStr();
