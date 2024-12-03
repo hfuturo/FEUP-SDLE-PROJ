@@ -21,6 +21,7 @@ import org.zeromq.ZContext;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class Node {
@@ -37,7 +38,7 @@ public class Node {
     private boolean starter;
     private NodeReceiver receiver;
     private NodeTransmitter transmitter;
-    private final HashMap<NodeIdentifier, List<Document>> offlineNodeDocuments;
+    private final ConcurrentHashMap<NodeIdentifier, List<Document>> offlineNodeDocuments;
 
     /**
      * The HashRing can already be populated, which is useful for start bootstraping
@@ -70,7 +71,7 @@ public class Node {
 
         this.receiver = new NodeReceiver(this);
 
-        this.offlineNodeDocuments = new HashMap<>();
+        this.offlineNodeDocuments = new ConcurrentHashMap<>();
 
         if (!this.starter)
             this.tryToJoinRing();
@@ -340,18 +341,19 @@ public class Node {
         this.storage.delete(key);
     }
 
-    public void addDocumentsToOfflineNodes(List<NodeIdentifier> nodesOffline, Document document) {
-        System.out.println(Color.green(nodesOffline.toString()));
-        nodesOffline.forEach(node -> {
-            if (this.offlineNodeDocuments.containsKey(node)) {
-                this.offlineNodeDocuments.get(node).add(document);
-            }
-            else {
-                List<Document> documents = new ArrayList<>();
-                documents.add(document);
-                this.offlineNodeDocuments.put(node, documents);
-            }
-        });
+    public void addDocumentsToOfflineNodes(Document document, NodeIdentifier offlineNode) {
+        System.out.println(Color.green("BEFORE TEMP: " + this.offlineNodeDocuments.size()));
+
+        if (this.offlineNodeDocuments.containsKey(offlineNode)) {
+            this.offlineNodeDocuments.get(offlineNode).add(document);
+        }
+        else {
+            List<Document> documents = new ArrayList<>();
+            documents.add(document);
+            this.offlineNodeDocuments.put(offlineNode, documents);
+        }
+
+        System.out.println(Color.green("AFTER TEMP: " + this.offlineNodeDocuments.size()));
     }
 
     @Override

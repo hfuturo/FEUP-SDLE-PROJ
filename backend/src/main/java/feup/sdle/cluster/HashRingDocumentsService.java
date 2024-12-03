@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -35,6 +36,7 @@ public class HashRingDocumentsService extends MessagingService {
         this.messageActions.put(Message.MessageFormat.MessageType.DOCUMENT_REQUEST, this::processDocumentsRequest);
         this.messageActions.put(Message.MessageFormat.MessageType.DOCUMENT_REPLICATION, this::processDocumentReplicationRequest);
         this.messageActions.put(Message.MessageFormat.MessageType.DOCUMENT_LIST, this::processDocumentList);
+        this.messageActions.put(Message.MessageFormat.MessageType.TEMPORARY_DOCUMENT, this::processTemporaryDocument);
     }
 
     private void registerDocumentServiceListener() {
@@ -146,12 +148,50 @@ public class HashRingDocumentsService extends MessagingService {
             System.out.println(Color.yellow("SEND TO " + nodesToReplicate.get(i).getPort()));
         }
 
-        Pair<List<NodeIdentifier>, List<NodeIdentifier>> pair = this.node.getTransmitter().sendMultipleWithOfflineDetectionAndRet(message, nodesToReplicate, Node.REPLICATION_FACTOR);
-        List<NodeIdentifier> offlineNodes = pair.first();
-        List<NodeIdentifier> substituteNodes = pair.second();
+        Pair<List<NodeIdentifier>, List<NodeIdentifier>> nodes = this.node.getTransmitter().sendMultipleWithOfflineDetectionAndRet(message, nodesToReplicate, Node.REPLICATION_FACTOR);
+        List<NodeIdentifier> offlineNodes = nodes.first();
+        List<NodeIdentifier> substituteNodes = nodes.second();
+
+        Iterator<NodeIdentifier> offlineIterator = offlineNodes.iterator();
+        Iterator<NodeIdentifier> substituteIterator = substituteNodes.iterator();
 
         System.out.println(Color.red("OFF NODES: " + offlineNodes));
         System.out.println(Color.red("SUBS NODES: " + substituteNodes));
-//        this.node.addDocumentsToOfflineNodes(offlineNodes, document);
+
+        while (offlineIterator.hasNext() && substituteIterator.hasNext()) {
+            var temporaryDocumentMessage = Message.MessageFormat.newBuilder()
+                    .setMessageType(Message.MessageFormat.MessageType.TEMPORARY_DOCUMENT)
+                    .setMessage(
+                            DocumentProto.TemporaryDocument.newBuilder()
+                                    .setDocument(document.toMessage())
+                                    .setOriginalNode(offlineIterator.next().toMessageNodeIdentifier())
+                                    .build()
+                                    .toByteString()
+                    )
+                    .setNodeIdentifier(this.node.getNodeIdentifier().toMessageNodeIdentifier())
+                    .build();
+
+            NodeIdentifier substituteNode = substituteIterator.next();
+            substituteNode.getSocket(this.node.getZmqContext()).send(temporaryDocumentMessage.toByteArray());
+        }
+
+    }
+
+    public void processTemporaryDocument(Message.MessageFormat msgFormat) {
+        if (msgFormat.getMessageType() != Message.MessageFormat.MessageType.TEMPORARY_DOCUMENT) {
+            LOGGER.error(Color.red("Unexpected message type: " + msgFormat.getMessageType() + " in processTEmporaryDocument"));
+            return;
+        }
+
+        try {
+            System.out.println(Color.green("ENTERED TEMPORARY"));
+            DocumentProto.TemporaryDocument message = DocumentProto.TemporaryDocument.parseFrom(msgFormat.getMessage());
+            Document document = Document.fromMessage(message.getDocument());
+            NodeIdentifier offlineNode = NodeIdentifier.fromMessageNodeIdentifier(message.getOriginalNode());
+
+            this.node.addDocumentsToOfflineNodes(document, offlineNode);
+        } catch (Exception e) {
+            LOGGER.error(Color.red(e.getMessage()));
+        }
     }
 }
