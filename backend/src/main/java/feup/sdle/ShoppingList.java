@@ -109,6 +109,11 @@ public class ShoppingList implements Document {
     }
 
     @Override
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Override
     public ByteString toProtoBuf() {
         return this.toMessage().toByteString();
     }
@@ -135,8 +140,10 @@ public class ShoppingList implements Document {
         return documentMessage;
     }
 
-    public static ShoppingList fromMessageShoppingList(DocumentProto.ShoppingList msgShoppingList) {
+    public static ShoppingList fromMessage(DocumentProto.Document document) {
+        var msgShoppingList = document.getShoppingList();
         ShoppingList shoppingList = new ShoppingList(NodeIdentifier.fromMessageNodeIdentifier(msgShoppingList.getLocalIdentifier()));
+        shoppingList.setId(document.getKey());
         shoppingList.setItems(AWMap.fromMessageAWMap(msgShoppingList.getItems()));
 
         HashMap<String , DottedValue<Integer, Integer, Integer>> removedCounters = new HashMap<>();

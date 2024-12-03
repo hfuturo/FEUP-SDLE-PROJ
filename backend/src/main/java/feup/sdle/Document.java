@@ -14,15 +14,17 @@ import feup.sdle.message.DocumentProto;
 
 public interface Document extends ProtobufSerializable {
     String getId();
+    void setId(String id);
     @Override
     DocumentProto.Document toMessage();
 
     static Document fromMessage(DocumentProto.Document message) {
         switch (message.getDocumentTypeCase()) {
             case SHOPPING_LIST:
-                return ShoppingList.fromMessageShoppingList(message.getShoppingList());
+                return ShoppingList.fromMessage(message);
             default:
                 throw new IllegalArgumentException("Unsupported document type: " + message.getDocumentTypeCase());
         }
     }
+
 }
