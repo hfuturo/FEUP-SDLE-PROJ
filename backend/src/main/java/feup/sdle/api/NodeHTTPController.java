@@ -37,7 +37,7 @@ public class NodeHTTPController {
     }
 
     @PostMapping
-    public ResponseEntity<Document> createDocument() {
+    public ResponseEntity<ShoppingList> createDocument() {
         String key = UUID.randomUUID().toString();
         ShoppingList shoppingList = new ShoppingList(this.node.getNodeIdentifier(), key);
         node.storeDocumentAndReplicate(key, shoppingList);

@@ -1,21 +1,22 @@
 package feup.sdle.storage;
 
-import feup.sdle.Document;
+import java.util.Optional;
 
-import java.util.HashMap;
-import java.util.Map;
+public class FileStorageProvider<K, V> implements StorageProvider<K, V> {
+    StorageBucket<K, V> bucket;
 
-public class FileStorageProvider implements PersistentStorageProvider {
-    public FileStorageProvider() {
+    public FileStorageProvider(StorageBucket<K, V> bucket) {
+        this.bucket = bucket;
+        this.bucket.create();
     }
 
     @Override
-    public void store(String value) {
-
+    public void store(K key, V value) {
+        this.bucket.store(key, value);
     }
 
     @Override
-    public String retrieve() {
-        return "";
+    public Optional<V> retrieve(K key) {
+        return Optional.empty();
     }
 }

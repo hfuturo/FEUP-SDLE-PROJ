@@ -2,12 +2,14 @@ package feup.sdle.cluster;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import feup.sdle.Document;
+import feup.sdle.ShoppingList;
 import feup.sdle.crypto.MD5HashAlgorithm;
 import feup.sdle.message.HashRingMessage;
 import feup.sdle.message.Message;
 import feup.sdle.message.NodeIdentifierMessage;
 import feup.sdle.storage.FileStorageProvider;
 import feup.sdle.storage.MemoryStorageProvider;
+import feup.sdle.storage.StorageBucket;
 import feup.sdle.utils.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +59,7 @@ public class Node {
 
         this.ring = this.manageHashRing();
 
-        this.storage = new MemoryStorageProvider<>(new FileStorageProvider());
+        this.storage = new MemoryStorageProvider<String, Document>(new FileStorageProvider<String, Document>(new StorageBucket(String.format("%d", this.identifier.getId()))));
 
         this.gossipService = new GossipService(this, this.zmqContext);
 

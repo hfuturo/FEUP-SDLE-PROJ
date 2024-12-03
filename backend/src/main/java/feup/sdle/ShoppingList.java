@@ -2,6 +2,7 @@ package feup.sdle;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.MapEntry;
@@ -17,6 +18,11 @@ import feup.sdle.message.NodeIdentifierMessage;
 import java.nio.channels.InterruptedByTimeoutException;
 import java.util.*;
 
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY
+)
+
 /**
     * This is a CRDT set that will need to mantain a list of removed items, so in cases of a concurrent edit
     * the behaviour of the counters will not be wrong
@@ -25,6 +31,7 @@ public class ShoppingList implements Document {
     @JsonProperty("id")
     private String id;
     // The String key will never change. This is an id of the shopping list and not the name of the list itself.
+    @JsonProperty("items")
     private AWMap<String, ShoppingListItem> items;
     private NodeIdentifier localIdentifier;
     private HashMap<String, DottedValue<Integer, Integer, Integer>> removedCounters;

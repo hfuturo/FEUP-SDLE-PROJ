@@ -1,5 +1,6 @@
 package feup.sdle.crdts;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import feup.sdle.ShoppingList;
 import feup.sdle.cluster.NodeIdentifier;
 import feup.sdle.message.AWMapProto;
@@ -11,6 +12,7 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
     private DotContext dotContext;
     private NodeIdentifier localIdentifier;
     private AWSet<K> keys;
+    @JsonProperty("values")
     private HashMap<K, DottedValue<Integer, Integer, V>> values;
 
     public AWMap(NodeIdentifier localIdentifier) {
