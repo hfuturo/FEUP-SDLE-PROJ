@@ -1,7 +1,7 @@
 import { HashRing } from "@/lib/p2p/HashRing";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
-import { ShoppingList } from "@/lib/shoppinglist/ShoppingList";
+import { ShoppingList } from "@/lib/crdts/ShoppingList";
 import { useRouter } from "next/navigation";
 import useHashRing from "@/lib/hooks/useHashRing";
 import { useAppStore } from "@/lib/store";

@@ -1,3 +1,5 @@
+import { ShoppingList } from "../crdts/ShoppingList";
+
 /**
  * Wrapper to interact with indexed db from the browser
  */
@@ -38,6 +40,31 @@ export class Database {
         request.onerror = (event) => {
             console.error(event);
         };
+    }
+
+    async updateShoppingList(listId: string, list: ShoppingList) {
+        return new Promise<void>((resolve, reject) => {
+            // delete list with listId
+            const transaction = this.db.transaction(this.dbName, "readwrite");
+            const store = transaction.objectStore(this.dbName);
+            const request = store.delete(listId);
+
+            request.onsuccess = (event) => {
+                console.log("Shopping list deleted");
+                // add list with listId
+                const request2 = store.add(list);
+
+                request2.onsuccess = (event) => {
+                    console.log("Shopping list created");
+                    resolve();
+                };
+
+                request2.onerror = (event) => {
+                    console.error(event);
+                    reject(event);
+                };
+            };
+        });
     }
 
     async getShoppingList(id: string) {

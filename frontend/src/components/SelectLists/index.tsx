@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ShoppingList } from "@/lib/shoppinglist/ShoppingList";
+import { ShoppingList } from "@/lib/crdts/ShoppingList";
 
 export const SelectLists = () => {
     const router = useRouter();

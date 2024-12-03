@@ -1,8 +1,9 @@
 "use client"
 
+import AddItemForm from "@/components/AddItemForm";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ShoppingList } from "@/lib/shoppinglist/ShoppingList";
+import { ShoppingList } from "@/lib/crdts/ShoppingList";
 import { useAppStore } from "@/lib/store";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -16,7 +17,7 @@ export default function List() {
         const fetchShoppingList = async () => {
             try {
                 const list = await database.getShoppingList(params.id);
-                setShoppingList(new ShoppingList(list.id, list.items));
+                setShoppingList(new ShoppingList(50, list.id));
             } catch (error) {
                 console.error("Failed to fetch shopping lists:", error);
             }
@@ -27,23 +28,15 @@ export default function List() {
 
     return <div className="flex flex-col mx-auto items-center w-1/2 mt-16 gap-y-4">
         <h1 className="text-center text-3xl">List</h1>
-        <form className="flex flex-row gap-x-2" onSubmit={(e) => {
-            e.preventDefault();
-
-            console.log(shoppingList)
-            if (shoppingList) shoppingList.addItem({});
-        }}>
-            <Input className="w-full" placeholder="Product name" required />
-            <Button type="submit">
-                Add
-            </Button>
-        </form>
+        <AddItemForm shoppingList={shoppingList} />
         <div className="flex flex-col gap-y-4">
             {shoppingList === null
                 ? <p>No items added.</p>
-                : <div>
-                    <></>
-                </div>
+                : shoppingList.getItems().getValues().entries().map(([key, value]) => (
+                   <article key={key} className="flex flex-row gap-x-2">
+                        <p>{key}</p>
+                    </article>
+                ))
             }
         </div>
     </div>
