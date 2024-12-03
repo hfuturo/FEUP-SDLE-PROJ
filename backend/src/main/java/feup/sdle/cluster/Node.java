@@ -37,6 +37,7 @@ public class Node {
     private boolean starter;
     private NodeReceiver receiver;
     private NodeTransmitter transmitter;
+    private final HashMap<NodeIdentifier, List<Document>> offlineNodeDocuments;
 
     /**
      * The HashRing can already be populated, which is useful for start bootstraping
@@ -68,6 +69,8 @@ public class Node {
         this.hashRingDocumentsService = new HashRingDocumentsService(this);
 
         this.receiver = new NodeReceiver(this);
+
+        this.offlineNodeDocuments = new HashMap<>();
 
         if (!this.starter)
             this.tryToJoinRing();
@@ -326,9 +329,8 @@ public class Node {
     private void replicateDocument(String key, Document document) {
         List<NodeIdentifier> nodesToReplicate = this.ring.getPreferenceNodes(key, this.identifier);
         if (nodesToReplicate == null) return;
-        nodesToReplicate.forEach(n -> System.out.println(Color.yellow("" + n.getPort())));
+
         this.hashRingDocumentsService.sendDocumentReplication(
-                key,
                 document,
                 nodesToReplicate
         );
@@ -336,6 +338,20 @@ public class Node {
 
     public void deleteDocument(String key) {
         this.storage.delete(key);
+    }
+
+    public void addDocumentsToOfflineNodes(List<NodeIdentifier> nodesOffline, Document document) {
+        System.out.println(Color.green(nodesOffline.toString()));
+        nodesOffline.forEach(node -> {
+            if (this.offlineNodeDocuments.containsKey(node)) {
+                this.offlineNodeDocuments.get(node).add(document);
+            }
+            else {
+                List<Document> documents = new ArrayList<>();
+                documents.add(document);
+                this.offlineNodeDocuments.put(node, documents);
+            }
+        });
     }
 
     @Override

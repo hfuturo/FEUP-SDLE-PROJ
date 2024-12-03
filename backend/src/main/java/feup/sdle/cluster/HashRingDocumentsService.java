@@ -1,16 +1,12 @@
 package feup.sdle.cluster;
 
 import com.google.protobuf.ByteString;
-import com.google.protobuf.InvalidProtocolBufferException;
 import feup.sdle.Document;
-import feup.sdle.message.DocumentProto;
-import feup.sdle.Document;
-import feup.sdle.ShoppingList;
 import feup.sdle.message.DocumentProto;
 import feup.sdle.message.DocumentRequestProto;
 import feup.sdle.message.Message;
-import feup.sdle.message.NodeIdentifierMessage;
 import feup.sdle.utils.Color;
+import feup.sdle.utils.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,7 +33,7 @@ public class HashRingDocumentsService extends MessagingService {
 
     private void buildMessageActions() {
         this.messageActions.put(Message.MessageFormat.MessageType.DOCUMENT_REQUEST, this::processDocumentsRequest);
-        this.messageActions.put(Message.MessageFormat.MessageType.DOCUMENT_REPLICATION, this::processDocumentReplication);
+        this.messageActions.put(Message.MessageFormat.MessageType.DOCUMENT_REPLICATION, this::processDocumentReplicationRequest);
         this.messageActions.put(Message.MessageFormat.MessageType.DOCUMENT_LIST, this::processDocumentList);
     }
 
@@ -122,7 +118,7 @@ public class HashRingDocumentsService extends MessagingService {
             }
     }
 
-    private void processDocumentReplication(Message.MessageFormat msgFormat) {
+    private void processDocumentReplicationRequest(Message.MessageFormat msgFormat) {
         try {
             if (msgFormat.getMessageType() != Message.MessageFormat.MessageType.DOCUMENT_REPLICATION) {
                 LOGGER.error(Color.red("Unexpected message type: " + msgFormat.getMessageType() + " in Documents Service REPLICATION"));
@@ -137,7 +133,7 @@ public class HashRingDocumentsService extends MessagingService {
         }
     }
 
-    public void sendDocumentReplication(String key, Document document, List<NodeIdentifier> nodesToReplicate) {
+    public void sendDocumentReplication(Document document, List<NodeIdentifier> nodesToReplicate) {
         var messageTemplate = Message.MessageFormat.newBuilder()
                         .setMessageType(Message.MessageFormat.MessageType.DOCUMENT_REPLICATION)
                         .setNodeIdentifier(this.node.getNodeIdentifier().toMessageNodeIdentifier());
@@ -145,6 +141,17 @@ public class HashRingDocumentsService extends MessagingService {
         var documentMessage = document.toMessage();
         var message = messageTemplate.setMessage(documentMessage.toByteString()).build().toByteArray();
 
-        this.node.getTransmitter().sendMultipleWithOfflineDetection(message, nodesToReplicate, Node.REPLICATION_FACTOR);
+        System.out.println(Color.green("nodesToReplicate size: " + nodesToReplicate.size()));
+        for (int i = 0; i < Node.REPLICATION_FACTOR; i++) {
+            System.out.println(Color.yellow("SEND TO " + nodesToReplicate.get(i).getPort()));
+        }
+
+        Pair<List<NodeIdentifier>, List<NodeIdentifier>> pair = this.node.getTransmitter().sendMultipleWithOfflineDetectionAndRet(message, nodesToReplicate, Node.REPLICATION_FACTOR);
+        List<NodeIdentifier> offlineNodes = pair.first();
+        List<NodeIdentifier> substituteNodes = pair.second();
+
+        System.out.println(Color.red("OFF NODES: " + offlineNodes));
+        System.out.println(Color.red("SUBS NODES: " + substituteNodes));
+//        this.node.addDocumentsToOfflineNodes(offlineNodes, document);
     }
 }
