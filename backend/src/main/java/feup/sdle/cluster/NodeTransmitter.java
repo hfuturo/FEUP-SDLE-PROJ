@@ -189,37 +189,42 @@ public class NodeTransmitter {
     }
 
     /**
-     * This methos sends a message to a node and returns if it is alive.
+     * This method sends a message to a node and returns if it is alive.
      *
      * @param msg Message to send
      * @param nodeIdentifier Node that will receive the message
      * @return True if node is alive, otherwise false.
      */
     public boolean sendMessageWithOfflineDetection(byte[] msg, NodeIdentifier nodeIdentifier) {
-        ZMQ.Socket socket = nodeIdentifier.getSocket(this.node.getZmqContext());
-        socket.setReceiveTimeOut(this.receiveTimeout);
-        socket.send(msg);
-
-        byte[] reply = socket.recv(0);
         boolean receivedAck = false;
 
-        if (reply != null) {
-            Message.MessageFormat msgFormat = null;
+        for (int i = 0; i < this.sendRetries; i++) {
+            ZMQ.Socket socket = nodeIdentifier.getSocket(this.node.getZmqContext());
+            socket.setReceiveTimeOut(this.receiveTimeout);
+            socket.send(msg);
 
-            try {
-                msgFormat = Message.MessageFormat.parseFrom(reply);
-            } catch (InvalidProtocolBufferException e) {
-                throw new RuntimeException(e);
-            } finally {
-                socket.close();
+            byte[] reply = socket.recv(0);
+
+            if (reply != null) {
+                Message.MessageFormat msgFormat = null;
+
+                try {
+                    msgFormat = Message.MessageFormat.parseFrom(reply);
+                } catch (InvalidProtocolBufferException e) {
+                    throw new RuntimeException(e);
+                } finally {
+                    socket.close();
+                }
+
+                if (msgFormat.getMessageType() == Message.MessageFormat.MessageType.ACK) {
+                    receivedAck = true;
+                }
             }
 
-            if (msgFormat.getMessageType() == Message.MessageFormat.MessageType.ACK) {
-                receivedAck = true;
-            }
+            socket.close();
+
+            if (receivedAck) break;
         }
-
-        socket.close();
 
         return receivedAck;
     }
