@@ -18,6 +18,7 @@ message MessageFormat {
     DOCUMENT_REPLICATION = 6;
     ACK = 7;
     DOCUMENT_LIST = 8;
+    TEMPORARY_DOCUMENT = 9;
   }
 
   MessageType messageType = 1;

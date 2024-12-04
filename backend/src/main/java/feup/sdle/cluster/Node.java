@@ -21,6 +21,7 @@ import org.zeromq.ZContext;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class Node {
@@ -37,6 +38,7 @@ public class Node {
     private boolean starter;
     private NodeReceiver receiver;
     private NodeTransmitter transmitter;
+    private final ConcurrentHashMap<NodeIdentifier, List<Document>> offlineNodeDocuments;
 
     /**
      * The HashRing can already be populated, which is useful for start bootstraping
@@ -69,8 +71,14 @@ public class Node {
 
         this.receiver = new NodeReceiver(this);
 
+        this.offlineNodeDocuments = new ConcurrentHashMap<>();
+
         if (!this.starter)
             this.tryToJoinRing();
+    }
+
+    public ConcurrentHashMap<NodeIdentifier, List<Document>> getOfflineNodeDocuments() {
+        return this.offlineNodeDocuments;
     }
 
     public HashRing getRing() {
@@ -311,24 +319,20 @@ public class Node {
     }
 
     public void storeDocumentAndReplicate(String key, Document document) {
-        this.storage.store(key, document);
-        Thread.ofVirtual().start(() -> {
-            this.replicateDocument(key, document);
-        });
+        this.storeDocument(key, document);
+        Thread.ofVirtual().start(() -> this.replicateDocument(key, document));
     }
 
     public void storeDocument(String key, Document document) {
-        System.out.println(Color.green("BEFORE: " + this.storage.retrieveAll().size()));
+        System.out.println(Color.green("Stored document with key: " + key));
         this.storage.store(key, document);
-        System.out.println(Color.green("AFTER: " + this.storage.retrieveAll().size()));
     }
 
     private void replicateDocument(String key, Document document) {
         List<NodeIdentifier> nodesToReplicate = this.ring.getPreferenceNodes(key, this.identifier);
         if (nodesToReplicate == null) return;
-        nodesToReplicate.forEach(n -> System.out.println(Color.yellow("" + n.getPort())));
+
         this.hashRingDocumentsService.sendDocumentReplication(
-                key,
                 document,
                 nodesToReplicate
         );
@@ -336,6 +340,18 @@ public class Node {
 
     public void deleteDocument(String key) {
         this.storage.delete(key);
+    }
+
+    public void addDocumentsToOfflineNodes(Document document, NodeIdentifier offlineNode) {
+        synchronized (this.offlineNodeDocuments) {
+            if (this.offlineNodeDocuments.containsKey(offlineNode)) {
+                this.offlineNodeDocuments.get(offlineNode).add(document);
+            } else {
+                List<Document> documents = new ArrayList<>();
+                documents.add(document);
+                this.offlineNodeDocuments.put(offlineNode, documents);
+            }
+        }
     }
 
     @Override
@@ -347,6 +363,5 @@ public class Node {
 
         return this.identifier.equals(node.getNodeIdentifier());
     }
-
 
 }
