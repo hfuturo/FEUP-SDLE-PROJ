@@ -77,6 +77,10 @@ public class Node {
             this.tryToJoinRing();
     }
 
+    public ConcurrentHashMap<NodeIdentifier, List<Document>> getOfflineNodeDocuments() {
+        return this.offlineNodeDocuments;
+    }
+
     public HashRing getRing() {
         return this.ring;
     }
@@ -315,16 +319,13 @@ public class Node {
     }
 
     public void storeDocumentAndReplicate(String key, Document document) {
-        this.storage.store(key, document);
-        Thread.ofVirtual().start(() -> {
-            this.replicateDocument(key, document);
-        });
+        this.storeDocument(key, document);
+        Thread.ofVirtual().start(() -> this.replicateDocument(key, document));
     }
 
     public void storeDocument(String key, Document document) {
-        System.out.println(Color.green("BEFORE: " + this.storage.retrieveAll().size()));
+        System.out.println(Color.green("Stored document with key: " + key));
         this.storage.store(key, document);
-        System.out.println(Color.green("AFTER: " + this.storage.retrieveAll().size()));
     }
 
     private void replicateDocument(String key, Document document) {
@@ -342,18 +343,15 @@ public class Node {
     }
 
     public void addDocumentsToOfflineNodes(Document document, NodeIdentifier offlineNode) {
-        System.out.println(Color.green("BEFORE TEMP: " + this.offlineNodeDocuments.size()));
-
-        if (this.offlineNodeDocuments.containsKey(offlineNode)) {
-            this.offlineNodeDocuments.get(offlineNode).add(document);
+        synchronized (this.offlineNodeDocuments) {
+            if (this.offlineNodeDocuments.containsKey(offlineNode)) {
+                this.offlineNodeDocuments.get(offlineNode).add(document);
+            } else {
+                List<Document> documents = new ArrayList<>();
+                documents.add(document);
+                this.offlineNodeDocuments.put(offlineNode, documents);
+            }
         }
-        else {
-            List<Document> documents = new ArrayList<>();
-            documents.add(document);
-            this.offlineNodeDocuments.put(offlineNode, documents);
-        }
-
-        System.out.println(Color.green("AFTER TEMP: " + this.offlineNodeDocuments.size()));
     }
 
     @Override
@@ -365,6 +363,5 @@ public class Node {
 
         return this.identifier.equals(node.getNodeIdentifier());
     }
-
 
 }

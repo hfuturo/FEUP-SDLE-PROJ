@@ -10,9 +10,8 @@ import feup.sdle.utils.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
 public class HashRingDocumentsService extends MessagingService {
@@ -30,6 +29,7 @@ public class HashRingDocumentsService extends MessagingService {
         this.buildMessageActions();
 
         this.registerDocumentServiceListener();
+        Thread.ofVirtual().start(this::sendTemporaryDocumentsToOwners);
     }
 
     private void buildMessageActions() {
@@ -143,10 +143,13 @@ public class HashRingDocumentsService extends MessagingService {
         var documentMessage = document.toMessage();
         var message = messageTemplate.setMessage(documentMessage.toByteString()).build().toByteArray();
 
-        System.out.println(Color.green("nodesToReplicate size: " + nodesToReplicate.size()));
+        StringBuilder replication = new StringBuilder("Sending replication to:");
+
         for (int i = 0; i < Node.REPLICATION_FACTOR; i++) {
-            System.out.println(Color.yellow("SEND TO " + nodesToReplicate.get(i).getPort()));
+            replication.append(" ").append(nodesToReplicate.get(i).getPort());
         }
+
+        System.out.println(Color.green(replication.toString()));
 
         Pair<List<NodeIdentifier>, List<NodeIdentifier>> nodes = this.node.getTransmitter().sendMultipleWithOfflineDetectionAndRet(message, nodesToReplicate, Node.REPLICATION_FACTOR);
         List<NodeIdentifier> offlineNodes = nodes.first();
@@ -155,8 +158,8 @@ public class HashRingDocumentsService extends MessagingService {
         Iterator<NodeIdentifier> offlineIterator = offlineNodes.iterator();
         Iterator<NodeIdentifier> substituteIterator = substituteNodes.iterator();
 
-        System.out.println(Color.red("OFF NODES: " + offlineNodes));
-        System.out.println(Color.red("SUBS NODES: " + substituteNodes));
+        System.out.println(Color.yellow("OFFLINE NODES: " + offlineNodes));
+        System.out.println(Color.yellow("SUBSTITUTE NODES: " + substituteNodes));
 
         while (offlineIterator.hasNext() && substituteIterator.hasNext()) {
             var temporaryDocumentMessage = Message.MessageFormat.newBuilder()
@@ -184,14 +187,66 @@ public class HashRingDocumentsService extends MessagingService {
         }
 
         try {
-            System.out.println(Color.green("ENTERED TEMPORARY"));
             DocumentProto.TemporaryDocument message = DocumentProto.TemporaryDocument.parseFrom(msgFormat.getMessage());
             Document document = Document.fromMessage(message.getDocument());
             NodeIdentifier offlineNode = NodeIdentifier.fromMessageNodeIdentifier(message.getOriginalNode());
+            System.out.println(Color.green("Received temporary document that was supposed to be stored in: " + offlineNode.getPort()));
 
             this.node.addDocumentsToOfflineNodes(document, offlineNode);
         } catch (Exception e) {
             LOGGER.error(Color.red(e.getMessage()));
+        }
+    }
+
+    public void sendTemporaryDocumentsToOwners() {
+        while (true) {
+            try {
+
+                ConcurrentHashMap<NodeIdentifier, List<Document>> map = this.node.getOfflineNodeDocuments();
+                if (map == null) {
+                    Thread.sleep(3000);
+                    continue;
+                }
+
+                synchronized (this.node.getOfflineNodeDocuments()) {
+                    Iterator<Map.Entry<NodeIdentifier, List<Document>>> iterator = map.entrySet().iterator();
+
+                    while (iterator.hasNext()) {
+                        Map.Entry<NodeIdentifier, List<Document>> entry = iterator.next();
+                        NodeIdentifier owner = entry.getKey();
+                        List<Document> documents = entry.getValue();
+
+                        if (documents != null) {
+                            for (Iterator<Document> documentIterator = documents.listIterator(); documentIterator.hasNext(); ) {
+                                Document document = documentIterator.next();
+
+                                var messageTemplate = Message.MessageFormat.newBuilder()
+                                        .setMessageType(Message.MessageFormat.MessageType.DOCUMENT_REPLICATION)
+                                        .setNodeIdentifier(this.node.getNodeIdentifier().toMessageNodeIdentifier());
+
+                                var documentMessage = document.toMessage();
+                                var message = messageTemplate.setMessage(documentMessage.toByteString()).build().toByteArray();
+
+                                boolean received = this.node.getTransmitter().sendMessageWithOfflineDetection(message, owner);
+
+                                if (received) {
+                                    System.out.println(Color.green("Sent temporary document to owner (" + owner.getPort() + ")"));
+                                    documentIterator.remove();
+                                }
+                            }
+
+                            if (documents.isEmpty()) {
+                                iterator.remove();
+                            }
+                        }
+                    }
+                }
+
+                Thread.sleep(3000);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
         }
     }
 }
