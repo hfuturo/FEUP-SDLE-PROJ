@@ -12,6 +12,7 @@ interface ShoppingListProto {
 
 export class ShoppingList {
   private id: string;
+  private lastItemId: number;
   private items: AWMap<string, ShoppingListItem>;
   private localIdentifier: number;
   private removedCounters: Map<string, DottedValue<number, number, number>>;
@@ -19,8 +20,18 @@ export class ShoppingList {
   constructor(localIdentifier: number, id?: string) {
     this.localIdentifier = localIdentifier;
     this.id = id || crypto.randomUUID();
+    this.lastItemId = 0;
     this.items = new AWMap<string, ShoppingListItem>(localIdentifier);
     this.removedCounters = new Map<string, DottedValue<number, number, number>>();
+  }
+
+  public toSerializable() {
+    return {
+      "id": this.id,
+      "localIdentifier": this.localIdentifier,
+      "items": this.items.toSerializable(),
+      "removedCounters": this.removedCounters
+    }
   }
 
   public setNodeIdentifier(identifier: number): void {
@@ -36,8 +47,7 @@ export class ShoppingList {
   }
 
   public addItem(key: string, name: string, quantity: number): void {
-    this.items.add(key, new ShoppingListItem(this.localIdentifier, name, quantity));
-
+    this.items.add(key, new ShoppingListItem(key, this.localIdentifier, name, quantity));
   }
 
   public remove(key: string): void {
@@ -140,30 +150,37 @@ export class ShoppingList {
     }
 
     return null;
+  }
+
+  clone() {
+    const cloned = new ShoppingList(this.localIdentifier, this.id);
+    cloned.setItems(this.items.clone());
+    cloned.setRemovedCounters(this.removedCounters);
+    return cloned;
+  }
+
+  /**
+   * list: {
+    "id": "f1aef91a-0469-4869-beee-3e7658fd1e98",
+    "localIdentifier": 50,
+    "items": {
+        "localIdentifier": 50,
+        "values": {},
+        "keys": {
+            "localIdentifier": 50,
+            "values": {},
+            "dotContext": {
+                "dots": {}
+            }
+        }
+    },
+    "removedCounters": {}
 }
-
-  public static fromProtoBuf(
-    proto: ShoppingListProto,
-    itemDeserializer: (data: any) => ShoppingListItem,
-    nodeIdentifierFactory: (data: any) => NodeIdentifier
-  ): ShoppingList {
-    const localIdentifier = nodeIdentifierFactory(proto.localIdentifier);
-    const shoppingList = new ShoppingList(localIdentifier, proto.id);
-
-    const items = AWMap.fromMessageProto<string, ShoppingListItem>(
-      proto.items,
-      itemDeserializer,
-      nodeIdentifierFactory
-    );
-
-    const removedCounters = new Map<string, DottedValue<number, number, number>>();
-    for (const [key, value] of Object.entries(proto.removedCounters)) {
-      removedCounters.set(key, DottedValue.fromMessageProto(value));
-    }
-
-    shoppingList.setItems(items);
-    shoppingList.setRemovedCounters(removedCounters);
-
-    return shoppingList;
+   */
+  static fromDatabase(list) {
+    const cloned = new ShoppingList(list.localIdentifier, list.id);
+    cloned.setItems(AWMap.fromDatabase(list.items) as AWMap<string, ShoppingListItem>);
+    cloned.setRemovedCounters(list.removedCounters);    
+    return cloned;
   }
 }

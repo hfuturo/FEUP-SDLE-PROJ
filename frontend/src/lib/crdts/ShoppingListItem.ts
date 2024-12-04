@@ -1,17 +1,34 @@
 import { CCounter } from "./CCounter";
 
 export class ShoppingListItem {
+  private id: string;
   private counter: CCounter;
   private name: string;
 
-  constructor(localIdentifier: number, name: string, value?: number) {
+  constructor(id: string, localIdentifier: number, name: string, value?: number) {
     this.counter = new CCounter(localIdentifier);
     this.name = name;
+    this.id = id;
 
     if (value !== undefined) {
       const validValue = value < 0 ? 0 : value;
       this.counter.update(validValue);
     }
+  }
+  
+  getId() {
+    return this.id;
+  }
+
+  getName() {
+    return this.name;  
+  }
+
+  toSerializable() {
+    return {
+      "name": this.name,
+      "counter": this.counter.toSerializable(),
+    };
   }
 
   public getCounter(): CCounter {

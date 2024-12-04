@@ -1,8 +1,16 @@
 export class DotContext {
     private dots: Map<number, number>;
+    private localIdentifier: number;
   
     constructor(localIdentifier: number) {
       this.dots = new Map<number, number>();
+      this.localIdentifier = localIdentifier;
+    }
+
+    toSerializable() {
+      return {
+        "dots": this.dots,
+      }
     }
   
     public getDots(): Map<number, number> {
@@ -59,6 +67,18 @@ export class DotContext {
       }
   
       return localHasItemsOtherDoesNot && otherHasItemsLocalDoesNot;
+    }
+
+    clone() {
+      const cloned = new DotContext(this.localIdentifier);
+      cloned.setDots(this.dots);
+      return cloned;
+    }
+
+    static fromDatabase(dotContext) {
+      const cloned = new DotContext(dotContext.localIdentifier);
+      cloned.setDots(dotContext.dots);
+      return cloned;
     }
 }
   

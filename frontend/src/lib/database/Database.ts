@@ -50,12 +50,10 @@ export class Database {
             const request = store.delete(listId);
 
             request.onsuccess = (event) => {
-                console.log("Shopping list deleted");
-                // add list with listId
-                const request2 = store.add(list);
+                const request2 = store.add(list.toSerializable());
 
                 request2.onsuccess = (event) => {
-                    console.log("Shopping list created");
+                    console.log("Shopping list updated");
                     resolve();
                 };
 

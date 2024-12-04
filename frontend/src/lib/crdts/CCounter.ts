@@ -13,6 +13,17 @@ export class CCounter {
     return this.set;
   }
 
+  toSerializable() {
+    return {
+      "id": this.id,
+      "set": Array.from(this.set).map((dv) => ({
+        "identifier": dv.identifier,
+        "event": dv.event,
+        "value": dv.value,
+      })),
+    };
+  }
+
   public setSet(set: Set<DottedValue<number, number, number>>): void {
     this.set = set;
   }

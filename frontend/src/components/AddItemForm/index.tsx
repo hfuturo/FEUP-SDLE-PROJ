@@ -1,31 +1,34 @@
 import { ShoppingList } from "@/lib/crdts/ShoppingList";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useAppStore } from "@/lib/store";
 
 type Props = {
     shoppingList: ShoppingList | null;
+    setShoppingList: Dispatch<SetStateAction<ShoppingList | null>>;
 }
 
-export default function AddItemForm({ shoppingList }: Props) {
+export default function AddItemForm({ shoppingList, setShoppingList }: Props) {
     const [itemName, setItemName] = useState<string>("");
     const database = useAppStore((state) => state.database);
-
-    console.log("current list: ", shoppingList);
 
     return <form className="flex flex-row gap-x-2" onSubmit={async (e) => {
         e.preventDefault();
 
         if (shoppingList) {
-            shoppingList.addItem("", itemName, 0);
+            shoppingList.addItem(crypto.randomUUID(), itemName, 0);
             await database.updateShoppingList(shoppingList.getId(), shoppingList);
+            setShoppingList(shoppingList.clone());
         }
+
+        setItemName("");
     }}>
         <Input 
             className="w-full" 
             placeholder="Item name" 
             onChange={(e) => setItemName(e.target.value)}
+            value={itemName}
             required 
         />
         <Button type="submit">
