@@ -28,3 +28,8 @@ message ShoppingList {
   NodeIdentifier localIdentifier = 2;
   map<string, DottedValue> removedCounters = 3;
 }
+
+message TemporaryDocument {
+  Document document = 1;
+  NodeIdentifier originalNode = 2;
+}

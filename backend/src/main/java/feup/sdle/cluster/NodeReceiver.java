@@ -43,6 +43,7 @@ public class NodeReceiver {
         this.msgTypeToServices.put(Message.MessageFormat.MessageType.DOCUMENT_REQUEST, this.hashRingDocumentsService);
         this.msgTypeToServices.put(Message.MessageFormat.MessageType.DOCUMENT_REPLICATION, this.hashRingDocumentsService);
         this.msgTypeToServices.put(MessageType.ACK, this.gossipService);
+        this.msgTypeToServices.put(MessageType.TEMPORARY_DOCUMENT, this.hashRingDocumentsService);
     }
 
     public void startReceiver() {
