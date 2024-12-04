@@ -102,22 +102,45 @@ public class DotContext {
      * Two DotContexts are said to be concurrent if there is simulateously one entry less than the other and another greater
      */
     public boolean isConcurrent(DotContext other) {
-        boolean localHasItemsOtherDoesNot = false;
-        boolean otherHasItemLocalHasNot = false;
+        boolean thisGreater = false;
+        boolean otherGreater = false;
 
-        for(Map.Entry<Integer, Integer> dotEntry: other.dots.entrySet()) {
-            if(this.dots.get(dotEntry.getKey()) == null || !Objects.equals(this.dots.get(dotEntry.getKey()), dotEntry.getValue())) {
-                localHasItemsOtherDoesNot = true;
+        for (Integer key : this.dots.keySet()) {
+            Integer thisValue = this.dots.getOrDefault(key, 0);
+            Integer otherValue = other.dots.getOrDefault(key, 0);
+
+            if (thisValue > otherValue) {
+                thisGreater = true;
+            } else if (thisValue < otherValue) {
+                otherGreater = true;
+            }
+
+            if (thisGreater && otherGreater) {
+                return true;
             }
         }
 
-        for(Map.Entry<Integer, Integer> dotEntry: this.dots.entrySet()) {
-            if(other.dots.get(dotEntry.getKey()) == null || !Objects.equals(other.dots.get(dotEntry.getKey()), dotEntry.getValue())) {
-                otherHasItemLocalHasNot = true;
+        for (Integer key : other.dots.keySet()) {
+            if (!this.dots.containsKey(key)) {
+                otherGreater = true;
+            }
+
+            if (thisGreater && otherGreater) {
+                return true;
             }
         }
 
-        return localHasItemsOtherDoesNot && otherHasItemLocalHasNot;
+        return false;
+    }
+
+    public boolean isMoreRecentThan(DotContext other) {
+        for (Map.Entry<Integer, Integer> otherEntry : other.dots.entrySet()) {
+            Integer localValue = this.dots.getOrDefault(otherEntry.getKey(), 0);
+            if (localValue < otherEntry.getValue()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public DotContextProto.DotContext toMessageDotContext() {

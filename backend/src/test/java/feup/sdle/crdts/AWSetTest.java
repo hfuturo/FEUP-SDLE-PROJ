@@ -22,8 +22,14 @@ public class AWSetTest {
         set1.merge(set2);
         set2.merge(set1);
 
+        AWSet<Integer> set3 = new AWSet<>(3);
+        set3.add(4);
+        set3.add(3);
+
         Assertions.assertEquals(set1.getValues().iterator().next(), 3);
         Assertions.assertEquals(set2.getValues().iterator().next(), 3);
+        Assertions.assertEquals(set1.getValues(), set3.getValues());
+        Assertions.assertEquals(set2.getValues(), set3.getValues());
     }
 
     @Test

@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package feup.sdle.message;
+
+option java_package = "feup.sdle.message";
+option java_outer_classname = "MVRegisterProto";
+
+import "dotcontext.proto";
+
+message IntSet {
+  repeated int32 ints = 1;
+}
+
+message StrSet {
+  repeated string strings = 1;
+}
+
+message ByteSet {
+  repeated bytes bytes = 1;
+}
+
+message ValueType {
+    oneof value {
+        IntSet intSet = 1;
+        StrSet strSet = 2;
+        ByteSet byteSet = 3;
+    }
+}
+
+message MVRegister{
+    int32 id = 1;
+    ValueType values = 2;
+    DotContext dotContext = 3;
+}
+

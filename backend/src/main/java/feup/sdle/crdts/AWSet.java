@@ -1,13 +1,12 @@
 package feup.sdle.crdts;
 
 import feup.sdle.message.AWSetProto;
-import feup.sdle.message.DocumentProto;
 import feup.sdle.message.DottedValueProto;
 
 import java.util.HashSet;
 import java.util.stream.Collectors;
 
-public class AWSet<V> {
+public class AWSet<V> implements CRDTSingleMergeable<AWSet<V>> {
     private HashSet<DottedValue<Integer, Integer, V>> values;
     private DotContext dotContext;
     private int localIdentifier;
@@ -31,6 +30,7 @@ public class AWSet<V> {
         return (HashSet<DottedValue<Integer, Integer, V>>) elements.stream().filter(el -> !dc.has(el.identifier(), el.event())).collect(Collectors.toSet());
     }
 
+    @Override
     public void merge(AWSet<V> other) {
         HashSet<DottedValue<Integer, Integer, V>> newSet = new HashSet<>(this.values);
         newSet.retainAll(other.values);

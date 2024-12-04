@@ -4,6 +4,7 @@ protobufs:
 	@-protoc -I=./common/protobufs --java_out=./backend/src/main/java/	\
 		./common/protobufs/dottedvalue.proto							\
 		./common/protobufs/dotcontext.proto								\
+		./common/protobufs/mvregister.proto								\
 		./common/protobufs/ccounter.proto								\
 		./common/protobufs/awset.proto									\
 		./common/protobufs/nodeidentifier.proto							\

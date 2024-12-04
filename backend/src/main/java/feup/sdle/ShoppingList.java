@@ -62,8 +62,8 @@ public class ShoppingList implements Document {
         this.removedCounters = removedCounters;
     }
 
-    public void addItem(String key, int quantity) {
-        this.items.add(key, new ShoppingListItem(this.localIdentifier.getId(), quantity));
+    public void addItem(String key, String name, int quantity) {
+        this.items.add(key, new ShoppingListItem(this.localIdentifier.getId(), name, quantity));
     }
 
     public void remove(String key) {
