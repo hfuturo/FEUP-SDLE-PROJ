@@ -1,13 +1,16 @@
 import { ShoppingListItem } from "@/lib/crdts/ShoppingListItem";
 import { Card, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { ShoppingList } from "@/lib/crdts/ShoppingList";
 
 type Props = {
     shoppingListItem: ShoppingListItem;
+    setShoppingList: Dispatch<SetStateAction<ShoppingList | null>>;
+    shoppingList: ShoppingList;
 }
 
-export default function ShoppingListItemCard({ shoppingListItem }: Props) {
+export default function ShoppingListItemCard({ shoppingListItem, shoppingList, setShoppingList }: Props) {
     const [quantity, setQuantity] = useState<number>(shoppingListItem.getQuantity());
     
     return <Card key={shoppingListItem.getId()}>
@@ -17,10 +20,15 @@ export default function ShoppingListItemCard({ shoppingListItem }: Props) {
                 className="w-1/4" 
                 type="number"
                 onChange={(e) => {
-                    setQuantity(parseInt(e.target.value));
-                    shoppingListItem.updateQuantity(parseInt(e.target.value));
+                    const intValue = parseInt(e.target.value) || 0;
+                    const diff = intValue - (quantity || 0);
+
+                    setQuantity(Math.max(0, intValue));
+                    shoppingListItem.updateQuantity(diff);
+
+                    setShoppingList(shoppingList.clone()); 
                 }}
-                value={quantity} 
+                placeholder={`${shoppingListItem.getQuantity()}`}
             />
         </CardContent>
     </Card>

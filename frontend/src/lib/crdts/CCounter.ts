@@ -39,6 +39,10 @@ export class CCounter {
   public update(value: number): void {
     const optDV = this.find(this.id);
 
+    if(Number.isNaN(value)) {
+      value = 0;
+    }
+
     if (!optDV) {
       // No existing dotted value for this ID
       const newValue = value > 0 ? value : Math.max(-this.getValue(), value);

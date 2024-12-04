@@ -18,7 +18,6 @@ export default function AddItemForm({ shoppingList, setShoppingList }: Props) {
 
         if (shoppingList) {
             shoppingList.addItem(crypto.randomUUID(), itemName, 0);
-            await database.updateShoppingList(shoppingList.getId(), shoppingList);
             setShoppingList(shoppingList.clone());
         }
 
