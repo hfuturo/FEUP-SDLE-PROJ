@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 export default function List() {
     const params = useParams();
     const database = useAppStore((state) => state.database);
+    const crdtSyncService = useAppStore((state) => state.crdtSyncService);
     const [shoppingList, setShoppingList] = useState<ShoppingList | null>(null);
 
     useEffect(() => {
@@ -32,7 +33,9 @@ export default function List() {
             await database.updateShoppingList(shoppingList?.getId(), shoppingList);
         };
 
-        if(shoppingList) updateShoppingList();
+        if(shoppingList) {
+            updateShoppingList();
+        }
     }, [shoppingList]);
 
     return <div className="flex flex-col mx-auto items-center w-1/2 mt-16 gap-y-4">
