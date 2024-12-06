@@ -1,6 +1,7 @@
 package feup.sdle;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import feup.sdle.crdts.CRDTSingleMergeable;
 import feup.sdle.message.DocumentProto;
 
 @JsonTypeInfo(
@@ -15,6 +16,7 @@ import feup.sdle.message.DocumentProto;
 public interface Document extends ProtobufSerializable {
     String getId();
     void setId(String id);
+    void merge(Document document);
     @Override
     DocumentProto.Document toMessage();
 

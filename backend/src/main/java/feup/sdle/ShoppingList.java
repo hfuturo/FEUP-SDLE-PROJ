@@ -85,8 +85,13 @@ public class ShoppingList implements Document {
       *
       * For example, if someone removes the item with the original value 1 but the other one adds 2 to the quantity, the item should remain with value 1.vgit
       */
-    public void merge(ShoppingList other) {
-        Optional<Integer> latestOtherDot = this.items.getDotContext().latestReplicaDot(other.localIdentifier.getId());
+     @Override
+     public void merge(Document otherDocument) {
+        if(!(otherDocument instanceof ShoppingList other)) {
+            return;
+        }
+
+         Optional<Integer> latestOtherDot = this.items.getDotContext().latestReplicaDot(other.localIdentifier.getId());
 
         this.items.merge(other.items);
 

@@ -47,7 +47,7 @@ public class NodeHTTPController {
 
     @PutMapping("/{key}")
     public ResponseEntity<Document> updateDocument(@PathVariable String key, @RequestBody Document document) {
-        node.storeDocumentAndReplicate(key, document);
+        node.updateDocumentAndReplicate(key, document);
         return ResponseEntity.ok(document);
     }
 

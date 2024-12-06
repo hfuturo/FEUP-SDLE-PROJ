@@ -318,9 +318,36 @@ public class Node {
         return this.storage.retrieveAll();
     }
 
+    public void replicateDocumentUpdate(String key, Document document) {
+        
+    }
+
     public void storeDocumentAndReplicate(String key, Document document) {
         this.storeDocument(key, document);
         Thread.ofVirtual().start(() -> this.replicateDocument(key, document));
+    }
+
+    public void updateDocumentAndReplicate(String key, Document document) {
+        this.updateDocument(key, document);
+        Thread.ofVirtual().start(() -> this.replicateDocumentUpdate(key, document));
+    }
+
+    /**
+     * When a document is stored, we receive the update and have to change our local value.
+     * Since we are using crdts, we can just merge it.
+     */
+    public void updateDocument(String key, Document document) {
+        // 1. Retrieve local document
+        Optional<Document> localDocumentOpt = this.storage.retrieve(key);
+
+        if(localDocumentOpt.isEmpty()) {
+            LOGGER.warn("Document with id " + key + " not found!");
+            return;
+        }
+
+        // 2. Merge local document
+        Document localDocument = localDocumentOpt.get();
+        localDocument.merge(document);
     }
 
     public void storeDocument(String key, Document document) {
