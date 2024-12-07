@@ -48,25 +48,47 @@ export class DotContext {
       }
     }
 
-    public isConcurrent(other: DotContext): boolean {
-      let localHasItemsOtherDoesNot = false;
-      let otherHasItemsLocalDoesNot = false;
-  
-      for (const [key, otherDot] of other.getDots()) {
-        const localDot = this.dots.get(key);
-        if (localDot === undefined || localDot !== otherDot) {
-          localHasItemsOtherDoesNot = true;
+    isMoreRecentThan(other: DotContext): boolean {
+        for (const [key, otherValue] of other.dots.entries()) {
+            const localValue = this.dots.get(key) || 0;
+            if (localValue < otherValue) {
+                return false;
+            }
         }
-      }
-  
-      for (const [key, localDot] of this.dots) {
-        const otherDot = other.getDots().get(key);
-        if (otherDot === undefined || localDot !== otherDot) {
-          otherHasItemsLocalDoesNot = true;
+        return true;
+    }
+
+    isConcurrent(other: DotContext): boolean {
+        let thisGreater = false;
+        let otherGreater = false;
+
+        // Check dots in this context
+        for (const [key, thisValue] of this.dots.entries()) {
+            const otherValue = other.dots.get(key) || 0;
+
+            if (thisValue > otherValue) {
+                thisGreater = true;
+            } else if (thisValue < otherValue) {
+                otherGreater = true;
+            }
+
+            if (thisGreater && otherGreater) {
+                return true;
+            }
         }
-      }
-  
-      return localHasItemsOtherDoesNot && otherHasItemsLocalDoesNot;
+
+        // Check for keys in the other context not in this context
+        for (const [key, otherValue] of other.dots.entries()) {
+            if (!this.dots.has(key)) {
+                otherGreater = true;
+            }
+
+            if (thisGreater && otherGreater) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     clone() {
