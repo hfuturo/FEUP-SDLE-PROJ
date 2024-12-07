@@ -25,13 +25,13 @@ public class StorageBucket<K, V> {
     public void store(K key, V value) {
         File file = new File("data/" + bucketName + "/" + key + ".json");
 
-        if(file.exists()) {
-            // update file
-        }
+        ObjectMapper objectMapper = new ObjectMapper();
 
         try {
-            if (file.createNewFile()) {
-                ObjectMapper objectMapper = new ObjectMapper();
+            if(file.exists()) {
+                objectMapper.writeValue(file, value);
+                return;
+            } else if (file.createNewFile()) {
                 objectMapper.writeValue(file, value);
             }
         } catch (Exception e) {

@@ -348,6 +348,8 @@ public class Node {
         // 2. Merge local document
         Document localDocument = localDocumentOpt.get();
         localDocument.merge(document);
+
+        this.storage.store(key, document);
     }
 
     public void storeDocument(String key, Document document) {
