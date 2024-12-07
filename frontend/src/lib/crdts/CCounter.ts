@@ -111,4 +111,16 @@ export class CCounter {
     cCounter.setSet(set);
     return cCounter;
   }
+
+  static fromDatabase(cCounter) {
+    console.log("Database ccounter: ", cCounter.set.length);
+    const cloned = new CCounter(cCounter.localIdentifier);
+    if(cCounter.set.length > 0) {
+      cloned.setSet(new Set(cCounter.set));
+    } else {
+      cloned.setSet(new Set());
+    }
+    
+    return cloned;
+  }
 }

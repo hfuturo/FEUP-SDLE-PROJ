@@ -44,7 +44,7 @@ export default function List() {
         <div className="flex flex-col gap-y-4">
             {shoppingList && Array.from(shoppingList.getItems().getValues().values()).map((value) => (
                 <ShoppingListItemCard 
-                    key={value.value.getId()} 
+                    key={crypto.randomUUID()} 
                     shoppingListItem={value.value} 
                     setShoppingList={setShoppingList}
                     shoppingList={shoppingList}

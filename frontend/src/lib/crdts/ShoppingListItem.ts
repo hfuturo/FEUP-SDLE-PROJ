@@ -57,6 +57,15 @@ export class ShoppingListItem {
     };
   }
 
+  static fromDatabase(slItem) {
+    const sl = new ShoppingListItem(slItem.id, slItem.localIdentifier, slItem.name);
+    sl.setCounter(CCounter.fromDatabase(slItem.counter));
+
+    console.log("NEW SHOPPING LIST ITEM: ", slItem.counter);
+
+    return sl;
+  }
+
   public static fromMessageShoppingListItem(
     identifier: number,
     msgSLItem: any,

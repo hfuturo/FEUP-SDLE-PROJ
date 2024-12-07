@@ -28,7 +28,7 @@ export default function ShoppingListItemCard({ shoppingListItem, shoppingList, s
 
                     setShoppingList(shoppingList.clone()); 
                 }}
-                placeholder={`${shoppingListItem.getQuantity()}`}
+                value={`${shoppingListItem.getQuantity()}`}
             />
         </CardContent>
     </Card>
