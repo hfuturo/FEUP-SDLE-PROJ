@@ -36,18 +36,9 @@ public class NodeHTTPController {
         return document.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public ResponseEntity<ShoppingList> createDocument() {
-        String key = UUID.randomUUID().toString();
-        ShoppingList shoppingList = new ShoppingList(this.node.getNodeIdentifier(), key);
-        node.storeDocumentAndReplicate(key, shoppingList);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(shoppingList);
-    }
-
     @PutMapping("/{key}")
     public ResponseEntity<Document> updateDocument(@PathVariable String key, @RequestBody Document document) {
-        node.updateDocumentAndReplicate(key, document);
+        node.storeDocumentAndReplicate(key, document);
         return ResponseEntity.ok(document);
     }
 

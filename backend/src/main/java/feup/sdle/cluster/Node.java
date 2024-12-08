@@ -15,9 +15,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.w3c.dom.css.DocumentCSS;
 import org.zeromq.ZMQ;
 import org.zeromq.ZContext;
 
+import javax.print.Doc;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
@@ -318,43 +320,27 @@ public class Node {
         return this.storage.retrieveAll();
     }
 
-    public void replicateDocumentUpdate(String key, Document document) {
-        
-    }
-
     public void storeDocumentAndReplicate(String key, Document document) {
         this.storeDocument(key, document);
         Thread.ofVirtual().start(() -> this.replicateDocument(key, document));
     }
 
-    public void updateDocumentAndReplicate(String key, Document document) {
-        this.updateDocument(key, document);
-        Thread.ofVirtual().start(() -> this.replicateDocumentUpdate(key, document));
-    }
-
-    /**
-     * When a document is stored, we receive the update and have to change our local value.
-     * Since we are using crdts, we can just merge it.
-     */
-    public void updateDocument(String key, Document document) {
-        // 1. Retrieve local document
-        Optional<Document> localDocumentOpt = this.storage.retrieve(key);
-
-        if(localDocumentOpt.isEmpty()) {
-            LOGGER.warn("Document with id " + key + " not found!");
-            return;
-        }
-
-        // 2. Merge local document
-        Document localDocument = localDocumentOpt.get();
-        localDocument.merge(document);
-
-        this.storage.store(key, document);
-    }
-
     public void storeDocument(String key, Document document) {
         System.out.println(Color.green("Stored document with key: " + key));
-        this.storage.store(key, document);
+
+        Optional<Document> localDocumentOpt = this.storage.retrieve(key);
+        Document doc;
+
+        if (localDocumentOpt.isEmpty()) {
+            doc = document;
+        }
+        else {
+            Document localDocument = localDocumentOpt.get();
+            localDocument.merge(document);
+            doc = localDocument;
+        }
+
+        this.storage.store(key, doc);
     }
 
     private void replicateDocument(String key, Document document) {

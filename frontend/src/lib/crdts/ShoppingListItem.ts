@@ -31,7 +31,9 @@ export class ShoppingListItem {
 
     toSerializable() {
         return {
+            "id": this.id,
             "counter": this.counter.toSerializable(),
+            "mvregister": this.name.toSerializable(),
         };
     }
 
@@ -45,6 +47,10 @@ export class ShoppingListItem {
 
     public getQuantity(): number {
         return this.counter.getValue();
+    }
+
+    public changeName(name: string): void {
+        this.name.update(name);
     }
 
     public updateQuantity(quantity: number): void {
@@ -63,10 +69,9 @@ export class ShoppingListItem {
     }
 
     static fromDatabase(slItem) {
-        const sl = new ShoppingListItem(slItem.id, slItem.localIdentifier, slItem.name);
+        const sl = new ShoppingListItem(slItem.id, slItem.localIdentifier);
         sl.setCounter(CCounter.fromDatabase(slItem.counter));
-
-        console.log("NEW SHOPPING LIST ITEM: ", slItem.counter);
+        sl.name = MVRegister.fromDatabase(slItem.mvregister);
 
         return sl;
     }

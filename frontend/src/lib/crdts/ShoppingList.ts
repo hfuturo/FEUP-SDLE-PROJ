@@ -2,6 +2,8 @@ import { AWMap } from "./AWMap";
 import { DottedValue } from "./DottedValue";
 import { NodeIdentifier } from "../p2p/NodeIdentifier";
 import { ShoppingListItem } from "./ShoppingListItem";
+import { Hasher } from "../utils/Hasher";
+import { HashRing } from "../p2p/HashRing";
 
 interface ShoppingListProto {
   id: string;
@@ -125,19 +127,24 @@ export class ShoppingList {
     };
   }
 
-  static async createShoppingList(ring): Promise<ShoppingList | null> {
+  static async createShoppingList(ring: HashRing): Promise<ShoppingList | null> {
+    const id = crypto.randomUUID();
+    console.log("CURRENT RING: ", ring);
+    const node = ring?.getResponsibleNode(id);
+    const shoppingList = new ShoppingList(50, id);
+
+    console.log("NODE: ", node);
+
     const tries = 10;
     for(let i = 0; i < tries; i++) {
-        const randomNumber = Math.floor(Math.random() * Object.keys(ring).length);
-        const node = Object.values(ring)[randomNumber];
-
         try {
             // Switch api port from 8081 to dynamic once the backend is changed to reflect that
-            const res = await fetch(`http://${node.hostName}:${node.httpPort}/api/cart/`, {
-                method: "POST",
+            const res = await fetch(`http://${node?.getHostname()}:${node?.getHttpPort()}/api/cart/${id}`, {
+                method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                 },
+                body: JSON.stringify(shoppingList.toSerializable()),
             });
 
             if (res.ok) {
@@ -149,7 +156,7 @@ export class ShoppingList {
         }
     }
 
-    return null;
+    return shoppingList;
   }
 
   clone() {

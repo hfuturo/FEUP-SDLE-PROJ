@@ -12,6 +12,14 @@ export class MVRegister<T> {
         this.localIdentifier = localIdentifier;
     }
 
+    toSerializable() {
+        return {
+            "localIdentifier": this.localIdentifier,
+            "values": Array.from(this.values),
+            "dotContext": this.dotContext.toSerializable(),
+        };
+    }
+
     public getValues(): Set<T> {
         return this.values;
     }
@@ -36,4 +44,11 @@ export class MVRegister<T> {
         this.dotContext.nextOfReplica(this.localIdentifier);
     }
 
+    static fromDatabase(mvregister) {
+        const cloned = new MVRegister<T>(mvregister.localIdentifier);
+        cloned.values = new Set(mvregister.values);
+        cloned.dotContext = new DotContext(mvregister.dotContext);
+
+        return cloned;
+    }
 }

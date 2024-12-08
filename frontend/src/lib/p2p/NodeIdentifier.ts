@@ -2,14 +2,14 @@ export class NodeIdentifier {
   private id: number;
   private hostname: string;
   private port: number;
-  private apiPort: number;
+  private httpPort: number;
   private alive: boolean;
 
-  constructor(id: number, hostname: string, port: number, apiPort: number, alive: boolean) {
+  constructor(id: number, hostname: string, port: number, httpPort: number, alive: boolean) {
     this.id = id;
     this.hostname = hostname;
     this.port = port;
-    this.apiPort = apiPort;
+    this.httpPort = httpPort;
     this.alive = alive;
   }
 
@@ -17,8 +17,8 @@ export class NodeIdentifier {
     return this.id;
   }
 
-  getApiPort(): number {
-    return this.apiPort;
+  getHttpPort(): number {
+    return this.httpPort;
   }
 
   getHostname(): string {

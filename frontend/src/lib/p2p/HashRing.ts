@@ -1,3 +1,4 @@
+import { Hasher } from "../utils/Hasher";
 import { NodeIdentifier } from "./NodeIdentifier";
 
 /**
@@ -20,7 +21,7 @@ export class HashRing {
     async getViewFromNodes() {
         for(const node of this.nodes) {
             try {
-                const res = await fetch(`http://${node.getHostname()}:${node.getApiPort()}/api/ring/`);
+                const res = await fetch(`http://${node.getHostname()}:${node.getHttpPort()}/api/ring/`);
 
                 if(res.ok) {
                     return await res.json();
@@ -32,5 +33,43 @@ export class HashRing {
         }
 
         return {}
+    }
+
+    /**
+     * Get the closest key value to key: string
+     */
+    getResponsibleNode(key: string) {
+        const keyHash = Hasher.md5(key);
+
+        // Get the keys of the Map and sort them
+        const keys = Array.from(this.ring.keys()).sort((a, b) => (a > b ? 1 : -1));
+
+        // Find the first key that is greater than or equal to the given hash
+        for (const key of keys) {
+            if (key >= keyHash) {
+                return this.ring.get(key); // Found the closest higher key
+            }
+        }
+
+        return this.ring.get(keys[0]);
+    }
+
+    /**
+     * Add a node to the hash ring
+     */
+    addNodeFromJson(key: string, nodeJson: any) {
+        console.log("ODEIO SDLE: ", nodeJson);
+        const node = new NodeIdentifier(nodeJson["id"], nodeJson["hostName"], nodeJson["port"], nodeJson["httpPort"], true);
+        this.ring.set(key, node);
+    }
+
+    /**
+     * Add multiple nodes to the hash ring
+     */
+    addNodesFromJson(nodesJson: any) {
+        Object.keys(nodesJson).forEach((key) => {
+            const node = nodesJson[key];
+            this.addNodeFromJson(key, node);
+        });
     }
 }

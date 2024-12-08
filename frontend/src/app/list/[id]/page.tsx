@@ -5,11 +5,13 @@ import ShoppingListItemCard from "@/components/ShoppingListItemCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ShoppingList } from "@/lib/crdts/ShoppingList";
+import useHashRing from "@/lib/hooks/useHashRing";
 import { useAppStore } from "@/lib/store";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function List() {
+    const { ring } = useHashRing();
     const params = useParams();
     const database = useAppStore((state) => state.database);
     const crdtSyncService = useAppStore((state) => state.crdtSyncService);
@@ -19,7 +21,9 @@ export default function List() {
         const fetchShoppingList = async () => {
             try {
                 const list = await database.getShoppingList(params.id);
-                setShoppingList(ShoppingList.fromDatabase(list));
+                const sl = ShoppingList.fromDatabase(list);
+                setShoppingList(sl);
+                crdtSyncService.send(sl, ring);
             } catch (error) {
                 console.error("Failed to fetch shopping lists:", error);
             }
@@ -42,9 +46,9 @@ export default function List() {
         <h1 className="text-center text-3xl">List</h1>
         <AddItemForm shoppingList={shoppingList} setShoppingList={setShoppingList} />
         <div className="flex flex-col gap-y-4">
-            {shoppingList && Array.from(shoppingList.getItems().getValues().values()).map((value) => (
+            {shoppingList && Array.from(shoppingList.getItems().getValues().values()).map((value, idx) => (
                 <ShoppingListItemCard 
-                    key={crypto.randomUUID()} 
+                    key={"shopping-list-item-" + idx} 
                     shoppingListItem={value.value} 
                     setShoppingList={setShoppingList}
                     shoppingList={shoppingList}

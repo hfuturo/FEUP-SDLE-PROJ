@@ -172,7 +172,6 @@ export class AWMap<K, V extends { merge: (other: V) => void }> {
 
     if(awMap.values.entries) {
       for (const [key, value] of awMap.values.entries()) {
-        console.log("NOT UNDERSTANDING SHIT: ", ShoppingListItem.fromDatabase(value.value));
         map.set(key, new DottedValue(value.identifier, value.event, ShoppingListItem.fromDatabase(value.value) ));
       }
     }

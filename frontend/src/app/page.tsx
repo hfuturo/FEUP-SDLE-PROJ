@@ -2,9 +2,6 @@
 
 import { CreateCard } from "@/components/CreateCard";
 import { SelectLists } from "@/components/SelectLists";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 
 export default function Home({ }) {
     return <>

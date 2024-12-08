@@ -1,17 +1,51 @@
+import { HashRing } from "../p2p/HashRing";
+import { ShoppingList } from "./ShoppingList";
+
 export class CRDTSyncService {
-    constructor() {}
+    constructor() { }
 
     /**
      * Sends updates to the servers of a crdt by its id
      */
-    send(id: string) {
+    async send(list: ShoppingList, ring: HashRing) {
+        try {
+            const id = list.getId();
+            const node = ring.getResponsibleNode(id);
+            const res = await fetch(`http://${node.getHostname()}:${node.getHttpPort()}/api/cart/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
 
+            if (res.ok) {
+                return await res.json();
+            }
+        } catch (error) {
+            console.error("Failed to update crdt: ", error);
+        }
     }
 
     /**
      * Fetches updates from the servers of a crdt by its id
      */
-    update(id: string) {
+    async update(id: string, ring: HashRing) {
+        try {
+            setTimeout(async () => {
+                const node = ring.getResponsibleNode(id);
+                const res = await fetch(`http://${node?.getHostname()}:${node?.getHttpPort()}/api/cart/${id}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                });
 
+                if (res.ok) {
+                    return await res.json();
+                }
+            }, 5000);
+        } catch (error) {
+            console.error("Failed to update crdt: ", error);
+        }
     }
 }

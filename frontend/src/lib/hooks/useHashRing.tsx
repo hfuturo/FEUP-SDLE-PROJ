@@ -5,9 +5,20 @@ export default function useHashRing() {
     const hashring = new HashRing();
 
     async function getRingView() {
-        const res = await hashring.getViewFromNodes();
+        try {
+            const res = await hashring.getViewFromNodes();
 
-        return res["ring"];
+            console.log("Ring fetched: ", res);
+
+            const ringJson = res["ring"];
+            const ring = new HashRing();
+
+            ring.addNodesFromJson(ringJson);
+
+            return ring;
+        } catch (error) {
+            console.error("Failed to fetch ring: ", error);
+        }
     }
 
     const { data: ring, isLoading } = useSWR("ring", getRingView);
