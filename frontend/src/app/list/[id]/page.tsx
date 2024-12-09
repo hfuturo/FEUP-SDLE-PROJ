@@ -2,6 +2,7 @@
 
 import AddItemForm from "@/components/AddItemForm";
 import ShoppingListItemCard from "@/components/ShoppingListItemCard";
+import { CRDTSyncService } from "@/lib/crdts/CRDTSyncService";
 import { ShoppingList } from "@/lib/crdts/ShoppingList";
 import useCRDTUpdate from "@/lib/hooks/useCRDTUpdate";
 import useHashRing from "@/lib/hooks/useHashRing";
@@ -16,6 +17,14 @@ export default function List() {
     const crdtSyncService = useAppStore((state) => state.crdtSyncService);
     const [shoppingList, setShoppingList] = useState<ShoppingList | null>(null);
     const { syncedList } = useCRDTUpdate(`${params.id}`, ring);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            crdtSyncService.send(shoppingList, ring);
+        }, 4000);
+
+        return () => clearInterval(interval);
+    }, [shoppingList]);
 
     useEffect(() => {
         const fetchShoppingList = async () => {

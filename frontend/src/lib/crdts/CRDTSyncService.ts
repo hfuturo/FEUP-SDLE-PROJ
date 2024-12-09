@@ -8,6 +8,8 @@ export class CRDTSyncService {
      * Sends updates to the servers of a crdt by its id
      */
     async send(list: ShoppingList, ring: HashRing) {
+        if(!ring) return;
+
         try {
             const id = list.getId();
             const node = ring.getResponsibleNode(id);
