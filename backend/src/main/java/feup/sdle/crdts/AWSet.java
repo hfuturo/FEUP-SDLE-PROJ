@@ -30,6 +30,10 @@ public class AWSet<V> implements CRDTSingleMergeable<AWSet<V>> {
         this.dotContext = new DotContext(localIdentifier);
     }
 
+    public void setLocalIdentifier(int localIdentifier) {
+        this.localIdentifier = localIdentifier;
+    }
+
     public void add(V element) {
         this.values.add(new DottedValue<>(localIdentifier, this.dotContext.nextOfReplica(this.localIdentifier), element));
     }

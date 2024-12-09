@@ -140,6 +140,7 @@ public class HashRingDocumentsService extends MessagingService {
                         .setMessageType(Message.MessageFormat.MessageType.DOCUMENT_REPLICATION)
                         .setNodeIdentifier(this.node.getNodeIdentifier().toMessageNodeIdentifier());
 
+        document.setNodeIdentifier(this.node.getNodeIdentifier());
         var documentMessage = document.toMessage();
         var message = messageTemplate.setMessage(documentMessage.toByteString()).build().toByteArray();
 

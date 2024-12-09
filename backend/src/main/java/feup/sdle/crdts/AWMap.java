@@ -39,6 +39,11 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
         return Optional.of(this.dotContext.latestReplicaDot(id));
     }
 
+    public void setNodeIdentifier(NodeIdentifier nodeIdentifier) {
+        this.localIdentifier = nodeIdentifier;
+        this.keys.setLocalIdentifier(this.localIdentifier.getId());
+    }
+
     public void setDotContext(DotContext dotContext) {
         this.dotContext = dotContext;
     }

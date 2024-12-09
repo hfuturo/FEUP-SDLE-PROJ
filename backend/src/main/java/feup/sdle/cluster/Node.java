@@ -347,7 +347,7 @@ public class Node {
     private void replicateDocument(String key, Document document) {
         List<NodeIdentifier> nodesToReplicate = this.ring.getPreferenceNodes(key, this.identifier);
         if (nodesToReplicate == null) return;
-        
+
         this.hashRingDocumentsService.sendDocumentReplication(
                 document,
                 nodesToReplicate
