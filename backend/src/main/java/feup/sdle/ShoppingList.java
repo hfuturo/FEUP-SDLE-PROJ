@@ -27,12 +27,14 @@ import java.util.*;
     * This is a CRDT set that will need to mantain a list of removed items, so in cases of a concurrent edit
     * the behaviour of the counters will not be wrong
 */
+@JsonTypeName("shoppingList")
 public class ShoppingList implements Document {
     @JsonProperty("id")
     private String id;
     // The String key will never change. This is an id of the shopping list and not the name of the list itself.
     @JsonProperty("items")
     private AWMap<String, ShoppingListItem> items;
+    @JsonProperty("localIdentifier")
     private NodeIdentifier localIdentifier;
     private HashMap<String, DottedValue<Integer, Integer, Integer>> removedCounters;
 

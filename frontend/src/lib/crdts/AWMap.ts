@@ -41,6 +41,7 @@ export class AWMap<K, V extends { merge: (other: V) => void }> {
       "localIdentifier": this.localIdentifier,
       "values": this.serializedMap(),
       "keys": this.keys.toSerializable(),
+      "dotContext": this.dotContext.toSerializable()
     }
   }
 

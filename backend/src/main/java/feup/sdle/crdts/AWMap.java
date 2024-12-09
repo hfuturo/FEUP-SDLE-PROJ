@@ -1,5 +1,6 @@
 package feup.sdle.crdts;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import feup.sdle.ShoppingList;
 import feup.sdle.cluster.NodeIdentifier;
@@ -14,6 +15,18 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
     private AWSet<K> keys;
     @JsonProperty("values")
     private HashMap<K, DottedValue<Integer, Integer, V>> values;
+
+    public AWMap(int localIdentifier, DotContext dotContext, HashMap<K, DottedValue<Integer, Integer, V>> values, AWSet<K> keys) {
+        this.localIdentifier = new NodeIdentifier(localIdentifier);
+        this.dotContext = dotContext;
+        this.values = values;
+        this.keys = keys;
+    }
+
+    @JsonCreator
+    public static AWMap<String, ShoppingListItem> fromJson(@JsonProperty("localIdentifier") int localIdentifier, @JsonProperty("dotContext") DotContext dotContext, @JsonProperty("values") HashMap<String, DottedValue<Integer, Integer, ShoppingListItem>> values, @JsonProperty("keys") AWSet<String> keys) {
+        return new AWMap<>(localIdentifier, dotContext, values, keys);
+    }
 
     public AWMap(NodeIdentifier localIdentifier) {
         this.localIdentifier = localIdentifier;

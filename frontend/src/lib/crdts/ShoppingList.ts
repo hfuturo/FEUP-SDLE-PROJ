@@ -129,11 +129,8 @@ export class ShoppingList {
 
   static async createShoppingList(ring: HashRing): Promise<ShoppingList | null> {
     const id = crypto.randomUUID();
-    console.log("CURRENT RING: ", ring);
     const node = ring?.getResponsibleNode(id);
     const shoppingList = new ShoppingList(50, id);
-
-    console.log("NODE: ", node);
 
     const tries = 10;
     for(let i = 0; i < tries; i++) {
@@ -144,7 +141,7 @@ export class ShoppingList {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(shoppingList.toSerializable()),
+                body: JSON.stringify({"type": "shoppingList", ...shoppingList.toSerializable()}),
             });
 
             if (res.ok) {

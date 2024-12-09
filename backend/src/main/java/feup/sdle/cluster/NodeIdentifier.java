@@ -1,5 +1,6 @@
 package feup.sdle.cluster;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import feup.sdle.message.Message;
 import feup.sdle.message.NodeIdentifierMessage;
@@ -16,6 +17,19 @@ public class NodeIdentifier {
     private int httpPort;
     private boolean alive;
     private ZMQ.Socket socket;
+
+    public NodeIdentifier(int id) {
+        this.id = id;
+    }
+
+    /**
+     * This constructor is to be used to create documents to store inside our file storage, so we do not need
+     * some node identifier information such as hostname or port
+     */
+    @JsonCreator
+    public static NodeIdentifier fromId(@JsonProperty("localIdentifier") int id) {
+        return new NodeIdentifier(id);
+    }
 
     public NodeIdentifier(int id, String hostname, int port, boolean alive, int httpPort) {
         this.id = id;

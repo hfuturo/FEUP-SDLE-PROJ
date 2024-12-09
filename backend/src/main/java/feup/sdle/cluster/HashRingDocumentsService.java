@@ -161,6 +161,8 @@ public class HashRingDocumentsService extends MessagingService {
         System.out.println(Color.yellow("OFFLINE NODES: " + offlineNodes));
         System.out.println(Color.yellow("SUBSTITUTE NODES: " + substituteNodes));
 
+        System.out.println("CURRENT NODE");
+
         while (offlineIterator.hasNext() && substituteIterator.hasNext()) {
             var temporaryDocumentMessage = Message.MessageFormat.newBuilder()
                     .setMessageType(Message.MessageFormat.MessageType.TEMPORARY_DOCUMENT)

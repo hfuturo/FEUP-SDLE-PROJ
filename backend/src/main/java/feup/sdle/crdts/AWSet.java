@@ -1,5 +1,7 @@
 package feup.sdle.crdts;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import feup.sdle.message.AWSetProto;
 import feup.sdle.message.DottedValueProto;
 
@@ -11,6 +13,16 @@ public class AWSet<V> implements CRDTSingleMergeable<AWSet<V>> {
     private DotContext dotContext;
     private int localIdentifier;
 
+    public AWSet(int localIdentifier, HashSet<DottedValue<Integer, Integer, V>> values, DotContext dotContext) {
+        this.localIdentifier = localIdentifier;
+        this.values = values;
+        this.dotContext = dotContext;
+    }
+
+    @JsonCreator
+    public static AWSet<String> fromJson(@JsonProperty("localIdentifier") int localIdentifier, @JsonProperty("dotContext") DotContext dotContext, @JsonProperty("values") HashSet<DottedValue<Integer, Integer, String>> values) {
+        return new AWSet<>(localIdentifier, values, dotContext);
+    }
    
     public AWSet(int localIdentifier) {
         this.localIdentifier = localIdentifier;

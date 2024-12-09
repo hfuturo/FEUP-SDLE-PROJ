@@ -67,7 +67,7 @@ public class Node {
 
         this.gossipService = new GossipService(this, this.zmqContext);
 
-        this.hashRingSyncService = new HashRingSyncService(this, this.ring, this.gossipService, 2000, 3);
+        this.hashRingSyncService = new HashRingSyncService(this, this.ring, this.gossipService, 10000, 3);
 
         this.hashRingDocumentsService = new HashRingDocumentsService(this);
 
@@ -322,12 +322,12 @@ public class Node {
 
     public void storeDocumentAndReplicate(String key, Document document) {
         this.storeDocument(key, document);
+
+        document.setNodeIdentifier(this.identifier); // We mask the node identifier of the client
         Thread.ofVirtual().start(() -> this.replicateDocument(key, document));
     }
 
     public void storeDocument(String key, Document document) {
-        System.out.println(Color.green("Stored document with key: " + key));
-
         Optional<Document> localDocumentOpt = this.storage.retrieve(key);
         Document doc;
 
@@ -341,12 +341,13 @@ public class Node {
         }
 
         this.storage.store(key, doc);
+        System.out.println(Color.green("Stored document with key: " + key));
     }
 
     private void replicateDocument(String key, Document document) {
         List<NodeIdentifier> nodesToReplicate = this.ring.getPreferenceNodes(key, this.identifier);
         if (nodesToReplicate == null) return;
-
+        
         this.hashRingDocumentsService.sendDocumentReplication(
                 document,
                 nodesToReplicate

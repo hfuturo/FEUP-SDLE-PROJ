@@ -38,6 +38,8 @@ public class NodeHTTPController {
 
     @PutMapping("/{key}")
     public ResponseEntity<Document> updateDocument(@PathVariable String key, @RequestBody Document document) {
+        document.setNodeIdentifier(this.node.getNodeIdentifier());
+
         node.storeDocumentAndReplicate(key, document);
         return ResponseEntity.ok(document);
     }

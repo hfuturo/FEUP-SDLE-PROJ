@@ -27,7 +27,7 @@ export class AWSet<V> {
   toSerializable() {
     return {
       "localIdentifier": this.localIdentifier,
-      "values": this.values,
+      "values": Array.from(this.values),
       "dotContext": this.dotContext.toSerializable(),
     }
   }

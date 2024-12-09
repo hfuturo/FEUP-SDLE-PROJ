@@ -16,6 +16,7 @@ export class CRDTSyncService {
                 headers: {
                     "Content-Type": "application/json",
                 },
+                body: JSON.stringify({"type": "shoppingList", ...list.toSerializable()}),
             });
 
             if (res.ok) {

@@ -1,5 +1,6 @@
 package feup.sdle.crdts;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import feup.sdle.message.DotContextProto;
 
 import java.beans.IntrospectionException;
@@ -16,9 +17,11 @@ import java.util.Optional;
  * You can think of this as a vector clock implementation
  */
 public class DotContext {
-    // The String is the replica identifier (TODO change this in the future)
-    // The Long is the event counter of that replica
     private HashMap<Integer, Integer> dots;
+
+    public DotContext(@JsonProperty("dots") HashMap<Integer, Integer> dots) {
+        this.dots = Objects.requireNonNullElseGet(dots, HashMap::new);
+    }
 
     public DotContext(int localIdentifier) {
         this.dots = new HashMap<Integer, Integer>();
