@@ -58,7 +58,6 @@ export class HashRing {
      * Add a node to the hash ring
      */
     addNodeFromJson(key: string, nodeJson: any) {
-        console.log("ODEIO SDLE: ", nodeJson);
         const node = new NodeIdentifier(nodeJson["id"], nodeJson["hostName"], nodeJson["port"], nodeJson["httpPort"], true);
         this.ring.set(key, node);
     }
@@ -71,5 +70,10 @@ export class HashRing {
             const node = nodesJson[key];
             this.addNodeFromJson(key, node);
         });
+    }
+
+    static fromJson(jsonRing) {
+        const hashRing = new HashRing();
+        hashRing.addNodesFromJson(jsonRing);
     }
 }

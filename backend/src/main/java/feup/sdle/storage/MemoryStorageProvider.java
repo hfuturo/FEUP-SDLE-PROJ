@@ -29,7 +29,20 @@ public class MemoryStorageProvider<K, V> implements StorageProvider<K, V> {
 
     @Override
     public Optional<V> retrieve(K key) {
-        return Optional.ofNullable(this.documentMap.get(key));
+        V document = this.documentMap.get(key);
+
+        // If it does not exist, try to retrieve from disk
+        if(document == null) {
+            Optional<V> opt = this.persistentStorageProvider.retrieve(key);
+
+            if(opt.isPresent()) {
+                this.documentMap.put(key, opt.get());
+            }
+
+            return opt;
+        }
+
+        return Optional.of(document);
     }
 
     public Map<K, V> retrieveAll() {

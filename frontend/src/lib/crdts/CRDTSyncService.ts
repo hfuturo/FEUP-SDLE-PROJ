@@ -31,6 +31,8 @@ export class CRDTSyncService {
      * Fetches updates from the servers of a crdt by its id
      */
     async update(id: string, ring: HashRing) {
+        if(!ring) return;
+
         try {
             setTimeout(async () => {
                 const node = ring.getResponsibleNode(id);

@@ -8,8 +8,6 @@ export default function useHashRing() {
         try {
             const res = await hashring.getViewFromNodes();
 
-            console.log("Ring fetched: ", res);
-
             const ringJson = res["ring"];
             const ring = new HashRing();
 

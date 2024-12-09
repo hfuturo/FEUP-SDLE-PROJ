@@ -5,6 +5,7 @@ import ShoppingListItemCard from "@/components/ShoppingListItemCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ShoppingList } from "@/lib/crdts/ShoppingList";
+import useCRDTUpdate from "@/lib/hooks/useCRDTUpdate";
 import useHashRing from "@/lib/hooks/useHashRing";
 import { useAppStore } from "@/lib/store";
 import { useParams } from "next/navigation";
@@ -16,6 +17,9 @@ export default function List() {
     const database = useAppStore((state) => state.database);
     const crdtSyncService = useAppStore((state) => state.crdtSyncService);
     const [shoppingList, setShoppingList] = useState<ShoppingList | null>(null);
+    const { syncedList } = useCRDTUpdate(`${params.id}`, ring);
+
+    console.log("current synced list: ", syncedList)
 
     useEffect(() => {
         const fetchShoppingList = async () => {
