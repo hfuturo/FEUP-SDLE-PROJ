@@ -10,14 +10,12 @@ public record DottedValue<I, E, V>(I identifier, E event, V value) {
                 .setIdentifier((Integer) identifier)
                 .setEvent((Integer) event);
 
-        if (value instanceof Integer) {
-            builder.setValueInt((Integer) value);
-        }
-        else if (value instanceof String) {
-            builder.setValueStr((String) value);
-        }
-        else {
-            builder.setValueStrBytes((ByteString) value);
+        switch (value) {
+            case Integer i -> builder.setValueInt(i);
+            case String s -> builder.setValueStr(s);
+            case ShoppingListItem shoppingListItem ->
+                    builder.setValueStrBytes(shoppingListItem.toMessageShoppingListItem().toByteString());
+            case null, default -> builder.setValueStrBytes((ByteString) value);
         }
 
         return builder.build();

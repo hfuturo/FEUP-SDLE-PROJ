@@ -30,7 +30,7 @@ export class AWMap<K, V extends { merge: (other: V) => void }> {
     const map = new Map<string, DottedValue<number, number, ShoppingListItem>>();
   
     for (const [key, value] of this.values) {
-      map.set(key, new DottedValue(value.identifier, value.event, value.value.toSerializable()));
+      map[key] = new DottedValue(value.identifier, value.event, value.value.toSerializable());
     }
   
     return map;

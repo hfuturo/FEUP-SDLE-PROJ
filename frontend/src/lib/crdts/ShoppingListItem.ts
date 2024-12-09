@@ -33,7 +33,7 @@ export class ShoppingListItem {
         return {
             "id": this.id,
             "counter": this.counter.toSerializable(),
-            "mvregister": this.name.toSerializable(),
+            "name": this.name.toSerializable(),
         };
     }
 

@@ -1,5 +1,7 @@
 package feup.sdle.crdts;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.protobuf.ByteString;
 import feup.sdle.cluster.NodeIdentifier;
 import feup.sdle.message.MVRegisterProto;
@@ -12,6 +14,17 @@ public class MVRegister<T> implements CRDTSingleMergeable<MVRegister<T>> {
     private Set<T> values;
     private DotContext dotContext;
     private final int localIdentifier;
+
+    public MVRegister(Set<T> values, DotContext dotContext, int localIdentifier) {
+        this.values = values;
+        this.dotContext = dotContext;
+        this.localIdentifier = localIdentifier;
+    }
+
+    @JsonCreator
+    public static MVRegister<String> fromJson(@JsonProperty("values") Set<String> values, @JsonProperty("dotContext") DotContext dotContext, @JsonProperty("localIdentifier") int localIdentifier) {
+        return new MVRegister<String>(values, dotContext, localIdentifier);
+    }
 
     public MVRegister(int localIdentifier) {
         this.localIdentifier = localIdentifier;

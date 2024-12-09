@@ -8,7 +8,14 @@ export class CRDTSyncService {
      * Sends updates to the servers of a crdt by its id
      */
     async send(list: ShoppingList, ring: HashRing) {
-        if(!ring) return;
+        if(!ring) {
+            console.log("no ring'");
+            return;
+        }
+
+        console.log("CRDT SYNC SERVICE LIST: ", list);
+        console.log("CRDT SYNC SERVICE: ", list.toSerializable());
+        console.log("CRDT SYNC SERVICE JSON STRINGIFY: ", JSON.stringify({ "type": "shoppingList", ...list.toSerializable() }));
 
         try {
             const id = list.getId();

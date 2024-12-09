@@ -1,5 +1,7 @@
 package feup.sdle.crdts;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import feup.sdle.message.ShoppingListItemProto;
 
 import java.util.Set;
@@ -11,6 +13,16 @@ public class ShoppingListItem implements CRDTSingleMergeable<ShoppingListItem> {
     public ShoppingListItem(int localIdentifier) {
         this.nameRegister = new MVRegister<>(localIdentifier);
         this.counter = new CCounter(localIdentifier);
+    }
+
+    public ShoppingListItem(MVRegister<String> name, CCounter counter) {
+        this.nameRegister = name;
+        this.counter = counter;
+    }
+
+    @JsonCreator
+    public static ShoppingListItem fromJson(@JsonProperty("counter") CCounter counter, @JsonProperty("name") MVRegister<String> name) {
+        return new ShoppingListItem(name, counter);
     }
 
     public ShoppingListItem(int localIdentifier, String name, int value) {

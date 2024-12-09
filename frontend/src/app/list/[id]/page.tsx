@@ -19,12 +19,9 @@ export default function List() {
     const { syncedList } = useCRDTUpdate(`${params.id}`, ring);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            crdtSyncService.send(shoppingList, ring);
-        }, 4000);
-
-        return () => clearInterval(interval);
-    }, [shoppingList]);
+        console.log("Currently shopping list: ", shoppingList);
+        crdtSyncService.send(shoppingList, ring);
+    }, [shoppingList, ring]);
 
     useEffect(() => {
         const fetchShoppingList = async () => {

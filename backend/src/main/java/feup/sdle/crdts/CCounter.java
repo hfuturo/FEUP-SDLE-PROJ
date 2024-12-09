@@ -1,5 +1,7 @@
 package feup.sdle.crdts;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import feup.sdle.message.CCounterProto;
 import feup.sdle.message.DottedValueProto;
 
@@ -10,6 +12,16 @@ import java.util.Optional;
 public class CCounter {
     private HashSet<DottedValue<Integer, Integer, Integer>> set;
     private final int id;
+
+    public CCounter(int id, HashSet<DottedValue<Integer, Integer, Integer>> set) {
+        this.id = id;
+        this.set = set;
+    }
+
+    @JsonCreator
+    public static CCounter fromJson(@JsonProperty("identifier") int id, @JsonProperty("set") HashSet<DottedValue<Integer, Integer, Integer>> set) {
+        return new CCounter(id, set);
+    }
 
     public CCounter(int id) {
         this.id = id;
