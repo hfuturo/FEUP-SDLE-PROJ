@@ -19,7 +19,9 @@ export default function useHashRing() {
         }
     }
 
-    const { data: ring, isLoading } = useSWR("ring", getRingView);
+    const { data: ring, isLoading } = useSWR("ring", getRingView, {
+        refreshInterval: 10000
+    });
 
     return {
         ring,
