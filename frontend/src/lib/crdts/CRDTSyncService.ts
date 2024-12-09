@@ -16,7 +16,7 @@ export class CRDTSyncService {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({"type": "shoppingList", ...list.toSerializable()}),
+                body: JSON.stringify({ "type": "shoppingList", ...list.toSerializable() }),
             });
 
             if (res.ok) {
@@ -31,22 +31,21 @@ export class CRDTSyncService {
      * Fetches updates from the servers of a crdt by its id
      */
     async update(id: string, ring: HashRing) {
-        if(!ring) return;
+        if (!ring) return;
 
         try {
-            setTimeout(async () => {
-                const node = ring.getResponsibleNode(id);
-                const res = await fetch(`http://${node?.getHostname()}:${node?.getHttpPort()}/api/cart/${id}`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    }
-                });
-
-                if (res.ok) {
-                    return await res.json();
+            const node = ring.getResponsibleNode(id);
+            const res = await fetch(`http://${node?.getHostname()}:${node?.getHttpPort()}/api/cart/${id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
                 }
-            }, 5000);
+            });
+
+            if (res.ok) {
+                return await res.json();
+            }
+
         } catch (error) {
             console.error("Failed to update crdt: ", error);
         }
