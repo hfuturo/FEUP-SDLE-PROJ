@@ -5,7 +5,7 @@ export class NodeIdentifier {
   private httpPort: number;
   private alive: boolean;
 
-  constructor(id: number, hostname: string, port: number, httpPort: number, alive: boolean) {
+  constructor(id: number, hostname: string, port: number, httpPort: number, alive: boolean = true) {
     this.id = id;
     this.hostname = hostname;
     this.port = port;

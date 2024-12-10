@@ -39,6 +39,7 @@ export default function List() {
     }, [params]);
 
     useEffect(() => {
+        console.log("how many times this ran?");
         const updateShoppingList = async () => {
             await database.updateShoppingList(shoppingList?.getId(), shoppingList);
         };

@@ -2,15 +2,7 @@ import { AWMap } from "./AWMap";
 import { DottedValue } from "./DottedValue";
 import { NodeIdentifier } from "../p2p/NodeIdentifier";
 import { ShoppingListItem } from "./ShoppingListItem";
-import { Hasher } from "../utils/Hasher";
 import { HashRing } from "../p2p/HashRing";
-
-interface ShoppingListProto {
-    id: string;
-    items: any; // Placeholder for serialized AWMap data
-    localIdentifier: any; // Placeholder for serialized NodeIdentifier data
-    removedCounters: { [key: string]: any }; // Placeholder for serialized DottedValue data
-}
 
 export class ShoppingList {
     private id: string;
@@ -20,10 +12,11 @@ export class ShoppingList {
     private removedCounters: Map<string, DottedValue<number, number, number>>;
 
     constructor(localIdentifier: number, id?: string) {
-        this.localIdentifier = localIdentifier;
+        this.localIdentifier = Math.floor(Math.random() * 10000);
+        console.log("What is local identifier: ", this.localIdentifier);
         this.id = id || crypto.randomUUID();
         this.lastItemId = 0;
-        this.items = new AWMap<string, ShoppingListItem>(localIdentifier);
+        this.items = new AWMap<string, ShoppingListItem>(this.localIdentifier);
         this.removedCounters = new Map<string, DottedValue<number, number, number>>();
     }
 
@@ -34,6 +27,10 @@ export class ShoppingList {
             "items": this.items.toSerializable(),
             "removedCounters": this.removedCounters
         }
+    }
+
+    public getLocalIdentifier() {
+        return this.localIdentifier;
     }
 
     public setNodeIdentifier(identifier: number): void {
@@ -131,6 +128,7 @@ export class ShoppingList {
         const id = crypto.randomUUID();
         const node = ring?.getResponsibleNode(id);
         const localIdentifier = Math.floor(Math.random() * 10000);
+        console.log("WHEN IS THIS UNDEFINED? ", localIdentifier);
         const shoppingList = new ShoppingList(localIdentifier, id);
 
         const tries = 10;

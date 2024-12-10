@@ -3,11 +3,6 @@ import { DottedValue } from "./DottedValue";
 import { AWSet } from "./AWSet";
 import { ShoppingListItem } from "./ShoppingListItem";
 
-interface NodeIdentifier {
-  getId(): number;
-  toMessageNodeIdentifier(): { id: number };
-}
-
 /**
  * Add-Wins Map (AWMap) implementation using DotContext, AWSet, and DottedValue.
  * This structure is a conflict-free replicated data type (CRDT) that represents a map
@@ -27,13 +22,22 @@ export class AWMap<K, V extends { merge: (other: V) => void }> {
   }
 
   serializedMap() {
-    const map = new Map<string, DottedValue<number, number, ShoppingListItem>>();
+    const map = {};
   
     for (const [key, value] of this.values) {
       map[key] = new DottedValue(value.identifier, value.event, value.value.toSerializable());
     }
   
     return map;
+
+  }
+
+  getLocalIdentifier() {
+    return this.localIdentifier;
+  }
+
+  setLocalIdentifier(localIdentifier: number) {
+    this.localIdentifier = localIdentifier;
   }
 
   toSerializable() {
@@ -87,6 +91,7 @@ export class AWMap<K, V extends { merge: (other: V) => void }> {
     const item = this.values.get(id);
 
     if (!item) {
+      console.log("this ran: ", this.localIdentifier);
       const dot = this.dotContext.nextOfReplica(this.localIdentifier);
       this.values.set(id, {
         identifier: this.localIdentifier,
