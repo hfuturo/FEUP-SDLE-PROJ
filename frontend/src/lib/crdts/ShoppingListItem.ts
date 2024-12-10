@@ -70,8 +70,9 @@ export class ShoppingListItem {
 
     static fromDatabase(slItem) {
         const sl = new ShoppingListItem(slItem.id, slItem.localIdentifier);
+
         sl.setCounter(CCounter.fromDatabase(slItem.counter));
-        sl.name = MVRegister.fromDatabase(slItem.mvregister);
+        sl.name = MVRegister.fromDatabase(slItem.name);
 
         return sl;
     }

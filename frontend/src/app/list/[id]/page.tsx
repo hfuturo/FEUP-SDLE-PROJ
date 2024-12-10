@@ -27,7 +27,13 @@ export default function List() {
         const fetchShoppingList = async () => {
             try {
                 const list = await database.getShoppingList(params.id);
+
+                console.log("BEFORE LIST: ", list);
+
                 const sl = ShoppingList.fromDatabase(list);
+
+                console.log("ANOTHER SKILL ISSUE: ", sl);
+
                 setShoppingList(sl);
                 crdtSyncService.send(sl, ring);
             } catch (error) {

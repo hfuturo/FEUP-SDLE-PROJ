@@ -45,6 +45,7 @@ export class MVRegister<T> {
     }
 
     static fromDatabase(mvregister) {
+        console.log("mv register from database: ", mvregister);
         const cloned = new MVRegister<T>(mvregister.localIdentifier);
         cloned.values = new Set(mvregister.values);
         cloned.dotContext = new DotContext(mvregister.dotContext);

@@ -20,11 +20,11 @@ export class ShoppingList {
         this.removedCounters = new Map<string, DottedValue<number, number, number>>();
     }
 
-    public toSerializable() {
+    public toSerializable(local: boolean = true) {
         return {
             "id": this.id,
             "localIdentifier": this.localIdentifier,
-            "items": this.items.toSerializable(),
+            "items": this.items.toSerializable(local),
             "removedCounters": this.removedCounters
         }
     }
