@@ -80,7 +80,7 @@ export class Database {
     
             request.onerror = (event) => {
                 console.error(event);
-                reject(event);
+                reject(null);
             };
         })
     }

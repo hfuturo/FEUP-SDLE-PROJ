@@ -7,9 +7,10 @@ import { useAppStore } from "@/lib/store";
 type Props = {
     shoppingList: ShoppingList | null;
     setShoppingList: Dispatch<SetStateAction<ShoppingList | null>>;
+    setSyncBlocked: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function AddItemForm({ shoppingList, setShoppingList }: Props) {
+export default function AddItemForm({ shoppingList, setShoppingList, setSyncBlocked}: Props) {
     const [itemName, setItemName] = useState<string>("");
     const database = useAppStore((state) => state.database);
 
@@ -26,6 +27,8 @@ export default function AddItemForm({ shoppingList, setShoppingList }: Props) {
         <Input 
             className="w-full" 
             placeholder="Item name" 
+            onFocus={(e) => setSyncBlocked(true)}
+            onBlur={(e) => setSyncBlocked(false)}
             onChange={(e) => setItemName(e.target.value)}
             value={itemName}
             required 

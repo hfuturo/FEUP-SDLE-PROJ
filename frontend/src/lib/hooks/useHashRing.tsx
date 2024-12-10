@@ -10,12 +10,8 @@ export default function useHashRing() {
 
             const ringJson = res["ring"];
             const ring = new HashRing();
-            
-            console.log("BEFORE ADD NODES FROM JSON: ", ring);
-
+        
             ring.addNodesFromJson(ringJson);
-
-            console.log("AFTER ADD NODES FROM JSON: ", ring);
 
             return ring;
         } catch (error) {

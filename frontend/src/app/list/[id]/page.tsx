@@ -16,26 +16,33 @@ export default function List() {
     const database = useAppStore((state) => state.database);
     const crdtSyncService = useAppStore((state) => state.crdtSyncService);
     const [shoppingList, setShoppingList] = useState<ShoppingList | null>(null);
-    const { syncedList } = useCRDTUpdate(`${params.id}`, ring);
+    const { syncedList } = useCRDTUpdate(`${params.id}`, ring, database);
+    const [syncBlocked, setSyncBlocked] = useState<boolean>(false);
 
     useEffect(() => {
-        console.log("Currently shopping list: ", shoppingList);
+        if(!syncBlocked) {
+            setShoppingList(syncedList);
+        }
+    }, [syncedList]);
+
+    useEffect(() => {
         crdtSyncService.send(shoppingList, ring);
     }, [shoppingList, ring]);
 
     useEffect(() => {
         const fetchShoppingList = async () => {
             try {
+                // If it is not in our database, we have to fetch from server
                 const list = await database.getShoppingList(params.id);
 
-                console.log("BEFORE LIST: ", list);
+                if(list) {
+                    const sl = ShoppingList.fromDatabase(list);
 
-                const sl = ShoppingList.fromDatabase(list);
-
-                console.log("ANOTHER SKILL ISSUE: ", sl);
-
-                setShoppingList(sl);
-                crdtSyncService.send(sl, ring);
+                    setShoppingList(sl);
+                    crdtSyncService.send(sl, ring);
+                } else {
+                    setShoppingList(ShoppingList.fromDatabase(crdtSyncService.update(params.id, ring)));
+                }
             } catch (error) {
                 console.error("Failed to fetch shopping lists:", error);
             }
@@ -45,7 +52,6 @@ export default function List() {
     }, [params]);
 
     useEffect(() => {
-        console.log("how many times this ran?");
         const updateShoppingList = async () => {
             await database.updateShoppingList(shoppingList?.getId(), shoppingList);
         };
@@ -57,14 +63,19 @@ export default function List() {
 
     return <div className="flex flex-col mx-auto items-center w-1/2 mt-16 gap-y-4">
         <h1 className="text-center text-3xl">List</h1>
-        <AddItemForm shoppingList={shoppingList} setShoppingList={setShoppingList} />
+        <AddItemForm 
+            shoppingList={shoppingList} 
+            setShoppingList={setShoppingList} 
+            setSyncBlocked={setSyncBlocked}
+        />
         <div className="flex flex-col gap-y-4">
             {shoppingList && Array.from(shoppingList.getItems().getValues().values()).map((value, idx) => (
                 <ShoppingListItemCard 
                     key={"shopping-list-item-" + idx} 
                     shoppingListItem={value.value} 
                     setShoppingList={setShoppingList}
-                    shoppingList={shoppingList}
+                    shoppingList={shoppingList}              
+                    setSyncBlocked={setSyncBlocked}  
                 />
             ))}
         </div>

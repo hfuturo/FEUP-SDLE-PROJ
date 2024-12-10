@@ -16,9 +16,7 @@ export class CRDTSyncService {
             list.getItems().setLocalIdentifier(list.getLocalIdentifier());
         }
 
-        console.log("CRDT SYNC SERVICE LIST: ", list);
-        console.log("CRDT SYNC SERVICE: ", list.toSerializable());
-        console.log("CRDT SYNC SERVICE JSON STRINGIFY: ", JSON.stringify({ "type": "shoppingList", ...list.toSerializable() }));
+        console.log("Sending list: ", JSON.stringify(list.toSerializable(false)));
 
         try {
             const id = list.getId();
@@ -43,7 +41,7 @@ export class CRDTSyncService {
      * Fetches updates from the servers of a crdt by its id
      */
     async update(id: string, ring: HashRing) {
-        /*if (!ring) return;
+        if (!ring) return;
 
         try {
             const node = ring.getResponsibleNode(id);
@@ -60,6 +58,6 @@ export class CRDTSyncService {
 
         } catch (error) {
             console.error("Failed to update crdt: ", error);
-        }*/
+        }
     }
 }

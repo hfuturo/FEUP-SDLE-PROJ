@@ -8,9 +8,10 @@ type Props = {
     shoppingListItem: ShoppingListItem;
     setShoppingList: Dispatch<SetStateAction<ShoppingList | null>>;
     shoppingList: ShoppingList;
+    setSyncBlocked: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function ShoppingListItemCard({ shoppingListItem, shoppingList, setShoppingList }: Props) {
+export default function ShoppingListItemCard({ shoppingListItem, shoppingList, setShoppingList, setSyncBlocked }: Props) {
     const [quantity, setQuantity] = useState<number>(shoppingListItem.getQuantity());
     const [itemName, setItemName] = useState<string>();
     const nameRef = useRef(null);
@@ -29,6 +30,8 @@ export default function ShoppingListItemCard({ shoppingListItem, shoppingList, s
                 key={`${shoppingListItem.getId()}-name-input`}
                 className="w-3/4 p-2"
                 type="text"
+                onFocus={(e) => setSyncBlocked(true)}
+                onBlur={(e) => setSyncBlocked(false)}
                 onChange={((e) => {
                     setItemName(e.target.value);
                     shoppingListItem.changeName(e.target.value);
@@ -41,6 +44,8 @@ export default function ShoppingListItemCard({ shoppingListItem, shoppingList, s
                 key={`${shoppingListItem.getId()}-quantity-input`}
                 className="w-1/4" 
                 type="number"
+                onFocus={(e) => setSyncBlocked(true)}
+                onBlur={(e) => setSyncBlocked(false)}
                 onChange={(e) => {
                     const intValue = parseInt(e.target.value) || 0;
                     const diff = intValue - (quantity || 0);

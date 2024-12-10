@@ -1,10 +1,16 @@
 package feup.sdle.crdts;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.protobuf.ByteString;
 import feup.sdle.message.DottedValueProto;
 import feup.sdle.message.ShoppingListItemProto;
 
-public record DottedValue<I, E, V>(I identifier, E event, V value) {
+public record DottedValue<I, E, V>(
+        @JsonProperty("identifier") I identifier,
+        @JsonProperty("event") E event,
+        @JsonProperty("value") V value
+) {
     public DottedValueProto.DottedValue toMessageDottedValue() {
         var builder = DottedValueProto.DottedValue.newBuilder()
                 .setIdentifier((Integer) identifier)
@@ -15,7 +21,7 @@ public record DottedValue<I, E, V>(I identifier, E event, V value) {
             case String s -> builder.setValueStr(s);
             case ShoppingListItem shoppingListItem ->
                     builder.setValueStrBytes(shoppingListItem.toMessageShoppingListItem().toByteString());
-            case null, default -> builder.setValueStrBytes((ByteString) value);
+            case null, default -> builder.setValueStrBytes(((ShoppingListItem) value).toMessageShoppingListItem().toByteString());
         }
 
         return builder.build();

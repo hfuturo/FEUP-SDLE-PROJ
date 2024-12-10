@@ -13,7 +13,6 @@ export class ShoppingList {
 
     constructor(localIdentifier: number, id?: string) {
         this.localIdentifier = Math.floor(Math.random() * 10000);
-        console.log("What is local identifier: ", this.localIdentifier);
         this.id = id || crypto.randomUUID();
         this.lastItemId = 0;
         this.items = new AWMap<string, ShoppingListItem>(this.localIdentifier);
@@ -78,7 +77,8 @@ export class ShoppingList {
     }
 
     public merge(other: ShoppingList): void {
-        const latestOtherDot = this.items.getDotContext().latestReplicaDot(other.localIdentifier.getId());
+        console.log("Other is: ", other);
+        const latestOtherDot = this.items.getDotContext().latestReplicaDot(other.localIdentifier);
 
         this.items.merge(other.items);
 
@@ -128,7 +128,6 @@ export class ShoppingList {
         const id = crypto.randomUUID();
         const node = ring?.getResponsibleNode(id);
         const localIdentifier = Math.floor(Math.random() * 10000);
-        console.log("WHEN IS THIS UNDEFINED? ", localIdentifier);
         const shoppingList = new ShoppingList(localIdentifier, id);
 
         const tries = 10;
@@ -181,9 +180,14 @@ export class ShoppingList {
   }
      */
     static fromDatabase(list) {
-        const cloned = new ShoppingList(list.localIdentifier, list.id);
-        cloned.setItems(AWMap.fromDatabase(list.items) as AWMap<string, ShoppingListItem>);
-        cloned.setRemovedCounters(list.removedCounters);
-        return cloned;
+        try {
+            const cloned = new ShoppingList(list.localIdentifier, list.id);
+            cloned.setItems(AWMap.fromDatabase(list.items) as AWMap<string, ShoppingListItem>);
+            cloned.getItems().setLocalIdentifier(list.localIdentifier);
+            cloned.setRemovedCounters(list.removedCounters);
+            return cloned;
+        } catch (error) {
+            console.error(e);
+        }
     }
 }
