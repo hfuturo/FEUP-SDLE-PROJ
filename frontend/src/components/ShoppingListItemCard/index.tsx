@@ -3,6 +3,7 @@ import { Card, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { ShoppingList } from "@/lib/crdts/ShoppingList";
+import { Button } from "@/components/ui/button"
 
 type Props = {
     shoppingListItem: ShoppingListItem;
@@ -57,6 +58,13 @@ export default function ShoppingListItemCard({ shoppingListItem, shoppingList, s
                 }}
                 value={`${shoppingListItem.getQuantity()}`}
             />
+            <Button 
+                variant="destructive"
+                onClick={() => {
+                    shoppingList.remove(shoppingListItem.getId())
+                    setShoppingList(shoppingList.clone())
+                }}
+            >Destructive</Button>
         </CardContent>
     </Card>
 }
