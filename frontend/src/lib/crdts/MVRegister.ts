@@ -12,11 +12,11 @@ export class MVRegister<T> {
         this.localIdentifier = localIdentifier;
     }
 
-    toSerializable() {
+    toSerializable(local: boolean = true) {
         return {
             "localIdentifier": this.localIdentifier,
             "values": Array.from(this.values),
-            "dotContext": this.dotContext.toSerializable(),
+            "dotContext": this.dotContext.toSerializable(local),
         };
     }
 

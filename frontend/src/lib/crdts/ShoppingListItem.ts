@@ -29,11 +29,11 @@ export class ShoppingListItem {
         return this.name;
     }
 
-    toSerializable() {
+    toSerializable(local: boolean = true) {
         return {
             "id": this.id,
             "counter": this.counter.toSerializable(),
-            "name": this.name.toSerializable(),
+            "name": this.name.toSerializable(local),
         };
     }
 

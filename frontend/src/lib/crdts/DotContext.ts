@@ -1,51 +1,67 @@
 export class DotContext {
     private dots: Map<number, number>;
     private localIdentifier: number;
-  
+
     constructor(localIdentifier: number) {
-      this.dots = new Map<number, number>();
-      this.localIdentifier = localIdentifier;
+        this.dots = new Map<number, number>();
+        this.localIdentifier = localIdentifier;
     }
 
-    toSerializable() {
-      return {
-        "dots": this.dots,
-      }
+    toSerializable(local: boolean = true) {
+        let map = null;
+
+        if (local) {
+            map = new Map();
+        } else {
+            map = {};
+        }
+
+        for (const [key, value] of this.dots) {
+            if (local) {
+                map.set(key, value);
+            } else {
+                map[key] = value;
+            }
+        }
+
+        return {
+            "dots": map,
+        }
     }
-  
+
     public getDots(): Map<number, number> {
-      return this.dots;
+        return this.dots;
     }
-  
+
     public setDots(dots: Map<number, number>): void {
-      this.dots = dots;
+        this.dots = dots;
     }
-  
+
     public maxOfReplica(identifier: number): number | null {
-      return this.dots.get(identifier) ?? null;
+        return this.dots.get(identifier) ?? null;
     }
-  
+
     public latestReplicaDot(identifier: number): number | null {
-      return this.dots.get(identifier) ?? null;
+        return this.dots.get(identifier) ?? null;
     }
 
     public nextOfReplica(identifier: number): number {
-      const counter = this.dots.get(identifier) || 0;
-      const nextCounter = counter + 1;
-      this.dots.set(identifier, nextCounter);
-      return nextCounter;
+        const counter = this.dots.get(identifier) || 0;
+        const nextCounter = counter + 1;
+        this.dots.set(identifier, nextCounter);
+        return nextCounter;
     }
-  
+
     public has(identifier: number, dot: number): boolean {
-      const value = this.dots.get(identifier);
-      return value !== undefined && value >= dot;
+        const value = this.dots.get(identifier);
+        return value !== undefined && value >= dot;
     }
-  
+
     public merge(other: DotContext): void {
-      for (const [key, otherDot] of other.getDots()) {
-        const localDot = this.dots.get(key) || 0;
-        this.dots.set(key, Math.max(localDot, otherDot));
-      }
+        for (const [key, otherDot] of other.getDots()) {
+            const localDot = this.dots.get(key) || 0;
+            this.dots.set(key, Math.max(localDot, otherDot));
+        }
     }
 
     isMoreRecentThan(other: DotContext): boolean {
@@ -92,15 +108,15 @@ export class DotContext {
     }
 
     clone() {
-      const cloned = new DotContext(this.localIdentifier);
-      cloned.setDots(this.dots);
-      return cloned;
+        const cloned = new DotContext(this.localIdentifier);
+        cloned.setDots(this.dots);
+        return cloned;
     }
 
     static fromDatabase(dotContext) {
-      const cloned = new DotContext(dotContext.localIdentifier);
-      cloned.setDots(dotContext.dots);
-      return cloned;
+        const cloned = new DotContext(dotContext.localIdentifier);
+        cloned.setDots(dotContext.dots);
+        return cloned;
     }
 }
-  
+
