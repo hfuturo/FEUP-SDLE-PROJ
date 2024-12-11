@@ -17,8 +17,6 @@ export class ShoppingList {
         this.lastItemId = 0;
         this.items = new AWMap<string, ShoppingListItem>(this.localIdentifier);
         this.removedCounters = new Map<string, DottedValue<number, number, number>>();
-
-        console.log("CONSTRUCT: " + this.removedCounters);
     }
 
     public toSerializable(local: boolean = true) {
@@ -48,7 +46,7 @@ export class ShoppingList {
             "id": this.id,
             "localIdentifier": this.localIdentifier,
             "items": this.items.toSerializable(local),
-            "removedCounters": map
+            "removedCounters": this.removedCounters
         }
     }
 
@@ -76,7 +74,6 @@ export class ShoppingList {
         const item = this.items.getValue(key);
         if (!item) return;
 
-        console.log("REMOVEDCOUNTERS: ", this.removedCounters);
         const removed = this.removedCounters.get(key);
         if (removed) {
             this.removedCounters.set(
@@ -102,7 +99,6 @@ export class ShoppingList {
     }
 
     public merge(other: ShoppingList): void {
-        console.log("Other is: ", other);
         const latestOtherDot = this.items.getDotContext().latestReplicaDot(other.localIdentifier);
 
         this.items.merge(other.items);
@@ -180,11 +176,9 @@ export class ShoppingList {
     }
 
     clone() {
-        console.log("BEF CLONE REMOVED COUNTERS: " + this.removedCounters);
         const cloned = new ShoppingList(this.localIdentifier, this.id);
         cloned.setItems(this.items.clone());
         cloned.setRemovedCounters(this.removedCounters);
-        console.log("CLONE REMOVED COUNTERS: " + cloned.removedCounters);
         return cloned;
     }
 
@@ -212,7 +206,7 @@ export class ShoppingList {
             cloned.setItems(AWMap.fromDatabase(list.items) as AWMap<string, ShoppingListItem>);
             cloned.getItems().setLocalIdentifier(list.localIdentifier);
             cloned.setRemovedCounters(list.removedCounters);
-            console.log("DB: " + cloned.removedCounters);
+            
             return cloned;
         } catch (error) {
             console.error(e);

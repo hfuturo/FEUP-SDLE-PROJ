@@ -107,6 +107,7 @@ export class AWMap<K, V extends { merge: (other: V) => void }> {
                 event: dot,
                 value: value
             });
+            this.keys.add(id);
         } else {
             item.value.merge(value);
         }

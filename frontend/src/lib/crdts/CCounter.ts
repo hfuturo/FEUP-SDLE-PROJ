@@ -44,11 +44,13 @@ export class CCounter {
     }
 
     if (!optDV) {
+      console.log("No existing dotted value for this ID");
       // No existing dotted value for this ID
       const newValue = value > 0 ? value : Math.max(-this.getValue(), value);
       this.set.add(new DottedValue(this.id, 1, newValue));
     } else {
       // Existing dotted value found
+      console.log("Existing dotted value found")
       const dv = optDV;
       const newEvent = dv.event + 1;
       const newValue = value > 0 ? dv.value + value : Math.max(0, dv.value + value);

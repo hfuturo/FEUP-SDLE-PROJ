@@ -41,7 +41,10 @@ export class CRDTSyncService {
      * Fetches updates from the servers of a crdt by its id
      */
     async update(id: string, ring: HashRing) {
-        if (!ring) return;
+        if (!ring) {
+            console.log("Ring is not defined");
+            return;
+        }
 
         try {
             const node = ring.getResponsibleNode(id);
@@ -53,11 +56,15 @@ export class CRDTSyncService {
             });
 
             if (res.ok) {
-                return await res.json();
-            }
+                const json = await res.json();
 
+                return json;
+            } else {
+                return null;
+            }
         } catch (error) {
             console.error("Failed to update crdt: ", error);
+            return null;
         }
     }
 }
