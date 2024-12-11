@@ -2,7 +2,6 @@
 
 import AddItemForm from "@/components/AddItemForm";
 import ShoppingListItemCard from "@/components/ShoppingListItemCard";
-import { CRDTSyncService } from "@/lib/crdts/CRDTSyncService";
 import { ShoppingList } from "@/lib/crdts/ShoppingList";
 import useCRDTUpdate from "@/lib/hooks/useCRDTUpdate";
 import useHashRing from "@/lib/hooks/useHashRing";
@@ -19,9 +18,11 @@ export default function List() {
     const { syncedList } = useCRDTUpdate(`${params.id}`, ring, database);
     const [syncBlocked, setSyncBlocked] = useState<boolean>(false);
 
+    console.log("syncedList: ", syncedList);
+
     useEffect(() => {
         if(!syncBlocked) {
-            setShoppingList(syncedList);
+           setShoppingList(syncedList);
         }
     }, [syncedList]);
 
@@ -41,7 +42,8 @@ export default function List() {
                     setShoppingList(sl);
                     crdtSyncService.send(sl, ring);
                 } else {
-                    setShoppingList(ShoppingList.fromDatabase(crdtSyncService.update(params.id, ring)));
+                    const newList = await crdtSyncService.update(params.id, ring);
+                    setShoppingList(ShoppingList.fromDatabase(newList));
                 }
             } catch (error) {
                 console.error("Failed to fetch shopping lists:", error);
@@ -49,7 +51,7 @@ export default function List() {
         };
 
         fetchShoppingList();
-    }, [params]);
+    }, [params, ring]);
 
     useEffect(() => {
         const updateShoppingList = async () => {

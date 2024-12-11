@@ -1,4 +1,5 @@
 import { DotContext } from "./DotContext";
+import { DottedValue } from "./DottedValue";
 
 interface DottedValue<ID, Event, V> {
   identifier: ID;
@@ -27,7 +28,7 @@ export class AWSet<V> {
   toSerializable() {
     return {
       "localIdentifier": this.localIdentifier,
-      "values": Array.from(this.values),
+      "values": Array.from(this.values).map((val) => (new DottedValue(val.identifier, val.event, val.value)).toSerializable()),
       "dotContext": this.dotContext.toSerializable(),
     }
   }
