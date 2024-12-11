@@ -36,10 +36,10 @@ export class ShoppingList {
         if (this.removedCounters) {
             for (const [k,v] of this.removedCounters) {
                 if (local) {
-                    map.set(k, new DottedValue(v.identifier, v.event, v.value.toSerializable()));
+                    map.set(k, new DottedValue(v.identifier, v.event, v.value));
                 }
                 else {
-                    map[k] = new DottedValue(v.identifier, v.event, v.value.toSerializable());
+                    map[k] = new DottedValue(v.identifier, v.event, v.value);
                 }
             }
         }
