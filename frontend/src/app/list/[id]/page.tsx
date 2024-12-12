@@ -17,10 +17,14 @@ export default function List() {
     const [shoppingList, setShoppingList] = useState<ShoppingList | null>(null);
     const { syncedList } = useCRDTUpdate(`${params.id}`, ring, database);
     const [syncBlocked, setSyncBlocked] = useState<boolean>(false);
+    const [fetchedFromDbFirst, setFetchedFromDbFirst] = useState<boolean>(false);
 
     console.log("syncedList: ", syncedList);
+    console.log("fetched from db first: ", fetchedFromDbFirst);
 
     useEffect(() => {
+        if(!fetchedFromDbFirst) return;
+
         if(!syncBlocked && syncedList) {
            setShoppingList(syncedList);
         }
@@ -36,11 +40,14 @@ export default function List() {
                 // If it is not in our database, we have to fetch from server
                 const list = await database.getShoppingList(params.id);
 
+                console.log("Database list: ", list);
+
                 if(list) {
                     const sl = ShoppingList.fromDatabase(list);
-
+                    console.log("Shopping list from database: ", sl);
                     setShoppingList(sl);
                     crdtSyncService.send(sl, ring);
+                    setFetchedFromDbFirst(true);
                 } else {
                     const newList = await crdtSyncService.update(params.id, ring);
                     console.log("Fetched list: ", newList);
@@ -53,9 +60,11 @@ export default function List() {
         };
 
         fetchShoppingList();
-    }, [params, ring]);
+    }, [params]);
 
     useEffect(() => {
+        if(!fetchedFromDbFirst) return;
+
         const updateShoppingList = async () => {
             await database.updateShoppingList(shoppingList?.getId(), shoppingList);
         };
