@@ -14,6 +14,9 @@ export default function useCRDTUpdate(id: string, ring: HashRing, db: Database) 
 
             if (list) {
                 const otherList = ShoppingList.fromDatabase(updatedList);
+
+                console.log("lmao list is: ", list);
+                console.log("lmao other list is: ", {...otherList});
                 
                 try {
                     list.merge(otherList);

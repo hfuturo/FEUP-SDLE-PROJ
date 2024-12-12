@@ -43,6 +43,7 @@ export class ShoppingList {
         }
 
         return {
+            "type": "shoppingList",
             "id": this.id,
             "localIdentifier": this.localIdentifier,
             "items": this.items.toSerializable(local),

@@ -40,6 +40,18 @@ public class AWMapTest {
     }
 
     @Test
+    public void emptyMerge() {
+        AWMap<String, ShoppingListItem> map1 = new AWMap<String, ShoppingListItem>(new NodeIdentifier(1, "localhost", 1, true, 1));
+        AWMap<String, ShoppingListItem> map2 = new AWMap<String, ShoppingListItem>(new NodeIdentifier(2, "localhost", 2, true, 1));
+
+        map1.add("id1", new ShoppingListItem(1, "ovos", 4));
+
+        map1.merge(map2);
+
+        Assertions.assertEquals(map1.getValue("id1").value().getQuantity(), 4);
+    }
+
+    @Test
     public void complexMerge() {
         AWMap<String, ShoppingListItem> map1 = new AWMap<String, ShoppingListItem>(new NodeIdentifier(1, "localhost", 1, true, 1));
         AWMap<String, ShoppingListItem> map2 = new AWMap<String, ShoppingListItem>(new NodeIdentifier(2, "localhost", 2, true, 1));

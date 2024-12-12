@@ -43,6 +43,8 @@ export default function List() {
                     crdtSyncService.send(sl, ring);
                 } else {
                     const newList = await crdtSyncService.update(params.id, ring);
+                    console.log("Fetched list: ", newList);
+                    console.log("Fetched list from database: ", ShoppingList.fromDatabase(newList))
                     setShoppingList(ShoppingList.fromDatabase(newList));
                 }
             } catch (error) {

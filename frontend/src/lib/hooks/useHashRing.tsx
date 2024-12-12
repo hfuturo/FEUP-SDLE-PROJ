@@ -20,7 +20,7 @@ export default function useHashRing() {
     }
 
     const { data: ring, isLoading } = useSWR("ring", getRingView, {
-        refreshInterval: 10000
+        refreshInterval: 30000
     });
 
     return {

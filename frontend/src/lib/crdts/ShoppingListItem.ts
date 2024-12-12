@@ -71,6 +71,7 @@ export class ShoppingListItem {
     static fromDatabase(slItem) {
         const sl = new ShoppingListItem(slItem.id, slItem.localIdentifier);
 
+        console.log("what the fuck slitem? ", slItem);
         sl.setCounter(CCounter.fromDatabase(slItem.counter));
         sl.name = MVRegister.fromDatabase(slItem.name);
 
