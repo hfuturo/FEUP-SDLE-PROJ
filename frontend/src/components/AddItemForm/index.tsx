@@ -12,7 +12,6 @@ type Props = {
 
 export default function AddItemForm({ shoppingList, setShoppingList, setSyncBlocked}: Props) {
     const [itemName, setItemName] = useState<string>("");
-    const database = useAppStore((state) => state.database);
 
     return <form className="flex flex-row gap-x-2" onSubmit={async (e) => {
         e.preventDefault();

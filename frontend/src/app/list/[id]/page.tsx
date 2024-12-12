@@ -2,6 +2,7 @@
 
 import AddItemForm from "@/components/AddItemForm";
 import ShoppingListItemCard from "@/components/ShoppingListItemCard";
+import { Switch } from "@/components/ui/switch";
 import { ShoppingList } from "@/lib/crdts/ShoppingList";
 import useCRDTUpdate from "@/lib/hooks/useCRDTUpdate";
 import useHashRing from "@/lib/hooks/useHashRing";
@@ -15,23 +16,36 @@ export default function List() {
     const database = useAppStore((state) => state.database);
     const crdtSyncService = useAppStore((state) => state.crdtSyncService);
     const [shoppingList, setShoppingList] = useState<ShoppingList | null>(null);
-    const { syncedList } = useCRDTUpdate(`${params.id}`, ring, database);
     const [syncBlocked, setSyncBlocked] = useState<boolean>(false);
-    const [fetchedFromDbFirst, setFetchedFromDbFirst] = useState<boolean>(false);
+    const [offline, setOffline] = useState<boolean>(false);
+    const { syncedList } = useCRDTUpdate(`${params.id}`, ring, database, offline);
 
-    console.log("syncedList: ", syncedList);
-    console.log("fetched from db first: ", fetchedFromDbFirst);
+    console.log("Current shopping list: ", shoppingList);
 
     useEffect(() => {
-        if(!fetchedFromDbFirst) return;
+        if(shoppingList) return;
 
+        const fetchFromDb = async () => {
+            const list = await database.getShoppingList(params.id);
+
+            if(list) {
+                const sl = ShoppingList.fromDatabase(list);
+               
+                if(sl) setShoppingList(sl);
+            }
+        };
+
+        fetchFromDb();
+    });
+
+    useEffect(() => {
         if(!syncBlocked && syncedList) {
            setShoppingList(syncedList);
         }
     }, [syncedList]);
 
     useEffect(() => {
-        crdtSyncService.send(shoppingList, ring);
+        if(!offline) crdtSyncService.send(shoppingList, ring);
     }, [shoppingList]);
 
     useEffect(() => {
@@ -40,19 +54,17 @@ export default function List() {
                 // If it is not in our database, we have to fetch from server
                 const list = await database.getShoppingList(params.id);
 
-                console.log("Database list: ", list);
-
                 if(list) {
                     const sl = ShoppingList.fromDatabase(list);
                     console.log("Shopping list from database: ", sl);
-                    setShoppingList(sl);
-                    crdtSyncService.send(sl, ring);
-                    setFetchedFromDbFirst(true);
-                } else {
+                    if(sl) setShoppingList(sl);
+                    if(!offline) crdtSyncService.send(sl, ring);
+                } else if(!offline) {
                     const newList = await crdtSyncService.update(params.id, ring);
                     console.log("Fetched list: ", newList);
                     console.log("Fetched list from database: ", ShoppingList.fromDatabase(newList))
-                    setShoppingList(ShoppingList.fromDatabase(newList));
+                    const serializedSl= ShoppingList.fromDatabase(newList);
+                    if(serializedSl) setShoppingList(serializedSl);
                 }
             } catch (error) {
                 console.error("Failed to fetch shopping lists:", error);
@@ -63,8 +75,6 @@ export default function List() {
     }, [params, ring]);
 
     useEffect(() => {
-        if(!fetchedFromDbFirst) return;
-
         const updateShoppingList = async () => {
             await database.updateShoppingList(shoppingList?.getId(), shoppingList);
         };
@@ -75,7 +85,17 @@ export default function List() {
     }, [shoppingList]);
 
     return <div className="flex flex-col mx-auto items-center w-1/2 mt-16 gap-y-4">
-        <h1 className="text-center text-3xl">List</h1>
+        <div className="flex flex-row justify-center items-center gap-x-4">
+            <h1 className="text-center text-3xl">List</h1>
+            <div className="flex flex-row">
+                <Switch
+                    checked={offline}
+                    onCheckedChange={(checked) => setOffline(checked)}
+                    id="offline-switch"
+                />
+                <label htmlFor="offline-switch" className="ml-2">Offline</label>
+            </div>
+        </div>
         <AddItemForm 
             shoppingList={shoppingList} 
             setShoppingList={setShoppingList} 
