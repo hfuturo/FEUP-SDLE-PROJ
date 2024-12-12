@@ -46,7 +46,6 @@ public class ShoppingList implements Document {
     }
 
     public ShoppingList(NodeIdentifier localIdentifier) {
-        System.out.println("IDK SHOPPING LIST NODE IDENTIFIER: " + localIdentifier);
         this.items = new AWMap<>(localIdentifier);
         this.localIdentifier = localIdentifier;
         this.removedCounters = new HashMap<>();

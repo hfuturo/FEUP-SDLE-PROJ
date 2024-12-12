@@ -72,6 +72,8 @@ public class HashRingSyncService {
     private void sendHashRingLog(NodeIdentifier nodeToSend) {
         ZMQ.Socket socket = nodeToSend.getSocket(this.node.getZmqContext());
 
+        System.out.println("Isn't this sending the hash ring log: " + this.node.getNodeIdentifier().toMessageNodeIdentifier());
+
         MessageFormat msgFormat = MessageFormat.newBuilder().setMessageType(MessageFormat.MessageType.HASH_RING_LOG)
                 .setNodeIdentifier(this.node.getNodeIdentifier().toMessageNodeIdentifier())
                 .setMessage(this.hashRing.getHashRingLog().toProtoBuf())
@@ -84,6 +86,9 @@ public class HashRingSyncService {
     private void initSyncService() {
         Thread.ofVirtual().start(() -> {
             while(true) {
+                for(var node: this.hashRing.getRing().values()) {
+                    System.out.println("SKILL ISSUE: " + node.getHttpPort());
+                }
                 try {
                     Thread.sleep(this.timeoutMs);
                     HashCheck hashCheck = HashCheck.newBuilder()

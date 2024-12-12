@@ -177,6 +177,7 @@ public class HashRingLog implements ProtobufSerializable {
         HashRingLog log = new HashRingLog(msg.getReplicaId());
 
         for(HashRingOperationMessage.HashRingLogTimestamp operation: msg.getTimestampsList()) {
+            System.out.println("Current identifier: " + operation.getIdentifier());
             HashRingLongTimestamp<HashRingLogOperation> timestamp = new HashRingLongTimestamp<>(
                     NodeIdentifier.fromMessageNodeIdentifier(operation.getIdentifier()),
                     operation.getDot(),

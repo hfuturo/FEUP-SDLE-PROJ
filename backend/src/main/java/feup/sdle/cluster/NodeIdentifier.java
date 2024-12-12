@@ -48,6 +48,10 @@ public class NodeIdentifier {
         this.httpPort = httpPort;
     }
 
+    public int getHttpPort() {
+        return this.httpPort;
+    }
+
     public void setAlive(boolean alive) {
         this.alive = alive;
     }
@@ -89,6 +93,7 @@ public class NodeIdentifier {
                 .setId(this.id)
                 .setHostname(this.hostname)
                 .setPort(this.port)
+                .setHttpPort(this.httpPort)
                 .build();
     }
 

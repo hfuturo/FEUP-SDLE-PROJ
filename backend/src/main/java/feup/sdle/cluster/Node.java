@@ -40,6 +40,7 @@ public class Node {
     private boolean starter;
     private NodeReceiver receiver;
     private NodeTransmitter transmitter;
+    private int httpPort;
     private final ConcurrentHashMap<NodeIdentifier, List<Document>> offlineNodeDocuments;
 
     /**
@@ -52,6 +53,8 @@ public class Node {
             @Value("${node.starter}") boolean starter,
             @Value("${api.port}") int httpPort
     ) {
+        this.httpPort = httpPort;
+
 
         this.zmqContext = new ZContext();
 
@@ -77,6 +80,14 @@ public class Node {
 
         if (!this.starter)
             this.tryToJoinRing();
+    }
+
+    public int getHttpPort() {
+        return httpPort;
+    }
+
+    public void setHttpPort(int httpPort) {
+        this.httpPort = httpPort;
     }
 
     public ConcurrentHashMap<NodeIdentifier, List<Document>> getOfflineNodeDocuments() {
