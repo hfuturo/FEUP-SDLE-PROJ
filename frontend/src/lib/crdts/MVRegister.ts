@@ -41,7 +41,7 @@ export class MVRegister<T> {
     update(value: T): void {
         this.values.clear();
         this.values.add(value);
-        this.dotContext.nextOfReplica(this.localIdentifier);
+        this.dotContext.getDots().set(this.localIdentifier, this.dotContext.nextOfReplica(this.localIdentifier));
     }
 
     static fromDatabase(mvregister) {
