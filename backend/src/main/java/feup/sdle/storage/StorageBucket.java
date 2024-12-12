@@ -15,7 +15,10 @@ public class StorageBucket<K, V> {
     public void create() {
         File folder = new File("data/" + bucketName);
 
-        if(folder.mkdir()) {
+        if (folder.exists())
+            return;
+
+        if(folder.mkdirs()) {
             System.out.println("Folder created: " + bucketName);
         } else {
             System.out.println("Folder not created: " + bucketName);
