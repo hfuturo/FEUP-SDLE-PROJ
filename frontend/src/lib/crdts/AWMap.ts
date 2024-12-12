@@ -186,9 +186,15 @@ export class AWMap<K, V extends { merge: (other: V) => void }> {
         const cloned = new AWMap(awMap.localIdentifier);
         const map = new Map();
 
-        Object.entries(awMap.values).forEach(([key, value]) => {
-          map.set(key, new DottedValue(value.identifier, value.event, ShoppingListItem.fromDatabase(value.value)));
-        });
+        if(awMap.values.entries) {
+          awMap.values.entries().forEach(([key, value]) => {
+            map.set(key, new DottedValue(value.identifier, value.event, ShoppingListItem.fromDatabase(value.value)));
+          });
+        } else {
+          Object.entries(awMap.values).forEach(([key, value]) => {
+            map.set(key, new DottedValue(value.identifier, value.event, ShoppingListItem.fromDatabase(value.value)));
+          });
+        }
 
         cloned.setValues(map);
         return cloned;
