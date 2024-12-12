@@ -47,7 +47,7 @@ export class ShoppingList {
             "id": this.id,
             "localIdentifier": this.localIdentifier,
             "items": this.items.toSerializable(local),
-            "removedCounters": this.removedCounters
+            "removedCounters": map
         }
     }
 

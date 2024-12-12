@@ -21,14 +21,14 @@ export default function List() {
     console.log("syncedList: ", syncedList);
 
     useEffect(() => {
-        if(!syncBlocked) {
+        if(!syncBlocked && syncedList) {
            setShoppingList(syncedList);
         }
     }, [syncedList]);
 
     useEffect(() => {
         crdtSyncService.send(shoppingList, ring);
-    }, [shoppingList, ring]);
+    }, [shoppingList]);
 
     useEffect(() => {
         const fetchShoppingList = async () => {
