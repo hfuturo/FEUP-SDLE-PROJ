@@ -137,4 +137,7 @@ public class MVRegister<T> implements CRDTSingleMergeable<MVRegister<T>> {
         return mvRegister;
     }
 
+    public int getLocalIdentifier() {
+        return this.localIdentifier;
+    }
 }

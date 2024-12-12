@@ -72,4 +72,12 @@ public class AWSet<V> implements CRDTSingleMergeable<AWSet<V>> {
 
         return builder.addAllValues(protoSet).build();
     }
+
+    public DotContext getDotContext() {
+        return dotContext;
+    }
+
+    public int getLocalIdentifier() {
+        return localIdentifier;
+    }
 }
