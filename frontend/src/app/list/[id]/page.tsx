@@ -60,7 +60,7 @@ export default function List() {
         };
 
         fetchShoppingList();
-    }, [params]);
+    }, [params, ring]);
 
     useEffect(() => {
         if(!fetchedFromDbFirst) return;
