@@ -25,6 +25,8 @@ export default function ShoppingListItemCard({ shoppingListItem, shoppingList, s
         }
     });
 
+    console.log("Shopping list item: ", shoppingListItem);
+
     return <Card key={shoppingListItem.getId()} className="p-4">
         <CardContent className="p-2 flex flex-row">
             <Input 
@@ -61,7 +63,9 @@ export default function ShoppingListItemCard({ shoppingListItem, shoppingList, s
             <Button 
                 variant="destructive"
                 onClick={() => {
-                    shoppingList.remove(shoppingListItem.getId())
+                    shoppingList.remove(shoppingListItem.getId());
+                    
+                    console.log("SL after remove: ", shoppingList);
                     setShoppingList(shoppingList.clone())
                 }}
             >Destructive</Button>

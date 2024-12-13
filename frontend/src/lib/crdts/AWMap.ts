@@ -132,6 +132,7 @@ export class AWMap<K, V extends { merge: (other: V) => void }> {
 
         if (!item) {
             const dot = this.dotContext.nextOfReplica(this.localIdentifier);
+            this.dotContext.getDots().set(this.localIdentifier, dot);
             this.values.set(id, {
                 identifier: this.localIdentifier,
                 event: dot,

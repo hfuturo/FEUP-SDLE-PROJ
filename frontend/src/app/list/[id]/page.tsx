@@ -20,8 +20,6 @@ export default function List() {
     const [offline, setOffline] = useState<boolean>(false);
     const { syncedList } = useCRDTUpdate(`${params.id}`, ring, database, offline);
 
-    console.log("Current shopping list: ", shoppingList);
-
     useEffect(() => {
         if(shoppingList) return;
 
@@ -46,6 +44,15 @@ export default function List() {
 
     useEffect(() => {
         if(!offline) crdtSyncService.send(shoppingList, ring);
+
+        const updateShoppingList = async () => {
+            await database.updateShoppingList(shoppingList?.getId(), shoppingList);
+        };
+
+        if(shoppingList) {
+            updateShoppingList();
+        }
+
     }, [shoppingList]);
 
     useEffect(() => {
@@ -63,8 +70,7 @@ export default function List() {
                     const newList = await crdtSyncService.update(params.id, ring);
                     console.log("Fetched list: ", newList);
                     console.log("Fetched list from database: ", ShoppingList.fromDatabase(newList))
-                    const serializedSl= ShoppingList.fromDatabase(newList);
-                    if(serializedSl) setShoppingList(serializedSl);
+                    setShoppingList(ShoppingList.fromDatabase(newList));
                 }
             } catch (error) {
                 console.error("Failed to fetch shopping lists:", error);
@@ -73,16 +79,6 @@ export default function List() {
 
         fetchShoppingList();
     }, [params, ring]);
-
-    useEffect(() => {
-        const updateShoppingList = async () => {
-            await database.updateShoppingList(shoppingList?.getId(), shoppingList);
-        };
-
-        if(shoppingList) {
-            updateShoppingList();
-        }
-    }, [shoppingList]);
 
     return <div className="flex flex-col mx-auto items-center w-1/2 mt-16 gap-y-4">
         <div className="flex flex-row justify-center items-center gap-x-4">

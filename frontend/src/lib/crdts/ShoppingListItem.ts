@@ -72,6 +72,7 @@ export class ShoppingListItem {
     }
 
     static fromDatabase(slItem) {
+        console.log("DATABASE sl item: ", slItem);
         const sl = new ShoppingListItem(slItem.id, slItem.localIdentifier);
 
         sl.setCounter(CCounter.fromDatabase(slItem.counter));

@@ -161,7 +161,7 @@ export class ShoppingList {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ "type": "shoppingList", ...shoppingList.toSerializable() }),
+                    body: JSON.stringify({ "type": "shoppingList", ...shoppingList.toSerializable(false) }),
                 });
 
                 if (res.ok) {
@@ -202,6 +202,7 @@ export class ShoppingList {
   }
      */
     static fromDatabase(list) {
+        console.log("DATABASE sl: ", list);
         try {
             const cloned = new ShoppingList(list.localIdentifier, list.id);
             cloned.setItems(AWMap.fromDatabase(list.items) as AWMap<string, ShoppingListItem>);

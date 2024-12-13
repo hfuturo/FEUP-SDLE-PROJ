@@ -35,6 +35,10 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
         this.keys = new AWSet<>(this.localIdentifier.getId());
     }
 
+    public HashMap<K, DottedValue<Integer, Integer, V>> getValues() {
+        return this.values;
+    }
+
     public Optional<Optional<Integer>> latestDot(Integer id) {
         return Optional.of(this.dotContext.latestReplicaDot(id));
     }

@@ -17,6 +17,7 @@ import java.util.Optional;
  * You can think of this as a vector clock implementation
  */
 public class DotContext {
+    @JsonProperty("dots")
     private HashMap<Integer, Integer> dots;
 
     public DotContext(@JsonProperty("dots") HashMap<Integer, Integer> dots) {
