@@ -35,7 +35,7 @@ export class ShoppingListItem {
         return {
             "id": this.id,
             "localIdentifier": this.localIdentifier,
-            "counter": this.counter.toSerializable(),
+            "counter": this.counter.toSerializable(local),
             "name": this.name.toSerializable(local),
         };
     }

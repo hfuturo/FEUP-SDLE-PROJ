@@ -31,6 +31,8 @@ export class ShoppingList {
             map = {};
         }
 
+        console.log("CURRENT REMOVE COUNTERS: ", this.removedCounters);
+
         if (this.removedCounters) {
             for (const [k,v] of this.removedCounters) {
                 if (local) {
@@ -207,7 +209,9 @@ export class ShoppingList {
             const cloned = new ShoppingList(list.localIdentifier, list.id);
             cloned.setItems(AWMap.fromDatabase(list.items) as AWMap<string, ShoppingListItem>);
             cloned.getItems().setLocalIdentifier(list.localIdentifier);
-            cloned.setRemovedCounters(list.removedCounters);
+            
+            if(Array.from(list.removedCounters).length > 0) cloned.setRemovedCounters(list.removedCounters);
+            else cloned.setRemovedCounters(new Map());
             
             return cloned;
         } catch (error) {

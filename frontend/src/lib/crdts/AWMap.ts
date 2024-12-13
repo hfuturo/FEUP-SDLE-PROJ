@@ -85,7 +85,7 @@ export class AWMap<K, V extends { merge: (other: V) => void }> {
         return {
             "localIdentifier": this.localIdentifier,
             "values": this.serializedMap(local),
-            "keys": this.keys.toSerializable(),
+            "keys": this.keys.toSerializable(local),
             "dotContext": this.dotContext.toSerializable(local)
         }
     }
@@ -188,6 +188,8 @@ export class AWMap<K, V extends { merge: (other: V) => void }> {
         const cloned = new AWMap(awMap.localIdentifier);
         const map = new Map();
 
+        console.log("from database awmap: ", awMap);
+
         if(awMap.values.entries) {
           awMap.values.entries().forEach(([key, value]) => {
             map.set(key, new DottedValue(value.identifier, value.event, ShoppingListItem.fromDatabase(value.value)));
@@ -199,6 +201,9 @@ export class AWMap<K, V extends { merge: (other: V) => void }> {
         }
 
         cloned.setValues(map);
+        cloned.setDotContext(DotContext.fromDatabase(awMap.dotContext));
+        cloned.setKeys(AWSet.fromDatabase(awMap.keys));
+
         return cloned;
     }
 }

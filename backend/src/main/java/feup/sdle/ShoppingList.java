@@ -36,6 +36,7 @@ public class ShoppingList implements Document {
     private AWMap<String, ShoppingListItem> items;
     @JsonProperty("localIdentifier")
     private int localIdentifier;
+    @JsonProperty("removedCounters")
     private HashMap<String, DottedValue<Integer, Integer, Integer>> removedCounters;
 
     public ShoppingList(int localIdentifier, String id) {
@@ -55,6 +56,10 @@ public class ShoppingList implements Document {
     public void setNodeIdentifier(int nodeIdentifier) {
         this.localIdentifier = nodeIdentifier;
         this.items.setNodeIdentifier(nodeIdentifier);
+    }
+
+    public HashMap<String, DottedValue<Integer, Integer, Integer>> getRemovedCounters() {
+        return removedCounters;
     }
 
     public void setItems(AWMap<String, ShoppingListItem> items) {

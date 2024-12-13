@@ -6,6 +6,7 @@ import com.google.protobuf.ByteString;
 import feup.sdle.cluster.NodeIdentifier;
 import feup.sdle.message.MVRegisterProto;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -84,6 +85,10 @@ public class MVRegister<T> implements CRDTSingleMergeable<MVRegister<T>> {
         } else if (this.values.iterator().next() instanceof String) {
             MVRegisterProto.StrSet.Builder strSetBuilder = MVRegisterProto.StrSet.newBuilder();
             for (T value : values) {
+                if (!StandardCharsets.UTF_8.newEncoder().canEncode((String) value)) {
+                    System.out.println("NOOOOOOO WE AINT BALLIN!!!!");
+                    throw new IllegalArgumentException("Invalid UTF-8 string: " + value);
+                }
                 strSetBuilder.addStrings((String) value);
             }
             valueTypeBuilder.setStrSet(strSetBuilder.build());

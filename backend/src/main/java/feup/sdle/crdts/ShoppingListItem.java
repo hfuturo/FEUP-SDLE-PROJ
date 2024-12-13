@@ -93,6 +93,7 @@ public class ShoppingListItem implements CRDTSingleMergeable<ShoppingListItem> {
     }
 
     public ShoppingListItemProto.ShoppingListItem toMessageShoppingListItem() {
+
         return ShoppingListItemProto.ShoppingListItem.newBuilder()
                 .setLocalIdentifier(this.localIdentifier)
                 .setName(this.name.toMVRegisterMessage())

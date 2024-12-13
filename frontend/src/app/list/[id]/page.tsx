@@ -20,6 +20,8 @@ export default function List() {
     const [offline, setOffline] = useState<boolean>(false);
     const { syncedList } = useCRDTUpdate(`${params.id}`, ring, database, offline);
 
+    console.log("synced list: ", syncedList);
+
     useEffect(() => {
         if(shoppingList) return;
 
@@ -43,19 +45,20 @@ export default function List() {
     }, [syncedList]);
 
     useEffect(() => {
+        if(!shoppingList) return;
+
         if(!offline) crdtSyncService.send(shoppingList, ring);
 
         const updateShoppingList = async () => {
-            await database.updateShoppingList(shoppingList?.getId(), shoppingList);
+            await database.updateShoppingList(shoppingList.getId(), shoppingList);
         };
 
-        if(shoppingList) {
-            updateShoppingList();
-        }
-
+        updateShoppingList();
     }, [shoppingList]);
 
     useEffect(() => {
+        if(shoppingList) return;
+
         const fetchShoppingList = async () => {
             try {
                 // If it is not in our database, we have to fetch from server

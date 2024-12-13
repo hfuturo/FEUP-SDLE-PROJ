@@ -54,6 +54,9 @@ export default function ShoppingListItemCard({ shoppingListItem, shoppingList, s
                     const diff = intValue - (quantity || 0);
 
                     setQuantity(Math.max(0, intValue));
+
+                    console.log("Difference applied to counter: ", diff);
+
                     shoppingListItem.updateQuantity(diff);
 
                     setShoppingList(shoppingList.clone()); 

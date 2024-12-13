@@ -13,7 +13,7 @@ export class CCounter {
         return this.set;
     }
 
-    toSerializable() {
+    toSerializable(local: boolean = true) {
         return {
             "identifier": this.identifier,
             "set": Array.from(this.set).map((dv) => ({

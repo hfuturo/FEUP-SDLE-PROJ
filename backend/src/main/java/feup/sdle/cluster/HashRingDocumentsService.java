@@ -141,6 +141,7 @@ public class HashRingDocumentsService extends MessagingService {
                         .setNodeIdentifier(this.node.getNodeIdentifier().toMessageNodeIdentifier());
 
         var documentMessage = document.toMessage();
+        var e = documentMessage.toByteString();
         var message = messageTemplate.setMessage(documentMessage.toByteString()).build().toByteArray();
 
         StringBuilder replication = new StringBuilder("Sending replication to:");

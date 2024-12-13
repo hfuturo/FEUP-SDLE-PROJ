@@ -16,7 +16,8 @@ export class CRDTSyncService {
             list.getItems().setLocalIdentifier(list.getLocalIdentifier());
         }
 
-        console.log("Sending list: ", JSON.stringify(list.toSerializable(false)));
+        console.log("Sending list: ", list.toSerializable(false));
+        console.log("Sending list stringify: ", JSON.stringify(list.toSerializable(false)));
 
         try {
             const id = list.getId();

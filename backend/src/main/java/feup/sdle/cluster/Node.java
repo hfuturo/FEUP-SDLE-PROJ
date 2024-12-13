@@ -55,7 +55,6 @@ public class Node {
     ) {
         this.httpPort = httpPort;
 
-
         this.zmqContext = new ZContext();
 
         this.transmitter = new NodeTransmitter(this, 2000, 3);

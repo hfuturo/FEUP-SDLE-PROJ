@@ -19,6 +19,7 @@ export default function AddItemForm({ shoppingList, setShoppingList, setSyncBloc
         if (shoppingList) {
             shoppingList.addItem(crypto.randomUUID(), itemName, 0);
             setShoppingList(shoppingList.clone());
+            console.log("Shopping list after add: ", shoppingList);
         }
 
         setItemName("");

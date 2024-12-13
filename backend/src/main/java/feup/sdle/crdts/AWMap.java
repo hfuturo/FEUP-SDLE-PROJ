@@ -10,6 +10,7 @@ import feup.sdle.message.DottedValueProto;
 import java.util.*;
 
 public class AWMap<K, V extends CRDTSingleMergeable<V>> {
+    @JsonProperty("dotContext")
     private DotContext dotContext;
     private int localIdentifier;
     private AWSet<K> keys;
@@ -26,6 +27,14 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
     @JsonCreator
     public static AWMap<String, ShoppingListItem> fromJson(@JsonProperty("localIdentifier") int localIdentifier, @JsonProperty("dotContext") DotContext dotContext, @JsonProperty("values") HashMap<String, DottedValue<Integer, Integer, ShoppingListItem>> values, @JsonProperty("keys") AWSet<String> keys) {
         return new AWMap<>(localIdentifier, dotContext, values, keys);
+    }
+
+    public int getLocalIdentifier() {
+        return localIdentifier;
+    }
+
+    public void setLocalIdentifier(int localIdentifier) {
+        this.localIdentifier = localIdentifier;
     }
 
     public AWMap(int localIdentifier) {

@@ -17,11 +17,11 @@ export class AWSet<V> {
     this.dotContext = new DotContext(localIdentifier);
   }
 
-  toSerializable() {
+  toSerializable(local: boolean = true) {
     return {
       "localIdentifier": this.localIdentifier,
-      "values": Array.from(this.values).map((val) => (new DottedValue(val.identifier, val.event, val.value)).toSerializable()),
-      "dotContext": this.dotContext.toSerializable(),
+      "values": Array.from(this.values).map((val) => (new DottedValue(val.identifier, val.event, val.value)).toSerializable(local)),
+      "dotContext": this.dotContext.toSerializable(local),
     }
   }
 
@@ -34,8 +34,12 @@ export class AWSet<V> {
       this.dotContext.nextOfReplica(this.localIdentifier),
       element
     );
+
     this.values.add(dottedValue);
-    this.dotContext.getDots().set(this.localIdentifier, this.dotContext.nextOfReplica(this.localIdentifier));
+
+    this.dotContext.setLocalIdentifier(this.localIdentifier);
+    const dot = this.dotContext.nextOfReplica(this.localIdentifier);
+    this.dotContext.getDots().set(this.localIdentifier, dot);
   }
 
   /**
@@ -123,7 +127,7 @@ export class AWSet<V> {
 
   static fromDatabase(awset) {
     const cloned = new AWSet(awset.localIdentifier);
-    cloned.setValues(awset.values);
+    if(awset.values.length > 0) cloned.setValues(new Set(awset.values));
     cloned.setDotContext(DotContext.fromDatabase(awset.dotContext));
     return cloned;
   }

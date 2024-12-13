@@ -7,6 +7,10 @@ export class DotContext {
         this.localIdentifier = localIdentifier;
     }
 
+    setLocalIdentifier(localIdentifier: number) {
+        this.localIdentifier = localIdentifier;
+    }
+
     toSerializable(local: boolean = true) {
         let map = null;
 
@@ -25,6 +29,7 @@ export class DotContext {
         }
 
         return {
+            "localIdentifier": this.localIdentifier,
             "dots": map,
         }
     }
@@ -114,8 +119,9 @@ export class DotContext {
     }
 
     static fromDatabase(dotContext) {
-        const cloned = new DotContext(dotContext.localIdentifier);
-        cloned.setDots(dotContext.dots);
+        const cloned = new DotContext(dotContext.mv);
+        if(Array.from(dotContext.dots).length > 0) cloned.setDots(dotContext.dots);
+
         return cloned;
     }
 }

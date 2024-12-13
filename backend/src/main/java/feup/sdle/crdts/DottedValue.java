@@ -11,8 +11,6 @@ public record DottedValue<I, E, V>(
         @JsonProperty("event") E event,
         @JsonProperty("value") V value
 ) {
-
-
     public DottedValueProto.DottedValue toMessageDottedValue() {
         var builder = DottedValueProto.DottedValue.newBuilder()
                 .setIdentifier((Integer) identifier)
