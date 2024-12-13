@@ -5,26 +5,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import feup.sdle.message.CCounterProto;
 import feup.sdle.message.DottedValueProto;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Optional;
 
 public class CCounter {
     private HashSet<DottedValue<Integer, Integer, Integer>> set;
-    private final int id;
+    private final int identifier;
 
-    public CCounter(int id, HashSet<DottedValue<Integer, Integer, Integer>> set) {
-        this.id = id;
+    public CCounter(int identifier, HashSet<DottedValue<Integer, Integer, Integer>> set) {
+        this.identifier = identifier;
         this.set = set;
     }
 
     @JsonCreator
-    public static CCounter fromJson(@JsonProperty("identifier") int id, @JsonProperty("set") HashSet<DottedValue<Integer, Integer, Integer>> set) {
-        return new CCounter(id, set);
+    public static CCounter fromJson(@JsonProperty("identifier") int identifier, @JsonProperty("set") HashSet<DottedValue<Integer, Integer, Integer>> set) {
+        return new CCounter(identifier, set);
     }
 
-    public CCounter(int id) {
-        this.id = id;
+    public CCounter(int identifier) {
+        this.identifier = identifier;
         this.set = new HashSet<>();
     }
 
@@ -47,21 +46,21 @@ public class CCounter {
     }
 
     public void update(int value) {
-        Optional<DottedValue<Integer, Integer, Integer>> optDV = this.find(this.id);
+        Optional<DottedValue<Integer, Integer, Integer>> optDV = this.find(this.identifier);
 
         if (optDV.isEmpty()) {
             if (value > 0)
-                this.set.add(new DottedValue<>(this.id, 1, value));
+                this.set.add(new DottedValue<>(this.identifier, 1, value));
             else
-                this.set.add(new DottedValue<>(this.id, 1, this.getValue() + value < 0 ? -this.getValue() : value));
+                this.set.add(new DottedValue<>(this.identifier, 1, this.getValue() + value < 0 ? -this.getValue() : value));
         }
         else {
             DottedValue<Integer, Integer, Integer> dv = optDV.get();
 
             if (value > 0)
-                this.set.add(new DottedValue<>(this.id, dv.event() + 1, dv.value() + value));
+                this.set.add(new DottedValue<>(this.identifier, dv.event() + 1, dv.value() + value));
             else
-                this.set.add(new DottedValue<>(this.id, dv.event() + 1, this.getValue() + value < 0 ? dv.value() - this.getValue() : dv.value() + value));
+                this.set.add(new DottedValue<>(this.identifier, dv.event() + 1, this.getValue() + value < 0 ? dv.value() - this.getValue() : dv.value() + value));
 
             this.set.remove(dv);
         }
@@ -107,7 +106,7 @@ public class CCounter {
 
     public CCounterProto.CCounter toMessageCCounter() {
         var builder = CCounterProto.CCounter.newBuilder()
-                .setId(this.id);
+                .setId(this.identifier);
 
         for (DottedValue<Integer, Integer, Integer> dv : this.set) {
             builder.addSet(DottedValueProto.DottedValue.newBuilder()
@@ -131,5 +130,9 @@ public class CCounter {
         cCounter.setSet(set);
 
         return cCounter;
+    }
+
+    public int getIdentifier() {
+        return this.identifier;
     }
 }

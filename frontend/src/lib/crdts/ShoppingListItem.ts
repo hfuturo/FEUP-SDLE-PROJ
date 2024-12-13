@@ -3,10 +3,12 @@ import { MVRegister } from "./MVRegister";
 
 export class ShoppingListItem {
     private id: string;
+    private localIdentifier: number;
     private counter: CCounter;
     private name: MVRegister<string>;
 
     constructor(id: string, localIdentifier: number, name?: string, value?: number) {
+        this.localIdentifier = localIdentifier;
         this.counter = new CCounter(localIdentifier);
         this.name = new MVRegister<string>(localIdentifier);
         this.id = id;
@@ -32,6 +34,7 @@ export class ShoppingListItem {
     toSerializable(local: boolean = true) {
         return {
             "id": this.id,
+            "localIdentifier": this.localIdentifier,
             "counter": this.counter.toSerializable(),
             "name": this.name.toSerializable(local),
         };
@@ -71,7 +74,6 @@ export class ShoppingListItem {
     static fromDatabase(slItem) {
         const sl = new ShoppingListItem(slItem.id, slItem.localIdentifier);
 
-        console.log("what the fuck slitem? ", slItem);
         sl.setCounter(CCounter.fromDatabase(slItem.counter));
         sl.name = MVRegister.fromDatabase(slItem.name);
 

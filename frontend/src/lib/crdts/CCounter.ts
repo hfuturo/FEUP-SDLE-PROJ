@@ -1,127 +1,129 @@
 import { DottedValue } from "./DottedValue";
 
 export class CCounter {
-  private set: Set<DottedValue<number, number, number>>;
-  private readonly id: number;
+    private set: Set<DottedValue<number, number, number>>;
+    private readonly identifier: number;
 
-  constructor(id: number) {
-    this.id = id;
-    this.set = new Set();
-  }
-
-  public getSet(): Set<DottedValue<number, number, number>> {
-    return this.set;
-  }
-
-  toSerializable() {
-    return {
-      "id": this.id,
-      "set": Array.from(this.set).map((dv) => ({
-        "identifier": dv.identifier,
-        "event": dv.event,
-        "value": dv.value,
-      })),
-    };
-  }
-
-  public setSet(set: Set<DottedValue<number, number, number>>): void {
-    this.set = set;
-  }
-
-  public getValue(): number {
-    let sum = 0;
-    for (const dv of this.set) {
-      sum += dv.value;
-    }
-    return sum;
-  }
-
-  public update(value: number): void {
-    const optDV = this.find(this.id);
-
-    if(Number.isNaN(value)) {
-      value = 0;
+    constructor(identifier: number) {
+        this.identifier = identifier;
+        this.set = new Set();
     }
 
-    if (!optDV) {
-      console.log("No existing dotted value for this ID");
-      // No existing dotted value for this ID
-      const newValue = value > 0 ? value : Math.max(-this.getValue(), value);
-      this.set.add(new DottedValue(this.id, 1, newValue));
-    } else {
-      // Existing dotted value found
-      console.log("Existing dotted value found")
-      const dv = optDV;
-      const newEvent = dv.event + 1;
-      const newValue = value > 0 ? dv.value + value : Math.max(0, dv.value + value);
-
-      this.set.delete(dv);
-      this.set.add(new DottedValue(this.id, newEvent, newValue));
+    public getSet(): Set<DottedValue<number, number, number>> {
+        return this.set;
     }
-  }
 
-  public merge(other: CCounter): void {
-    for (const otherDv of other.getSet()) {
-      const optDv = this.find(otherDv.identifier);
+    toSerializable() {
+        return {
+            "identifier": this.identifier,
+            "set": Array.from(this.set).map((dv) => ({
+                "identifier": dv.identifier,
+                "event": dv.event,
+                "value": dv.value,
+            })),
+        };
+    }
 
-      if (!optDv) {
-        // Add other node's data if we don't have it
-        this.set.add(otherDv);
-      } else {
-        const dv = optDv;
+    public setSet(set: Set<DottedValue<number, number, number>>): void {
+        this.set = set;
+    }
 
-        if (dv.event >= otherDv.event) {
-          // Skip if we have a more recent event
-          continue;
+    public getValue(): number {
+        let sum = 0;
+        for (const dv of this.set) {
+            sum += dv.value;
+        }
+        return sum;
+    }
+
+    public update(value: number): void {
+        const optDV = this.find(this.identifier);
+        const MAX_VALUE = 2147483647; // Max value for a 32-bit signed integer (used by database)
+
+        if (Number.isNaN(value)) {
+            value = 0;
         }
 
-        // Replace with more recent data
-        this.set.delete(dv);
-        this.set.add(otherDv);
-      }
-    }
-  }
+        if (!optDV) {
+            console.log("No existing dotted value for this ID");
+            const current = this.getValue();
+            // No existing dotted value for this ID
+            const newValue = (value > 0 ? Math.min(value, MAX_VALUE) : Math.max(-current, value));
+            this.set.add(new DottedValue(this.identifier, 1, newValue));
+        } else {
+            // Existing dotted value found
+            console.log("Existing dotted value found")
+            const dv = optDV;
+            const newEvent = dv.event + 1;
+            const newValue = (value > 0 ? Math.min(dv.value + value, MAX_VALUE) : Math.max(0, dv.value + value));
 
-  private find(identifier: number): DottedValue<number, number, number> | undefined {
-    for (const dv of this.set) {
-      if (dv.identifier === identifier) {
-        return dv;
-      }
-    }
-    return undefined;
-  }
-
-  public toMessageCCounter(): any {
-    return {
-      id: this.id,
-      set: Array.from(this.set).map((dv) => ({
-        identifier: dv.identifier,
-        event: dv.event,
-        valueInt: dv.value,
-      })),
-    };
-  }
-
-  public static fromMessageCCounter(msgCCounter: any): CCounter {
-    const cCounter = new CCounter(msgCCounter.id);
-    const set = new Set<DottedValue<number, number, number>>();
-
-    for (const dv of msgCCounter.set) {
-      set.add(new DottedValue(dv.identifier, dv.event, dv.valueInt));
+            this.set.delete(dv);
+            this.set.add(new DottedValue(this.identifier, newEvent, newValue));
+        }
     }
 
-    cCounter.setSet(set);
-    return cCounter;
-  }
+    public merge(other: CCounter): void {
+        for (const otherDv of other.getSet()) {
+            const optDv = this.find(otherDv.identifier);
 
-  static fromDatabase(cCounter) {
-    const cloned = new CCounter(cCounter.localIdentifier);
-    if(cCounter.set.length > 0) {
-      cloned.setSet(new Set(cCounter.set));
-    } else {
-      cloned.setSet(new Set());
+            if (!optDv) {
+                // Add other node's data if we don't have it
+                this.set.add(otherDv);
+            } else {
+                const dv = optDv;
+
+                if (dv.event >= otherDv.event) {
+                    // Skip if we have a more recent event
+                    continue;
+                }
+
+                // Replace with more recent data
+                this.set.delete(dv);
+                this.set.add(otherDv);
+            }
+        }
     }
-    
-    return cloned;
-  }
+
+    private find(identifier: number): DottedValue<number, number, number> | undefined {
+        for (const dv of this.set) {
+            if (dv.identifier === identifier) {
+                return dv;
+            }
+        }
+        return undefined;
+    }
+
+    public toMessageCCounter(): any {
+        return {
+            id: this.identifier,
+            set: Array.from(this.set).map((dv) => ({
+                identifier: dv.identifier,
+                event: dv.event,
+                valueInt: dv.value,
+            })),
+        };
+    }
+
+    public static fromMessageCCounter(msgCCounter: any): CCounter {
+        const cCounter = new CCounter(msgCCounter.identifier);
+        const set = new Set<DottedValue<number, number, number>>();
+
+        for (const dv of msgCCounter.set) {
+            set.add(new DottedValue(dv.identifier, dv.event, dv.valueInt));
+        }
+
+        cCounter.setSet(set);
+        return cCounter;
+    }
+
+    static fromDatabase(cCounter) {
+        const cloned = new CCounter(cCounter.identifier);
+        if (cCounter.set.length > 0) {
+            cloned.setSet(new Set(cCounter.set));
+        } else {
+            cloned.setSet(new Set());
+        }
+
+        return cloned;
+    }
 }

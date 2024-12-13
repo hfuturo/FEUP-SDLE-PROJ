@@ -9,6 +9,7 @@ import "ccounter.proto";
 import "mvregister.proto";
 
 message ShoppingListItem {
-    MVRegister name = 1;
-    CCounter ccounter = 2;
+    int32 localIdentifier = 1;
+    MVRegister name = 2;
+    CCounter ccounter = 3;
 }

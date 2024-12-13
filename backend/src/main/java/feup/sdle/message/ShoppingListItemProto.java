@@ -19,32 +19,38 @@ public final class ShoppingListItemProto {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.feup.sdle.message.MVRegister name = 1;</code>
+     * <code>int32 localIdentifier = 1;</code>
+     * @return The localIdentifier.
+     */
+    int getLocalIdentifier();
+
+    /**
+     * <code>.feup.sdle.message.MVRegister name = 2;</code>
      * @return Whether the name field is set.
      */
     boolean hasName();
     /**
-     * <code>.feup.sdle.message.MVRegister name = 1;</code>
+     * <code>.feup.sdle.message.MVRegister name = 2;</code>
      * @return The name.
      */
     feup.sdle.message.MVRegisterProto.MVRegister getName();
     /**
-     * <code>.feup.sdle.message.MVRegister name = 1;</code>
+     * <code>.feup.sdle.message.MVRegister name = 2;</code>
      */
     feup.sdle.message.MVRegisterProto.MVRegisterOrBuilder getNameOrBuilder();
 
     /**
-     * <code>.feup.sdle.message.CCounter ccounter = 2;</code>
+     * <code>.feup.sdle.message.CCounter ccounter = 3;</code>
      * @return Whether the ccounter field is set.
      */
     boolean hasCcounter();
     /**
-     * <code>.feup.sdle.message.CCounter ccounter = 2;</code>
+     * <code>.feup.sdle.message.CCounter ccounter = 3;</code>
      * @return The ccounter.
      */
     feup.sdle.message.CCounterProto.CCounter getCcounter();
     /**
-     * <code>.feup.sdle.message.CCounter ccounter = 2;</code>
+     * <code>.feup.sdle.message.CCounter ccounter = 3;</code>
      */
     feup.sdle.message.CCounterProto.CCounterOrBuilder getCcounterOrBuilder();
   }
@@ -88,10 +94,21 @@ public final class ShoppingListItemProto {
               feup.sdle.message.ShoppingListItemProto.ShoppingListItem.class, feup.sdle.message.ShoppingListItemProto.ShoppingListItem.Builder.class);
     }
 
-    public static final int NAME_FIELD_NUMBER = 1;
+    public static final int LOCALIDENTIFIER_FIELD_NUMBER = 1;
+    private int localIdentifier_ = 0;
+    /**
+     * <code>int32 localIdentifier = 1;</code>
+     * @return The localIdentifier.
+     */
+    @java.lang.Override
+    public int getLocalIdentifier() {
+      return localIdentifier_;
+    }
+
+    public static final int NAME_FIELD_NUMBER = 2;
     private feup.sdle.message.MVRegisterProto.MVRegister name_;
     /**
-     * <code>.feup.sdle.message.MVRegister name = 1;</code>
+     * <code>.feup.sdle.message.MVRegister name = 2;</code>
      * @return Whether the name field is set.
      */
     @java.lang.Override
@@ -99,7 +116,7 @@ public final class ShoppingListItemProto {
       return name_ != null;
     }
     /**
-     * <code>.feup.sdle.message.MVRegister name = 1;</code>
+     * <code>.feup.sdle.message.MVRegister name = 2;</code>
      * @return The name.
      */
     @java.lang.Override
@@ -107,17 +124,17 @@ public final class ShoppingListItemProto {
       return name_ == null ? feup.sdle.message.MVRegisterProto.MVRegister.getDefaultInstance() : name_;
     }
     /**
-     * <code>.feup.sdle.message.MVRegister name = 1;</code>
+     * <code>.feup.sdle.message.MVRegister name = 2;</code>
      */
     @java.lang.Override
     public feup.sdle.message.MVRegisterProto.MVRegisterOrBuilder getNameOrBuilder() {
       return name_ == null ? feup.sdle.message.MVRegisterProto.MVRegister.getDefaultInstance() : name_;
     }
 
-    public static final int CCOUNTER_FIELD_NUMBER = 2;
+    public static final int CCOUNTER_FIELD_NUMBER = 3;
     private feup.sdle.message.CCounterProto.CCounter ccounter_;
     /**
-     * <code>.feup.sdle.message.CCounter ccounter = 2;</code>
+     * <code>.feup.sdle.message.CCounter ccounter = 3;</code>
      * @return Whether the ccounter field is set.
      */
     @java.lang.Override
@@ -125,7 +142,7 @@ public final class ShoppingListItemProto {
       return ccounter_ != null;
     }
     /**
-     * <code>.feup.sdle.message.CCounter ccounter = 2;</code>
+     * <code>.feup.sdle.message.CCounter ccounter = 3;</code>
      * @return The ccounter.
      */
     @java.lang.Override
@@ -133,7 +150,7 @@ public final class ShoppingListItemProto {
       return ccounter_ == null ? feup.sdle.message.CCounterProto.CCounter.getDefaultInstance() : ccounter_;
     }
     /**
-     * <code>.feup.sdle.message.CCounter ccounter = 2;</code>
+     * <code>.feup.sdle.message.CCounter ccounter = 3;</code>
      */
     @java.lang.Override
     public feup.sdle.message.CCounterProto.CCounterOrBuilder getCcounterOrBuilder() {
@@ -154,11 +171,14 @@ public final class ShoppingListItemProto {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (localIdentifier_ != 0) {
+        output.writeInt32(1, localIdentifier_);
+      }
       if (name_ != null) {
-        output.writeMessage(1, getName());
+        output.writeMessage(2, getName());
       }
       if (ccounter_ != null) {
-        output.writeMessage(2, getCcounter());
+        output.writeMessage(3, getCcounter());
       }
       getUnknownFields().writeTo(output);
     }
@@ -169,13 +189,17 @@ public final class ShoppingListItemProto {
       if (size != -1) return size;
 
       size = 0;
+      if (localIdentifier_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, localIdentifier_);
+      }
       if (name_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getName());
+          .computeMessageSize(2, getName());
       }
       if (ccounter_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getCcounter());
+          .computeMessageSize(3, getCcounter());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -192,6 +216,8 @@ public final class ShoppingListItemProto {
       }
       feup.sdle.message.ShoppingListItemProto.ShoppingListItem other = (feup.sdle.message.ShoppingListItemProto.ShoppingListItem) obj;
 
+      if (getLocalIdentifier()
+          != other.getLocalIdentifier()) return false;
       if (hasName() != other.hasName()) return false;
       if (hasName()) {
         if (!getName()
@@ -213,6 +239,8 @@ public final class ShoppingListItemProto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + LOCALIDENTIFIER_FIELD_NUMBER;
+      hash = (53 * hash) + getLocalIdentifier();
       if (hasName()) {
         hash = (37 * hash) + NAME_FIELD_NUMBER;
         hash = (53 * hash) + getName().hashCode();
@@ -350,6 +378,7 @@ public final class ShoppingListItemProto {
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
+        localIdentifier_ = 0;
         name_ = null;
         if (nameBuilder_ != null) {
           nameBuilder_.dispose();
@@ -394,11 +423,14 @@ public final class ShoppingListItemProto {
       private void buildPartial0(feup.sdle.message.ShoppingListItemProto.ShoppingListItem result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.localIdentifier_ = localIdentifier_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
           result.name_ = nameBuilder_ == null
               ? name_
               : nameBuilder_.build();
         }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
+        if (((from_bitField0_ & 0x00000004) != 0)) {
           result.ccounter_ = ccounterBuilder_ == null
               ? ccounter_
               : ccounterBuilder_.build();
@@ -449,6 +481,9 @@ public final class ShoppingListItemProto {
 
       public Builder mergeFrom(feup.sdle.message.ShoppingListItemProto.ShoppingListItem other) {
         if (other == feup.sdle.message.ShoppingListItemProto.ShoppingListItem.getDefaultInstance()) return this;
+        if (other.getLocalIdentifier() != 0) {
+          setLocalIdentifier(other.getLocalIdentifier());
+        }
         if (other.hasName()) {
           mergeName(other.getName());
         }
@@ -481,20 +516,25 @@ public final class ShoppingListItemProto {
               case 0:
                 done = true;
                 break;
-              case 10: {
-                input.readMessage(
-                    getNameFieldBuilder().getBuilder(),
-                    extensionRegistry);
+              case 8: {
+                localIdentifier_ = input.readInt32();
                 bitField0_ |= 0x00000001;
                 break;
-              } // case 10
+              } // case 8
               case 18: {
                 input.readMessage(
-                    getCcounterFieldBuilder().getBuilder(),
+                    getNameFieldBuilder().getBuilder(),
                     extensionRegistry);
                 bitField0_ |= 0x00000002;
                 break;
               } // case 18
+              case 26: {
+                input.readMessage(
+                    getCcounterFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -512,18 +552,50 @@ public final class ShoppingListItemProto {
       }
       private int bitField0_;
 
+      private int localIdentifier_ ;
+      /**
+       * <code>int32 localIdentifier = 1;</code>
+       * @return The localIdentifier.
+       */
+      @java.lang.Override
+      public int getLocalIdentifier() {
+        return localIdentifier_;
+      }
+      /**
+       * <code>int32 localIdentifier = 1;</code>
+       * @param value The localIdentifier to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLocalIdentifier(int value) {
+        
+        localIdentifier_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 localIdentifier = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLocalIdentifier() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        localIdentifier_ = 0;
+        onChanged();
+        return this;
+      }
+
       private feup.sdle.message.MVRegisterProto.MVRegister name_;
       private com.google.protobuf.SingleFieldBuilderV3<
           feup.sdle.message.MVRegisterProto.MVRegister, feup.sdle.message.MVRegisterProto.MVRegister.Builder, feup.sdle.message.MVRegisterProto.MVRegisterOrBuilder> nameBuilder_;
       /**
-       * <code>.feup.sdle.message.MVRegister name = 1;</code>
+       * <code>.feup.sdle.message.MVRegister name = 2;</code>
        * @return Whether the name field is set.
        */
       public boolean hasName() {
-        return ((bitField0_ & 0x00000001) != 0);
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
-       * <code>.feup.sdle.message.MVRegister name = 1;</code>
+       * <code>.feup.sdle.message.MVRegister name = 2;</code>
        * @return The name.
        */
       public feup.sdle.message.MVRegisterProto.MVRegister getName() {
@@ -534,7 +606,7 @@ public final class ShoppingListItemProto {
         }
       }
       /**
-       * <code>.feup.sdle.message.MVRegister name = 1;</code>
+       * <code>.feup.sdle.message.MVRegister name = 2;</code>
        */
       public Builder setName(feup.sdle.message.MVRegisterProto.MVRegister value) {
         if (nameBuilder_ == null) {
@@ -545,12 +617,12 @@ public final class ShoppingListItemProto {
         } else {
           nameBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000001;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
       /**
-       * <code>.feup.sdle.message.MVRegister name = 1;</code>
+       * <code>.feup.sdle.message.MVRegister name = 2;</code>
        */
       public Builder setName(
           feup.sdle.message.MVRegisterProto.MVRegister.Builder builderForValue) {
@@ -559,16 +631,16 @@ public final class ShoppingListItemProto {
         } else {
           nameBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000001;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
       /**
-       * <code>.feup.sdle.message.MVRegister name = 1;</code>
+       * <code>.feup.sdle.message.MVRegister name = 2;</code>
        */
       public Builder mergeName(feup.sdle.message.MVRegisterProto.MVRegister value) {
         if (nameBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0) &&
+          if (((bitField0_ & 0x00000002) != 0) &&
             name_ != null &&
             name_ != feup.sdle.message.MVRegisterProto.MVRegister.getDefaultInstance()) {
             getNameBuilder().mergeFrom(value);
@@ -578,15 +650,15 @@ public final class ShoppingListItemProto {
         } else {
           nameBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000001;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
       /**
-       * <code>.feup.sdle.message.MVRegister name = 1;</code>
+       * <code>.feup.sdle.message.MVRegister name = 2;</code>
        */
       public Builder clearName() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        bitField0_ = (bitField0_ & ~0x00000002);
         name_ = null;
         if (nameBuilder_ != null) {
           nameBuilder_.dispose();
@@ -596,15 +668,15 @@ public final class ShoppingListItemProto {
         return this;
       }
       /**
-       * <code>.feup.sdle.message.MVRegister name = 1;</code>
+       * <code>.feup.sdle.message.MVRegister name = 2;</code>
        */
       public feup.sdle.message.MVRegisterProto.MVRegister.Builder getNameBuilder() {
-        bitField0_ |= 0x00000001;
+        bitField0_ |= 0x00000002;
         onChanged();
         return getNameFieldBuilder().getBuilder();
       }
       /**
-       * <code>.feup.sdle.message.MVRegister name = 1;</code>
+       * <code>.feup.sdle.message.MVRegister name = 2;</code>
        */
       public feup.sdle.message.MVRegisterProto.MVRegisterOrBuilder getNameOrBuilder() {
         if (nameBuilder_ != null) {
@@ -615,7 +687,7 @@ public final class ShoppingListItemProto {
         }
       }
       /**
-       * <code>.feup.sdle.message.MVRegister name = 1;</code>
+       * <code>.feup.sdle.message.MVRegister name = 2;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           feup.sdle.message.MVRegisterProto.MVRegister, feup.sdle.message.MVRegisterProto.MVRegister.Builder, feup.sdle.message.MVRegisterProto.MVRegisterOrBuilder> 
@@ -635,14 +707,14 @@ public final class ShoppingListItemProto {
       private com.google.protobuf.SingleFieldBuilderV3<
           feup.sdle.message.CCounterProto.CCounter, feup.sdle.message.CCounterProto.CCounter.Builder, feup.sdle.message.CCounterProto.CCounterOrBuilder> ccounterBuilder_;
       /**
-       * <code>.feup.sdle.message.CCounter ccounter = 2;</code>
+       * <code>.feup.sdle.message.CCounter ccounter = 3;</code>
        * @return Whether the ccounter field is set.
        */
       public boolean hasCcounter() {
-        return ((bitField0_ & 0x00000002) != 0);
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
-       * <code>.feup.sdle.message.CCounter ccounter = 2;</code>
+       * <code>.feup.sdle.message.CCounter ccounter = 3;</code>
        * @return The ccounter.
        */
       public feup.sdle.message.CCounterProto.CCounter getCcounter() {
@@ -653,7 +725,7 @@ public final class ShoppingListItemProto {
         }
       }
       /**
-       * <code>.feup.sdle.message.CCounter ccounter = 2;</code>
+       * <code>.feup.sdle.message.CCounter ccounter = 3;</code>
        */
       public Builder setCcounter(feup.sdle.message.CCounterProto.CCounter value) {
         if (ccounterBuilder_ == null) {
@@ -664,12 +736,12 @@ public final class ShoppingListItemProto {
         } else {
           ccounterBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
       /**
-       * <code>.feup.sdle.message.CCounter ccounter = 2;</code>
+       * <code>.feup.sdle.message.CCounter ccounter = 3;</code>
        */
       public Builder setCcounter(
           feup.sdle.message.CCounterProto.CCounter.Builder builderForValue) {
@@ -678,16 +750,16 @@ public final class ShoppingListItemProto {
         } else {
           ccounterBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
       /**
-       * <code>.feup.sdle.message.CCounter ccounter = 2;</code>
+       * <code>.feup.sdle.message.CCounter ccounter = 3;</code>
        */
       public Builder mergeCcounter(feup.sdle.message.CCounterProto.CCounter value) {
         if (ccounterBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) != 0) &&
+          if (((bitField0_ & 0x00000004) != 0) &&
             ccounter_ != null &&
             ccounter_ != feup.sdle.message.CCounterProto.CCounter.getDefaultInstance()) {
             getCcounterBuilder().mergeFrom(value);
@@ -697,15 +769,15 @@ public final class ShoppingListItemProto {
         } else {
           ccounterBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
       /**
-       * <code>.feup.sdle.message.CCounter ccounter = 2;</code>
+       * <code>.feup.sdle.message.CCounter ccounter = 3;</code>
        */
       public Builder clearCcounter() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         ccounter_ = null;
         if (ccounterBuilder_ != null) {
           ccounterBuilder_.dispose();
@@ -715,15 +787,15 @@ public final class ShoppingListItemProto {
         return this;
       }
       /**
-       * <code>.feup.sdle.message.CCounter ccounter = 2;</code>
+       * <code>.feup.sdle.message.CCounter ccounter = 3;</code>
        */
       public feup.sdle.message.CCounterProto.CCounter.Builder getCcounterBuilder() {
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         onChanged();
         return getCcounterFieldBuilder().getBuilder();
       }
       /**
-       * <code>.feup.sdle.message.CCounter ccounter = 2;</code>
+       * <code>.feup.sdle.message.CCounter ccounter = 3;</code>
        */
       public feup.sdle.message.CCounterProto.CCounterOrBuilder getCcounterOrBuilder() {
         if (ccounterBuilder_ != null) {
@@ -734,7 +806,7 @@ public final class ShoppingListItemProto {
         }
       }
       /**
-       * <code>.feup.sdle.message.CCounter ccounter = 2;</code>
+       * <code>.feup.sdle.message.CCounter ccounter = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           feup.sdle.message.CCounterProto.CCounter, feup.sdle.message.CCounterProto.CCounter.Builder, feup.sdle.message.CCounterProto.CCounterOrBuilder> 
@@ -828,12 +900,12 @@ public final class ShoppingListItemProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\026shoppinglistitem.proto\022\021feup.sdle.mess" +
-      "age\032\016ccounter.proto\032\020mvregister.proto\"n\n" +
-      "\020ShoppingListItem\022+\n\004name\030\001 \001(\0132\035.feup.s" +
-      "dle.message.MVRegister\022-\n\010ccounter\030\002 \001(\013" +
-      "2\033.feup.sdle.message.CCounterB*\n\021feup.sd" +
-      "le.messageB\025ShoppingListItemProtob\006proto" +
-      "3"
+      "age\032\016ccounter.proto\032\020mvregister.proto\"\207\001" +
+      "\n\020ShoppingListItem\022\027\n\017localIdentifier\030\001 " +
+      "\001(\005\022+\n\004name\030\002 \001(\0132\035.feup.sdle.message.MV" +
+      "Register\022-\n\010ccounter\030\003 \001(\0132\033.feup.sdle.m" +
+      "essage.CCounterB*\n\021feup.sdle.messageB\025Sh" +
+      "oppingListItemProtob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -846,7 +918,7 @@ public final class ShoppingListItemProto {
     internal_static_feup_sdle_message_ShoppingListItem_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_feup_sdle_message_ShoppingListItem_descriptor,
-        new java.lang.String[] { "Name", "Ccounter", });
+        new java.lang.String[] { "LocalIdentifier", "Name", "Ccounter", });
     feup.sdle.message.CCounterProto.getDescriptor();
     feup.sdle.message.MVRegisterProto.getDescriptor();
   }

@@ -7,25 +7,29 @@ import feup.sdle.message.ShoppingListItemProto;
 import java.util.Set;
 
 public class ShoppingListItem implements CRDTSingleMergeable<ShoppingListItem> {
+    private final int localIdentifier;
     private MVRegister<String> name;
     private CCounter counter;
 
     public ShoppingListItem(int localIdentifier) {
+        this.localIdentifier = localIdentifier;
         this.name = new MVRegister<>(localIdentifier);
         this.counter = new CCounter(localIdentifier);
     }
 
-    public ShoppingListItem(MVRegister<String> name, CCounter counter) {
+    public ShoppingListItem(int localIdentifier, MVRegister<String> name, CCounter counter) {
+        this.localIdentifier = localIdentifier;
         this.name = name;
         this.counter = counter;
     }
 
     @JsonCreator
-    public static ShoppingListItem fromJson(@JsonProperty("counter") CCounter counter, @JsonProperty("name") MVRegister<String> name) {
-        return new ShoppingListItem(name, counter);
+    public static ShoppingListItem fromJson(@JsonProperty("localIdentifier") int localIdentifier, @JsonProperty("counter") CCounter counter, @JsonProperty("name") MVRegister<String> name) {
+        return new ShoppingListItem(localIdentifier, name, counter);
     }
 
     public ShoppingListItem(int localIdentifier, String name, int value) {
+        this.localIdentifier = localIdentifier;
         this.name = new MVRegister<>(localIdentifier);
         if(!name.isEmpty()) this.name.update(name);
 
@@ -68,6 +72,7 @@ public class ShoppingListItem implements CRDTSingleMergeable<ShoppingListItem> {
 
     public ShoppingListItemProto.ShoppingListItem toMessageShoppingListItem() {
         return ShoppingListItemProto.ShoppingListItem.newBuilder()
+                .setLocalIdentifier(this.localIdentifier)
                 .setName(this.name.toMVRegisterMessage())
                 .setCcounter(this.counter.toMessageCCounter())
                 .build();
@@ -78,5 +83,9 @@ public class ShoppingListItem implements CRDTSingleMergeable<ShoppingListItem> {
         shoppingListItem.setName(MVRegister.fromMVRegisterMessageString(msgSLItem.getName()));
         shoppingListItem.setCounter(CCounter.fromMessageCCounter(msgSLItem.getCcounter()));
         return shoppingListItem;
+    }
+
+    public int getLocalIdentifier() {
+        return localIdentifier;
     }
 }
