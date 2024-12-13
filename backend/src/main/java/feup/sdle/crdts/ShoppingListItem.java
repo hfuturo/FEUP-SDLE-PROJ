@@ -8,6 +8,7 @@ import java.util.Set;
 
 public class ShoppingListItem implements CRDTSingleMergeable<ShoppingListItem> {
     private final int localIdentifier;
+    private String id;
     private MVRegister<String> name;
     private CCounter counter;
 
@@ -17,15 +18,36 @@ public class ShoppingListItem implements CRDTSingleMergeable<ShoppingListItem> {
         this.counter = new CCounter(localIdentifier);
     }
 
-    public ShoppingListItem(int localIdentifier, MVRegister<String> name, CCounter counter) {
+    public ShoppingListItem(String id, int localIdentifier, String name, int quantity) {
+        this.localIdentifier = localIdentifier;
+
+        this.name = new MVRegister<>(localIdentifier);
+        this.name.update(name);
+
+        this.counter = new CCounter(localIdentifier);
+        this.counter.update(quantity);
+
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public ShoppingListItem(String id, int localIdentifier, MVRegister<String> name, CCounter counter) {
         this.localIdentifier = localIdentifier;
         this.name = name;
         this.counter = counter;
+        this.id = id;
     }
 
     @JsonCreator
-    public static ShoppingListItem fromJson(@JsonProperty("localIdentifier") int localIdentifier, @JsonProperty("counter") CCounter counter, @JsonProperty("name") MVRegister<String> name) {
-        return new ShoppingListItem(localIdentifier, name, counter);
+    public static ShoppingListItem fromJson(@JsonProperty("id") String id, @JsonProperty("localIdentifier") int localIdentifier, @JsonProperty("counter") CCounter counter, @JsonProperty("name") MVRegister<String> name) {
+        return new ShoppingListItem(id, localIdentifier, name, counter);
     }
 
     public ShoppingListItem(int localIdentifier, String name, int value) {

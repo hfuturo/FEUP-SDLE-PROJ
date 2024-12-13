@@ -86,9 +86,6 @@ public class HashRingSyncService {
     private void initSyncService() {
         Thread.ofVirtual().start(() -> {
             while(true) {
-                for(var node: this.hashRing.getRing().values()) {
-                    System.out.println("SKILL ISSUE: " + node.getHttpPort());
-                }
                 try {
                     Thread.sleep(this.timeoutMs);
                     HashCheck hashCheck = HashCheck.newBuilder()

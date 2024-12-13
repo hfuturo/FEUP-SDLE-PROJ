@@ -117,6 +117,7 @@ public class CCounter {
         }
 
         return builder.build();
+
     }
 
     public static CCounter fromMessageCCounter(CCounterProto.CCounter msgCCounter) {

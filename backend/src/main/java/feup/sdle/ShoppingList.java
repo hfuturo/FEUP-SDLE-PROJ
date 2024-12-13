@@ -66,7 +66,7 @@ public class ShoppingList implements Document {
     }
 
     public void addItem(String key, String name, int quantity) {
-        this.items.add(key, new ShoppingListItem(this.localIdentifier.getId(), name, quantity));
+        this.items.add(key, new ShoppingListItem(key, this.localIdentifier.getId(), name, quantity));
     }
 
     public void remove(String key) {
