@@ -1,14 +1,6 @@
 import { DotContext } from "./DotContext";
 import { DottedValue } from "./DottedValue";
 
-interface DottedValue<ID, Event, V> {
-  identifier: ID;
-  event: Event;
-  value: V;
-
-  toMessageDottedValue(): { identifier: ID; event: Event; value: V };
-}
-
 /**
  * Add-Wins Set (AWSet) implementation using DotContext and DottedValue.
  * This structure is a conflict-free replicated data type (CRDT) that allows distributed systems
@@ -37,11 +29,11 @@ export class AWSet<V> {
    * Adds an element to the AWSet.
    */
   public add(element: V): void {
-    const dottedValue: DottedValue<number, number, V> = {
-      identifier: this.localIdentifier,
-      event: this.dotContext.nextOfReplica(this.localIdentifier),
-      value: element,
-    };
+    const dottedValue = new DottedValue<number, number, V>(
+      this.localIdentifier,
+      this.dotContext.nextOfReplica(this.localIdentifier),
+      element
+    );
     this.values.add(dottedValue);
     this.dotContext.getDots().set(this.localIdentifier, this.dotContext.nextOfReplica(this.localIdentifier));
   }
