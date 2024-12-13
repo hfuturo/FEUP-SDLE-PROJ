@@ -12,7 +12,7 @@ export class ShoppingList {
     private removedCounters: Map<string, DottedValue<number, number, number>>;
 
     constructor(localIdentifier: number, id?: string) {
-        this.localIdentifier = Math.floor(Math.random() * 10000);
+        this.localIdentifier = localIdentifier;
         this.id = id || crypto.randomUUID();
         this.lastItemId = 0;
         this.items = new AWMap<string, ShoppingListItem>(this.localIdentifier);
@@ -202,7 +202,6 @@ export class ShoppingList {
   }
      */
     static fromDatabase(list) {
-        console.log("DATABASE sl: ", list);
         try {
             const cloned = new ShoppingList(list.localIdentifier, list.id);
             cloned.setItems(AWMap.fromDatabase(list.items) as AWMap<string, ShoppingListItem>);

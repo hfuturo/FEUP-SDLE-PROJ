@@ -25,7 +25,7 @@ message DocumentList {
 
 message ShoppingList {
   AWMap items = 1;
-  NodeIdentifier localIdentifier = 2;
+  int32 localIdentifier = 2;
   map<string, DottedValue> removedCounters = 3;
 }
 

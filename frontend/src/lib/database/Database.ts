@@ -43,7 +43,6 @@ export class Database {
     }
 
     async updateShoppingList(listId: string, list: ShoppingList) {
-        console.log("Updating shopping list");
         return new Promise<void>((resolve, reject) => {
             // delete list with listId
             const transaction = this.db.transaction(this.dbName, "readwrite");

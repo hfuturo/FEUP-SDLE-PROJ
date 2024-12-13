@@ -334,7 +334,6 @@ public class Node {
     public void storeDocumentAndReplicate(String key, Document document) {
         this.storeDocument(key, document);
 
-        document.setNodeIdentifier(this.identifier); // We mask the node identifier of the client
         Thread.ofVirtual().start(() -> this.replicateDocument(key, document));
     }
 

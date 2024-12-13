@@ -18,7 +18,7 @@ public interface Document extends ProtobufSerializable {
     String getId();
     void setId(String id);
     void merge(Document document);
-    void setNodeIdentifier(NodeIdentifier nodeIdentifier);
+    void setNodeIdentifier(int nodeIdentifier);
     @Override
     DocumentProto.Document toMessage();
 

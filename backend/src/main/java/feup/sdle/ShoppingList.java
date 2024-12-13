@@ -35,24 +35,24 @@ public class ShoppingList implements Document {
     @JsonProperty("items")
     private AWMap<String, ShoppingListItem> items;
     @JsonProperty("localIdentifier")
-    private NodeIdentifier localIdentifier;
+    private int localIdentifier;
     private HashMap<String, DottedValue<Integer, Integer, Integer>> removedCounters;
 
-    public ShoppingList(NodeIdentifier localIdentifier, String id) {
+    public ShoppingList(int localIdentifier, String id) {
         this.items = new AWMap<>(localIdentifier);
         this.localIdentifier = localIdentifier;
         this.removedCounters = new HashMap<>();
         this.id = id;
     }
 
-    public ShoppingList(NodeIdentifier localIdentifier) {
+    public ShoppingList(int localIdentifier) {
         this.items = new AWMap<>(localIdentifier);
         this.localIdentifier = localIdentifier;
         this.removedCounters = new HashMap<>();
         this.id = UUID.randomUUID().toString();
     }
 
-    public void setNodeIdentifier(NodeIdentifier nodeIdentifier) {
+    public void setNodeIdentifier(int nodeIdentifier) {
         this.localIdentifier = nodeIdentifier;
         this.items.setNodeIdentifier(nodeIdentifier);
     }
@@ -66,7 +66,7 @@ public class ShoppingList implements Document {
     }
 
     public void addItem(String key, String name, int quantity) {
-        this.items.add(key, new ShoppingListItem(key, this.localIdentifier.getId(), name, quantity));
+        this.items.add(key, new ShoppingListItem(key, this.localIdentifier, name, quantity));
     }
 
     public void remove(String key) {
@@ -94,14 +94,14 @@ public class ShoppingList implements Document {
             return;
         }
 
-         Optional<Integer> latestOtherDot = this.items.getDotContext().latestReplicaDot(other.localIdentifier.getId());
+         Optional<Integer> latestOtherDot = this.items.getDotContext().latestReplicaDot(other.localIdentifier);
 
         this.items.merge(other.items);
 
         if(latestOtherDot.isEmpty()) return;
 
         for(Map.Entry<String, DottedValue<Integer, Integer, Integer>> entry: other.removedCounters.entrySet()) {
-            if(entry.getValue().identifier() == other.localIdentifier.getId() && entry.getValue().event() > latestOtherDot.get()) {
+            if(entry.getValue().identifier() == other.localIdentifier && entry.getValue().event() > latestOtherDot.get()) {
                 this.items.getValue(entry.getKey()).value().updateQuantity(-entry.getValue().value());
             }
         }
@@ -130,7 +130,7 @@ public class ShoppingList implements Document {
     public DocumentProto.Document toMessage() {
         var builder = DocumentProto.ShoppingList.newBuilder()
                 .setItems(this.items.toMessageProto())
-                .setLocalIdentifier(this.localIdentifier.toMessageNodeIdentifier());
+                .setLocalIdentifier(this.localIdentifier);
 
         HashMap<String, DottedValueProto.DottedValue> protoEntries = new HashMap<>();
 
@@ -150,7 +150,7 @@ public class ShoppingList implements Document {
 
     public static ShoppingList fromMessage(DocumentProto.Document document) {
         var msgShoppingList = document.getShoppingList();
-        ShoppingList shoppingList = new ShoppingList(NodeIdentifier.fromMessageNodeIdentifier(msgShoppingList.getLocalIdentifier()));
+        ShoppingList shoppingList = new ShoppingList(msgShoppingList.getLocalIdentifier());
         shoppingList.setId(document.getKey());
         shoppingList.setItems(AWMap.fromMessageAWMap(msgShoppingList.getItems()));
 

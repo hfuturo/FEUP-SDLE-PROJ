@@ -11,13 +11,13 @@ import java.util.*;
 
 public class AWMap<K, V extends CRDTSingleMergeable<V>> {
     private DotContext dotContext;
-    private NodeIdentifier localIdentifier;
+    private int localIdentifier;
     private AWSet<K> keys;
     @JsonProperty("values")
     private HashMap<K, DottedValue<Integer, Integer, V>> values;
 
     public AWMap(int localIdentifier, DotContext dotContext, HashMap<K, DottedValue<Integer, Integer, V>> values, AWSet<K> keys) {
-        this.localIdentifier = new NodeIdentifier(localIdentifier);
+        this.localIdentifier = localIdentifier;
         this.dotContext = dotContext;
         this.values = values;
         this.keys = keys;
@@ -28,11 +28,11 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
         return new AWMap<>(localIdentifier, dotContext, values, keys);
     }
 
-    public AWMap(NodeIdentifier localIdentifier) {
+    public AWMap(int localIdentifier) {
         this.localIdentifier = localIdentifier;
-        this.dotContext = new DotContext(this.localIdentifier.getId());
+        this.dotContext = new DotContext(this.localIdentifier);
         this.values = new HashMap<>();
-        this.keys = new AWSet<>(this.localIdentifier.getId());
+        this.keys = new AWSet<>(this.localIdentifier);
     }
 
     public HashMap<K, DottedValue<Integer, Integer, V>> getValues() {
@@ -43,9 +43,9 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
         return Optional.of(this.dotContext.latestReplicaDot(id));
     }
 
-    public void setNodeIdentifier(NodeIdentifier nodeIdentifier) {
+    public void setNodeIdentifier(int nodeIdentifier) {
         this.localIdentifier = nodeIdentifier;
-        this.keys.setLocalIdentifier(this.localIdentifier.getId());
+        this.keys.setLocalIdentifier(this.localIdentifier);
     }
 
     public void setDotContext(DotContext dotContext) {
@@ -76,8 +76,8 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
         DottedValue<Integer, Integer, V> item = this.values.get(id);
 
         if(item == null) {
-            Integer dot = this.dotContext.nextOfReplica(localIdentifier.getId());
-            this.values.put(id, new DottedValue<>(this.localIdentifier.getId(), dot, value));
+            Integer dot = this.dotContext.nextOfReplica(localIdentifier);
+            this.values.put(id, new DottedValue<>(this.localIdentifier, dot, value));
             this.keys.add(id);
         } else {
             item.value().merge(value);
@@ -115,7 +115,7 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
     public AWMapProto.AWMap toMessageProto() {
         var builder = AWMapProto.AWMap.newBuilder()
                 .setDotContext(this.dotContext.toMessageDotContext())
-                .setLocalIdentifier(this.localIdentifier.toMessageNodeIdentifier())
+                .setLocalIdentifier(this.localIdentifier)
                 .setKeys(this.keys.toMessageAWSet());
 
         HashMap<String, DottedValueProto.DottedValue> protoEntries = new HashMap<>();
@@ -128,7 +128,7 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
     }
 
     public static AWMap<String, ShoppingListItem> fromMessageAWMap(AWMapProto.AWMap msgAWMap) {
-        AWMap<String, ShoppingListItem> awMap = new AWMap<>(NodeIdentifier.fromMessageNodeIdentifier(msgAWMap.getLocalIdentifier()));
+        AWMap<String, ShoppingListItem> awMap = new AWMap<>(msgAWMap.getLocalIdentifier());
         awMap.setDotContext(DotContext.fromMessageDotContext(msgAWMap.getDotContext()));
 
         HashMap<String, DottedValue<Integer, Integer, ShoppingListItem>> values = new HashMap<>();
