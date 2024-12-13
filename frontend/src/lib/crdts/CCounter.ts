@@ -55,7 +55,7 @@ export class CCounter {
             console.log("Existing dotted value found")
             const dv = optDV;
             const newEvent = dv.event + 1;
-            const newValue = (value > 0 ? Math.min(dv.value + value, MAX_VALUE) : Math.max(0, dv.value + value));
+            const newValue = (value > 0 ? Math.min(dv.value + value, MAX_VALUE) : Math.max(dv.value - this.getValue(), dv.value + value));
 
             this.set.delete(dv);
             this.set.add(new DottedValue(this.identifier, newEvent, newValue));
