@@ -77,6 +77,7 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
 
         if(item == null) {
             Integer dot = this.dotContext.nextOfReplica(localIdentifier);
+            this.dotContext.getDots().put(localIdentifier, dot);
             this.values.put(id, new DottedValue<>(this.localIdentifier, dot, value));
             this.keys.add(id);
         } else {

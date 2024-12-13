@@ -75,6 +75,7 @@ export class AWMap<K, V extends { merge: (other: V) => void }> {
 
   clone() {
     const cloned = new AWMap<K, V>(this.localIdentifier);
+    cloned.setDotContext(this.dotContext.clone());
     cloned.setKeys(this.keys.clone());
     cloned.setValues(this.values);
     return cloned;

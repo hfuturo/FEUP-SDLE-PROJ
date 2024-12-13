@@ -31,7 +31,7 @@ export default function useCRDTUpdate(id: string, ring: HashRing, db: Database, 
 
         return updatedList;
     }, {
-        refreshInterval: 4000
+        refreshInterval: 15000
     });
 
     return {

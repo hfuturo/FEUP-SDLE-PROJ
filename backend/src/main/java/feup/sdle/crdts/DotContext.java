@@ -1,5 +1,6 @@
 package feup.sdle.crdts;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import feup.sdle.message.DotContextProto;
 
@@ -20,6 +21,7 @@ public class DotContext {
     @JsonProperty("dots")
     private HashMap<Integer, Integer> dots;
 
+    @JsonCreator
     public DotContext(@JsonProperty("dots") HashMap<Integer, Integer> dots) {
         this.dots = Objects.requireNonNullElseGet(dots, HashMap::new);
     }

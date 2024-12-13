@@ -178,6 +178,7 @@ export class ShoppingList {
 
     clone() {
         const cloned = new ShoppingList(this.localIdentifier, this.id);
+        
         cloned.setItems(this.items.clone());
         cloned.setRemovedCounters(this.removedCounters);
         return cloned;

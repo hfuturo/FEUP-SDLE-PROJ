@@ -41,15 +41,9 @@ export class AWSet<V> {
       identifier: this.localIdentifier,
       event: this.dotContext.nextOfReplica(this.localIdentifier),
       value: element,
-      toMessageDottedValue: function () {
-        return {
-          identifier: this.identifier,
-          event: this.event,
-          value: this.value,
-        };
-      },
     };
     this.values.add(dottedValue);
+    this.dotContext.getDots().set(this.localIdentifier, this.dotContext.nextOfReplica(this.localIdentifier));
   }
 
   /**
