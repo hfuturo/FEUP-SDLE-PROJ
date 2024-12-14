@@ -184,7 +184,7 @@ export class AWMap<K, V extends { merge: (other: V) => void }> {
         this.dotContext.merge(other.getDotContext());
     }
 
-    static fromDatabase(awMap) {
+    static fromDatabase(awMap, localId: number) {
         const cloned = new AWMap(awMap.localIdentifier);
         const map = new Map();
 
@@ -192,17 +192,17 @@ export class AWMap<K, V extends { merge: (other: V) => void }> {
 
         if(awMap.values.entries) {
           awMap.values.entries().forEach(([key, value]) => {
-            map.set(key, new DottedValue(value.identifier, value.event, ShoppingListItem.fromDatabase(value.value)));
+            map.set(key, new DottedValue(value.identifier, value.event, ShoppingListItem.fromDatabase(value.value, localId)));
           });
         } else {
           Object.entries(awMap.values).forEach(([key, value]) => {
-            map.set(key, new DottedValue(value.identifier, value.event, ShoppingListItem.fromDatabase(value.value)));
+            map.set(key, new DottedValue(value.identifier, value.event, ShoppingListItem.fromDatabase(value.value, localId)));
           });
         }
 
         cloned.setValues(map);
-        cloned.setDotContext(DotContext.fromDatabase(awMap.dotContext));
-        cloned.setKeys(AWSet.fromDatabase(awMap.keys));
+        cloned.setDotContext(DotContext.fromDatabase(awMap.dotContext, localId));
+        cloned.setKeys(AWSet.fromDatabase(awMap.keys, localId));
 
         return cloned;
     }

@@ -125,10 +125,10 @@ export class AWSet<V> {
     return cloned;
   }
 
-  static fromDatabase(awset) {
+  static fromDatabase(awset, localId: number) {
     const cloned = new AWSet(awset.localIdentifier);
     if(awset.values.length > 0) cloned.setValues(new Set(awset.values));
-    cloned.setDotContext(DotContext.fromDatabase(awset.dotContext));
+    cloned.setDotContext(DotContext.fromDatabase(awset.dotContext, localId));
     return cloned;
   }
 }

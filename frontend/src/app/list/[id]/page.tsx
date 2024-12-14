@@ -69,11 +69,10 @@ export default function List() {
                     console.log("Shopping list from database: ", sl);
                     if(sl) setShoppingList(sl);
                     if(!offline) crdtSyncService.send(sl, ring);
-                } else if(!offline) {
-                    const newList = await crdtSyncService.update(params.id, ring);
-                    console.log("Fetched list: ", newList);
-                    console.log("Fetched list from database: ", ShoppingList.fromDatabase(newList))
-                    setShoppingList(ShoppingList.fromDatabase(newList));
+                } else if(database.initialized()) { // If we do not have on our database, we create one
+                    const newList = new ShoppingList(ShoppingList.generateLocalIdentifier(), params.id);
+                    setShoppingList(newList);
+                    await database.updateShoppingList(newList.getId(), newList);
                 }
             } catch (error) {
                 console.error("Failed to fetch shopping lists:", error);
@@ -101,7 +100,7 @@ export default function List() {
             setSyncBlocked={setSyncBlocked}
         />
         <div className="flex flex-col gap-y-4">
-            {shoppingList && Array.from(shoppingList.getItems().getValues().values()).map((value, idx) => (
+            {(shoppingList && shoppingList.getItems) && Array.from(shoppingList.getItems().getValues().values()).map((value, idx) => (
                 <ShoppingListItemCard 
                     key={"shopping-list-item-" + idx} 
                     shoppingListItem={value.value} 

@@ -116,8 +116,8 @@ export class CCounter {
         return cCounter;
     }
 
-    static fromDatabase(cCounter) {
-        const cloned = new CCounter(cCounter.identifier);
+    static fromDatabase(cCounter, localId: number) {
+        const cloned = new CCounter(localId);
         if (cCounter.set.length > 0) {
             cloned.setSet(new Set(cCounter.set));
         } else {

@@ -118,8 +118,8 @@ export class DotContext {
         return cloned;
     }
 
-    static fromDatabase(dotContext) {
-        const cloned = new DotContext(dotContext.mv);
+    static fromDatabase(dotContext, localId: number) {
+        const cloned = new DotContext(localId);
         if(Array.from(dotContext.dots).length > 0) cloned.setDots(dotContext.dots);
 
         return cloned;

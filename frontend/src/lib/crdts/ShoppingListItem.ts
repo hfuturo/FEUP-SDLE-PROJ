@@ -71,11 +71,11 @@ export class ShoppingListItem {
         };
     }
 
-    static fromDatabase(slItem) {
-        const sl = new ShoppingListItem(slItem.id, slItem.localIdentifier);
+    static fromDatabase(slItem, localId: number) {
+        const sl = new ShoppingListItem(slItem.id, localId);
 
-        sl.setCounter(CCounter.fromDatabase(slItem.counter));
-        sl.name = MVRegister.fromDatabase(slItem.name);
+        sl.setCounter(CCounter.fromDatabase(slItem.counter, localId));
+        sl.name = MVRegister.fromDatabase(slItem.name, localId);
 
         return sl;
     }

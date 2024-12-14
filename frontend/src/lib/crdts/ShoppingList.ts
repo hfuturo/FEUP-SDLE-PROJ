@@ -148,6 +148,10 @@ export class ShoppingList {
         };
     }
 
+    static generateLocalIdentifier() {
+        return Math.floor(Math.random() * 10000);
+    }
+
     static async createShoppingList(ring: HashRing): Promise<ShoppingList | null> {
         const id = crypto.randomUUID();
         const node = ring?.getResponsibleNode(id);
@@ -207,7 +211,7 @@ export class ShoppingList {
     static fromDatabase(list) {
         try {
             const cloned = new ShoppingList(list.localIdentifier, list.id);
-            cloned.setItems(AWMap.fromDatabase(list.items) as AWMap<string, ShoppingListItem>);
+            cloned.setItems(AWMap.fromDatabase(list.items, list.localIdentifier) as AWMap<string, ShoppingListItem>);
             cloned.getItems().setLocalIdentifier(list.localIdentifier);
             
             if(Array.from(list.removedCounters).length > 0) cloned.setRemovedCounters(list.removedCounters);

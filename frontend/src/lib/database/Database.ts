@@ -12,10 +12,11 @@ export class Database {
         const request = window.indexedDB.open(dbName, 1);
 
         request.onerror = (event) => {
-            console.error(event);
+            console.error("Error while creating database: ", event);
         };
 
         request.onsuccess = (event) => {
+            console.log("Database created");
             this.db = event.target.result; 
         };
 
@@ -25,6 +26,10 @@ export class Database {
                 keyPath: "id"
             });
         };
+    }
+
+    initialized() {
+        return this.db !== undefined;
     }
 
     createShoppingList(list: ShoppingList) {
@@ -67,6 +72,11 @@ export class Database {
 
     async getShoppingList(id: string) {
         return new Promise((resolve, reject) => {
+            if(!this.initialized()) {
+                console.log("Database not initialized");
+                return reject(null);
+            }
+            
             const transaction = this.db.transaction(this.dbName, "readonly");
             const store = transaction.objectStore(this.dbName);
             const request = store.get(id);

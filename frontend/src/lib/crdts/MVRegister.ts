@@ -44,8 +44,8 @@ export class MVRegister<T> {
         this.dotContext.getDots().set(this.localIdentifier, this.dotContext.nextOfReplica(this.localIdentifier));
     }
 
-    static fromDatabase(mvregister) {
-        const cloned = new MVRegister<T>(mvregister.localIdentifier);
+    static fromDatabase(mvregister, localId: number) {
+        const cloned = new MVRegister<T>(localId);
         
         cloned.values = new Set(mvregister.values);
         cloned.dotContext = new DotContext(mvregister.dotContext);
