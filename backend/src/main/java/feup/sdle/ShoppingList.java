@@ -39,6 +39,15 @@ public class ShoppingList implements Document {
     @JsonProperty("removedCounters")
     private HashMap<String, DottedValue<Integer, Integer, Integer>> removedCounters;
 
+    @JsonCreator
+    public ShoppingList(@JsonProperty("id") String id, @JsonProperty("items") AWMap<String, ShoppingListItem> items,
+                        @JsonProperty("localIdentifier") int localIdentifier, @JsonProperty("removedCounters") HashMap<String, DottedValue<Integer, Integer, Integer>> removedCounters) {
+        this.id = id;
+        this.items = items;
+        this.localIdentifier = localIdentifier;
+        this.removedCounters = removedCounters;
+    }
+
     public ShoppingList(int localIdentifier, String id) {
         this.items = new AWMap<>(localIdentifier);
         this.localIdentifier = localIdentifier;
