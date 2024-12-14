@@ -12,11 +12,14 @@ import java.util.*;
 public class AWMap<K, V extends CRDTSingleMergeable<V>> {
     @JsonProperty("dotContext")
     private DotContext dotContext;
+    @JsonProperty("localIdentifier")
     private int localIdentifier;
+    @JsonProperty("keys")
     private AWSet<K> keys;
     @JsonProperty("values")
     private HashMap<K, DottedValue<Integer, Integer, V>> values;
 
+    @JsonCreator
     public AWMap(int localIdentifier, DotContext dotContext, HashMap<K, DottedValue<Integer, Integer, V>> values, AWSet<K> keys) {
         this.localIdentifier = localIdentifier;
         this.dotContext = dotContext;
@@ -24,10 +27,10 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
         this.keys = keys;
     }
 
-    @JsonCreator
+   /* @JsonCreator
     public static AWMap<String, ShoppingListItem> fromJson(@JsonProperty("localIdentifier") int localIdentifier, @JsonProperty("dotContext") DotContext dotContext, @JsonProperty("values") HashMap<String, DottedValue<Integer, Integer, ShoppingListItem>> values, @JsonProperty("keys") AWSet<String> keys) {
         return new AWMap<>(localIdentifier, dotContext, values, keys);
-    }
+    }*/
 
     public int getLocalIdentifier() {
         return localIdentifier;
@@ -119,6 +122,7 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
            this.values.put(key, other.values.get(key));
         }
 
+        this.keys.merge(other.keys);
         this.dotContext.merge(other.dotContext);
     }
 

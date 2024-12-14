@@ -13,15 +13,11 @@ public class AWSet<V> implements CRDTSingleMergeable<AWSet<V>> {
     private DotContext dotContext;
     private int localIdentifier;
 
-    public AWSet(int localIdentifier, HashSet<DottedValue<Integer, Integer, V>> values, DotContext dotContext) {
+    @JsonCreator
+    public AWSet(@JsonProperty("localIdentifier") int localIdentifier, @JsonProperty("values") HashSet<DottedValue<Integer, Integer, V>> values, @JsonProperty("dotContext") DotContext dotContext) {
         this.localIdentifier = localIdentifier;
         this.values = values;
         this.dotContext = dotContext;
-    }
-
-    @JsonCreator
-    public static AWSet<String> fromJson(@JsonProperty("localIdentifier") int localIdentifier, @JsonProperty("dotContext") DotContext dotContext, @JsonProperty("values") HashSet<DottedValue<Integer, Integer, String>> values) {
-        return new AWSet<>(localIdentifier, values, dotContext);
     }
    
     public AWSet(int localIdentifier) {
