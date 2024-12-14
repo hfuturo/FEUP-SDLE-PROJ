@@ -88,9 +88,9 @@ public class ShoppingList implements Document {
 
         DottedValue<Integer, Integer, Integer> removed = this.removedCounters.get(key);
         if(removed != null) {
-            this.removedCounters.put(key, new DottedValue<>(item.identifier(), item.event(), item.value().getQuantity() + removed.value()));
+            this.removedCounters.put(key, new DottedValue<>(item.identifier(), item.event() + 1, item.value().getQuantity() + removed.value()));
         } else {
-            this.removedCounters.put(key, new DottedValue<>(item.identifier(), item.event(), item.value().getQuantity()));
+            this.removedCounters.put(key, new DottedValue<>(item.identifier(), item.event() + 1, item.value().getQuantity()));
         }
 
         this.items.remove(key);
@@ -112,12 +112,16 @@ public class ShoppingList implements Document {
 
         this.items.merge(other.items);
 
-        if(latestOtherDot.isEmpty()) return;
+        if(latestOtherDot.isEmpty()) {
+            return;
+        }
 
         for(Map.Entry<String, DottedValue<Integer, Integer, Integer>> entry: other.removedCounters.entrySet()) {
             if(entry.getValue().identifier() == other.localIdentifier && entry.getValue().event() > latestOtherDot.get()) {
                 this.items.getValue(entry.getKey()).value().updateQuantity(-entry.getValue().value());
             }
+
+            this.removedCounters.put(entry.getKey(), entry.getValue());
         }
     }
 
