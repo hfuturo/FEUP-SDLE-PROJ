@@ -180,6 +180,8 @@ export class AWMap<K, V extends { merge: (other: V) => void }> {
             }
         }
 
+        this.keys.merge(other.getKeys());
+
         // Merge DotContext
         this.dotContext.merge(other.getDotContext());
     }

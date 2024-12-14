@@ -81,7 +81,7 @@ export class ShoppingList {
                 key,
                 new DottedValue<number, number, number>(
                     item.identifier,
-                    item.event,
+                    item.event + 1,
                     item.value.getQuantity() + removed.value
                 )
             );
@@ -90,7 +90,7 @@ export class ShoppingList {
                 key,
                 new DottedValue<number, number, number>(
                     item.identifier,
-                    item.event,
+                    item.event + 1,
                     item.value.getQuantity()
                 )
             );
@@ -100,11 +100,17 @@ export class ShoppingList {
     }
 
     public merge(other: ShoppingList): void {
+
+        console.log("MERGING SHOPPING LIST: ", other);
+
         const latestOtherDot = this.items.getDotContext().latestReplicaDot(other.localIdentifier);
 
         this.items.merge(other.items);
 
-        if (!latestOtherDot) return;
+        if (!latestOtherDot) {
+            console.warn("No latest other dot!");
+            return;
+        }
 
         for (const [key, dottedValue] of other.removedCounters.entries()) {
             if (
@@ -116,6 +122,11 @@ export class ShoppingList {
                     currentValue.value.updateQuantity(-dottedValue.value);
                 }
             }
+
+            this.removedCounters.set(
+                key,
+                dottedValue
+            );
         }
     }
 
@@ -213,12 +224,19 @@ export class ShoppingList {
             cloned.setItems(AWMap.fromDatabase(list.items, list.localIdentifier) as AWMap<string, ShoppingListItem>);
             cloned.getItems().setLocalIdentifier(list.localIdentifier);
 
-            if (Array.from(list.removedCounters).length > 0) cloned.setRemovedCounters(list.removedCounters);
-            else cloned.setRemovedCounters(new Map());
+            if (Object.entries(list.removedCounters).length > 0) {
+                const map = new Map();
+
+                Object.entries(list.removedCounters).forEach(([key, value]) => {
+                    map.set(key, value);
+                });
+
+                cloned.setRemovedCounters(map);
+            } else cloned.setRemovedCounters(new Map());
 
             return cloned;
         } catch (error) {
-            console.error(e);
+            console.error(error);
         }
     }
 }
