@@ -20,7 +20,7 @@ public record DottedValue<I, E, V>(
             case Integer i -> builder.setValueInt(i);
             case String s -> builder.setValueStr(s);
             case ShoppingListItem shoppingListItem ->
-                    builder.setValueStrBytes(shoppingListItem.toMessageShoppingListItem().toByteString());
+                    builder.setValueObj(shoppingListItem.toMessageShoppingListItem().toByteString());
             case null, default -> builder.setValueStrBytes(((ShoppingListItem) value).toMessageShoppingListItem().toByteString());
         }
 
@@ -35,7 +35,7 @@ public record DottedValue<I, E, V>(
                     msgDottedValue.getEvent(),
                     ShoppingListItem.fromMessageShoppingListItem(
                             msgDottedValue.getIdentifier(),
-                            ShoppingListItemProto.ShoppingListItem.parseFrom(msgDottedValue.getValueStrBytes()
+                            ShoppingListItemProto.ShoppingListItem.parseFrom(msgDottedValue.getValueObj()
                         ))
             );
         } catch (Exception e) {
