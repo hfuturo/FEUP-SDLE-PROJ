@@ -27,11 +27,6 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
         this.keys = keys;
     }
 
-   /* @JsonCreator
-    public static AWMap<String, ShoppingListItem> fromJson(@JsonProperty("localIdentifier") int localIdentifier, @JsonProperty("dotContext") DotContext dotContext, @JsonProperty("values") HashMap<String, DottedValue<Integer, Integer, ShoppingListItem>> values, @JsonProperty("keys") AWSet<String> keys) {
-        return new AWMap<>(localIdentifier, dotContext, values, keys);
-    }*/
-
     public int getLocalIdentifier() {
         return localIdentifier;
     }

@@ -78,14 +78,13 @@ export default function ShoppingListItemCard({ shoppingListItem, shoppingList, s
                     value={`${shoppingListItem.getQuantity()}`}
                 />
                 <Button
+                    className="ml-3"
                     variant="destructive"
                     onClick={() => {
                         shoppingList.remove(shoppingListItem.getId());
-                        setShoppingList(shoppingList.clone());
+                        setShoppingList(shoppingList.clone())
                     }}
-                >
-                    Destructive
-                </Button>
+                >X</Button>
             </CardContent>
         </Card>
     );
