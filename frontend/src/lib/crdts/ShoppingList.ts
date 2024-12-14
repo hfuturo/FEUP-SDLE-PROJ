@@ -31,10 +31,8 @@ export class ShoppingList {
             map = {};
         }
 
-        console.log("CURRENT REMOVE COUNTERS: ", this.removedCounters);
-
         if (this.removedCounters) {
-            for (const [k,v] of this.removedCounters) {
+            for (const [k, v] of this.removedCounters) {
                 if (local) {
                     map.set(k, new DottedValue(v.identifier, v.event, v.value));
                 }
@@ -153,13 +151,14 @@ export class ShoppingList {
     }
 
     static async createShoppingList(ring: HashRing): Promise<ShoppingList | null> {
-        const id = crypto.randomUUID();
-        const node = ring?.getResponsibleNode(id);
-        const localIdentifier = Math.floor(Math.random() * 10000);
-        const shoppingList = new ShoppingList(localIdentifier, id);
-
+        let shoppingList = null;
         const tries = 10;
         for (let i = 0; i < tries; i++) {
+            const id = crypto.randomUUID();
+            const node = ring?.getResponsibleNode(id);
+            const localIdentifier = Math.floor(Math.random() * 10000);
+            shoppingList = new ShoppingList(localIdentifier, id);
+
             try {
                 // Switch api port from 8081 to dynamic once the backend is changed to reflect that
                 const res = await fetch(`http://${node?.getHostname()}:${node?.getHttpPort()}/api/cart/${id}`, {
@@ -184,7 +183,7 @@ export class ShoppingList {
 
     clone() {
         const cloned = new ShoppingList(this.localIdentifier, this.id);
-        
+
         cloned.setItems(this.items.clone());
         cloned.setRemovedCounters(this.removedCounters);
         return cloned;
@@ -213,10 +212,10 @@ export class ShoppingList {
             const cloned = new ShoppingList(list.localIdentifier, list.id);
             cloned.setItems(AWMap.fromDatabase(list.items, list.localIdentifier) as AWMap<string, ShoppingListItem>);
             cloned.getItems().setLocalIdentifier(list.localIdentifier);
-            
-            if(Array.from(list.removedCounters).length > 0) cloned.setRemovedCounters(list.removedCounters);
+
+            if (Array.from(list.removedCounters).length > 0) cloned.setRemovedCounters(list.removedCounters);
             else cloned.setRemovedCounters(new Map());
-            
+
             return cloned;
         } catch (error) {
             console.error(e);

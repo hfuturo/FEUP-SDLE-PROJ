@@ -19,14 +19,14 @@ export class HashRing {
     }
 
     async getViewFromNodes() {
-        for(const node of this.nodes) {
+        for (const node of this.nodes) {
             try {
                 const res = await fetch(`http://${node.getHostname()}:${node.getHttpPort()}/api/ring/`);
 
-                if(res.ok) {
+                if (res.ok) {
                     return await res.json();
                 }
-            } catch(e) {
+            } catch (e) {
                 console.error(e);
                 continue;
             }
@@ -55,10 +55,39 @@ export class HashRing {
     }
 
     /**
+     * Get the closest N key values to key: string
+     */
+    getResponsibleNodes(key: string, nReplicas: number = 3) {
+        const keyHash = Hasher.md5(key);
+        const responsibleNodes = [];
+
+        // Get the keys of the Map and sort them
+        const keys = Array.from(this.ring.keys()).sort((a, b) => (a > b ? 1 : -1));
+
+        // Find the first key that is greater than or equal to the given hash
+        for (const key of keys) {
+            if (key >= keyHash) {
+                if (responsibleNodes.length < nReplicas) {
+                    responsibleNodes.push(this.ring.get(key)); // Found the closest higher key
+                }
+            }
+
+        }
+
+        for (const key of keys) {
+            if (responsibleNodes.length < nReplicas) {
+                responsibleNodes.push(this.ring.get(key)); // Found the closest higher key
+            }
+        }
+
+        return responsibleNodes;
+    }
+
+    /**
      * Add a node to the hash ring
      */
     addNodeFromJson(key: string, nodeJson: any) {
-        const node = new NodeIdentifier(nodeJson["id"], nodeJson["hostName"], nodeJson["port"], nodeJson["httpPort"], true);
+        const node = new NodeIdentifier(nodeJson["localIdentifier"], nodeJson["hostName"], nodeJson["port"], nodeJson["httpPort"], true);
         this.ring.set(key, node);
     }
 
