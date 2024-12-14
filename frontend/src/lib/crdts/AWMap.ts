@@ -14,32 +14,32 @@ export class AWMap<K, V extends { merge: (other: V) => void }> {
     private keys: AWSet<K>;
     private values: Map<K, DottedValue<number, number, V>>;
 
-  constructor(localIdentifier: number) {
-    this.localIdentifier = localIdentifier;
-    this.dotContext = new DotContext(localIdentifier);
-    this.values = new Map<K, DottedValue<number, number, V>>();
-    this.keys = new AWSet<K>(localIdentifier);
-  }
-
-  serializedMap(local: boolean = true) {
-    let map = null;
-
-    if (local) {
-      map = new Map();
-    } else {
-      map = {};
+    constructor(localIdentifier: number) {
+        this.localIdentifier = localIdentifier;
+        this.dotContext = new DotContext(localIdentifier);
+        this.values = new Map<K, DottedValue<number, number, V>>();
+        this.keys = new AWSet<K>(localIdentifier);
     }
 
-    for (const [key, value] of this.values) {
-      if (local) {
-        map.set(key, new DottedValue(value.identifier, value.event, value.value.toSerializable(local)));
-      } else {
-        map[key] = new DottedValue(value.identifier, value.event, value.value.toSerializable(local));
-      }
-    }
+    serializedMap(local: boolean = true) {
+        let map = null;
 
-    return map;
-  }
+        if (local) {
+            map = new Map();
+        } else {
+            map = {};
+        }
+
+        for (const [key, value] of this.values) {
+            if (local) {
+                map.set(key, new DottedValue(value.identifier, value.event, value.value.toSerializable(local)));
+            } else {
+                map[key] = new DottedValue(value.identifier, value.event, value.value.toSerializable(local));
+            }
+        }
+
+        return map;
+    }
 
     getLocalIdentifier() {
         return this.localIdentifier;
@@ -48,38 +48,38 @@ export class AWMap<K, V extends { merge: (other: V) => void }> {
     setLocalIdentifier(localIdentifier: number) {
         this.localIdentifier = localIdentifier;
     }
-  
 
-  /**
-   * Serializes the AWMap into a plain object for serialization or networking.
-   */
-  public toMessageProto(): {
-    dotContext: { [key: number]: number };
-    localIdentifier: { id: number };
-    keys: { dotContext: { [key: number]: number }; localIdentifier: number; values: K[] };
-    values: { [key: string]: { identifier: number; event: number; value: V } };
-  } {
-    const serializedValues: { [key: string]: { identifier: number; event: number; value: V } } = {};
 
-    this.values.forEach((dottedValue, key) => {
-      serializedValues[key.toString()] = dottedValue.toMessageDottedValue();
-    });
+    /**
+     * Serializes the AWMap into a plain object for serialization or networking.
+     */
+    public toMessageProto(): {
+        dotContext: { [key: number]: number };
+        localIdentifier: { id: number };
+        keys: { dotContext: { [key: number]: number }; localIdentifier: number; values: K[] };
+        values: { [key: string]: { identifier: number; event: number; value: V } };
+    } {
+        const serializedValues: { [key: string]: { identifier: number; event: number; value: V } } = {};
 
-    return {
-      dotContext: this.dotContext.toMessageDotContext(),
-      localIdentifier: this.localIdentifier.toMessageNodeIdentifier(),
-      keys: this.keys.toMessageAWSet(),
-      values: serializedValues,
-    };
-  }
+        this.values.forEach((dottedValue, key) => {
+            serializedValues[key.toString()] = dottedValue.toMessageDottedValue();
+        });
 
-  clone() {
-    const cloned = new AWMap<K, V>(this.localIdentifier);
-    cloned.setDotContext(this.dotContext.clone());
-    cloned.setKeys(this.keys.clone());
-    cloned.setValues(this.values);
-    return cloned;
-  }
+        return {
+            dotContext: this.dotContext.toMessageDotContext(),
+            localIdentifier: this.localIdentifier.toMessageNodeIdentifier(),
+            keys: this.keys.toMessageAWSet(),
+            values: serializedValues,
+        };
+    }
+
+    clone() {
+        const cloned = new AWMap<K, V>(this.localIdentifier);
+        cloned.setDotContext(this.dotContext.clone());
+        cloned.setKeys(this.keys.clone());
+        cloned.setValues(this.values);
+        return cloned;
+    }
 
     toSerializable(local: boolean = true) {
         return {
@@ -188,16 +188,14 @@ export class AWMap<K, V extends { merge: (other: V) => void }> {
         const cloned = new AWMap(awMap.localIdentifier);
         const map = new Map();
 
-        console.log("from database awmap: ", awMap);
-
-        if(awMap.values.entries) {
-          awMap.values.entries().forEach(([key, value]) => {
-            map.set(key, new DottedValue(value.identifier, value.event, ShoppingListItem.fromDatabase(value.value, localId)));
-          });
+        if (awMap.values.entries) {
+            for (const [key, value] of awMap.values.entries()) {
+                map.set(key, new DottedValue(value.identifier, value.event, ShoppingListItem.fromDatabase(value.value, localId)));
+            }
         } else {
-          Object.entries(awMap.values).forEach(([key, value]) => {
-            map.set(key, new DottedValue(value.identifier, value.event, ShoppingListItem.fromDatabase(value.value, localId)));
-          });
+            for (const [key, value] of Object.entries(awMap.values)) {
+                map.set(key, new DottedValue(value.identifier, value.event, ShoppingListItem.fromDatabase(value.value, localId)));
+            }
         }
 
         cloned.setValues(map);

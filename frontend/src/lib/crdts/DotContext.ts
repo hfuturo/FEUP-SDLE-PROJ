@@ -120,7 +120,19 @@ export class DotContext {
 
     static fromDatabase(dotContext, localId: number) {
         const cloned = new DotContext(localId);
-        if(Array.from(dotContext.dots).length > 0) cloned.setDots(dotContext.dots);
+
+        const map = new Map();
+
+        if (dotContext.dots.entries) {
+            for (const [key, value] of dotContext.dots.entries()) {
+                map.set(+key, value);
+            }
+        } else {
+            for (const [key, value] of Object.entries(dotContext.dots)) {
+                map.set(+key, value);
+            }
+        }
+        cloned.setDots(map);
 
         return cloned;
     }

@@ -29,6 +29,8 @@ export class MVRegister<T> {
     }
 
     merge(other: MVRegister<T>): void {
+        console.log("other: ", other);
+        console.log("this: ", this);
         if (this.dotContext.isConcurrent(other.getDotContext())) {
             other.getValues().forEach(value => this.values.add(value));
         } else if (other.getDotContext().isMoreRecentThan(this.dotContext)) {
@@ -46,9 +48,9 @@ export class MVRegister<T> {
 
     static fromDatabase(mvregister, localId: number) {
         const cloned = new MVRegister<T>(localId);
-        
+
         cloned.values = new Set(mvregister.values);
-        cloned.dotContext = new DotContext(mvregister.dotContext);
+        cloned.dotContext = DotContext.fromDatabase(mvregister.dotContext, localId);
 
         return cloned;
     }
