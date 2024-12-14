@@ -64,6 +64,7 @@ export default function ShoppingListItemCard({ shoppingListItem, shoppingList, s
                 value={`${shoppingListItem.getQuantity()}`}
             />
             <Button 
+                className="ml-3"
                 variant="destructive"
                 onClick={() => {
                     shoppingList.remove(shoppingListItem.getId());
@@ -71,7 +72,7 @@ export default function ShoppingListItemCard({ shoppingListItem, shoppingList, s
                     console.log("SL after remove: ", shoppingList);
                     setShoppingList(shoppingList.clone())
                 }}
-            >Destructive</Button>
+            >X</Button>
         </CardContent>
     </Card>
 }
