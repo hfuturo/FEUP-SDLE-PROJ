@@ -23,6 +23,9 @@ export default function ShoppingListItemCard({ shoppingListItem, shoppingList, s
         if (names.length === 1) {
             setSelectedName(names[0]);
         }
+        else {
+            setSelectedName(null);
+        }
     }, [shoppingList]);
 
     const handleNameSelect = (name: string) => {
