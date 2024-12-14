@@ -9,7 +9,7 @@ public class AWSetTest {
         AWSet<Integer> set1 = new AWSet<>(1);
         set1.add(4);
 
-        Assertions.assertEquals(set1.getValues().iterator().next(), 4);
+        Assertions.assertEquals(set1.getValuesValue().iterator().next(), 4);
     }
 
     @Test
@@ -26,10 +26,10 @@ public class AWSetTest {
         set3.add(4);
         set3.add(3);
 
-        Assertions.assertEquals(set1.getValues().iterator().next(), 3);
-        Assertions.assertEquals(set2.getValues().iterator().next(), 3);
-        Assertions.assertEquals(set1.getValues(), set3.getValues());
-        Assertions.assertEquals(set2.getValues(), set3.getValues());
+        Assertions.assertEquals(set1.getValuesValue().iterator().next(), 3);
+        Assertions.assertEquals(set2.getValuesValue().iterator().next(), 3);
+        Assertions.assertEquals(set1.getValuesValue(), set3.getValuesValue());
+        Assertions.assertEquals(set2.getValuesValue(), set3.getValuesValue());
     }
 
     @Test
@@ -40,17 +40,17 @@ public class AWSetTest {
         set1.add(4);
         set2.merge(set1);
         set1.merge(set2);
-        Assertions.assertEquals(set2.getValues().size(), 1);
+        Assertions.assertEquals(set2.getValuesValue().size(), 1);
 
         set2.remove(4);
-        Assertions.assertEquals(set2.getValues().size(), 0);
+        Assertions.assertEquals(set2.getValuesValue().size(), 0);
 
         set1.merge(set2);
         set2.merge(set1);
 
-        Assertions.assertEquals(set1.getValues().size(), 1);
-        Assertions.assertEquals(set1.getValues().size(), set2.getValues().size());
-        Assertions.assertEquals(set1.getValues(), set2.getValues());
+        Assertions.assertEquals(set1.getValuesValue().size(), 1);
+        Assertions.assertEquals(set1.getValuesValue().size(), set2.getValuesValue().size());
+        Assertions.assertEquals(set1.getValuesValue(), set2.getValuesValue());
     }
 
     @Test
@@ -68,7 +68,7 @@ public class AWSetTest {
         set1.merge(set2);
         set2.merge(set1);
 
-        Assertions.assertEquals(set1.getValues().size(), 0);
-        Assertions.assertEquals(set1.getValues().size(), set2.getValues().size());
+        Assertions.assertEquals(set1.getValuesValue().size(), 0);
+        Assertions.assertEquals(set1.getValuesValue().size(), set2.getValuesValue().size());
     }
 }

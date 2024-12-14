@@ -57,8 +57,12 @@ public class AWSet<V> implements CRDTSingleMergeable<AWSet<V>> {
         this.values = newSet;
     }
 
-    public HashSet<V> getValues() {
+    public HashSet<V> getValuesValue() {
         return (HashSet<V>) this.values.stream().map(DottedValue::value).collect(Collectors.toSet());
+    }
+
+    public HashSet<DottedValue<Integer, Integer, V>> getValues() {
+        return this.values;
     }
 
     public AWSetProto.AWSet toMessageAWSet() {
