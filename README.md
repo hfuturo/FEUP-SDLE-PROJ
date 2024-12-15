@@ -1,10 +1,9 @@
-# SDLE Second Assignment
+# SDLE Assignment
 
-SDLE Second Assignment of group T&lt;m&gt;&lt;n&gt;G&lt;p&gt;&lt;q&gt;.
+SDLE Assignment of group T07G13.
 
 Group members:
 
-1. &lt;first name&gt; &lt;family name&gt; (&lt;email address&gt;)
-2. &lt;first name&gt; &lt;family name&gt; (&lt;email address&gt;)
-3. &lt;first name&gt; &lt;family name&gt; (&lt;email address&gt;)
-4. &lt;first name&gt; &lt;family name&gt; (&lt;email address&gt;)
+1. Henrique Silva (<up202105647@up.pt>)
+2. João Fernandes (<up202108867@up.pt>)
+3. Tomás Palma (<up202108880@up.pt>)
