@@ -20,7 +20,7 @@ export default function ShoppingListItemCard({ shoppingListItem, shoppingList, s
     useEffect(() => {
         const names = Array.from(shoppingListItem.getName().getValues());
         setItemNames(names);
-        if (names.length === 1) {
+        if (names.length <= 1) {
             setSelectedName(names[0]);
         }
         else {
@@ -42,7 +42,7 @@ export default function ShoppingListItemCard({ shoppingListItem, shoppingList, s
         <Card key={shoppingListItem.getId()} className="p-4">
             <CardContent className="p-2 flex flex-row">
                 <div className="w-3/4 space-x-2">
-                    {selectedName ? (
+                    {(selectedName || selectedName === "") ? (
                         <Input
                             key={`${shoppingListItem.getId()}-name-input`}
                             className="p-2"

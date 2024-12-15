@@ -269,7 +269,7 @@ public class Node {
 
         try {
             // 1. Add node to ring
-            this.ring.addNode(senderNode, false);
+            this.ring.addNode(senderNode, true);
 
             // 2. Send the current view of the ring to the sender node
             HashRingMessage.HashRing.Builder hashRingBuilder = HashRingMessage.HashRing.newBuilder();
