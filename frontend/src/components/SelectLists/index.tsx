@@ -10,6 +10,8 @@ export const SelectLists = () => {
     const router = useRouter();
     const database = useAppStore((state) => state.database);
     const [shoppingLists, setShoppingLists] = useState<ShoppingList[]>([]);
+    const [viewListId, setViewListId] = useState<string>("");
+    const [error, setError] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchShoppingLists = async () => {
@@ -47,8 +49,31 @@ export const SelectLists = () => {
                 <div className="flex flex-col gap-y-2">
                     <Input
                         placeholder="Enter list id"
+                        onChange={(e) => setViewListId(e.target.value)}
+                        value={viewListId}
+                        style={{
+                            borderColor: error ? "red" : undefined,
+                            outlineColor: error ? "red" : undefined
+                          }}
                     />
-                    <Button>View</Button>
+                    <Button
+                    onClick={() => {
+                        if (viewListId == "") {
+                            setError(true);
+                            return;
+                        }
+                        const sli = shoppingLists.find((sli) => sli.id === viewListId);
+                        if (sli === undefined) {
+                            setError(true);
+                            return;
+                        }
+
+                        setError(false);
+                        router.push(`/list/${viewListId}`);
+                    }}
+                    >
+                        View
+                    </Button>
                 </div>
             </CardContent>
         </Card>
