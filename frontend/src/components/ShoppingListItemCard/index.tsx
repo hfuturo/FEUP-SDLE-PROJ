@@ -28,6 +28,10 @@ export default function ShoppingListItemCard({ shoppingListItem, shoppingList, s
         }
     }, [shoppingList]);
 
+    useEffect(() => {
+        setQuantity(shoppingListItem.getQuantity());
+    }, [shoppingListItem])
+
     const handleNameSelect = (name: string) => {
         setSelectedName(name);
         shoppingListItem.changeName(name);
