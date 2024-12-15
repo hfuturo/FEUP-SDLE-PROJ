@@ -122,7 +122,10 @@ public class ShoppingList implements Document {
                     && entry.getValue().event() > latestOtherDot.orElse(0)
                     && this.items.getValue(entry.getKey()) != null) {
                 this.removedCounters.put(entry.getKey(), entry.getValue());
-                if(!this.items.getValue(entry.getKey()).value().getCounter().isConcurrent(other.getItems().getValue(entry.getKey()).value().getCounter())) {
+                var thisValue = this.items.getValue(entry.getKey());
+                var otherValue = other.getItems().getValue(entry.getKey());
+
+                if(thisValue != null && otherValue != null && (!thisValue.value().getCounter().isConcurrent(otherValue.value().getCounter()))) {
                     this.items.remove(entry.getKey());
                     this.removedCounters.put(entry.getKey(), entry.getValue());
                 } else {
