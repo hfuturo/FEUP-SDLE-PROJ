@@ -105,7 +105,7 @@ public class Node {
         HashRing hashRing = new HashRing(new MD5HashAlgorithm(), this.identifier.getId(), this);
 
         try {
-            hashRing.addNode(this.identifier);
+            hashRing.addNode(this.identifier, true);
             this.retrieveDocumentsFromRing();
         }
         catch (Exception e) { LOGGER.error(Color.red(e.getMessage())); }
@@ -266,9 +266,10 @@ public class Node {
 
     public void processAddNodeRequest(Message.MessageFormat msgFormat, NodeIdentifier senderNode) {
         System.out.println("Processing add node request from: " + senderNode.getId());
+
         try {
             // 1. Add node to ring
-            this.ring.addNode(senderNode);
+            this.ring.addNode(senderNode, false);
 
             // 2. Send the current view of the ring to the sender node
             HashRingMessage.HashRing.Builder hashRingBuilder = HashRingMessage.HashRing.newBuilder();

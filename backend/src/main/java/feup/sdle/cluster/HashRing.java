@@ -65,9 +65,9 @@ public class HashRing implements ProtobufSerializable<HashRingMessage.HashRing> 
         NodeIdentifier seed3 = new NodeIdentifier(100003, "localhost", 4323, true, 8083);
 
         try {
-            this.addNode(seed1);
-            this.addNode(seed2);
-            this.addNode(seed3);
+            this.addNode(seed1, true);
+            this.addNode(seed2, true);
+            this.addNode(seed3, true);
 
             this.hashRingLog.getOperationsStr();
 
@@ -199,7 +199,7 @@ public class HashRing implements ProtobufSerializable<HashRingMessage.HashRing> 
         return nodesToReplicate;
     }
 
-    public synchronized void addNode(NodeIdentifier nodeIdentifier) throws Exception {
+    public synchronized void addNode(NodeIdentifier nodeIdentifier, boolean addToLog) throws Exception {
         if (this.ring.containsValue(nodeIdentifier))
             throw new Exception("Node with identifier " + nodeIdentifier.toString() + " already exists.");
 
