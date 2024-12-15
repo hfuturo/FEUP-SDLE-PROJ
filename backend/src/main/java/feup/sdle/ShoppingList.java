@@ -118,10 +118,11 @@ public class ShoppingList implements Document {
         this.items.merge(other.items);
 
         for(Map.Entry<String, DottedValue<Integer, Integer, Integer>> entry: other.removedCounters.entrySet()) {
+            this.removedCounters.put(entry.getKey(), entry.getValue());
+
             if(entry.getValue().identifier() == other.localIdentifier
                     && entry.getValue().event() > latestOtherDot.orElse(0)
                     && this.items.getValue(entry.getKey()) != null) {
-                this.removedCounters.put(entry.getKey(), entry.getValue());
                 var thisValue = this.items.getValue(entry.getKey());
                 var otherValue = other.getItems().getValue(entry.getKey());
 
@@ -133,19 +134,6 @@ public class ShoppingList implements Document {
                 }
             }
         }
-
-         /*for(Map.Entry<String, DottedValue<Integer, Integer, Integer>> entry: this.removedCounters.entrySet()) {
-             if(this.items.getValue(entry.getKey()).value().getCounter().isConcurrent(other.getItems().getValue(entry.getKey()).value().getCounter())) {
-                 this.removedCounters.remove(entry.getKey());
-             }
-         }*/
-
-
-        /*for (Map.Entry<String, DottedValue<Integer, Integer, Integer>> entry : this.removedCounters.entrySet()) {
-            if (this.getItems().getValue(entry.getKey()) != null && !modifiedItems.contains(entry.getKey())) {
-                this.getItems().remove(entry.getKey());
-            }
-        }*/
     }
 
     private List<String> getModifiedItems(HashMap<String, DottedValue<Integer, Integer, ShoppingListItem>> otherListValues) {

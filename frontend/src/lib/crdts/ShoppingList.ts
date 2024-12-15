@@ -122,26 +122,21 @@ export class ShoppingList {
         // }
 
         for (const [key, dottedValue] of other.removedCounters.entries()) {
-            if (
-                dottedValue.identifier === other.localIdentifier &&
-                dottedValue.event > latestOtherDot
-            ) {
-                const currentValue = this.items.getValue(key);
-                if (currentValue) {
-                    const otherCounter = other.items.getValue(key)?.value.getCounter();
-                    console.log("OTHER COUNTER", otherCounter);
-                    console.log("CONCURRENT: ", currentValue.value.getCounter().isConcurrent(otherCounter));
-                    if (otherCounter && !currentValue.value.getCounter().isConcurrent(otherCounter)) {
-                        this.items.remove(key);
-                        this.removedCounters.set(
-                            key,
-                            dottedValue
-                        );
-                    } else if (otherCounter) {
-                        this.removedCounters.delete(key);
-                        console.log("DELETING FROM REMOVE COUNTERS");
-                        currentValue.value.updateQuantity(-dottedValue.value);
-                    }
+            const currentValue = this.items.getValue(key);
+            if (currentValue) {
+                const otherCounter = other.items.getValue(key)?.value.getCounter();
+                console.log("OTHER COUNTER", otherCounter);
+                console.log("CONCURRENT: ", currentValue.value.getCounter().isConcurrent(otherCounter));
+                if (otherCounter && !currentValue.value.getCounter().isConcurrent(otherCounter)) {
+                    this.items.remove(key);
+                    this.removedCounters.set(
+                        key,
+                        dottedValue
+                    );
+                } else if (otherCounter) {
+                    this.removedCounters.delete(key);
+                    console.log("DELETING FROM REMOVE COUNTERS");
+                    currentValue.value.updateQuantity(-dottedValue.value);
                 }
             }
         }
@@ -151,7 +146,7 @@ export class ShoppingList {
             if (currentValue) {
                 const otherCounter = other.items.getValue(key)?.value.getCounter();
 
-                if(otherCounter && (otherCounter.getValue() > 0 && !other.removedCounters.has(key))) {
+                if (otherCounter && (otherCounter.getValue() > 0 && !other.removedCounters.has(key))) {
                     this.removedCounters.delete(key);
                 } else {
                     this.items.remove(key);

@@ -25,6 +25,8 @@ export class CCounter {
     }
 
     public isConcurrent(other: CCounter) {
+        if(other) return false;
+        
         let localGreater = false;
         let otherGreater = false;
 
