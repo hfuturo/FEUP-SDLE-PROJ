@@ -150,6 +150,7 @@ export class AWMap<K, V extends { merge: (other: V) => void }> {
      */
     public remove(id: K): void {
         this.values.delete(id);
+        this.keys.remove(id);
     }
 
     /**

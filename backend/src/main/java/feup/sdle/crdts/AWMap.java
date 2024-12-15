@@ -97,6 +97,7 @@ public class AWMap<K, V extends CRDTSingleMergeable<V>> {
         if(item == null) return;
 
         this.values.remove(id);
+        this.keys.remove(id);
     }
 
     // (𝑚, 𝑐) ⊔ (𝑚′, 𝑐′) = ({𝑘 ↦ → v(𝑘) | 𝑘 ∈ dom 𝑚 ∪ dom 𝑚′ ∧ v(𝑘) ≠ ⊥}, 𝑐 ∪ 𝑐′)

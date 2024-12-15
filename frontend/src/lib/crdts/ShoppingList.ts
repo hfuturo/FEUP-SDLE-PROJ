@@ -128,15 +128,19 @@ export class ShoppingList {
             ) {
                 const currentValue = this.items.getValue(key);
                 if (currentValue) {
-                    currentValue.value.updateQuantity(-dottedValue.value);
-                    if (!currentValue.value.getCounter().isConcurrent(other.items.getValue(key)?.value.getCounter())) {
+                    const otherCounter = other.items.getValue(key)?.value.getCounter();
+                    console.log("OTHER COUNTER", otherCounter);
+                    console.log("CONCURRENT: ", currentValue.value.getCounter().isConcurrent(otherCounter));
+                    if (otherCounter && !currentValue.value.getCounter().isConcurrent(otherCounter)) {
                         this.items.remove(key);
                         this.removedCounters.set(
                             key,
                             dottedValue
                         );
-                    } else {
+                    } else if (otherCounter) {
                         this.removedCounters.delete(key);
+                        console.log("DELETING FROM REMOVE COUNTERS");
+                        currentValue.value.updateQuantity(-dottedValue.value);
                     }
                 }
             }
@@ -145,8 +149,12 @@ export class ShoppingList {
         for (const [key, dottedValue] of this.removedCounters.entries()) {
             const currentValue = this.items.getValue(key);
             if (currentValue) {
-                if (currentValue.value.getCounter().isConcurrent(other.items.getValue(key)?.value.getCounter())) {
+                const otherCounter = other.items.getValue(key)?.value.getCounter();
+
+                if(otherCounter && (otherCounter.getValue() > 0 && !other.removedCounters.has(key))) {
                     this.removedCounters.delete(key);
+                } else {
+                    this.items.remove(key);
                 }
             }
         }
@@ -154,7 +162,6 @@ export class ShoppingList {
 
     public getModifiedItems(otherList: AWMap<string, ShoppingListItem>) {
         const modifiedItems = [];
-
 
         for (const [k, v] of otherList.getValues()) {
             const localValue = this.items.getValue(k);

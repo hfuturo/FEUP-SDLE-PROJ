@@ -25,12 +25,36 @@ export class CCounter {
     }
 
     public isConcurrent(other: CCounter) {
-        const localHasLocal = Array.from(this.set).find(el => el.identifier === this.identifier);
-        const localHasOther = Array.from(this.set).find(el => el.identifier === other.identifier);
-        const otherHasLocal = Array.from(other.set).find(el => el.identifier === this.identifier);
-        const otherHasOther = Array.from(other.set).find(el => el.identifier === other.identifier);
+        let localGreater = false;
+        let otherGreater = false;
 
-        return (localHasLocal !== otherHasLocal) && (localHasOther !== otherHasOther);
+        // Check if there is a dot greater in this dotted values and another greater in the other
+        for (const key of Array.from(this.set)) {
+            const otherValue = Array.from(other.set).find(el => el.identifier === key.identifier)?.event || 0;
+
+            if (key.event > otherValue) {
+                localGreater = true;
+            } else if (key.event < otherValue) {
+                otherGreater = true;
+            }
+
+            if (localGreater && otherGreater) {
+                return true;
+            }
+        }
+
+        // Check for keys in the other set not in this set
+        for (const key of Array.from(other.set)) {
+            if(!Array.from(this.set).find(el => el.identifier === key.identifier)) {
+                otherGreater = true;
+            }
+
+            if (localGreater && otherGreater) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public setSet(set: Set<DottedValue<number, number, number>>): void {
