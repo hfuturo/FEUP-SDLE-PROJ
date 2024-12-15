@@ -17,6 +17,7 @@ import org.zeromq.ZMQ;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * This is the service responsible to sync the hash ring state by publishing the state
@@ -46,33 +47,35 @@ public class HashRingSyncService {
      * If the hash is different it needs to send the current log to the other node
      */
     public void processMessage(MessageFormat msgFormat, NodeIdentifier senderNode) throws InvalidProtocolBufferException {
-        switch(msgFormat.getMessageType()) {
-            case HASHRING_LOG_HASH_CHECK -> {
-                HashCheck hashCheck = HashCheck.parseFrom(msgFormat.getMessage());
-                HashRingLog hashRingLog = this.hashRing.getHashRingLog();
+        try {
+            switch(msgFormat.getMessageType()) {
+                case HASHRING_LOG_HASH_CHECK -> {
+                    HashCheck hashCheck = HashCheck.parseFrom(msgFormat.getMessage());
+                    HashRingLog hashRingLog = this.hashRing.getHashRingLog();
 
-                if(!String.valueOf(hashRingLog.hashCode()).equals(hashCheck.getHash())) {
-                    System.out.println("HASH DIFFERENT, SENDING HASH RING LOG");
-                    this.hashRing.getHashRingLog().getOperationsStr();
-                    this.sendHashRingLog(senderNode);
+                    if(!String.valueOf(hashRingLog.hashCode()).equals(hashCheck.getHash())) {
+                        System.out.println("HASH DIFFERENT, SENDING HASH RING LOG");
+                        this.hashRing.getHashRingLog().getOperationsStr();
+                        this.sendHashRingLog(senderNode);
+                    }
+
                 }
+                case HASH_RING_LOG -> {
+                    HashRingLogOperationMessage hashRingLogOperationMessage = HashRingLogOperationMessage.parseFrom(msgFormat.getMessage());
+                    HashRingLog otherHashRingLog = HashRingLog.fromHashRingLogMessage(hashRingLogOperationMessage, senderNode);
 
+                    int startApplyIndex = this.hashRing.getHashRingLog().merge(otherHashRingLog);
+                    System.out.println("APPLY INDEX: " + startApplyIndex);
+                    this.hashRing.applyOperations(startApplyIndex);
+                }
             }
-            case HASH_RING_LOG -> {
-                HashRingLogOperationMessage hashRingLogOperationMessage = HashRingLogOperationMessage.parseFrom(msgFormat.getMessage());
-                HashRingLog otherHashRingLog = HashRingLog.fromHashRingLogMessage(hashRingLogOperationMessage, senderNode);
-
-                int startApplyIndex = this.hashRing.getHashRingLog().merge(otherHashRingLog);
-                System.out.println("APPLY INDEX: " + startApplyIndex);
-                this.hashRing.applyOperations(startApplyIndex);
-            }
+        } catch(Exception e) {
+            System.out.println(e.toString());
         }
     }
 
     private void sendHashRingLog(NodeIdentifier nodeToSend) {
         ZMQ.Socket socket = nodeToSend.getSocket(this.node.getZmqContext());
-
-        System.out.println("Isn't this sending the hash ring log: " + this.node.getNodeIdentifier().toMessageNodeIdentifier());
 
         MessageFormat msgFormat = MessageFormat.newBuilder().setMessageType(MessageFormat.MessageType.HASH_RING_LOG)
                 .setNodeIdentifier(this.node.getNodeIdentifier().toMessageNodeIdentifier())

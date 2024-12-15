@@ -6,6 +6,7 @@ import feup.sdle.cluster.ring.operations.HashRingLogOperation;
 import feup.sdle.crdts.HashRingLongTimestamp;
 import feup.sdle.crdts.VersionStamp;
 import feup.sdle.message.HashRingOperationMessage;
+import feup.sdle.utils.Pair;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -18,6 +19,12 @@ import java.util.stream.Collectors;
  * we are going to use vector clocks which is simulated through the DotContext
  */
 public class HashRingLog implements ProtobufSerializable {
+
+    private record ConflictRecord(
+            int localStart,
+            int otherStart
+            ) {}
+
     private List<HashRingLongTimestamp<HashRingLogOperation>> operations;
     private HashRing ring;
     private int localIdentifier;
@@ -71,11 +78,29 @@ public class HashRingLog implements ProtobufSerializable {
         System.out.println("Log entry ended");
     }
 
-    public void add(HashRingLogOperation operation) {
-        this.operations.add(new HashRingLongTimestamp<>(operation.getNodeIdentifier(), dot, operation, this.currentSequenceNumber));
+    public synchronized void add(HashRingLogOperation operation) {
+        synchronized (this) {
+            this.operations.add(new HashRingLongTimestamp<>(operation.getNodeIdentifier(), dot, operation, this.currentSequenceNumber));
 
-        this.currentSequenceNumber++;
-        this.dot++;
+            this.currentSequenceNumber++;
+            this.dot++;
+        }
+    }
+
+    private Pair<Boolean, Integer> conflictMetadata(HashRingLog other) {
+        // 1. Detect if there are conflicts (if there are different versions with same sequence number)
+        for (int i = 0; i < this.operations.size(); i++) {
+            if(i == other.operations.size()) break;
+
+            HashRingLongTimestamp<HashRingLogOperation> localOperation = this.operations.get(i);
+            HashRingLongTimestamp<HashRingLogOperation> otherOperation = other.operations.get(i);
+
+            if ((localOperation.getSequenceNumber() == otherOperation.getSequenceNumber() && (!Objects.equals(localOperation.getIdentifier(), otherOperation.getIdentifier())))) {
+                return new Pair<Boolean, Integer>(true, i);
+            }
+        }
+
+        return new Pair<Boolean, Integer>(false, -1);
     }
 
     /**
@@ -85,64 +110,42 @@ public class HashRingLog implements ProtobufSerializable {
     public synchronized int merge(HashRingLog other) {
         synchronized (this) {
             try {
-                int localSeqConflictStart = -1;
-                int otherSeqConflictStart = -1;
-                boolean conflictFound = false;
                 int applyIndex = -1;
 
-                // 1. Detect if there are conflicts (if there are different versions with same sequence number)
-                for (int i = 0; i < this.operations.size(); i++) {
-                    HashRingLongTimestamp<HashRingLogOperation> localOperation = this.operations.get(i);
-
-                    for (int j = 0; j < other.operations.size(); j++) {
-                        HashRingLongTimestamp<HashRingLogOperation> otherOperation = other.operations.get(j);
-
-                        if ((localOperation.getSequenceNumber() == otherOperation.getSequenceNumber())
-                                && (!Objects.equals(localOperation.getIdentifier(), otherOperation.getIdentifier()))) {
-                            localSeqConflictStart = i;
-                            otherSeqConflictStart = j;
-                            conflictFound = true;
-
-                            break;
-                        }
-                    }
-
-                    if (conflictFound) break;
-                }
+                Pair<Boolean, Integer> conflictStatus = this.conflictMetadata(other);
+                boolean conflictFound = conflictStatus.first();
+                int conflictStart = conflictStatus.second();
 
                 if (conflictFound) {
-                    // 1. Obtain the operation in conflict with the same sequence number
-                    HashRingLongTimestamp<HashRingLogOperation> localOperation = this.operations.get(localSeqConflictStart);
-                    HashRingLongTimestamp<HashRingLogOperation> otherOperation = other.operations.get(otherSeqConflictStart);
+                    System.out.println("CONFLICT FOUND");
+                    // 1. Obtain the sublist with the common elements with same sequence number and same version between the two logs
+                    List<HashRingLongTimestamp<HashRingLogOperation>> common = new ArrayList<>(this.operations.subList(0, conflictStart));
 
-                    // 2. Obtain the sublist with the common elements with same sequence number and same version between the two logs
-                    List<HashRingLongTimestamp<HashRingLogOperation>> common = localSeqConflictStart == 0 ?
-                            new ArrayList<>() :
-                            this.operations.subList(0, localSeqConflictStart);
+                    // 2. Obtain the operation in conflict with the same sequence number
+                    HashRingLongTimestamp<HashRingLogOperation> localOperation = this.operations.get(conflictStart);
+                    HashRingLongTimestamp<HashRingLogOperation> otherOperation = other.operations.get(conflictStart);
 
-                    // We have to undo the operations which are common between the conflicted sequences
-                    List<HashRingLongTimestamp<HashRingLogOperation>> toUndo = new ArrayList<>(
-                            this.operations.subList(localSeqConflictStart, this.operations.size())
-                    );
-                    toUndo.retainAll(other.operations.subList(otherSeqConflictStart, other.operations.size()));
-                    this.ring.undoOperations(toUndo.stream().map(HashRingLongTimestamp::getValue).toList());
+                    /* We have to undo the operations which are common between the conflicted sequences
+                    List<HashRingLongTimestamp<HashRingLogOperation>> toUndo = new ArrayList<>(this.operations.subList(conflictStart, this.operations.size()));
+                    toUndo.retainAll(other.operations.subList(conflictStart, other.operations.size()));
+                    this.ring.undoOperations(toUndo.stream().map(HashRingLongTimestamp::getValue).toList());*/
 
                     // 3. Compare the version stamp of the conflicting timestamps
                     if (localOperation.getVersionStamp().compareTo(otherOperation.getVersionStamp()) < 0) {
                         // 1. Add to the common list between the two hash ring logs the operations of the local replica
-                        common.addAll(this.operations.subList(localSeqConflictStart, this.operations.size()));
+                        common.addAll(this.operations.subList(conflictStart, this.operations.size()));
                         applyIndex = common.size(); // index from where the local node does not have
 
-                        List<HashRingLongTimestamp<HashRingLogOperation>> replacedList = other.operations.subList(otherSeqConflictStart, other.operations.size());
+                        List<HashRingLongTimestamp<HashRingLogOperation>> replacedList = other.operations.subList(conflictStart, other.operations.size());
                         replacedList.removeAll(common);
 
                         this.updateSequenceNumber(common.getLast().getSequenceNumber() + 1, replacedList);
                         common.addAll(replacedList);
                     } else {
-                        common.addAll(other.operations.subList(otherSeqConflictStart, other.operations.size()));
-                        applyIndex = localSeqConflictStart + 1; // The other operations will be right on the localSeqConflictStart index, so we must start applying from that point
+                        common.addAll(other.operations.subList(conflictStart, other.operations.size()));
+                        applyIndex = common.size(); // The other operations will be right on the localSeqConflictStart index, so we must start applying from that point
 
-                        List<HashRingLongTimestamp<HashRingLogOperation>> replacedList = this.operations.subList(localSeqConflictStart, this.operations.size());
+                        List<HashRingLongTimestamp<HashRingLogOperation>> replacedList = this.operations.subList(conflictStart, this.operations.size());
                         this.ring.undoOperations(replacedList.stream().map(HashRingLongTimestamp::getValue).toList());
                         replacedList.removeAll(common);
 
@@ -152,21 +155,18 @@ public class HashRingLog implements ProtobufSerializable {
 
                     this.operations = common;
                 } else {
+                    System.out.println("CONFLICT NOT FOUND");
                     applyIndex = this.operations.size();
 
-                    List<HashRingLongTimestamp<HashRingLogOperation>> difference = new ArrayList<>(other.operations);
-                    difference.removeAll(this.operations);
-
-                    // We don't need to change the sequence numbers because there were not any conflicts
-                    this.operations.addAll(difference);
-
-                    Collections.sort(this.operations);
+                    for(int j = applyIndex; j < other.operations.size(); j++) {
+                        this.operations.add(other.operations.get(j));
+                    }
                 }
 
                 this.sequenceNumberReplicaMapping.put(new VersionStamp(other.localIdentifier, this.operations.size()), this.operations.size());
                 return applyIndex;
             } catch (Exception e) {
-                System.out.println(Arrays.toString(e.getStackTrace()));
+                e.printStackTrace();
             }
 
             return 0;
@@ -177,7 +177,6 @@ public class HashRingLog implements ProtobufSerializable {
         HashRingLog log = new HashRingLog(msg.getReplicaId());
 
         for(HashRingOperationMessage.HashRingLogTimestamp operation: msg.getTimestampsList()) {
-            System.out.println("Current identifier: " + operation.getIdentifier());
             HashRingLongTimestamp<HashRingLogOperation> timestamp = new HashRingLongTimestamp<>(
                     NodeIdentifier.fromMessageNodeIdentifier(operation.getIdentifier()),
                     operation.getDot(),
@@ -194,11 +193,13 @@ public class HashRingLog implements ProtobufSerializable {
     /**
      * Update sequence number in case of conflicts of the replaced sublist
      */
-    public void updateSequenceNumber(Integer baseValue, List<HashRingLongTimestamp<HashRingLogOperation>> list) {
-        int offset = 0;
-        for(HashRingLongTimestamp<HashRingLogOperation> value: list) {
-            value.setSequenceNumber(baseValue + offset);
-            offset++;
+    public synchronized void updateSequenceNumber(Integer baseValue, List<HashRingLongTimestamp<HashRingLogOperation>> list) {
+        synchronized (this) {
+            int offset = 0;
+            for(HashRingLongTimestamp<HashRingLogOperation> value: list) {
+                value.setSequenceNumber(baseValue + offset);
+                offset++;
+            }
         }
     }
 
