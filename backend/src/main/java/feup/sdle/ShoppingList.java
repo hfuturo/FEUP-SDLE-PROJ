@@ -90,8 +90,10 @@ public class ShoppingList implements Document {
         DottedValue<Integer, Integer, Integer> removed = this.removedCounters.get(key);
         if(removed != null) {
             this.removedCounters.put(key, new DottedValue<>(item.identifier(), item.event() + 1, item.value().getQuantity() + removed.value()));
+            item.value().updateQuantity(-(item.value().getQuantity() + removed.value()));
         } else {
             this.removedCounters.put(key, new DottedValue<>(item.identifier(), item.event() + 1, item.value().getQuantity()));
+            item.value().updateQuantity(-(item.value().getQuantity()));
         }
 
         this.items.remove(key);
@@ -120,14 +122,21 @@ public class ShoppingList implements Document {
                     && entry.getValue().event() > latestOtherDot.orElse(0)
                     && this.items.getValue(entry.getKey()) != null) {
                 this.items.getValue(entry.getKey()).value().updateQuantity(-entry.getValue().value());
-                if(!this.items.getValue(entry.getKey()).value().getCounter()
-                        .isConcurrent(other.getItems().getValue(entry.getKey()).value().getCounter())) {
+                if(!this.items.getValue(entry.getKey()).value().getCounter().isConcurrent(other.getItems().getValue(entry.getKey()).value().getCounter())) {
                     this.items.remove(entry.getKey());
+                    this.removedCounters.put(entry.getKey(), entry.getValue());
+                } else {
+                    this.removedCounters.remove(entry.getKey());
                 }
             }
-
-            this.removedCounters.put(entry.getKey(), entry.getValue());
         }
+
+         for(Map.Entry<String, DottedValue<Integer, Integer, Integer>> entry: this.removedCounters.entrySet()) {
+             if(this.items.getValue(entry.getKey()).value().getCounter().isConcurrent(other.getItems().getValue(entry.getKey()).value().getCounter())) {
+                 this.removedCounters.remove(entry.getKey());
+             }
+         }
+
 
         /*for (Map.Entry<String, DottedValue<Integer, Integer, Integer>> entry : this.removedCounters.entrySet()) {
             if (this.getItems().getValue(entry.getKey()) != null && !modifiedItems.contains(entry.getKey())) {

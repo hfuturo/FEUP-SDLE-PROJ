@@ -22,6 +22,8 @@ export default function List() {
 
     console.log("synced list: ", syncedList);
 
+    console.log("CURRENT SHOPPING LIST: ", shoppingList);
+
     useEffect(() => {
         if(shoppingList) return;
 
@@ -100,7 +102,9 @@ export default function List() {
             setSyncBlocked={setSyncBlocked}
         />
         <div className="flex flex-col gap-y-4">
-            {(shoppingList && shoppingList.getItems) && Array.from(shoppingList.getItems().getValues().values()).map((value, idx) => (
+            {(shoppingList && shoppingList.getItems) && Array.from(shoppingList.getItems().getValues().values())
+                .filter((value) => !shoppingList.getRemovedCounters().get(value.value.getId()))
+                .map((value, idx) => (
                 <ShoppingListItemCard 
                     key={"shopping-list-item-" + idx} 
                     shoppingListItem={value.value} 

@@ -85,7 +85,7 @@ export class ShoppingList {
                     item.value.getQuantity() + removed.value
                 )
             );
-            
+
             item.value.updateQuantity(-(item.value.getQuantity() + removed.value));
         } else {
             this.removedCounters.set(
@@ -99,8 +99,12 @@ export class ShoppingList {
 
             item.value.updateQuantity(-item.value.getQuantity());
         }
-        
+
         // this.items.remove(key);
+    }
+
+    getRemovedCounters() {
+        return this.removedCounters;
     }
 
     public merge(other: ShoppingList): void {
@@ -126,25 +130,35 @@ export class ShoppingList {
                 if (currentValue) {
                     currentValue.value.updateQuantity(-dottedValue.value);
                     if (!currentValue.value.getCounter().isConcurrent(other.items.getValue(key)?.value.getCounter())) {
-                        this.items.remove(key); 
+                        this.items.remove(key);
+                        this.removedCounters.set(
+                            key,
+                            dottedValue
+                        );
+                    } else {
+                        this.removedCounters.delete(key);
                     }
                 }
             }
+        }
 
-            this.removedCounters.set(
-                key,
-                dottedValue
-            );
+        for (const [key, dottedValue] of this.removedCounters.entries()) {
+            const currentValue = this.items.getValue(key);
+            if (currentValue) {
+                if (currentValue.value.getCounter().isConcurrent(other.items.getValue(key)?.value.getCounter())) {
+                    this.removedCounters.delete(key);
+                }
+            }
         }
     }
 
     public getModifiedItems(otherList: AWMap<string, ShoppingListItem>) {
         const modifiedItems = [];
 
-        
-        for (const [k,v] of otherList.getValues()) {
+
+        for (const [k, v] of otherList.getValues()) {
             const localValue = this.items.getValue(k);
-            if (localValue !== undefined && localValue.eve ) {
+            if (localValue !== undefined && localValue.eve) {
                 modifiedItems.push(k);
             }
         }
