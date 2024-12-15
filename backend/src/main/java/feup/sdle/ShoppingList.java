@@ -14,6 +14,7 @@ import feup.sdle.crdts.ShoppingListItem;
 import feup.sdle.message.DocumentProto;
 import feup.sdle.message.DottedValueProto;
 import feup.sdle.message.NodeIdentifierMessage;
+import feup.sdle.utils.Color;
 
 import java.nio.channels.InterruptedByTimeoutException;
 import java.util.*;
@@ -108,21 +109,45 @@ public class ShoppingList implements Document {
             return;
         }
 
-         Optional<Integer> latestOtherDot = this.items.getDotContext().latestReplicaDot(other.localIdentifier);
+        var modifiedItems = this.getModifiedItems(other.getItems().getValues());
+
+        Optional<Integer> latestOtherDot = this.items.getDotContext().latestReplicaDot(other.localIdentifier);
 
         this.items.merge(other.items);
 
-        if(latestOtherDot.isEmpty()) {
-            return;
-        }
-
         for(Map.Entry<String, DottedValue<Integer, Integer, Integer>> entry: other.removedCounters.entrySet()) {
-            if(entry.getValue().identifier() == other.localIdentifier && entry.getValue().event() > latestOtherDot.get()) {
+            if(entry.getValue().identifier() == other.localIdentifier
+                    && entry.getValue().event() > latestOtherDot.orElse(0)
+                    && this.items.getValue(entry.getKey()) != null) {
                 this.items.getValue(entry.getKey()).value().updateQuantity(-entry.getValue().value());
+                if(!this.items.getValue(entry.getKey()).value().getCounter()
+                        .isConcurrent(other.getItems().getValue(entry.getKey()).value().getCounter())) {
+                    this.items.remove(entry.getKey());
+                }
             }
 
             this.removedCounters.put(entry.getKey(), entry.getValue());
         }
+
+        /*for (Map.Entry<String, DottedValue<Integer, Integer, Integer>> entry : this.removedCounters.entrySet()) {
+            if (this.getItems().getValue(entry.getKey()) != null && !modifiedItems.contains(entry.getKey())) {
+                this.getItems().remove(entry.getKey());
+            }
+        }*/
+    }
+
+    private List<String> getModifiedItems(HashMap<String, DottedValue<Integer, Integer, ShoppingListItem>> otherListValues) {
+         List<String> modifiedItems = new ArrayList<>();
+
+         for (Map.Entry<String, DottedValue<Integer, Integer, ShoppingListItem>> entry : otherListValues.entrySet()) {
+             var localValue = this.items.getValue(entry.getKey());
+
+             if (localValue != null && localValue.value().getQuantity() < entry.getValue().value().getQuantity()) {
+                 modifiedItems.add(entry.getKey());
+             }
+         }
+
+         return modifiedItems;
     }
 
     public AWMap<String, ShoppingListItem> getItems() {

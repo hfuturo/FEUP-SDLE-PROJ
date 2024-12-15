@@ -136,4 +136,13 @@ public class CCounter {
     public int getIdentifier() {
         return this.identifier;
     }
+
+    public boolean isConcurrent(CCounter other) {
+        var localHasLocal = this.set.stream().filter((el) -> el.identifier() == this.identifier);
+        var localHasOther = this.set.stream().filter((el) -> el.identifier() == other.identifier);
+        var otherHasLocal = other.getSet().stream().filter((el) -> el.identifier() == this.identifier);
+        var otherHasOther = other.getSet().stream().filter((el) -> el.identifier() == other.identifier);
+
+        return (localHasLocal.findFirst().get() != otherHasLocal.findFirst().get()) && (localHasOther.findFirst().get() != otherHasOther.findFirst().get());
+    }
 }

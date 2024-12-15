@@ -34,10 +34,10 @@ export class ShoppingList {
         if (this.removedCounters) {
             for (const [k, v] of this.removedCounters) {
                 if (local) {
-                    map.set(k, new DottedValue(v.identifier, v.event, v.value));
+                    map.set(k, (new DottedValue(v.identifier, v.event, v.value)).toSerializable());
                 }
                 else {
-                    map[k] = new DottedValue(v.identifier, v.event, v.value);
+                    map[k] = (new DottedValue(v.identifier, v.event, v.value)).toSerializable();
                 }
             }
         }
@@ -85,6 +85,8 @@ export class ShoppingList {
                     item.value.getQuantity() + removed.value
                 )
             );
+            
+            item.value.updateQuantity(-(item.value.getQuantity() + removed.value));
         } else {
             this.removedCounters.set(
                 key,
@@ -94,32 +96,38 @@ export class ShoppingList {
                     item.value.getQuantity()
                 )
             );
-        }
 
-        this.items.remove(key);
+            item.value.updateQuantity(-item.value.getQuantity());
+        }
+        
+        // this.items.remove(key);
     }
 
     public merge(other: ShoppingList): void {
+        const latestOtherDot = this.items.getDotContext().latestReplicaDot(other.localIdentifier) || 0;
 
-        console.log("MERGING SHOPPING LIST: ", other);
+        console.warn(this.items.getDotContext());
 
-        const latestOtherDot = this.items.getDotContext().latestReplicaDot(other.localIdentifier);
+        const modifedItems = this.getModifiedItems(other.getItems())
 
         this.items.merge(other.items);
 
-        if (!latestOtherDot) {
-            console.warn("No latest other dot!");
-            return;
-        }
+        // if (!latestOtherDot) {
+        //     console.warn("No latest other dot!");
+        //     return;
+        // }
 
         for (const [key, dottedValue] of other.removedCounters.entries()) {
             if (
-                dottedValue.identifier === other.localIdentifier.getId() &&
+                dottedValue.identifier === other.localIdentifier &&
                 dottedValue.event > latestOtherDot
             ) {
                 const currentValue = this.items.getValue(key);
                 if (currentValue) {
                     currentValue.value.updateQuantity(-dottedValue.value);
+                    if (!currentValue.value.getCounter().isConcurrent(other.items.getValue(key)?.value.getCounter())) {
+                        this.items.remove(key); 
+                    }
                 }
             }
 
@@ -128,6 +136,21 @@ export class ShoppingList {
                 dottedValue
             );
         }
+    }
+
+    public getModifiedItems(otherList: AWMap<string, ShoppingListItem>) {
+        const modifiedItems = [];
+
+        
+        for (const [k,v] of otherList.getValues()) {
+            const localValue = this.items.getValue(k);
+            if (localValue !== undefined && localValue.eve ) {
+                modifiedItems.push(k);
+            }
+        }
+
+        console.warn("MODIFIED ITEMS", modifiedItems);
+        return modifiedItems;
     }
 
     public getItems(): AWMap<string, ShoppingListItem> {
@@ -224,15 +247,20 @@ export class ShoppingList {
             cloned.setItems(AWMap.fromDatabase(list.items, list.localIdentifier) as AWMap<string, ShoppingListItem>);
             cloned.getItems().setLocalIdentifier(list.localIdentifier);
 
-            if (Object.entries(list.removedCounters).length > 0) {
-                const map = new Map();
+            const map = new Map();
 
-                Object.entries(list.removedCounters).forEach(([key, value]) => {
-                    map.set(key, value);
-                });
+            if (list.removedCounters.entries) {
+                for (const [key, value] of list.removedCounters.entries()) {
+                    map.set(key, new DottedValue(value.identifier, value.event, value.value));
+                }
+            }
+            else {
+                for (const [key, value] of Object.entries(list.removedCounters)) {
+                    map.set(key, new DottedValue(value.identifier, value.event, value.value));
+                }
+            }
 
-                cloned.setRemovedCounters(map);
-            } else cloned.setRemovedCounters(new Map());
+            cloned.setRemovedCounters(map);
 
             return cloned;
         } catch (error) {

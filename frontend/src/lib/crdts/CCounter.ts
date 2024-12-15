@@ -24,6 +24,15 @@ export class CCounter {
         };
     }
 
+    public isConcurrent(other: CCounter) {
+        const localHasLocal = Array.from(this.set).find(el => el.identifier === this.identifier);
+        const localHasOther = Array.from(this.set).find(el => el.identifier === other.identifier);
+        const otherHasLocal = Array.from(other.set).find(el => el.identifier === this.identifier);
+        const otherHasOther = Array.from(other.set).find(el => el.identifier === other.identifier);
+
+        return (localHasLocal !== otherHasLocal) && (localHasOther !== otherHasOther);
+    }
+
     public setSet(set: Set<DottedValue<number, number, number>>): void {
         this.set = set;
     }
