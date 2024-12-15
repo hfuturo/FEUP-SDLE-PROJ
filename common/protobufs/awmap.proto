@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package feup.sdle.message;
+
+option java_package = "feup.sdle.message";
+option java_outer_classname = "AWMapProto";
+
+import "dotcontext.proto";
+import "dottedvalue.proto";
+import "awset.proto";
+
+message AWMap {
+    DotContext dotContext = 1;
+    int32 localIdentifier = 2;
+    AWSet keys = 3;
+    map<string, DottedValue> values = 4;
+}

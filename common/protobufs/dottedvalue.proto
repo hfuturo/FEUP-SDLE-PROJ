@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package feup.sdle.message;
+
+option java_package = "feup.sdle.message";
+option java_outer_classname = "DottedValueProto";
+
+message DottedValue {
+    int32 identifier = 1;
+    int32 event = 2;
+
+    oneof value_type {
+        int32 value_int = 3;
+        string value_str = 4;
+        bytes value_obj = 5;
+    }
+}

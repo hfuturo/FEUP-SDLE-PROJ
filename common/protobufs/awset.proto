@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package feup.sdle.message;
+
+option java_package = "feup.sdle.message";
+option java_outer_classname = "AWSetProto";
+
+import "dottedvalue.proto";
+import "dotcontext.proto";
+
+message AWSet {
+    repeated DottedValue values = 1;
+    DotContext dotContext = 2;
+    int32 localIdentifier = 3;
+}

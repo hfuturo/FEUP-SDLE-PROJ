@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package feup.sdle.message;
+
+option java_package = "feup.sdle.message";
+option java_outer_classname = "DocumentProto";
+
+import "awmap.proto";
+import "nodeidentifier.proto";
+import "dottedvalue.proto";
+
+message Document {
+  oneof document_type {
+    ShoppingList shopping_list = 1;
+    // Add other document types here in the future
+  }
+  
+  string key = 2;
+  optional bool replicate = 3;
+}
+
+message DocumentList {
+  repeated Document documents = 1;
+}
+
+message ShoppingList {
+  AWMap items = 1;
+  int32 localIdentifier = 2;
+  map<string, DottedValue> removedCounters = 3;
+}
+
+message TemporaryDocument {
+  Document document = 1;
+  NodeIdentifier originalNode = 2;
+}

@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package feup.sdle.message;
+
+option java_package = "feup.sdle.message";
+option java_outer_classname = "CCounterProto";
+
+import "dottedvalue.proto";
+
+message CCounter {
+    int32 id = 1;
+    repeated DottedValue set = 2;
+}
