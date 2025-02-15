@@ -8,6 +8,8 @@ Group members:
 2. João Fernandes (<up202108867@up.pt>)
 3. Tomás Palma (<up202108880@up.pt>)
 
+### Grade: 20
+
 # How to run
 
 ## Backend
